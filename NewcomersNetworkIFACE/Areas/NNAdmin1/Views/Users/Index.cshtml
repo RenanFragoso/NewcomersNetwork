@@ -1,0 +1,321 @@
+﻿@model NewcomersNetworkIFACE.Areas.NNAdmin1.Models.Users
+@{
+    Layout = "~/Areas/NNAdmin1/Views/Shared/_Layout1.cshtml";
+    ViewBag.Title = "Users";
+}
+
+@section CSSSection {
+    <link rel="stylesheet" href="/Content/css/uniform.css" />
+    <link rel="stylesheet" href="/Content/css/select2.css" />
+}
+
+<div id="content">
+    <!--breadcrumbs-->
+    <div id="content-header">
+        <div id="breadcrumb">
+            <a href="/NNAdmin1/Dashboard" title="NNAdmin" class="tip-bottom">
+                <i class="icon-home"></i>
+                NNAdmin
+            </a>
+            <a href="/NNAdmin1/Users" title="Users" class="tip-bottom">
+                <i class="icon-user"></i>
+                Users
+            </a>
+        </div>
+        <h1>Services</h1>
+    </div>
+    <!--End-breadcrumbs-->
+    <!--Action boxes-->
+    <div class="container-fluid">
+
+        <hr />
+
+        <div class="quick-actions_homepage">
+            <ul class="quick-actions">
+                <li class="bg_lb" id="edituser"><a><i class="icon-user"></i> Add new User</a></li>
+                <li class="bg_lo" id="usersroles"> <a href="#" data-toggle="modal" data-target="#UsersRoles"> <i class="icon-tags"></i> Users Roles</a> </li>
+            </ul>
+        </div>
+        <!--End-Action boxes-->
+
+        <div class="row-fluid">
+
+            <!-- LEFT -->
+            <div class="span12">
+
+                <hr />
+
+                <div class="widget-box">
+                    
+                    <div class="widget-title">
+                        <span class="icon"><i class="icon-th"></i></span>
+                        <h5>Newcomers Network | Users</h5>
+                    </div>
+
+                    <div class="widget-content nopadding" id="users-list">
+
+                        <table class="table table-bordered data-table" id="UsersTable">
+
+                            <thead>
+                                <tr>
+                                    <th>Users</th>
+                                </tr>
+                            </thead>
+                            <tbody id="UsersList">
+
+                                @Html.Partial("_UsersList", Model.oUserList)
+
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+                       
+            </div>
+
+        </div>
+
+    </div>
+
+
+</div>
+
+@RenderPage("~/Areas/NNAdmin1/Views/Users/_EditRolesModal.cshtml")
+@RenderPage("~/Areas/NNAdmin1/Views/Users/_EditUserModal.cshtml")
+
+<script type="text/javascript">
+    //Updates the image on selected menu
+    DocReady.push(function () { menuSelected("#usersmnu") });
+
+    DocReady.push(function () {
+
+        $('#edituser').click(function () {
+            var url = "/NNAdmin1/Users/EditUserView";
+            var id = $(this).attr('data-id');
+            if (id) {
+                url += "/" + id;
+            }
+            $.get(url, EditFormSet);
+        });
+
+    });
+
+    function EditUser(cUserId) {
+        var url = "/NNAdmin1/Users/EditUserView"; // the url to the controller
+        if (cUserId) {
+            url += "?cUserId=" + cUserId;
+        }
+        $.get(url, EditFormSet)
+    }
+
+    function RemoveUser(cUserId) {
+
+        var cUrl = "/NNAdmin1/Users/RemoveUser"; // the url to the controller
+        if (cUserId) {
+            cUrl += "?cUserId=" + cUserId;
+        }
+
+        $.ajax({
+            url: cUrl,
+            type: "DELETE",
+            async: true,
+            success: function (response, textStatus, jqXHR) {
+
+                if (response.success) {
+                    var cMessage = $.parseJSON(response.response).Message;
+                    
+                    ReloadUserList();
+                    
+                    $.gritter.add({
+                        title: "Success",
+                        text: (cMessage ? cMessage : "User removed succefully." ),
+                        sticky: false,
+                        time: 5000
+                    });
+
+                }
+                else
+                {
+                    $.gritter.add({
+                        title: "Error removing user",
+                        text: $.parseJSON(response.response).Message,
+                        sticky: true,
+                        time: 5000
+                    })
+                }
+
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                $.gritter.add({
+                    title: "Error removing user",
+                    text: errorThrown,
+                    sticky: false,
+                    time: 3000
+                })
+            }
+
+        });
+
+    }
+
+    function BlockUser(cUserId) {
+
+        var cUrl = "/NNAdmin1/Users/BlockUser"; // the url to the controller
+        if (cUserId) {
+            cUrl += "?cUserId=" + cUserId;
+        }
+
+        $.ajax({
+            url: cUrl,
+            type: "DELETE",
+            async: true,
+            success: function (response, textStatus, jqXHR) {
+
+                if (response.success) {
+                    var cMessage = $.parseJSON(response.response).Message;
+
+                    ReloadUserList();
+
+                    $.gritter.add({
+                        title: "Success",
+                        text: (cMessage ? cMessage : "User removed succefully."),
+                        sticky: false,
+                        time: 5000
+                    });
+
+                }
+                else {
+                    $.gritter.add({
+                        title: "Error removing user",
+                        text: $.parseJSON(response.response).Message,
+                        sticky: true,
+                        time: 5000
+                    })
+                }
+
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                $.gritter.add({
+                    title: "Error removing user",
+                    text: errorThrown,
+                    sticky: false,
+                    time: 3000
+                })
+            }
+
+        });
+
+    }
+    
+    function ReloadUserList() {
+                               
+        $.ajax({
+            url: "/NNAdmin1/Users/Userslist",
+            type: "GET",
+            async: true,
+            success: function (data, textStatus, jqXHR) {
+                $("#UsersList").html(data);
+                //$('#UsersTable').draw();
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                $.gritter.add({
+                    title: "Error getting User List",
+                    text: errorThrown,
+                    sticky: false,
+                    time: 3000
+                })
+            }
+
+        });
+    }
+
+    function EditFormSet(data) {
+
+            $('#EditUser-container').html(data);
+
+            /* ----- BIND FORM ----- */
+
+            $("#UserEdit").submit(function (e) {
+                    
+                e.preventDefault();
+
+                $("#ErrorsSummary").css("visibility", "hidden");
+                $("#ErrorsSummary").html("");
+
+                var postData = $(this).serializeArray();
+
+                if ($(this).valid()) {
+
+                    $.ajax(
+                    {
+                        url: "/NNAdmin1/Users/EditUser",
+                        type: "POST",
+                        data: postData,
+                        async: true,
+                        success: function (response, textStatus, jqXHR) {
+
+                            if (response.success) {
+
+                                $('#EditUser').modal("hide");
+
+                                $.gritter.add({
+                                    title: "Edit User Success",
+                                    text: "User added succefully.",
+                                    sticky: false,
+                                    time: 5000,
+                                    class_name: "bg_dg"
+                                });
+
+                                ReloadUserList();
+                            }
+                            else {
+
+                                //$("#FormErrors").visibility = 'visible';
+                                $("#ErrorsSummary").css("visibility","visible");
+                                $("#ErrorsSummary").html("<h4 class='alert-heading'>Error</h4>"+ $.parseJSON(response.response).Message);
+                                console.log("Error:" + $.parseJSON(response.response).Message);
+
+                            }
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                            $("#FormSummary").html("Post error. Try again later.");
+                        },
+
+                    });
+                }
+                return false;
+
+            });
+
+            $("#UserEdit").validate({
+                rules: {
+                    Email: {
+                        required: true,
+                        email: true
+                    },
+                    FirstName: {
+                        required: true
+                    },
+                    LastName: {
+                        required: true
+                    }
+                },
+                errorClass: "help-inline",
+                errorElement: "span",
+                highlight: function (element, errorClass, validClass) {
+                    $(element).parents('.control-group').removeClass('success');
+                    $(element).parents('.control-group').addClass('error');
+                },
+                unhighlight: function (element, errorClass, validClass) {
+                    $(element).parents('.control-group').removeClass('error');
+                    $(element).parents('.control-group').addClass('success');
+                }
+            });
+
+            /* ----- END BIND FORM -----*/ 
+
+            $('#EditUser').modal("show").css({ 'width': '800px', 'margin-left': function () { return -($(this).width() / 2); } });
+
+    }
+    
+</script>

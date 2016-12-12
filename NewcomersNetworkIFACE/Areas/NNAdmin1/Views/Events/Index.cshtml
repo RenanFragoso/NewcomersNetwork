@@ -1,0 +1,312 @@
+﻿@model NewcomersNetworkIFACE.Areas.NNAdmin1.Models.Events
+@{
+    Layout = "~/Areas/NNAdmin1/Views/Shared/_Layout1.cshtml";
+    ViewBag.Title = "Events";
+}
+
+@section CSSSection {
+    <link rel="stylesheet" href="/Content/css/uniform.css" />
+    <link rel="stylesheet" href="/Content/css/select2.css" />
+    <link rel="stylesheet" href="/Content/css/datepicker.css" />
+}
+
+<div id="content">
+    <!--breadcrumbs-->
+    <div id="content-header">
+        <div id="breadcrumb">
+            <a href="/NNAdmin1/Dashboard" title="NNAdmin" class="tip-bottom">
+                <i class="icon-home"></i>
+                NNAdmin
+            </a>
+            <a href="/NNAdmin1/Events" title="Events" class="tip-bottom">
+                <i class="icon-th"></i>
+                Events
+            </a>
+        </div>
+        <h1>Events</h1>
+    </div>
+    <!--End-breadcrumbs-->
+    <!--Action boxes-->
+    <div class="container-fluid">
+
+        <hr />
+
+        <div class="quick-actions_homepage">
+            <ul class="quick-actions">
+                <li class="bg_lb" id="editevent"><a><i class="icon-th"></i> Add new Event</a></li>
+            </ul>
+        </div>
+        <!--End-Action boxes-->
+
+        <div class="row-fluid">
+
+            <!-- LEFT -->
+            <div class="span12">
+
+                <hr />
+
+                <div class="widget-box">
+                    <div class="widget-title">
+                        <span class="icon"><i class="icon-th"></i></span>
+                        <h5>Newcomers Network | Events</h5>
+                    </div>
+                    <div class="widget-content nopadding">
+                        <table class="table table-bordered data-table">
+                            <thead>
+                                <tr>
+                                    <th>Events</th>
+                                </tr>
+                            </thead>
+                            <tbody id="EventsList">
+                                
+                                @Html.Partial("_EventsList", Model.oEventList)
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+</div>
+
+@RenderPage("~/Areas/NNAdmin1/Views/Events/_EditEventModal.cshtml")
+@RenderPage("~/Areas/NNAdmin1/Views/Events/_EventRegistrationModal.cshtml")
+
+@section JSSection {
+    <script src="/Content/js/masked.js"></script>
+    <script src="/Content/js/bootstrap-datepicker.js"></script>  
+}
+
+<script type="text/javascript">
+    //Updates the image on selected menu
+    DocReady.push(function () { menuSelected("#eventsmnu") });
+
+    DocReady.push(function () {
+
+        $('#editevent').click(function () {
+            var url = "/NNAdmin1/Events/EditEventView";
+            var id = $(this).attr('data-id');
+            if (id) {
+                url += "/" + id;
+            }
+            $.get(url, EditFormSet);
+        });
+
+        $("#RegTable").DataTable({
+            ajax: {
+                url: "/NNAdmin1/Events/EventRegistrationList?cEventId=" + cEventId,
+                dataSrc: ''
+            },
+            columns: [
+                { data: 'oUser.oDetails.FirstName' },
+                { data: 'oUser.oDetails.Email' },
+                { data: 'RegisterDate' },
+                { data: 'SlotsRequested' }
+            ]
+        });
+
+    });
+
+    function ReloadEventList() {
+
+        $.ajax({
+            url: "/NNAdmin1/Events/Eventslist",
+            type: "GET",
+            async: true,
+            success: function (data, textStatus, jqXHR) {
+                $("#EventList").html(data);
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                $.gritter.add({
+                    title: "Error getting Event List",
+                    text: errorThrown,
+                    sticky: false,
+                    time: 3000
+                })
+            }
+
+        });
+    }
+
+    function EditEvent(cEventId) {
+        var url = "/NNAdmin1/Events/EditEventView"; // the url to the controller
+        if (cEventId) {
+            url += "?cEventId=" + cEventId;
+        }
+        $.get(url, EditFormSet)
+    }
+
+    function EditFormSet(data) {
+
+        $('#EditEvent-container').html(data);
+
+        /* ----- BIND FORM ----- */
+
+        $("#EventEdit").submit(function (e) {
+
+            e.preventDefault();
+
+            $("#ErrorsSummary").css("visibility", "hidden");
+            $("#ErrorsSummary").html("");
+
+            var postData = $(this).serializeArray();
+
+            if ($(this).valid()) {
+
+                $.ajax(
+                {
+                    url: "/NNAdmin1/Events/EditEvent",
+                    type: "POST",
+                    data: postData,
+                    async: true,
+                    success: function (response, textStatus, jqXHR) {
+
+                        if (response.success) {
+
+                            $('#EditEvent').modal("hide");
+
+                            $.gritter.add({
+                                title: "Edit Event Success",
+                                text: "Event added succefully.",
+                                sticky: false,
+                                time: 5000
+                            });
+
+                            ReloadEventList();
+                        }
+                        else {
+
+                            //$("#FormErrors").visibility = 'visible';
+                            $("#ErrorsSummary").css("visibility", "visible");
+                            $("#ErrorsSummary").html("<h4 class='alert-heading'>Error</h4>" + $.parseJSON(response.response).Message);
+                            console.log("Error:" + $.parseJSON(response.response).Message);
+
+                        }
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        $("#FormSummary").html("Post error. Try again later.");
+                    },
+
+                });
+            }
+            return false;
+
+        });
+
+        $("#EventEdit").validate({
+            rules: {},
+            errorClass: "help-inline",
+            errorElement: "span",
+            highlight: function (element, errorClass, validClass) {
+                $(element).parents('.control-group').removeClass('success');
+                $(element).parents('.control-group').addClass('error');
+            },
+            unhighlight: function (element, errorClass, validClass) {
+                $(element).parents('.control-group').removeClass('error');
+                $(element).parents('.control-group').addClass('success');
+            }
+        });
+
+        /* ----- END BIND FORM -----*/
+
+        //------------- Datepicker -------------//
+        $('#EditEvent .datepicker').datepicker({
+            inline: true,
+            format: 'dd/mm/yyyy',
+            showOtherMonths: true
+        });
+
+        //------------- Masks -------------//
+
+        $("#dateStrt").mask("99/99/9999");
+        $("#dateEnd").mask("99/99/9999");
+
+        //------------- Spinners -------------//
+
+        $("#slt-up").click(function (event) {
+            var nValue = $("#MaxSlots").val();
+            nValue++;
+            $("#MaxSlots").val(nValue);
+        });
+
+        $("#slt-dwn").click(function (event) {
+            var nValue = $("#MaxSlots").val();
+            if (nValue > 0)
+            {
+                nValue--;
+                $("#MaxSlots").val(nValue);
+            }
+        });
+
+        $('#EditEvent').modal("show").css({ 'width': '1000px', 'margin-left': function () { return -($(this).width() / 2); } });
+
+    }
+
+    function ViewInscriptions(cEventId)
+    {
+        //$("#RegTable").dataTable().api().clear();
+        $("#RegTable").dataTable().api().ajax.url("/NNAdmin1/Events/EventRegistrationList?cEventId=" + cEventId);//.load();
+        
+        console.log($("#RegTable").dataTable().api().ajax);
+        /*
+        $("#RegTable").dataTable().api().columns([
+                { data: 'oUser.oDetails.FirstName' },
+                { data: 'oUser.oDetails.Email' },
+                { data: 'RegisterDate' },
+                { data: 'SlotsRequested' }
+        ]);
+        */
+        console.log($("#RegTable").dataTable().api().ajax.dataSrc);
+        $("#RegTable").dataTable().api().ajax.reload();
+
+        //$("#RegTable").dataTable().api().ajax.reload();
+
+        /*
+        $("#RegTable").DataTable({
+            ajax: {
+                url: "/NNAdmin1/Events/EventRegistrationList?cEventId=" + cEventId,
+                dataSrc: ''
+            },
+            columns: [
+                { data: 'oUser.oDetails.FirstName' },
+                { data: 'oUser.oDetails.Email' },
+                { data: 'RegisterDate' },
+                { data: 'SlotsRequested' }
+            ]
+        });
+        */
+        $('#EventRegistrations').modal("show").css({ 'width': '1000px', 'margin-left': function () { return -($(this).width() / 2); } });
+
+        /*
+        $.ajax({
+            url: "/NNAdmin1/Events/EventRegistrationList?cEventId=" + cEventId,
+            type: "GET",
+            async: true,
+            success: function (data, textStatus, jqXHR) {
+                //$("#RegTable").dataTable().fnClearTable();
+                $("#RegistrationList").html(data);
+                //console.log($("#RegTable"));
+                $("#RegTable").dataTable().fnDraw();
+                $('#EventRegistrations').modal("show").css({ 'width': '1000px', 'margin-left': function () { return -($(this).width() / 2); } });
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                $.gritter.add({
+                    title: "Error getting Event Registrations List",
+                    text: errorThrown,
+                    sticky: false,
+                    time: 3000
+                })
+            }
+
+        });
+        */
+    }
+
+
+</script>

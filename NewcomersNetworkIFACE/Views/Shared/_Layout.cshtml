@@ -1,0 +1,87 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewBag.Title - @System.Web.Configuration.WebConfigurationManager.AppSettings["ApplicationName"]</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+</head>
+<body>
+
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="/">
+                    <img class="nav-logo" alt="The Peoples Church" src="~/Content/Images/tpc-logo.jpg" height="49" width="87">
+                </a>
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+
+            <div id="navbar" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("About", "About", "Home")</li>
+                    <li>@Html.ActionLink("Contact Us", "Contact", "Home")</li>
+                    <li><a href="/Calendar">Church Calendar</a></li>
+                    <li><a href="/Classifieds">Classifieds</a></li>
+                </ul>
+                @Html.Partial("_LoginPartial")
+            </div>
+        </div>
+    </nav>
+
+    <main class="content">
+
+        <div class="welcome">
+            <div class="container">
+                <h2>@System.Web.Configuration.WebConfigurationManager.AppSettings["ApplicationName"]</h2>
+            </div>
+        </div>
+
+        <div class="container body-content">
+            @RenderBody()
+        </div>
+
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="col-md-3 col-sm-4">
+                <div class="social">
+                    <a href="https://www.facebook.com/ThePeoplesChurchTO" target="_blank"><i class="fa fa-facebook"></i></a>
+                    <a href="https://twitter.com/TPCToronto" target="_blank"><i class="fa fa-twitter"></i></a>
+                    <a href="http://vimeo.com/thepeopleschurchtoronto" target="_blank"><i class="fa fa-vimeo-square"></i></a>
+                    <a href="https://thepeopleschurch.ca/email-subscription/"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span></a>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-4">
+                <dl class="footer-meta-list">
+                    <dt class="footer-meta-title">About</dt>
+                    <dd class="footer-meta-item"><a href="#" class="footer-meta-link">Our Church</a></dd>
+                    <dd class="footer-meta-item"><a href="#" class="footer-meta-link">Legal/Privacy</a></dd>
+                    <dd class="footer-meta-item"><a href="#" class="footer-meta-link">Terms of Use</a></dd>
+                </dl>
+            </div>
+            <div class="col-md-3 col-sm-4">
+                <dl class="footer-meta-list">
+                    <dt class="footer-meta-title">Services</dt>
+                    <dd class="footer-meta-item"><a href="#" class="footer-meta-link">Eployment</a></dd>
+                    <dd class="footer-meta-item"><a href="#" class="footer-meta-link">Accessibility</a></dd>
+                    <dd class="footer-meta-item"><a href="#" class="footer-meta-link">Settlement</a></dd>
+                    <dd class="footer-meta-item"><a href="#" class="footer-meta-link">Housing</a></dd>
+                </dl>
+            </div>
+        </div>
+    </footer>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+
+</body>
+</html>

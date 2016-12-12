@@ -1,0 +1,116 @@
+﻿@model NewcomersNetworkAPI.Models.User
+@{
+    var newUser = (Model.Id == "NULLID");
+}
+<div class="row-fluid">
+    <div class="span12">
+
+        <div class="widget-box">
+            <div class="widget-title">
+                <span class="icon"> <i class="icon-user"></i> </span>
+                <h5>@(newUser ? "New " : "" )User @(newUser ? "" : "Update" )</h5>
+            </div>
+            <div class="widget-content nopadding">
+
+                <form class="form-horizontal" id="UserEdit">
+
+                    @Html.ValidationSummary(true)
+                    @Html.AntiForgeryToken()
+                    @Html.HiddenFor(model => model.Id)
+                    @Html.HiddenFor(model => model.UserName)
+                    @Html.HiddenFor(model => model.oDetails.Id)
+
+                    <div class="control-group">
+                        @Html.LabelFor(model => model.Email, new { @class = "control-label" })                        
+                        <div class="controls">
+                            @if (newUser)
+                            {
+                                @Html.TextBoxFor(model => model.Email, new { @class = "span11", placeholder = "E-Mail" })
+                            }
+                            else
+                            {
+                                @Html.TextBoxFor(model => model.Email, new { @class = "span11", placeholder = "E-Mail", @readonly = "readonly" })
+                            }
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        @Html.LabelFor(model => model.oDetails.FirstName, new { @class = "control-label" })
+                        <div class="controls">
+                            @Html.TextBoxFor(model => model.oDetails.FirstName, new { @class = "span11", placeholder = "First Name" })
+                        </div>
+                    </div> 
+
+                    <div class="control-group">
+                        @Html.LabelFor(model => model.oDetails.LastName, new { @class = "control-label" })
+                        <div class="controls">
+                            @Html.TextBoxFor(model => model.oDetails.LastName, new { @class = "span11", placeholder = "Last Name" })
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        @Html.LabelFor(model => model.Password, new { @class = "control-label" })
+                        <div class="controls">
+                            @Html.PasswordFor(model => model.Password, new { @class = "span11", placeholder = "Password" })
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        @Html.LabelFor(model => model.oDetails.Gender, new { @class = "control-label" })
+                        <div class="controls">
+                            @*Html.DropDownList("Gender", (IEnumerable<SelectListItem>)ViewBag.Gender_List, "Select", htmlAttributes: new { @class = "span11" })*@
+                            @Html.DropDownListFor(model => model.oDetails.Gender, (IEnumerable<SelectListItem>)ViewBag.Gender_List, "Select", htmlAttributes: new { @class = "span11" })
+                        </div>
+                    </div>
+                                        
+                    <div class="control-group">
+                        @Html.LabelFor(model => model.oDetails.AgeRange, new { @class = "control-label" })
+                        <div class="controls">
+                            @* Html.DropDownList("AgeRange", (IEnumerable<SelectListItem>)ViewBag.AgeRange_List, "Select", htmlAttributes: new { @class = "span11" })*@
+                            @Html.DropDownListFor(model => model.oDetails.AgeRange, (IEnumerable<SelectListItem>)ViewBag.AgeRange_List, "Select", htmlAttributes: new { @class = "span11" })
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        @Html.LabelFor(model => model.oDetails.MaritalStatus, new { @class = "control-label" })
+                        <div class="controls">
+                            @*Html.DropDownList("MaritalStatus", (IEnumerable<SelectListItem>)ViewBag.MaritalStatus_List, "Select", htmlAttributes: new { @class = "span11" }) *@
+                            @Html.DropDownListFor(model => model.oDetails.MaritalStatus, (IEnumerable<SelectListItem>)ViewBag.MaritalStatus_List, "Select", htmlAttributes: new { @class = "span11" })
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        @Html.LabelFor(model => model.oDetails.Education, new { @class = "control-label" })
+                        <div class="controls">
+                            @*Html.DropDownList("Education", (IEnumerable<SelectListItem>)ViewBag.Education_List, "Select", htmlAttributes: new { @class = "span11" }) *@
+                            @Html.DropDownListFor(model => model.oDetails.Education, (IEnumerable<SelectListItem>)ViewBag.Education_List, "Select", htmlAttributes: new { @class = "span11" })
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        @Html.LabelFor(model => model.oDetails.IsImmigrant, new { @class = "control-label" })
+                        <div class="controls">
+                            <label>
+                            @Html.CheckBoxFor(model => model.oDetails.IsImmigrant)
+                            Yes 
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="control-group" id="FormErrors">
+
+                        <div class="alert alert-error alert-block" id="ErrorsSummary" style="visibility: hidden">
+                        </div>
+
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-success" >Save</button>
+                    </div>
+
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>

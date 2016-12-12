@@ -1,0 +1,81 @@
+﻿@model NewcomersNetworkIFACE.Areas.NNAdmin1.Models.Users
+
+<!-- Modal -->
+<div class="modal fade" id="UsersRoles" tabindex="-1" role="dialog" aria-labelledby="UsersRoleLabel">
+    <div class="modal-dialog" role="document">
+
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="UsersRoleLabel">Users Roles</h4>
+            </div>
+            <div class="modal-body">
+
+                <div class="row-fluid">
+                    <div class="span12">
+                        <div class="widget-box">
+                            <div class="widget-title">
+                                <span class="icon"> <i class="icon-th"></i> </span>
+                                <h5>Users Roles</h5>
+                            </div>
+                            <div class="widget-content nopadding">
+                                <table class="table table-bordered table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Role ID</th>
+                                            <th>Description</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var Role in Model.oUserRoles)
+                                        {
+                                            <tr class="odd">
+                                                <td>@Role.Id</td>
+                                                <td>@Role.Name</td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--
+<div class="ui modal" id="modalRoles">
+    <i class="close icon"></i>
+    <div class="header">
+        Modal Title
+    </div>
+    <div class="image content">
+        <div class="image">
+            An image can appear on left or an icon
+        </div>
+        <div class="description">
+            A description can appear on the right
+        </div>
+    </div>
+    <div class="actions">
+        <div class="ui button">Cancel</div>
+        <div class="ui button">OK</div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    function startModal_Roles() {
+        console.log("DocReady modal.")
+        $('#modalRoles').modal('hide');
+    }
+    DocReady.push(startModal_Roles);
+</script>
+-->

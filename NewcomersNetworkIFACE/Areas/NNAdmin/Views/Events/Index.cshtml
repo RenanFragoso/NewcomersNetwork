@@ -1,0 +1,169 @@
+﻿@{
+    Layout = "~/Areas/NNAdmin/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Events"; 
+}
+
+<div class="row">
+
+    <div class="col-md-12">
+
+        <div class="page-header">
+            <h1>
+                Newcomers Network Events
+            </h1>
+        </div>
+
+    </div>
+
+    <div class="row">
+
+        <div class="col-md-2 col-sm-6">
+            <div class="red-info">
+                <h2 class="ui center aligned icon header">
+                    <i class="small plus icon"></i>
+                    <div class="content">
+                        Add
+                        <div class="sub header">new Event</div>
+                    </div>
+                </h2>
+            </div>
+        </div>
+
+        <div class="col-md-2 col-sm-6">
+
+            <div class="blue-info">
+                <h2 class="ui center aligned icon header">
+                    <i class="calendar icon"></i>
+                    <div class="content">
+                        Edit
+                        <div class="sub header">published Events</div>
+                    </div>
+                </h2>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row">
+
+        <div class="col-md-12 col-sm-12">
+
+            <div id="events-table" class="ui raised segment">
+                <div class="ui top attached tabular menu">
+                    <a class="item active" data-tab="events">Events</a>
+                    <a class="item" data-tab="canceled">Canceled Events</a>
+                    <a class="item" data-tab="done">Events Done</a>
+                </div>
+                <div class="ui bottom attached tab segment active" data-tab="events">
+
+                    <table class="ui selectable celled table">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Event</th>
+                                <th>Description</th>
+                                <th class="right aligned">Slots</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>11/02/2016</td>
+                                <td>Event Test 1</td>
+                                <td>This is a test event number 1</td>
+                                <td class="right aligned">50/100</td>
+                            </tr>
+                            <tr>
+                                <td>11/02/2016</td>
+                                <td>Event Test 2</td>
+                                <td>This is a test event number 2</td>
+                                <td class="right aligned">78/100</td>
+                            </tr>
+                            <tr>
+                                <td>11/03/2016</td>
+                                <td>Event Test 3</td>
+                                <td>This is a test event number 3</td>
+                                <td class="right aligned">0/100</td>
+                            </tr>
+                            <tr>
+                                <td>11/04/2016</td>
+                                <td>Event Test 4</td>
+                                <td>This is a test event number 4</td>
+                                <td class="right aligned">22/100</td>
+                            </tr>
+                            <tr>
+                                <td>11/05/2016</td>
+                                <td>Event Test 5</td>
+                                <td>This is a test event number 5</td>
+                                <td class="right aligned">30/100</td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+
+                </div>
+
+                <div class="ui bottom attached tab segment" data-tab="canceled">
+
+                    <table class="ui selectable celled table">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Event</th>
+                                <th>Description</th>
+                                <th class="right aligned">Slots</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>11/02/2016</td>
+                                <td>Event Done Test 1</td>
+                                <td>This is a test canceled event number 1</td>
+                                <td class="right aligned">0/100</td>
+                            </tr>
+                            <tr>
+                                <td>11/02/2016</td>
+                                <td>Event Done Test 2</td>
+                                <td>This is a test canceled event number 2</td>
+                                <td class="right aligned">0/100</td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+
+                </div>
+
+                <div class="ui bottom attached tab segment" data-tab="done">
+
+                    <table class="ui selectable celled table">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Event</th>
+                                <th>Description</th>
+                                <th class="right aligned">Slots</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>11/02/2016</td>
+                                <td>Event Done Test 1</td>
+                                <td>This is a test event done number 1</td>
+                                <td class="right aligned">0/100</td>
+                            </tr>
+                            <tr>
+                                <td>11/02/2016</td>
+                                <td>Event Done Test 2</td>
+                                <td>This is a test event done number 2</td>
+                                <td class="right aligned">0/100</td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+
+                </div>
+
+
+            </div>
+        </div>
+
+    </div>

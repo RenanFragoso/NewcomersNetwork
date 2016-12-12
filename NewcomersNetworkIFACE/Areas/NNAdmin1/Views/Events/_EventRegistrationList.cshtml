@@ -1,0 +1,27 @@
+﻿@model List<NewcomersNetworkAPI.Models.EventRegistration>
+
+                        
+    @foreach (var Registration in Model)
+    {
+        <tr class="odd">
+                            
+            @if (Registration.UserId != null && Registration.UserId.Length > 0)
+            {
+                //Registered user registration
+                <td>@Registration.oUser.getFullName()</td>
+                <td>@Registration.oUser.Email</td>
+            }
+            else
+            {
+                //Not registered user registration
+                <td>@Registration.Name</td>
+                <td>@Registration.Email</td>
+            }
+
+            <td>@Registration.RegisterDate.ToString()</td>
+            <td>@Registration.SlotsRequested</td>
+
+        </tr>
+    }
+
+                    

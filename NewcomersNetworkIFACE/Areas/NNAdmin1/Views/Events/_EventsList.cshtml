@@ -1,0 +1,117 @@
+﻿@model List<NewcomersNetworkAPI.Models.Event>
+@{
+    int lineId = 0;
+}
+
+        @foreach (var Event in Model)
+        {
+
+            <tr class="nn-di-td">
+                <td class="nn-di-td">
+
+                    <table class="nn-dynamic-item" id="collapse-td@(lineId.ToString())">
+                        <tr>
+                            <th class="nn-di-th"> <a data-parent="#collapse-td@(lineId.ToString())" href="#collapseTD@(lineId.ToString())" data-toggle="collapse">@Event.Name.TrimEnd()</a> </th>
+                            <th class="nn-di-th nn-di-th-l"> <a data-parent="#collapse-td@(lineId.ToString())" href="#collapseTD@(lineId.ToString())" data-toggle="collapse">@Event.Description.TrimEnd()</a> </th>
+                        </tr>
+                        <tr>
+                            <td colspan="2" class="nn-di-td">
+                                <div class="collapse nn-di-content" id="collapseTD@(lineId.ToString())">
+                                    <div class="nn-di-inner-content">
+
+                                        <div class="row-fluid">
+
+                                            <div class="span12">
+                                                <ul class="nn-di-ul">
+                                                    <li class="nn-di-li title">Event</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="row-fluid">
+
+                                            <div class="span6">
+                                                <ul class="nn-di-ul">
+                                                    <li class="nn-di-li"><span>ID:</span> @Event.Id</li>
+                                                    <li class="nn-di-li"><span>Event Name:</span> @Event.Name</li>
+                                                    <li class="nn-di-li"><span>Event Description:</span> @Event.Description</li>
+                                                    <li class="nn-di-li"><span>Start Date:</span> @Event.StartDate.ToString()</li>
+                                                    <li class="nn-di-li"><span>End Date:</span> @Event.EndDate.ToString()</li>
+                                                    <li class="nn-di-li"><span>Start Publishing Date:</span> @Event.StartPublishDate.ToString()</li>
+                                                    <li class="nn-di-li"><span>End Publishing Date:</span> @Event.EndPublishDate.ToString()</li>
+                                                    <li class="nn-di-li"><span>Display Image:</span><img src="@(Event.Image)"/></li>
+                                                </ul>
+                                            </div>
+
+                                            <div class="span6">
+                                                <ul class="nn-di-ul">
+                                                    <li class="nn-di-li"><span>Max Slots:</span> @Event.MaxSlots.ToString()</li>
+                                                    <li class="nn-di-li"><span>Current Free Slots:</span> @Event.CurSlots.ToString()</li>
+                                                    <li class="nn-di-li"><span>Created By:</span> @Event.CreatedBy</li>
+                                                    <li class="nn-di-li"><span>Create Date:</span> @Event.CreateDate.ToString()</li>
+                                                    <li class="nn-di-li">
+                                                        <span>Status:</span>
+                                                        @if (Event.Finished)
+                                                        {
+                                                            <span class="nn-blocked">Finished</span>
+                                                        }
+                                                        else
+                                                        {
+                                                            <span class="nn-active">Active</span>
+                                                        }
+                                                    </li>
+                                                    <li class="nn-di-li"><span>External Link:</span> @Event.ExternalLink</li>
+
+                                                </ul>
+
+                                                <ul class="nn-di-ul">
+                                                    <li class="nn-di-li title">Event Layout</li>
+                                                </ul>
+                                                <ul class="nn-di-ul">
+                                                    <a onclick="ViewLayout('@(Event.Id)')"><li class="nn-di-li ctrl"><i class="icon-eye-open"></i> View Layout</li></a>
+                                                    <a onclick="EditLayout('@(Event.Id)')"><li class="nn-di-li ctrl"><i class="icon-edit"></i> Edit Layout</li></a> 
+                                                </ul>
+
+                                                <ul class="nn-di-ul">
+                                                    <li class="nn-di-li title">Inscriptions</li>
+                                                </ul>
+                                                <ul class="nn-di-ul">
+                                                    <a onclick="ViewInscriptions('@(Event.Id)')"><li class="nn-di-li ctrl"><i class="icon-eye-open"></i> View Inscriptions</li></a>
+                                                    <a onclick="EditInscriptions('@(Event.Id)')"><li class="nn-di-li ctrl"><i class="icon-edit"></i> Edit Inscriptions</li></a>
+                                                </ul>
+
+
+                                            </div>
+
+                                        </div>
+
+                                        <div class="row-fluid">
+
+                                            <div class="span6">
+                                                <ul class="nn-di-ul">
+                                                    <a onclick="RemoveEvent('@(Event.Id)')"><li class="nn-di-li ctrl"><i class="icon-remove"></i> Remove Event</li></a>
+                                                    <a onclick="EditEvent('@(Event.Id)')"><li class="nn-di-li ctrl"><i class="icon-edit"></i> Edit Event</li></a>                                                    
+                                                    @if (!Event.Finished)
+                                                    {
+                                                        <a onclick="FinishEvent('@(Event.Id)')"><li class="nn-di-li ctrl"><i class="icon-ban-circle"></i> Finish Event</li></a>
+                                                    }
+                                                </ul>
+                                            </div>
+
+                                        </div>
+
+
+                                    </div>
+
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+
+                </td>
+            </tr>
+
+            lineId++;
+
+        }

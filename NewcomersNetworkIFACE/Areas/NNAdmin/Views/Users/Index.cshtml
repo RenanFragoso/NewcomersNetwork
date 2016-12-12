@@ -1,0 +1,171 @@
+﻿@{
+    Layout = "~/Areas/NNAdmin/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Users"; 
+}
+
+<div class="row">
+
+    <div class="col-md-12">
+
+        <div class="page-header">
+            <h1>
+                Newcomers Network Users
+            </h1>
+        </div>
+
+    </div>
+
+    <div class="row">
+
+        <div class="col-md-2 col-sm-6">
+            <div class="red-info">
+                <h2 class="ui center aligned icon header">
+                    <i class="small add user icon"></i>
+                    <div class="content">
+                        Add
+                        <div class="sub header">new User</div>
+                    </div>
+                </h2>
+            </div>
+        </div>
+
+        <div class="col-md-2 col-sm-6">
+            
+            <a onclick="$('#modalRoles').modal('show');">
+            <div class="blue-info">
+                <h2 class="ui center aligned icon header">
+                    <i class="edit icon"></i>
+                    <div class="content">
+                        Edit
+                        <div class="sub header">Roles</div>
+                    </div>
+                </h2>
+            </div>
+            </a>
+        </div>
+
+
+    </div>
+
+    <div class="row">
+
+        <div class="col-md-12 col-sm-12">
+
+            <div id="events-table" class="ui raised segment">
+                <div class="ui top attached tabular menu">
+                    <a class="item active" data-tab="admin">Admin Users</a>
+                    <a class="item" data-tab="assist">Assitants</a>
+                    <a class="item" data-tab="moderator">Moderators</a>
+                    <a class="item" data-tab="common">Users</a>
+                </div>
+
+                <div class="ui bottom attached tab segment active" data-tab="admin">
+
+                    <table class="ui selectable celled table">
+                        <thead>
+                            <tr>
+                                <th>User</th>
+                                <th>E-mail</th>
+                                <th>Status</th>
+                                <th>Date Registered</th>
+                                <th class="right aligned">Controls</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Renan Fragoso (ADMIN)</td>
+                                <td>fragoso.renan@gmail.com</td>
+                                <td>Active</td>
+                                <td>10/01/2016</td>
+                                <td class="right aligned">
+                                    <a><i class="remove user link icon"></i></a>
+                                    <a><i class="ban link icon"></i></a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+
+                <div class="ui bottom attached tab segment" data-tab="assist">
+
+                    <table class="ui selectable celled table">
+                        <thead>
+                            <tr>
+                                <th>User</th>
+                                <th>E-mail</th>
+                                <th>Status</th>
+                                <th>Date Registered</th>
+                                <th class="right aligned">Controls</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Renan Fragoso (ASSIST)</td>
+                                <td>fragoso.renan@gmail.com</td>
+                                <td>Active</td>
+                                <td>10/01/2016</td>
+                                <td class="right aligned"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+
+                <div class="ui bottom attached tab segment" data-tab="moderator">
+
+                    <table class="ui selectable celled table">
+                        <thead>
+                            <tr>
+                                <th>User</th>
+                                <th>E-mail</th>
+                                <th>Status</th>
+                                <th>Date Registered</th>
+                                <th class="right aligned">Controls</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Renan Fragoso (MODERATOR)</td>
+                                <td>fragoso.renan@gmail.com</td>
+                                <td>Active</td>
+                                <td>10/01/2016</td>
+                                <td class="right aligned"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+
+                <div class="ui bottom attached tab segment" data-tab="common">
+
+                    <table class="ui selectable celled table">
+                        <thead>
+                            <tr>
+                                <th>User</th>
+                                <th>E-mail</th>
+                                <th>Status</th>
+                                <th>Date Registered</th>
+                                <th class="right aligned">Controls</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Renan Fragoso</td>
+                                <td>fragoso.renan@gmail.com</td>
+                                <td>Active</td>
+                                <td>10/01/2016</td>
+                                <td class="right aligned"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+
+
+            </div>
+        </div>
+
+    </div>
+
+    @RenderPage("_EditRoles.cshtml")

@@ -1,0 +1,104 @@
+﻿@model NewcomersNetworkAPI.Models.Event
+@{
+    var newEvent = (Model.Id == "NULLID");
+}
+<div class="row-fluid">
+    <div class="span12">
+
+        <div class="widget-box">
+            <div class="widget-title">
+                <span class="icon"> <i class="icon-user"></i> </span>
+                <h5>@(newEvent ? "New " : "" )Event @(newEvent ? "" : "Update" )</h5>
+            </div>
+            <div class="widget-content nopadding">
+
+
+
+                <form class="form-horizontal" id="UserEdit">
+
+                    @Html.AntiForgeryToken()
+                    @Html.HiddenFor(model => model.Id)
+                    @Html.HiddenFor(model => model.oDetails.Id)
+
+                    <div class="control-group">
+                        @Html.LabelFor(model => model.Name, new { @class = "control-label" })
+                        <div class="controls">
+                            @Html.TextBoxFor(model => model.Name, new { @class = "span11", placeholder = "Event Name" })
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        @Html.LabelFor(model => model.Description, new { @class = "control-label" })
+                        <div class="controls">
+                            @Html.TextBoxFor(model => model.Description, new { @class = "span11", placeholder = "Event Description" })
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        @Html.LabelFor(model => model.StartDate, new { @class = "control-label" })
+                        <div class="controls">
+                            @*Html.TextBoxFor(model => model.StartDate, new { @class = "datepicker span11", placeholder = "Start Date", @data_date_format = "dd-mm-yyyy", @data_date = Model.StartDate, @value = Model.StartDate })*@
+                            <div data-date="(@DateTime.Now.Date.ToString("dd/MM/yyyy"))" class="input-append date datepicker">
+                                @*Html.TextBoxFor(model => model.StartDate, new { @id="datepicker", @class = "span11", placeholder = "Start Date", @data_date = Model.StartDate.Date.ToString("dd-MM-yyyy"), @value = Model.StartDate.Date.ToString("dd-MM-yyyy") })*@
+                                <input id="dateStrt" name="StartDate" type="text" class="span11" data-date='@(Model.StartDate.Date.ToString("dd/MM/yyyy").Replace("-","/"))' value='@(Model.StartDate.Date.ToString("dd/MM/yyyy").Replace("-","/"))'/>
+                                <span class="add-on"><i class="icon-th"></i></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        @Html.LabelFor(model => model.EndDate, new { @class = "control-label" })
+                        <div class="controls">
+                            <div data-date="(@DateTime.Now.Date.ToString("dd/MM/yyyy"))" class="input-append date datepicker">
+                                <input id="dateEnd" name="EndDate" type="text" class="span11" data-date='@(Model.EndDate.Date.ToString("dd/MM/yyyy").Replace("-","/"))' value='@(Model.EndDate.Date.ToString("dd/MM/yyyy").Replace("-","/"))' />
+                                <span class="add-on"><i class="icon-th"></i></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        @Html.LabelFor(model => model.MaxSlots, new { @class = "control-label" })
+                        <div class="controls">
+                            <div class="input-prepend input-append">
+                                <span class="input-group-btn">
+                                    <span class="add-on" id="slt-dwn" data-dir="dwn"><i class="icon-minus"></i></span>
+                                </span>
+
+                                @Html.TextBoxFor(model => model.MaxSlots, new { @class = "form-control text-center span4", @id = "MaxSlots" })
+                                <!-- <input type="text" class="form-control text-center" value="1"> -->
+                                <span class="input-group-btn">
+                                    <span class="add-on" id="slt-up" data-dir="up"><i class="icon-plus"></i></span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        @Html.LabelFor(model => model.ExternalLink, new { @class = "control-label" })
+                        <div class="controls">
+                            @Html.TextBoxFor(model => model.ExternalLink, new { @class = "span11", placeholder = "External Link" })
+                        </div>
+                    </div>
+
+                    <div class="control-group" id="FormErrors">
+                        <div class="alert alert-error alert-block" id="ErrorsSummary" style="visibility: hidden">
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-success">Save</button>
+                    </div>
+
+                  </form>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+<style>
+    .datepicker.dropdown-menu {
+        z-index: 100000 !important;
+    }
+</style>

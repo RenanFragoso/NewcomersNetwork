@@ -1,0 +1,142 @@
+﻿@model List<NewcomersNetworkAPI.Models.User>
+@{
+    int lineId = 0;
+}
+
+        @foreach (var User in Model)
+        {
+
+            <tr class="nn-di-td">
+                <td class="nn-di-td">
+
+                    <table class="nn-dynamic-item" id="collapse-td@(lineId.ToString())">
+                        <tr>
+                            <th class="nn-di-th"> <a data-parent="#collapse-td@(lineId.ToString())" href="#collapseTD@(lineId.ToString())" data-toggle="collapse">@User.UserName.TrimEnd()</a> </th>
+                            <th class="nn-di-th nn-di-th-l"> <a data-parent="#collapse-td@(lineId.ToString())" href="#collapseTD@(lineId.ToString())" data-toggle="collapse">@User.UserName.TrimEnd()</a> </th>
+                        </tr>
+                        <tr>
+                            <td colspan="2" class="nn-di-td">
+                                <div class="collapse nn-di-content" id="collapseTD@(lineId.ToString())">
+                                    <div class="nn-di-inner-content">
+
+                                        @if (User.oDetails != null)
+                                        {
+                                            <div class="row-fluid">
+
+                                                <div class="span12">
+                                                    <ul class="nn-di-ul">
+                                                        <li class="nn-di-li title">User Details</li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+
+
+                                            <div class="row-fluid">
+
+                                                <div class="span6">
+                                                    <ul class="nn-di-ul">
+                                                        <li class="nn-di-li"><span>ID:</span> @User.Id.ToString() </li>
+                                                        <li class="nn-di-li"><span>First Name:</span> @User.oDetails.FirstName.ToString() </li>
+                                                        <li class="nn-di-li"><span>Last Name:</span> @User.oDetails.LastName.ToString() </li>
+                                                        <li class="nn-di-li"><span>E-Mail:</span> @User.oDetails.Email.ToString() </li>
+                                                        <li class="nn-di-li"><span>Gender:</span> @ViewBag.oLists.getValue("Gender", User.oDetails.Gender) </li>
+                                                        <li class="nn-di-li"><span>Age Range:</span> @ViewBag.oLists.getValue("AgeRange", User.oDetails.AgeRange) </li>
+                                                        <li class="nn-di-li"><span>Marital Status:</span> @ViewBag.oLists.getValue("MaritalStatus", User.oDetails.MaritalStatus) </li>
+                                                    </ul>
+                                                </div>
+
+                                                <div class="span6">
+                                                    <ul class="nn-di-ul">
+                                                        <li class="nn-di-li"><span>Education:</span> @ViewBag.oLists.getValue("Education", User.oDetails.MaritalStatus) </li>
+                                                        <li class="nn-di-li"><span>Immigrant:</span> @(User.oDetails.IsImmigrant ? "Yes" : "No") </li>
+                                                        <li class="nn-di-li"><span>Date Created:</span> @User.oDetails.DateCreated.ToString()</li>
+                                                        <li class="nn-di-li"><span>Last Modified:</span> @User.oDetails.LastModified.ToString()</li>
+                                                        <li class="nn-di-li">
+                                                            <span>Status:</span>
+                                                            @if (User.oDetails.Status.ToString() == "O")
+                                                            {
+                                                                <span class="nn-active">Active</span>
+                                                            }
+                                                            else if (User.oDetails.Status.ToString() == "C")
+                                                            {
+                                                                <span class="nn-blocked">Blocked</span>
+                                                            }
+                                                            else
+                                                            {
+                                                                <span></span>
+                                                            }
+                                                        </li>
+                                                    </ul>
+                                                </div>
+
+                                            </div>
+
+
+                                            <div class="row-fluid">
+
+                                                <div class="span6">
+                                                    <ul class="nn-di-ul">
+                                                        <li class="nn-di-li title">Roles</li>
+                                                    </ul>
+                                                    @if (User.oDetails.oUserRoles != null && User.oDetails.oUserRoles.Count > 0)
+                                                    {
+
+                                                        <ul class="nn-di-ul">
+
+                                                            @foreach (var oRole in User.oDetails.oUserRoles)
+                                                            {
+                                                                <li class="nn-di-li-sitem">@oRole.Name.ToString()</li>
+                                                            }
+
+                                                        </ul>
+
+                                                    }
+                                                </div>
+                                                <div class="span6">
+                                                    <ul class="nn-di-ul">
+                                                        <li class="nn-di-li title">Forms</li>
+                                                    </ul>
+
+                                                    <ul class="nn-di-ul">
+                                                        <a><li class="nn-di-li ctrl"><i class="icon-file"></i> Newcomer Form</li></a>
+                                                    </ul>
+
+                                                </div>
+
+                                            </div>
+
+                                        }
+
+                                        <div class="row-fluid">
+
+                                            <div class="span12">
+                                                <ul class="nn-di-ul">
+                                                    <a onclick="RemoveUser('@(User.Id.ToString())')"><li class="nn-di-li ctrl"><i class="icon-remove"></i> Remove User</li></a>
+                                                    <a onclick="EditUser('@(User.Id.ToString())')"><li class="nn-di-li ctrl"><i class="icon-edit"></i> Edit User</li></a>
+                                                    @if (User.oDetails.Status.ToString() == "O")
+                                                    {
+                                                        <a onclick="BlockUser('@(User.Id.ToString())')"><li class="nn-di-li ctrl"><i class="icon-ban-circle"></i> Block User</li></a>
+                                                    }
+                                                    else
+                                                    {
+                                                        <a onclick="ActivateUser('@(User.Id.ToString())')"><li class="nn-di-li ctrl"><i class="icon-user"></i> Activate User</li></a>
+                                                    }
+                                                </ul>
+                                            </div>
+
+                                        </div>
+
+
+                                    </div>
+
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+
+                </td>
+            </tr>
+
+            lineId++;
+
+        }

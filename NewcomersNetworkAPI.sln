@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NewcomersNetworkAPI", "NewcomersNetworkAPI\NewcomersNetworkAPI.csproj", "{31DD89E0-51ED-4FF6-83E9-F05ED796ED6C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NewcomersNetworkIFACE", "NewcomersNetworkIFACE\NewcomersNetworkIFACE.csproj", "{71D61398-D1A9-403D-BECA-7AE576F11FF7}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{31DD89E0-51ED-4FF6-83E9-F05ED796ED6C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{31DD89E0-51ED-4FF6-83E9-F05ED796ED6C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{31DD89E0-51ED-4FF6-83E9-F05ED796ED6C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{31DD89E0-51ED-4FF6-83E9-F05ED796ED6C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{71D61398-D1A9-403D-BECA-7AE576F11FF7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{71D61398-D1A9-403D-BECA-7AE576F11FF7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{71D61398-D1A9-403D-BECA-7AE576F11FF7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{71D61398-D1A9-403D-BECA-7AE576F11FF7}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		EnterpriseLibraryConfigurationToolBinariesPathV6 = packages\EnterpriseLibrary.TransientFaultHandling.6.0.1304.0\lib\portable-net45+win+wp8;packages\EnterpriseLibrary.TransientFaultHandling.Data.6.0.1304.1\lib\NET45
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,173 @@
+﻿@model NewcomersNetworkIFACE.Areas.NNAdmin.Models.DashBoard
+@{
+    Layout = "~/Areas/NNAdmin/Views/Shared/_Layout1.cshtml";
+    ViewBag.Title = "Dashboard";
+}
+
+<div class="row">
+
+    <div class="col-md-12">
+
+        <div class="page-header">
+            <h1>
+                Newcomers Network Dashboard
+            </h1>
+        </div>
+
+    </div>
+
+    <div class="row">
+
+        <div class="col-md-3 col-sm-12">
+            <div class="red-info">
+                <h2 class="ui center aligned icon header">
+                    <i class="small users icon"></i>
+                    @Html.Raw(Model.oSquares[0])
+                    <div class="content">
+                        Users
+                        <div class="sub header">Registered last month</div>
+                    </div>
+                </h2>
+            </div>
+        </div>
+
+        <div class="col-md-3 col-sm-12">
+
+            <div class="blue-info">
+                <h2 class="ui center aligned icon header">
+                    <i class="calendar outline icon"></i>
+                    @Html.Raw(Model.oSquares[1])
+                    <div class="content">
+                        Events
+                        <div class="sub header">Happening today</div>
+                    </div>
+                </h2>
+            </div>
+        </div>
+
+        <div class="col-md-3 col-sm-12">
+            <div class="gold-info">
+                <h2 class="ui center aligned icon header">
+                    <i class="list layout icon"></i>
+                    @Html.Raw(Model.oSquares[2])
+                    <div class="content">
+                        Classifieds
+                        <div class="sub header">Created last month</div>
+                    </div>
+                </h2>
+            </div>
+        </div>
+
+        <div class="col-md-3 col-sm-12">
+            <div class="lime-info">
+                <h2 class="ui center aligned icon header">
+                    <i class="list layout icon"></i>
+                    @Html.Raw(Model.oSquares[3])
+                    <div class="content">
+                        Needs
+                        <div class="sub header">Still open</div>
+                    </div>
+                </h2>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row">
+
+        <div class="col-md-6 col-sm-12">
+            <div id="events-table" class="ui raised segment">
+                <div class="ui top attached tabular menu">
+                    <a class="item active" data-tab="first">Events</a>
+                    <a class="item" data-tab="second">Special Events</a>
+                </div>
+                <div class="ui bottom attached tab segment active" data-tab="first">
+
+                    <table class="ui selectable celled table">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Event</th>
+                                <th>Description</th>
+                                <th class="right aligned">Slots</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>11/02/2016</td>
+                                <td>Event Test 1</td>
+                                <td>This is a test event number 1</td>
+                                <td class="right aligned">50/100</td>
+                            </tr>
+                            <tr>
+                                <td>11/02/2016</td>
+                                <td>Event Test 2</td>
+                                <td>This is a test event number 2</td>
+                                <td class="right aligned">78/100</td>
+                            </tr>
+                            <tr>
+                                <td>11/03/2016</td>
+                                <td>Event Test 3</td>
+                                <td>This is a test event number 3</td>
+                                <td class="right aligned">0/100</td>
+                            </tr>
+                            <tr>
+                                <td>11/04/2016</td>
+                                <td>Event Test 4</td>
+                                <td>This is a test event number 4</td>
+                                <td class="right aligned">22/100</td>
+                            </tr>
+                            <tr>
+                                <td>11/05/2016</td>
+                                <td>Event Test 5</td>
+                                <td>This is a test event number 5</td>
+                                <td class="right aligned">30/100</td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+
+                </div>
+                <div class="ui bottom attached tab segment" data-tab="second">
+
+                    <table class="ui selectable celled table">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Event</th>
+                                <th>Description</th>
+                                <th class="right aligned">Slots</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>12/17/2016</td>
+                                <td>Christmas Lunch</td>
+                                <td>This is the Christmas Lunch</td>
+                                <td class="right aligned">275/1000</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+
+            </div>
+        </div>
+
+        <div class="col-md-6 col-sm-12">
+            <div id="register-chart" class="ui raised segment"></div>
+        </div>
+
+    </div>
+
+    <div class="row">
+
+        <div class="col-md-6 col-sm-12">
+            <div id="needs-chart" class="ui raised segment"></div>
+        </div>
+
+        <div class="col-md-6 col-sm-12">
+            <div id="needs-category" class="ui raised segment"></div>
+        </div>
+
+    </div>

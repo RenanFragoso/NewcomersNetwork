@@ -1,0 +1,121 @@
+﻿@{
+    Layout = "~/Areas/NNAdmin/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Services"; 
+}
+
+<div class="row">
+
+    <div class="col-md-12">
+
+        <div class="page-header">
+            <h1>
+                Newcomers Network Services
+            </h1>
+        </div>
+
+    </div>
+
+    <div class="row">
+
+        <div class="col-md-2 col-sm-6">
+            <div class="red-info">
+                <h2 class="ui center aligned icon header">
+                    <i class="small plus icon"></i>
+                    <div class="content">
+                        Add
+                        <div class="sub header">new Service</div>
+                    </div>
+                </h2>
+            </div>
+        </div>
+
+        <div class="col-md-2 col-sm-6">
+
+            <div class="blue-info">
+                <h2 class="ui center aligned icon header">
+                    <i class="calendar icon"></i>
+                    <div class="content">
+                        Edit
+                        <div class="sub header">published Services</div>
+                    </div>
+                </h2>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row">
+
+        <div class="col-md-12 col-sm-12">
+
+            <div id="events-table" class="ui raised segment">
+                <div class="ui top attached tabular menu">
+                    <a class="item active" data-tab="services">Active Services</a>
+                    <a class="item" data-tab="canceled">Canceled Services</a>
+                    <a class="item" data-tab="done">Services Done</a>
+                </div>
+                <div class="ui bottom attached tab segment active" data-tab="services">
+
+                    <table class="ui selectable celled table">
+                        <thead>
+                            <tr>
+                                <th>Service</th>
+                                <th>Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Service Test 1</td>
+                                <td>This is a test service number 1</td>
+                            </tr>
+                            <tr>
+                                <td>Service Test 2</td>
+                                <td>This is a test service number 2</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+                <div class="ui bottom attached tab segment" data-tab="canceled">
+                    <table class="ui selectable celled table">
+                        <thead>
+                            <tr>
+                                <th>Service</th>
+                                <th>Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Service Test 3</td>
+                                <td>This is a test service number 3</td>
+                            </tr>
+                            <tr>
+                                <td>Service Test 4</td>
+                                <td>This is a test service number 4</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+                <div class="ui bottom attached tab segment" data-tab="done">
+                    <table class="ui selectable celled table">
+                        <thead>
+                            <tr>
+                                <th>Service</th>
+                                <th>Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Service Test 5</td>
+                                <td>This is a test service number 5</td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+
+    </div>

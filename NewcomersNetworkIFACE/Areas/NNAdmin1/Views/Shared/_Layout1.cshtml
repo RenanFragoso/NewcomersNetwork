@@ -1,0 +1,125 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+        
+    <title>@ViewBag.Title - @System.Web.Configuration.WebConfigurationManager.AppSettings["ApplicationName"]</title>
+    
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="stylesheet" href="~/Content/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/Content/css/bootstrap-responsive.min.css" />
+    <link rel="stylesheet" href="~/Content/css/matrix-style.css" />
+    <link rel="stylesheet" href="~/Content/css/matrix-media.css" />
+    <link rel="stylesheet" href="~/Content/font-awesome/css/font-awesome.css" />
+    <link rel="stylesheet" href="~/Content/css/jquery.gritter.css" />
+    <link rel="stylesheet" href="~/Content/css/jquery.dataTables.min.css" />
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,800' rel='stylesheet' type='text/css'>
+
+    @RenderSection("CSSSection", required: false)
+    
+    <script src="~/Content/js/nn_admin_init.js"></script>
+
+</head>
+
+<body>
+
+    <!--Header-part-->
+    <div id="header">
+        <h1><a href="/NNAdmin1/Dashboard">@System.Web.Configuration.WebConfigurationManager.AppSettings["ApplicationName"]</a></h1>
+    </div>
+    <!--close-Header-part-->
+
+    <!--top-Header-menu-->
+    <div id="user-nav" class="navbar navbar-inverse">
+        <ul class="nav">
+            <li class="dropdown" id="profile-messages">
+                <a title="" href="#" data-toggle="dropdown" data-target="#profile-messages" class="dropdown-toggle"><i class="icon icon-user"></i>  <span class="text"> Welcome Renan Fragoso</span><b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                    <li><a href="#"><i class="icon-user"></i> My Profile</a></li>
+                    <li class="divider"></li>
+                    <li><a href="login.html"><i class="icon icon-share-alt"></i> Log Out</a></li>
+                </ul>
+            </li>
+            <li class=""><a title="" href="login.html"><i class="icon icon-share-alt"></i> <span class="text">Logout</span></a></li>
+        </ul>
+    </div>
+    <!--close-top-Header-menu-->
+
+    <!--start-top-serch-->
+    <!--
+    <div id="search">
+        <input type="text" placeholder="Search here..." />
+        <button type="submit" class="tip-bottom" title="Search"><i class="icon-search icon-white"></i></button>
+    </div>
+    -->
+    <!--close-top-serch-->
+    
+    <!--sidebar-menu-->
+    <div id="sidebar">
+        <a href="#" class="visible-phone"><i class="icon icon-home"></i> Dashboard</a>
+           <ul>
+
+            <li id="dashboardmnu" class="menuitem">
+               <a href="@Url.Action("", "Dashboard", new { Area = "NNAdmin1" })"><i class="icon icon-dashboard"></i> <span>Dashboard</span></a>
+            </li>
+            <li id="classifiedsmnu" class="menuitem">
+               <!-- <a href="@Url.Action("", "Classifieds", new { Area = "NNAdmin1" })"><i class="icon icon-list-ul"></i> <span>Classifieds</span><span class="label label-important">10</span></a> -->
+               <a class="menuclick(1)"><i class="icon icon-list-ul"></i> <span>Classifieds</span><span class="label label-important">10</span></a>
+            </li>
+            <li id="eventsmnu" class="menuitem"><a href="@Url.Action("", "Events", new { Area = "NNAdmin1" })"><i class="icon icon-th"></i> <span>Events</span></a></li>
+            <li id="reportsmnu" class="submenu">
+                <a href="@Url.Action("", "Reports", new { Area = "NNAdmin1" })"><i class="icon icon-signal"></i> <span>Reports</span></a>
+                <ul>
+                    <li class="menuitem"><a href="@Url.Action("MentorXMentee", "Reports", new { Area = "NNAdmin1" })">Mentors x Mentees</a></li>
+                    <li class="menuitem"><a href="@Url.Action("NeedsXHelp", "Reports", new { Area = "NNAdmin1" })">Needs x Help</a></li>
+                </ul>
+            </li>
+            <li id="servicesmnu" class="menuitem"><a href="@Url.Action("", "Services", new { Area = "NNAdmin1" })"><i class="icon icon-th"></i> <span>Services</span></a></li>
+            <li id="usersmnu" class="menuitem"><a href="@Url.Action("", "Users", new { Area = "NNAdmin1" })"><i class="icon icon-user"></i> <span>Users</span></a></li>
+            <li id="calendarmnu" class="menuitem"><a href="@Url.Action("", "Calendar", new { Area = "NNAdmin1" })"><i class="icon icon-calendar"></i> <span>Calendar</span></a></li>
+            <li id="mailingmnu" class="menuitem"><a href="@Url.Action("", "Mailing", new { Area = "NNAdmin1" })"><i class="icon icon-envelope"></i> <span>Mailing</span></a></li>
+        </ul>
+    </div>
+    <!--sidebar-menu-->
+
+    @RenderBody()
+
+    <!--Footer-part-->
+    <div class="row-fluid">
+        <div id="footer" class="span12"> 2016 &copy; @System.Web.Configuration.WebConfigurationManager.AppSettings["ApplicationName"]</div>
+    </div>
+    <!--end-Footer-part-->
+
+    <script src="~/Content/js/jquery.min.js"></script>
+    <script src="~/Content/js/excanvas.min.js"></script>
+    <script src="~/Content/js/jquery.ui.custom.js"></script>
+    <script src="~/Content/js/bootstrap.min.js"></script>
+    <script src="~/Content/js/jquery.peity.min.js"></script>
+    <script src="~/Content/js/fullcalendar.min.js"></script>
+    <script src="~/Content/js/matrix.js"></script>
+    <script src="~/Content/js/jquery.gritter.min.js"></script>
+    <script src="~/Content/js/matrix.interface.js"></script>
+    <script src="~/Content/js/matrix.chat.js"></script>
+    <script src="~/Content/js/jquery.validate.js"></script>
+    <script src="~/Content/js/matrix.form_validation.js"></script>
+    <script src="~/Content/js/jquery.wizard.js"></script>
+    <script src="~/Content/js/jquery.uniform.js"></script>
+    <script src="~/Content/js/select2.min.js"></script>
+    <script src="~/Content/js/matrix.popover.js"></script>
+    <!-- <script src="~/Content/js/jquery.dataTables.min.js"></script> -->
+    <script src="~/Content/js/jquery.dataTables.min.js"></script>
+    <script src="~/Content/js/dataTables.bootstrap.min.js"></script>
+    <script src="~/Content/js/matrix.tables.js"></script>
+    <script src="~/Content/js/nn_admin.js"></script>
+
+    @RenderSection("JSSection", required: false);
+
+    <script type="text/javascript">
+        $(document).ready(RunInit);
+    </script>
+
+</body>
+
+</html>
