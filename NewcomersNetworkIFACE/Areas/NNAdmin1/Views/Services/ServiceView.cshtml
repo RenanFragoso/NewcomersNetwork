@@ -1,7 +1,7 @@
-﻿@model NewcomersNetworkIFACE.Areas.NNAdmin1.Models.Services
+﻿@model NewcomersNetworkAPI.Models.Service
 @{
     Layout = "~/Areas/NNAdmin1/Views/Shared/_Layout1.cshtml";
-    ViewBag.Title = "Services";
+    ViewBag.Title = "View Service" ;
 }
 
 @section CSSSection {
@@ -21,21 +21,24 @@
                 <i class="icon-th"></i>
                 Services
             </a>
+            <a href="/NNAdmin1/Services/ServiceView?cServiceId=@(Model.ServiceId)" title="Service: @(Model.ServiceName)" class="tip-bottom">
+                <i class="icon-th"></i>
+                Service: @(Model.ServiceName)
+            </a>
         </div>
-        <h1>Services</h1>
+        <h1>@Model.ServiceName</h1>
     </div>
     <!--End-breadcrumbs-->
     <!--Action boxes-->
     <div class="container-fluid">
 
-        <hr />
-
+        <!--
         <div class="quick-actions_homepage">
             <ul class="quick-actions">
                 <li class="bg_lb"> <a href="index.html"> <i class="icon-th"></i> Add new Service</a> </li>
-                <li class="bg_ly" id="ServicesGroupsView"> <a><i class="icon-th"></i> Services Groups</a></li>
             </ul>
         </div>
+        -->
         <!--End-Action boxes-->
 
         <div class="row-fluid">
@@ -47,24 +50,40 @@
 
                 <div class="widget-box">
                     <div class="widget-title">
-                        <span class="icon"><i class="icon-th"></i></span>
-                        <h5>Newcomers Network | Services</h5>
+                        <span class="icon"><i class="icon-list-alt"></i></span>
+                        <h5>Newcomers Network | Service Details</h5>
+                    </div>
+                    <div class="widget-content nopadding">
+                        Service Details
+                    </div>
+                </div>
+
+                <div class="widget-box">
+                    <div class="widget-title">
+                        <span class="icon"><i class="icon-calendar"></i></span>
+                        <h5>Newcomers Network | Service Schedule</h5>
                     </div>
                     <div class="widget-content nopadding">
                         <table class="table table-bordered data-table">
                             <thead>
                                 <tr>
-                                    <th>Service</th>
+                                    <th>Service Schedule</th>
+                                    <th>Service Description</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody id="ServiceSchedule">
 
-                                @Html.Partial("_ServicesList", Model.oServiceList)
+                                <tr>
+                                    <td>Schedule 1</td>
+                                    <td>Schedule Desc</td>
+                                </tr>
+
 
                             </tbody>
                         </table>
                     </div>
                 </div>
+
 
             </div>
 
@@ -75,19 +94,7 @@
 
 </div>
 
-@RenderPage("_ServicesGroupView.cshtml")
-
 <script type="text/javascript">
     //Updates the image on selected menu
     DocReady.push(function () { menuSelected("#servicesmnu") });
-
-    DocReady.push(function () {
-        $('#ServicesGroupsView').click(function () {
-            var url = "/NNAdmin1/Services/ServicesGroups";
-            $.get(url, function () {
-                $('#ServicesGroups').modal("show").css({ 'width': '800px', 'margin-left': function () { return -($(this).width() / 2); } });
-            });
-        });
-    });
-
 </script>

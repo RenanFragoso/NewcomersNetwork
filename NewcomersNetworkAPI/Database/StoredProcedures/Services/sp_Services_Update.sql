@@ -1,15 +1,17 @@
 ﻿CREATE PROCEDURE [dbo].[sp_Services_Update]
-@ServiceID int,
-@ServiceName NVARCHAR(50)=NULL, 
-@ServiceDescription NVARCHAR(1000)=NULL, 
-@ServiceResponsible int,
-@ServiceAlterDate datetime
+@cServiceId nvarchar(126),
+@cServiceName NVARCHAR(50)=NULL, 
+@cServiceDescription NVARCHAR(1000)=NULL,
+@cServiceGroup nvarchar(126),
+@cServiceResponsible nvarchar(126),
+@dServiceAlterDate datetime
 
 AS
 
 UPDATE [dbo].[Services] 
-SET [ServiceName] = @ServiceName, 
-[ServiceDescription] = @ServiceDescription, 
-[ServiceResponsible] = @ServiceResponsible,
-[ServiceAlterDate] = @ServiceAlterDate
-WHERE [ServiceID] = @ServiceID
+SET [ServiceName] = @cServiceName, 
+[ServiceDescription] = @cServiceDescription, 
+[ServiceResponsible] = @cServiceResponsible,
+[ServiceGroup] = @cServiceGroup,
+[ServiceAlterDate] = @dServiceAlterDate
+WHERE [ServiceID] = @cServiceId

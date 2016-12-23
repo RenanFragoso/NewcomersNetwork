@@ -212,6 +212,7 @@
     <Compile Include="Areas\NNAdmin1\Controllers\ServicesController.cs" />
     <Compile Include="Areas\NNAdmin1\Controllers\UsersController.cs" />
     <Compile Include="Areas\NNAdmin1\Models\EventsModels.cs" />
+    <Compile Include="Areas\NNAdmin1\Models\ServicesModels.cs" />
     <Compile Include="Areas\NNAdmin1\Models\UsersModels.cs" />
     <Compile Include="Areas\NNAdmin1\Models\DashboardModels.cs" />
     <Compile Include="Areas\NNAdmin1\NNAdmin1AreaRegistration.cs" />
@@ -225,6 +226,7 @@
     <Compile Include="Areas\NNAdmin\Models\Event.cs" />
     <Compile Include="Areas\NNAdmin\Models\Dashboard.cs" />
     <Compile Include="Areas\NNAdmin\NNAdminAreaRegistration.cs" />
+    <Compile Include="Areas\Profile\ProfileAreaRegistration.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -392,6 +394,7 @@
     <Content Include="Content\css\bootstrap-wysihtml5.css" />
     <Content Include="Content\css\bootstrap.min.css" />
     <Content Include="Content\css\colorpicker.css" />
+    <Content Include="Content\css\dataTables.bootstrap.css" />
     <Content Include="Content\css\dataTables.bootstrap.min.css" />
     <Content Include="Content\css\datepicker.css" />
     <Content Include="Content\css\font-awesome.css" />
@@ -439,7 +442,14 @@
     <Content Include="Content\js\dataTables.bootstrap.min.js" />
     <Content Include="Content\js\excanvas.min.js" />
     <Content Include="Content\js\fullcalendar.min.js" />
+    <Content Include="Areas\Profile\Views\web.config" />
+    <Content Include="Areas\NNAdmin1\Views\Services\_ServiceRegistrationModal.cshtml" />
+    <Content Include="Areas\NNAdmin1\Views\Services\_ServiceEditForm.cshtml" />
+    <Content Include="Areas\NNAdmin1\Views\Services\ServiceView.cshtml" />
+    <Content Include="Areas\NNAdmin1\Views\Services\_ServicesList.cshtml" />
+    <Content Include="Areas\NNAdmin1\Views\Services\_ServicesGroupsView.cshtml" />
     <None Include="Content\js\jquery.dataTables.min.js.old" />
+    <Content Include="Content\css\jquery.dataTables.css" />
     <Content Include="Content\js\jquery.dataTables.min.js" />
     <Content Include="Content\js\jquery.easy-pie-chart.js" />
     <Content Include="Content\js\jquery.flot.crosshair.js" />
@@ -509,7 +519,6 @@
     <Content Include="Content\font-awesome\font\FontAwesome.otf" />
     <Content Include="Areas\NNAdmin1\Views\Dashboard\Index.cshtml" />
     <Content Include="Areas\NNAdmin1\Views\Services\Index.cshtml" />
-    <Content Include="Areas\NNAdmin1\Views\Services\_EditService.cshtml" />
     <Content Include="Areas\NNAdmin1\Views\Users\Index.cshtml" />
     <Content Include="Areas\NNAdmin1\Views\Users\_EditUserModal.cshtml" />
     <Content Include="Areas\NNAdmin1\Views\Events\_EditEvent.cshtml" />
@@ -578,6 +587,10 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\NNAdmin1\Views\Classifieds\" />
+    <Folder Include="Areas\Profile\Controllers\" />
+    <Folder Include="Areas\Profile\Models\" />
+    <Folder Include="Areas\Profile\Views\Shared\" />
     <Folder Include="Content\Images\NNAdmin1\demo\" />
     <Folder Include="Content\Images\NNAdmin1\gallery\" />
     <Folder Include="Content\Images\NNAdmin1\icons\" />

@@ -259,6 +259,7 @@
     <Compile Include="Models\EventRegistrationModels.cs" />
     <Compile Include="Models\OptionList.cs" />
     <Compile Include="Models\OptionsLists.cs" />
+    <Compile Include="Models\ServiceGroupModels.cs" />
     <Compile Include="Models\UserDetailsModels.cs" />
     <Compile Include="Models\NNAPIModel.cs" />
     <Compile Include="Models\UserModels.cs" />
@@ -279,6 +280,7 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\img\events\event7_publish.png" />
+    <Content Include="Database\StoredProcedures\Choices\sp_GetChoices_ServicesGroups.sql" />
     <Content Include="Database\StoredProcedures\Choices\sp_GetChoices_MaritalStatus.sql" />
     <Content Include="Database\StoredProcedures\Choices\sp_GetChoices_Education.sql" />
     <Content Include="Database\StoredProcedures\Choices\sp_GetChoices_AgeRange.sql" />
@@ -297,7 +299,11 @@
     <Content Include="Database\StoredProcedures\Events\sp_EventDetail_Delete.sql" />
     <Content Include="Database\StoredProcedures\Events\sp_Events_Delete.sql" />
     <Content Include="Database\StoredProcedures\Events\sp_Events_GetRegistrations.sql" />
+    <Content Include="Database\StoredProcedures\Services\sp_ServicesGroup_GetAll.sql" />
+    <Content Include="Database\StoredProcedures\Services\sp_ServicesGroup_Get.sql" />
     <Content Include="Database\StoredProcedures\Services\sp_Services_Delete.sql" />
+    <Content Include="Database\StoredProcedures\Services\sp_ServicesGroup_GetById.sql" />
+    <Content Include="Database\StoredProcedures\Services\sp_Services_Get.sql" />
     <Content Include="Database\StoredProcedures\Users\sp_Roles_Get.sql" />
     <Content Include="Database\StoredProcedures\Users\sp_Roles_GetAllUsrs.sql" />
     <Content Include="Database\StoredProcedures\Users\sp_UserDetails_Activate.sql" />

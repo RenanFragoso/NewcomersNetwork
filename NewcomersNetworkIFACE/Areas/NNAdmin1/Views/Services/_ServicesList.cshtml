@@ -1,0 +1,82 @@
+﻿@model List<NewcomersNetworkAPI.Models.Service>
+@{
+    int lineId = 0;
+}
+
+        @foreach (var Service in Model)
+        {
+
+            <tr class="nn-di-td">
+                <td class="nn-di-td">
+
+                    <table class="nn-dynamic-item" id="collapse-td@(lineId.ToString())">
+                        <tr>
+                            <th class="nn-di-th"> <a data-parent="#collapse-td@(lineId.ToString())" href="#collapseTD@(lineId.ToString())" data-toggle="collapse">@Service.ServiceName.TrimEnd()</a> </th>
+                            <th class="nn-di-th nn-di-th-l"> <a data-parent="#collapse-td@(lineId.ToString())" href="#collapseTD@(lineId.ToString())" data-toggle="collapse">@Service.ServiceDescription.TrimEnd()</a> </th>
+                        </tr>
+                        <tr>
+                            <td colspan="2" class="nn-di-td">
+                                <div class="collapse nn-di-content" id="collapseTD@(lineId.ToString())">
+                                    <div class="nn-di-inner-content">
+
+                                        <div class="row-fluid">
+
+                                            <div class="span12">
+                                                <ul class="nn-di-ul">
+                                                    <li class="nn-di-li title">Service</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="row-fluid">
+
+                                            <div class="span6">
+
+                                                <ul class="nn-di-ul">
+                                                    <li class="nn-di-li"><span>ID:</span> @Service.ServiceId</li>
+                                                    <li class="nn-di-li"><span>Service Name:</span> @Service.ServiceName</li>
+                                                    <li class="nn-di-li"><span>Service Description:</span> @Service.ServiceDescription</li>
+                                                              
+                                                </ul>
+                                            </div>
+
+                                            <div class="span6">
+                                                <ul class="nn-di-ul">
+                                                    <li class="nn-di-li"><span>Service Group:</span> @Service.ServiceGroup</li>
+                                                </ul>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="row-fluid">
+
+                                            <div class="span6">
+                                                <ul class="nn-di-ul">
+                                                    <a onclick="RemoveService('@(Service.ServiceId)')"><li class="nn-di-li ctrl"><i class="icon-remove"></i> Remove Service</li></a>
+                                                </ul>
+                                            </div>
+
+                                            <div class="span6">
+                                                <ul class="nn-di-ul">
+                                                    <a href="Services/ServiceView?cServiceId=@(Service.ServiceId)"><li class="nn-di-li ctrl"><i class="icon-eye-open"></i> View Service</li></a>
+                                                    <a onclick="EditService('@(Service.ServiceId)')"><li class="nn-di-li ctrl"><i class="icon-edit"></i> Edit Service</li></a>                                                    
+                                                </ul>
+                                            </div>
+
+                                        </div>
+
+
+                                    </div>
+
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+
+                </td>
+            </tr>
+
+            lineId++;
+
+        }

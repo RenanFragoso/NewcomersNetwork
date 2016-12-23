@@ -21,7 +21,7 @@ namespace NewcomersNetworkAPI.Controllers
             DataTable oServicesDB = DBConn.ExecuteCommand("sp_Services_GetAll", null).Tables[0];    //Gets all Services
             List<Service> oServices = new List<Service>();
 
-            if (oServicesDB.Rows.Count > 0)
+            if (!oServicesDB.HasErrors && oServicesDB.Rows.Count > 0)
             {
                 foreach (DataRow row in oServicesDB.Rows)
                 {
@@ -39,18 +39,18 @@ namespace NewcomersNetworkAPI.Controllers
             return Ok(oServices);
         }
         
-        [Route("{nServiceID:int}", Name = "GetService")]
+        [Route("{cServiceId}", Name = "GetService")]
         [HttpGet]
-        public IHttpActionResult Get(int nServiceID)      //Gets a specific event
+        public IHttpActionResult Get(string cServiceId)      //Gets a specific event
         {
             Dictionary<string, object> infoParameters = new Dictionary<string, object>();
-            infoParameters.Add("ServiceIDIn", nServiceID);
-            DataTable oServices = DBConn.ExecuteCommand("sp_Services_GetByID", infoParameters).Tables[0];
+            infoParameters.Add("cServiceId", cServiceId);
+            DataTable oServicesDB = DBConn.ExecuteCommand("sp_Services_GetByID", infoParameters).Tables[0];
 
             Service oService = new Service();
-            if (oServices.Rows.Count > 0)
+            if (!oServicesDB.HasErrors && oServicesDB.Rows.Count > 0)
             {
-                oService.MapFromTableRow(oServices.Rows[0]);
+                oService.MapFromTableRow(oServicesDB.Rows[0]);
             }
 
             if (!oService.Validate())
@@ -112,7 +112,7 @@ namespace NewcomersNetworkAPI.Controllers
             if (oService != null && oService.Save())
             {
 
-                return CreatedAtRoute("GetService", new { nServiceID = oService.ServiceID }, oService);
+                return CreatedAtRoute("GetService", new { nServiceID = oService.ServiceId }, oService);
                 //return Ok();
             }
             else
@@ -129,7 +129,7 @@ namespace NewcomersNetworkAPI.Controllers
 
             if (oService != null && oService.Update())
             {
-                return CreatedAtRoute("GetService", new { nServiceID = oService.ServiceID }, oService);
+                return CreatedAtRoute("GetService", new { nServiceID = oService.ServiceId }, oService);
             }
             else
             {
@@ -154,5 +154,51 @@ namespace NewcomersNetworkAPI.Controllers
 
         }
 
+        [Route("Groups", Name = "GetGroups")]
+        [HttpGet]
+        public IHttpActionResult GetGroups()
+        {
+
+            List<ServiceGroup> oGroups = new List<ServiceGroup>();
+            DataTable oServicesDB = DBConn.ExecuteCommand("sp_ServicesGroup_Get", null).Tables[0];
+
+            if (!oServicesDB.HasErrors && oServicesDB.Rows.Count > 0)
+            {
+                foreach (DataRow row in oServicesDB.Rows)
+                {
+                    ServiceGroup oGroup = new ServiceGroup();
+                    oGroup.MapFromTableRow(row);
+                    if (oGroup.isValid)
+                    {
+                        oGroups.Add(oGroup);
+                    }
+                }
+            }
+
+            return Ok(oGroups);
+        }
+
+        [Route("Groups/{cGroupId}", Name = "GetGroup")]
+        [HttpGet]
+        public IHttpActionResult GetGroup(string cGroupId)
+        {
+            Dictionary<string, object> infoParameters = new Dictionary<string, object>();
+            infoParameters.Add("cGroupId", cGroupId);
+            DataTable oServicesDB = DBConn.ExecuteCommand("sp_ServicesGroup_GetById", infoParameters).Tables[0];
+
+            ServiceGroup oGroup = new ServiceGroup();
+            if (!oServicesDB.HasErrors && oServicesDB.Rows.Count > 0)
+            {
+                oGroup.MapFromTableRow(oServicesDB.Rows[0]);
+            }
+
+            if (!oGroup.isValid)
+            {
+                return StatusCode(HttpStatusCode.NoContent);
+            }
+
+            return Ok(oGroup);
+        }
+        
     }
 }

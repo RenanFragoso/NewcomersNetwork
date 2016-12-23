@@ -100,8 +100,11 @@
 
         $("#RegTable").DataTable({
             ajax: {
-                url: "/NNAdmin1/Events/EventRegistrationList?cEventId=" + cEventId,
-                dataSrc: ''
+                url: "/NNAdmin1/Events/EventRegistrationList",
+                dataSrc: '',
+                data: function (d) {
+                    d.cEventId = $(event.srcElement.parentElement).data('id');
+                }
             },
             columns: [
                 { data: 'oUser.oDetails.FirstName' },
@@ -248,64 +251,11 @@
 
     }
 
-    function ViewInscriptions(cEventId)
+    function ViewInscriptions()
     {
         //$("#RegTable").dataTable().api().clear();
-        $("#RegTable").dataTable().api().ajax.url("/NNAdmin1/Events/EventRegistrationList?cEventId=" + cEventId);//.load();
-        
-        console.log($("#RegTable").dataTable().api().ajax);
-        /*
-        $("#RegTable").dataTable().api().columns([
-                { data: 'oUser.oDetails.FirstName' },
-                { data: 'oUser.oDetails.Email' },
-                { data: 'RegisterDate' },
-                { data: 'SlotsRequested' }
-        ]);
-        */
-        console.log($("#RegTable").dataTable().api().ajax.dataSrc);
         $("#RegTable").dataTable().api().ajax.reload();
-
-        //$("#RegTable").dataTable().api().ajax.reload();
-
-        /*
-        $("#RegTable").DataTable({
-            ajax: {
-                url: "/NNAdmin1/Events/EventRegistrationList?cEventId=" + cEventId,
-                dataSrc: ''
-            },
-            columns: [
-                { data: 'oUser.oDetails.FirstName' },
-                { data: 'oUser.oDetails.Email' },
-                { data: 'RegisterDate' },
-                { data: 'SlotsRequested' }
-            ]
-        });
-        */
         $('#EventRegistrations').modal("show").css({ 'width': '1000px', 'margin-left': function () { return -($(this).width() / 2); } });
-
-        /*
-        $.ajax({
-            url: "/NNAdmin1/Events/EventRegistrationList?cEventId=" + cEventId,
-            type: "GET",
-            async: true,
-            success: function (data, textStatus, jqXHR) {
-                //$("#RegTable").dataTable().fnClearTable();
-                $("#RegistrationList").html(data);
-                //console.log($("#RegTable"));
-                $("#RegTable").dataTable().fnDraw();
-                $('#EventRegistrations').modal("show").css({ 'width': '1000px', 'margin-left': function () { return -($(this).width() / 2); } });
-            },
-            error: function (jqXHR, textStatus, errorThrown) {
-                $.gritter.add({
-                    title: "Error getting Event Registrations List",
-                    text: errorThrown,
-                    sticky: false,
-                    time: 3000
-                })
-            }
-
-        });
-        */
     }
 
 

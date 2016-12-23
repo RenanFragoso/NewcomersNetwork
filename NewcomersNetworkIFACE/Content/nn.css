@@ -1,3 +1,18 @@
+:root{
+
+  --tpc-blue: #00588d;
+  --tpc-red: #ba0f6b;
+  --tpc-gold: #fec33e;
+  --tpc-lime: #b6d554;
+  --tpc-slate: #6d6e6b;
+
+  --menus-bgcolor: #eee;
+  --menus-hover-bgcolor: #ddd;
+  --menus-selected-bgcolor: #ddd;
+  --menu-disabled-color: #aaa;
+  --menu-border-color: #ddd;
+}
+
 body {
   padding-top: 50px;
   -webkit-font-smoothing: antialiased;
@@ -13,6 +28,15 @@ a:hover {
     text-decoration: none;
     background-color: #f5f5f5;
     cursor: auto;
+}
+
+.head-logo {
+    background-color: var(--tpc-slate);
+    padding: 20px;
+    border-top-right-radius: 5px 5px;
+    -moz-border-radius-topright: 5px 5px;
+    -webkit-border-top-right-radius: 5px 5px;
+    display: inline-block;
 }
 
 .nav-logo {
