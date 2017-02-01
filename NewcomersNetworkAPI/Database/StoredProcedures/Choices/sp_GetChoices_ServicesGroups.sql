@@ -1,6 +1,6 @@
 ﻿CREATE PROCEDURE [dbo].[sp_GetChoices_ServicesGroups]
 WITH EXECUTE AS CALLER
 AS
-SELECT [GroupId] as Id, [GroupName] as Text
+SELECT [GroupId] AS id, [GroupName] AS 'text'
 FROM [dbo].[ServicesGroup]
 WHERE [GroupStatus] = 'O'

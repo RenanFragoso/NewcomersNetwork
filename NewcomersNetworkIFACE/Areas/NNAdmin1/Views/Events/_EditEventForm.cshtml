@@ -80,6 +80,13 @@
                         </div>
                     </div>
 
+                    <div class="control-group">
+                        @Html.LabelFor(model => model.Image, new { @class = "control-label" })
+                        <div class="uploader" id="uniform-undefined">
+                            <input type="file" size="19" style="opacity: 0;"><span class="filename">No file selected</span><span class="action">Choose File</span>
+                        </div>
+                    </div>
+
                     <div class="control-group" id="FormErrors">
                         <div class="alert alert-error alert-block" id="ErrorsSummary" style="visibility: hidden">
                         </div>

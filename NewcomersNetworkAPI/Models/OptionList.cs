@@ -33,7 +33,7 @@ namespace NewcomersNetworkAPI.Models
                 {
                     foreach (DataRow row in oListData.Rows)
                     {
-                        this.oItens.Add(new OptionItem (row["Id"].ToString(), row["Text"].ToString() ));
+                        this.oItens.Add(new OptionItem (row["id"].ToString(), row["text"].ToString() ));
                     }
                 }
                 else
@@ -48,22 +48,21 @@ namespace NewcomersNetworkAPI.Models
             OptionItem oItem;
             if (cId != null && cId.Length > 0)
             {
-                oItem = this.oItens.Find(item => item.Id == cId);
+                oItem = this.oItens.Find(item => item.id == cId);
                 if (oItem != null)
                 {
-                    return oItem.Text;
+                    return oItem.text;
                 }
             }
             return "";
         }
-
     }
 
     public class OptionItem
     {
 
-        public string Id { get; set; } = "";
-        public string Text { get; set; } = "";
+        public string id { get; set; } = "";
+        public string text { get; set; } = "";
 
         public OptionItem()
         {
@@ -71,8 +70,8 @@ namespace NewcomersNetworkAPI.Models
 
         public OptionItem(string cId, string cText)
         {
-            this.Id = cId;
-            this.Text = cText;
+            this.id = cId;
+            this.text = cText;
         }
 
 

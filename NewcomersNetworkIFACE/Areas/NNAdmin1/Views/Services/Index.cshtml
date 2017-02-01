@@ -1,12 +1,17 @@
-﻿@model NewcomersNetworkIFACE.Areas.NNAdmin1.Models.Services
-@{
+﻿@{
     Layout = "~/Areas/NNAdmin1/Views/Shared/_Layout1.cshtml";
     ViewBag.Title = "Services";
 }
 
 @section CSSSection {
+    <link rel="stylesheet" href="/Content/css/jquery.dataTables.css" />
+    <link rel="stylesheet" href="/Content/css/dataTables.bootstrap.css" />
     <link rel="stylesheet" href="/Content/css/uniform.css" />
     <link rel="stylesheet" href="/Content/css/select2.css" />
+    <link rel="stylesheet" href="/Content/css/datepicker.css" />
+    <link rel="stylesheet" href="/Content/css/bootstrap-editable.css" />
+    <link rel="stylesheet" href="/Content/css/jquery-confirm.css" />
+    <link rel="stylesheet" href="/Content/css/nn_admin.css" />
 }
 
 <div id="content">
@@ -32,8 +37,8 @@
 
         <div class="quick-actions_homepage">
             <ul class="quick-actions">
-                <li class="bg_lb"> <a href="index.html"> <i class="icon-th"></i> Add new Service</a> </li>
-                <li class="bg_ly" id="ServicesGroupsView"> <a><i class="icon-th"></i> Services Groups</a></li>
+                <!-- <li class="bg_lb"> <a href="index.html"> <i class="icon-th"></i> Add new Service</a> </li> -->
+                <li class="bg_ly" id="ServiceGroupsView"> <a href="Services/ServiceGroups"><i class="icon-th"></i> Service Groups</a></li>
             </ul>
         </div>
         <!--End-Action boxes-->
@@ -49,9 +54,14 @@
                     <div class="widget-title">
                         <span class="icon"><i class="icon-th"></i></span>
                         <h5>Newcomers Network | Services</h5>
+
+                        <div class="buttons">
+                            <a id="add-service" data-toggle="modal" href="#" class="btn btn-info btn-mini btnaction" onclick="ServiceAdd()"><i class="icon-plus icon-white"></i> Add Service</a>
+                        </div>
+
                     </div>
                     <div class="widget-content nopadding">
-                        <table class="table table-bordered data-table">
+                        <table id="ServiceList" class="table table-bordered">
                             <thead>
                                 <tr>
                                     <th>Service</th>
@@ -59,13 +69,10 @@
                             </thead>
                             <tbody>
 
-                                @Html.Partial("_ServicesList", Model.oServiceList)
-
                             </tbody>
                         </table>
                     </div>
                 </div>
-
             </div>
 
         </div>
@@ -75,19 +82,291 @@
 
 </div>
 
-@RenderPage("_ServicesGroupView.cshtml")
+@section JSSection {
+    <script src="/Content/js/jquery.dataTables.js"></script>
+    <script src="/Content/js/dataTables.bootstrap.js"></script>
+    <script src="/Content/js/masked.js"></script>
+    <script src="/Content/js/moment.js"></script>
+    <script src="/Content/js/combodate.js"></script>
+    <script src="/Content/js/bootstrap-datepicker.js"></script>
+    <script src="/Content/js/bootstrap-editable.min.js"></script>
+    <script src="/Content/js/jquery-confirm.js"></script>
+    <script src="/Content/js/select2.full.js"></script>
+    <script src="/Content/js/nn_admin.js"></script>
+}
 
 <script type="text/javascript">
+
+    //Schedule Model
+    var oService = {};
+
+    //Service Group select list (select2)    
+    var oGroupList = [];
+
     //Updates the image on selected menu
     DocReady.push(function () { menuSelected("#servicesmnu") });
-
     DocReady.push(function () {
-        $('#ServicesGroupsView').click(function () {
-            var url = "/NNAdmin1/Services/ServicesGroups";
-            $.get(url, function () {
-                $('#ServicesGroups').modal("show").css({ 'width': '800px', 'margin-left': function () { return -($(this).width() / 2); } });
-            });
+
+        //Sets edit in place as inline
+        $.fn.editable.defaults.mode = 'inline';
+
+        //Sets in memory the Service model
+        NN_SendAjax("GET",
+            "/NNAdmin1/Services/GetNewService",
+            null,
+            ["Get New Schedule"],
+            function (response) {   //Success
+                if (response.odata != null) {
+                    oService = response.odata;
+                }
+            },
+            null, /* Error */
+            true /* Silent */);
+
+        //Service List
+        $("#ServiceList").DataTable({
+            ajax: {
+                url: "/NNAdmin1/Services/GetServices",
+                dataSrc: ""
+            },
+            bInfo: false,
+            pagingType: "full_numbers",
+            columns: [
+                {
+                    data: null, target: 0, render: function (data, type, row, meta) {
+                        if (type == "sort") {
+                            return (data == null, "", data.ServiceName);
+                        }
+                        if (type == "filter") {
+                            return (data == null, "", JSON.stringify(data));
+                        }
+                        //Internal complex data (expandable)
+                        if (type === "display") {
+                            var cinternal = "";
+                            var nDataIndex = meta.row;
+                            cinternal += '<table class="nn-dynamic-item" id="collapse-td"' + nDataIndex + '>';
+                            cinternal += '  <tr>';
+                            cinternal += '      <th id="itmhead' + nDataIndex + '" class="nn-di-th">';
+                            cinternal += '          <a data-parent="#collapse-td' + nDataIndex + '" href="#collapseTD' + nDataIndex + '" data-toggle="collapse">';
+                            cinternal += '              <i class="' + data.oServiceGroup.GroupIcon + '"></i> ' + data.ServiceName;
+                            cinternal += '          </a>';
+                            cinternal += '      </th>';
+                            cinternal += '  </tr>';
+                            cinternal += '  <tr>';
+                            cinternal += '      <td class="nn-di-td">'
+                            cinternal += '          <div class="collapse nn-di-content" id="collapseTD' + nDataIndex + '">';
+                            cinternal += '              <div class="nn-di-inner-content">';
+                            cinternal += '                  <div class="row-fluid">';
+                            cinternal += '                      <div class="span12">';
+                            cinternal += '                          <ul class="nn-di-ul">';
+                            cinternal += '                              <li class="nn-di-li title">Group</li>';
+                            cinternal += '                          </ul>';
+                            cinternal += '                      </div>';
+                            cinternal += '                  </div>';
+
+                            cinternal += '                  <div class="row-fluid">';
+                            cinternal += '                      <div class="span6">';
+                            cinternal += '                          <ul class="nn-di-ul">';
+                            cinternal += '                              <li class="nn-di-li"><span>Service Id:</span> ' + ((data.ServiceId == "NULLID") ? "New Service" : data.ServiceId) + '</li>';
+                            cinternal += '                              <li class="nn-di-li"><span>Service Name:</span> <a id="ServiceName' + nDataIndex + '" data-value="' + data.ServiceName + '" data-type="text">' + data.ServiceName + '</a></li>';
+                            cinternal += '                              <li class="nn-di-li"><span>Service Description:</span> <a id="ServiceDesc' + nDataIndex + '" data-value="' + data.ServiceDescription + '" data-type="textarea">' + data.ServiceDescription + '</a></li>';
+                            cinternal += '                          </ul>';
+                            cinternal += '                      </div>';
+                            cinternal += '                      <div class="span6">';
+                            cinternal += '                          <ul class="nn-di-ul">';
+                            cinternal += '                              <li class="nn-di-li"><span>Service Group:</span> <a id="ServiceGroup' + nDataIndex + '" data-title="Service Group" data-value="' + data.oServiceGroup.GroupId + '" data-type="select2"><i id="SvcGrpColor" class="nn-color-sq" style="background-color: ' + data.oServiceGroup.GroupColor + '"></i> <i id="SvcGrpIcon" class="' + data.oServiceGroup.GroupIcon + '"></i>' + data.oServiceGroup.GroupName + '</a></li>';
+                            cinternal += '                              <li class="nn-di-li"><span>Group Description:</span> <a id="SvcGrpDesc' + nDataIndex + '" data-type="textarea">' + data.oServiceGroup.GroupDescription + '</a></li>';
+                            cinternal += '                              <li class="nn-di-li"><span>Service Status:</span>';
+                            if (data.ServiceStatus === "O") {
+                                cinternal += '                                  <span class="nn-active">Active</span>';
+                            }
+                            else {
+                                cinternal += '                                  <span class="nn-blocked">Inactive</span>';
+                            }
+                            cinternal += '                              </li>';
+                            cinternal += '                          </ul>';
+                            cinternal += '                      </div>';
+                            cinternal += '                  </div>';
+
+                            cinternal += '                  <div class="row-fluid">';
+                            cinternal += '                      <div class="span6">';
+                            cinternal += '                          <ul class="nn-di-ul">';
+                            cinternal += '                              <a href="Services/ServiceView?cServiceId=' + data.ServiceId + '" class="btnaction"><li class="nn-di-li ctrl"><i class="icon-eye-open"></i> View Service</li></a>';
+                            cinternal += '                          </ul>';
+                            cinternal += '                      </div>';
+                            cinternal += '                      <div class="span6">';
+                            cinternal += '                          <ul class="nn-di-ul">';
+                            cinternal += '                              <a onclick="SaveService(' + nDataIndex + ')" id="SaveSvc' + nDataIndex + '" class="svgrp hidden"><li class="nn-di-li ctrl btn-success"><i class="icon-save"></i> Save Changes</li></a>';
+                            cinternal += '                              <a onclick="CancelEditService(' + nDataIndex + ')" id="CancSvc' + nDataIndex + '" class="cangrp hidden"><li class="nn-di-li ctrl btn-danger"><i class="icon-ban-circle"></i> Cancel Changes</li></a>';
+                            cinternal += '                          </ul>';
+                            cinternal += '                      </div>';
+                            cinternal += '                  </div>';
+                            cinternal += '              </div>';
+                            cinternal += '          </div>';
+                            cinternal += '      </td>';
+                            cinternal += '  </tr>';
+                            cinternal += '</table>';
+
+                            return cinternal;
+                        }
+                        return data;
+                    }
+                }
+            ],
+            drawCallback: function (settings) {
+                //Adjust the classes
+                $("#ServiceList_paginate").addClass("fg-buttonset ui-buttonset fg-buttonset-multi ui-buttonset-multi");
+                $(".paginate_button").removeClass("paginate_button").addClass("fg-button ui-button ui-state-default");
+                $("div .row:last-of-type").removeClass("row").addClass("fg-toolbar ui-toolbar ui-widget-header ui-helper-clearfix ui-corner-bl ui-corner-br");
+                $("#ServiceList").removeAttr("style");
+            },
+            initComplete: function () { $("#ServiceList").removeAttr("style") }
         });
+
+        //Gets the Group List into variable (select2 ajax into x-editable not working)
+        NN_SendAjax("GET",
+                    "/NNAdmin1/Lists/GetGroupIconList",
+                    null,
+                    ["Get Group List", "Get Group List"],
+                    function (response) {   //Success
+                        if (response.odata != null) {
+                            var oOptions = response.odata.find(x => x.cListName == "servicesgroupicon").oItens;
+                            if (oOptions != null) {
+                                oGroupList = oOptions;
+                            }
+                        }
+                    },
+                    null,
+                    true);
     });
+
+    function ServiceAdd() {
+        NN_SendAjax("GET",
+                    "/NNAdmin1/Services/GetNewService",
+                    null,
+                    ["Get New Service", "Get New Service"],
+                        function (response) {   //Success
+                            if (response.odata != null) {
+                                var oTable = $("#ServiceList").DataTable();
+                                var rowAdded = oTable.row.add(response.odata);
+                                oTable.search("NULLID").draw(false);
+                                var nItm = rowAdded.index();
+                                ServiceEdit(nItm);
+                            }
+                        },
+                    null,
+                    true);
+    }
+
+    function ServiceEdit(nItm) {
+
+        //console.log(nItm);
+        $("#itmhead" + nItm).addClass("nn-editing-hd");
+        $("#collapseTD" + nItm).collapse("toggle");
+        $(".input-sm").attr("readonly", "");
+        $(".btnaction").addClass("hidden");
+        $("#SaveSvc" + nItm).removeClass("hidden");
+        $("#CancSvc" + nItm).removeClass("hidden");
+
+        $("#ServiceName" + nItm).editable({ validate: notEmpty }).editable('enable');
+        $("#ServiceDesc" + nItm).editable({ validate: notEmpty }).editable('enable');
+
+        //Service Group
+        $("#ServiceGroup" + nItm).editable({
+            placeholder: 'Select a group ...',
+            allowClear: true,
+            select2: {
+                data: oGroupList,
+                id: function (item) {
+                    return item.id;
+                },
+                templateResult: function (oRet) {
+                    var result = "";
+                    if(oRet.id == ""){
+                        return oRet.text;
+                    }
+                    if (!oRet.disabled) {
+                        var oParse = JSON.parse(oRet.text);
+                        result = $('<i id="SvcGrpColor" class="nn-color-sq" style="background-color: ' + oParse.GroupColor + '"></i> <i id="SvcGrpIcon" class="' + oParse.GroupIcon + '"></i><span style="color: #000"> ' + oParse.GroupName + '</span>');
+                    }
+                    return result;
+                },
+                templateSelection: function (oRet) {
+                    var result = "";
+                    if (oRet.id == "") {
+                        return oRet.text;
+                    }
+                    if (!oRet.disabled) {
+                        var oParse = JSON.parse(oRet.text);
+                        result = $('<i id="SvcGrpColor" class="nn-color-sq" style="background-color: ' + oParse.GroupColor + '"></i> <i id="SvcGrpIcon" class="' + oParse.GroupIcon + '"></i><span style="color: #000"> ' + oParse.GroupName + '</span>');
+                    }
+                    return result;
+                }
+            },
+            display: function (newValue) {
+                var oRet = oGroupList.find(x => x.id === newValue);
+                if (oRet) {
+                    var oParse = JSON.parse(oRet.text);
+                    $(this).html('<i id="SvcGrpColor" class="nn-color-sq" style="background-color: ' + oParse.GroupColor + '"></i> <i id="SvcGrpIcon" class="' + oParse.GroupIcon + '"></i> ' + oParse.GroupName);
+                } else {
+                    $(this).html("");
+                }
+            },
+            success: function (response, newValue) {
+                var oRet = oGroupList.find(x => x.id === newValue);
+                if (oRet) {
+                    var oParse = JSON.parse(oRet.text);
+                    console.log(oParse.GroupDescription);
+                    $("#SvcGrpDesc" + nItm).html(oParse.GroupDescription);
+                }
+            }
+        }).editable('enable');
+    }
+
+    function CancelEditService(nItm) {
+        var oDTTable = $("#ServiceList").DataTable();
+        var cId = oDTTable.row(nItm).data().ServiceId;
+        if (cId == "NULLID") {    //Not saved yet
+            oDTTable.row(nItm).remove();
+            oDTTable.search("NULLID").draw(false);
+        } else {
+            $("#ServiceName" + nItm).editable('disable');
+            $("#ServiceDesc" + nItm).editable('disable');
+            $("#ServiceGroup" + nItm).editable('disable');
+        }
+        $(".input-sm").removeAttr("readonly");
+        oDTTable.search("").draw();
+        $("#SaveSvc" + nItm).addClass("hidden");
+        $("#CancSvc" + nItm).addClass("hidden");
+        $(".btnaction").removeClass("hidden");
+    }
+
+    function SaveService(nItm) {
+        UpdateSvcModel(oService, nItm);
+        console.log(oService);
+        NN_SendAjax("POST",
+            "/NNAdmin1/Services/UpdateService",
+            oService,
+            ["Service Creation", "Service Creation"],
+            function () {   //Success
+                CancelEditService(nItm);
+                ReloadServiceList();
+            },
+            null);
+    }
+
+    function UpdateSvcModel(oModel, nItm) {
+        oModel.ServiceName = $("#ServiceName" + nItm).editable("getValue")["ServiceName"+nItm];
+        oModel.ServiceDescription = $("#ServiceDesc" + nItm).editable("getValue")["ServiceDesc"+nItm];
+        oModel.ServiceGroup = $("#ServiceGroup" + nItm).editable("getValue")["ServiceGroup"+nItm];
+        oModel.ServiceAlterDate = moment(parseInt(oModel.ServiceAlterDate.substr(6))).format("YYYY-MM-DDTHH:mm:ssZ");
+        oModel.ServiceCreateDate = moment(parseInt(oModel.ServiceCreateDate.substr(6))).format("YYYY-MM-DDTHH:mm:ssZ");
+        oModel.ServiceSchedule = []; // Not sending the schedule here
+        oModel.oServiceGroup = {}; // Not sending the group object
+    }
+
+    function ReloadServiceList() {
+        $("#ServiceList").DataTable().ajax.reload();
+    }
 
 </script>

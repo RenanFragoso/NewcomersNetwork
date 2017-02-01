@@ -1,7 +1,8 @@
-﻿CREATE PROCEDURE [dbo].[sp_Events_GetToDate]
+﻿CREATE PROCEDURE [dbo].[sp_Service_GetToDate]
 @dateToFind datetime
 AS
 SELECT *
 FROM [dbo].[Services]
-WHERE [EventStartDate] <= @dateToFind
-AND [EventEndDate] >= @dateToFind
+WHERE [ServiceStartDate] <= @dateToFind
+AND [ServiceEndDate] >= @dateToFind
+AND [ServiceStatus] = 'O';

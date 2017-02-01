@@ -1,0 +1,141 @@
+﻿@model NewcomersNetworkIFACE.Areas.NNAdmin1.Models.Events
+@{
+    Layout = "~/Areas/NNAdmin1/Views/Shared/_Layout1.cshtml";
+    ViewBag.Title = "Calendar";
+}
+
+@section CSSSection {
+    <link rel="stylesheet" href="/Content/css/uniform.css" />
+    <link rel="stylesheet" href="/Content/css/select2.css" />
+    <link rel="stylesheet" href="/Content/css/fullcalendar.css" />
+    <link rel="stylesheet" href="/Content/css/nn_admin.css" />
+}
+
+<div id="content">
+    <!--breadcrumbs-->
+    <div id="content-header">
+        <div id="breadcrumb">
+            <a href="/NNAdmin1/Dashboard" title="NNAdmin" class="tip-bottom">
+                <i class="icon-home"></i>
+                NNAdmin
+            </a>
+            <a href="/NNAdmin1/Services" title="Services" class="tip-bottom">
+                <i class="icon-calendar"></i>
+                Calendar
+            </a>
+        </div>
+        <h1>Calendar</h1>
+    </div>
+    <!--End-breadcrumbs-->
+    <!--Action boxes-->
+    <div class="container-fluid">
+
+        <hr />
+
+        <div class="row-fluid">
+            <div class="span12">
+                <div class="widget-box widget-calendar">
+                    <div class="widget-title">
+                        <span class="icon"><i class="icon-calendar"></i></span>
+                        <h5>Newcomers Network Calendar</h5>
+                        <!--
+                        <div class="buttons">
+                            <a id="add-event" data-toggle="modal" href="#modal-add-event" class="btn btn-inverse btn-mini"><i class="icon-plus icon-white"></i> Add new event</a>
+                            <div class="modal hide" id="modal-add-event">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">×</button>
+                                    <h3>Add a new event</h3>
+                                </div>
+                                <div class="modal-body">
+                                    <p>Enter event name:</p>
+                                    <p>
+                                        <input id="event-name" type="text" />
+                                    </p>
+                                </div>
+                                <div class="modal-footer"> <a href="#" class="btn" data-dismiss="modal">Cancel</a> <a href="#" id="add-event-submit" class="btn btn-primary">Add event</a> </div>
+                            </div>
+                        </div>
+                        -->
+                    </div>
+                    <div class="widget-content">
+                        <div class="row-fluid">
+                        
+                        <!-- <div class="panel-left"> -->
+                            <div id="fullcalendar"></div>
+                        </div>
+                        <!--
+                        <div id="external-events" class="panel-right">
+                            <div class="panel-title">
+                                <h5>Drag Events to the calander</h5>
+                            </div>
+                            <div class="panel-content">
+                                <div class="external-event ui-draggable label label-inverse">My Event 1</div>
+                                <div class="external-event ui-draggable label label-inverse">My Event 2</div>
+                                <div class="external-event ui-draggable label label-inverse">My Event 3</div>
+                                <div class="external-event ui-draggable label label-inverse">My Event 4</div>
+                                <div class="external-event ui-draggable label label-inverse">My Event 5</div>
+                            </div>
+                        </div>
+                        -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+
+@*RenderPage("_ServicesGroupView.cshtml")*@
+
+@section JSSection {
+    <script src="/Content/js/fullcalendar.min.js"></script>
+    <script src="/Content/js/nn_admin.js"></script> 
+}
+
+
+<script type="text/javascript">
+    //Updates the image on selected menu
+    DocReady.push(function () { menuSelected("#calendarmnu") });
+    DocReady.push(function () {
+
+        var date = new Date();
+        var d = date.getDate();
+        var m = date.getMonth();
+        var y = date.getFullYear();
+
+        $('#fullcalendar').fullCalendar({
+            header: {
+                left: 'prev,next',
+                center: 'title',
+                right: 'month,basicWeek,basicDay'
+            },
+            editable: false,
+            droppable: false, // this allows things to be dropped onto the calendar !!!
+            drop: function (date, allDay) { // this function is called when something is dropped
+
+                // retrieve the dropped element's stored Event Object
+                var originalEventObject = $(this).data('eventObject');
+
+                // we need to copy it, so that multiple events don't have a reference to the same object
+                var copiedEventObject = $.extend({}, originalEventObject);
+
+                // assign it the date that was reported
+                copiedEventObject.start = date;
+                copiedEventObject.allDay = allDay;
+
+                // render the event on the calendar
+                // the last `true` argument determines if the event "sticks" (http://arshaw.com/fullcalendar/docs/event_rendering/renderEvent/)
+                $('#fullcalendar').fullCalendar('renderEvent', copiedEventObject, true);
+
+                // is the "remove after drop" checkbox checked?
+                // if so, remove the element from the "Draggable Events" list
+                $(this).remove();
+
+            }
+        });
+
+    });
+
+</script>
+

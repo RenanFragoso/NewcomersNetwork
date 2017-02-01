@@ -44,7 +44,8 @@ html .fc, .fc table {
     position: absolute !important;
     right: 0;
     text-align: right;
-    top: -37px;
+    /* top: -37px; */
+    top: -36px;
 }
 .panel-left .fc-header-right {
 	right: -1px;
@@ -79,11 +80,11 @@ html .fc, .fc table {
     z-index: 4;
 }
 .fc-button-prev .fc-button-content {
-    background: url("../img/larrow.png") no-repeat scroll 15px 13px transparent;
+    background: url("/Content/Images/larrow.png") no-repeat scroll 15px 13px transparent;
     width: 10px;
 }
 .fc-button-next .fc-button-content {
-    background: url("../img/rarrow.png") no-repeat scroll 15px 13px transparent;
+    background: url("/Content/Images/rarrow.png") no-repeat scroll 15px 13px transparent;
     width: 10px;
 }
 .fc-content {

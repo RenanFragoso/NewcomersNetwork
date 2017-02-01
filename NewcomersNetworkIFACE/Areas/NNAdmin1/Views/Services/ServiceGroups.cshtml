@@ -1,0 +1,615 @@
+﻿@model List<NewcomersNetworkAPI.Models.ServiceGroup>
+@{
+    Layout = "~/Areas/NNAdmin1/Views/Shared/_Layout1.cshtml";
+    ViewBag.Title = "Service Groups" ;
+    int lineId = 0;
+}
+
+@section CSSSection {
+    <link rel="stylesheet" href="/Content/css/jquery.dataTables.css" />
+    <link rel="stylesheet" href="/Content/css/dataTables.bootstrap.css" />
+    <link rel="stylesheet" href="/Content/css/uniform.css" />
+    <link rel="stylesheet" href="/Content/css/select2.css" />
+    <link rel="stylesheet" href="/Content/css/datepicker.css" />
+    <link rel="stylesheet" href="/Content/css/bootstrap-editable.css" />
+    <link rel="stylesheet" href="/Content/css/jquery-confirm.css" />
+    <link rel="stylesheet" href="/Content/css/nn_admin.css" />
+}
+
+<div id="content">
+    <!--breadcrumbs-->
+    <div id="content-header">
+        <div id="breadcrumb">
+            <a href="/NNAdmin1/Dashboard" title="NNAdmin" class="tip-bottom">
+                <i class="icon-home"></i>
+                NNAdmin
+            </a>
+            <a href="/NNAdmin1/Services" title="Services" class="tip-bottom">
+                <i class="icon-th"></i>
+                Services
+            </a>
+            <a href="/NNAdmin1/Services/ServiceGroups" title="Service Groups" class="tip-bottom">
+                <i class="icon-th"></i>
+                Service Groups
+            </a>
+        </div>
+        <!--End-breadcrumbs-->
+        
+        <h1>Service Groups</h1>
+    </div>
+
+    <!--Action boxes-->
+    <div class="container-fluid">
+
+        <!--End-Action boxes-->
+
+        <div class="row-fluid">
+
+            <!-- LEFT -->
+            <div class="span12">
+
+                <hr />
+
+                <div class="widget-box">
+                    <div class="widget-title">
+                        <span class="icon"><i class="icon-th"></i></span>
+                        <h5>Service Groups</h5>
+                        <div class="buttons">
+                            <a id="add-group" data-toggle="modal" href="#" class="btn btn-info btn-mini btnaction" onclick="AddGroup()"><i class="icon-plus icon-white"></i> Add new Group</a>
+                        </div>
+                    </div>
+                    <div class="widget-content nopadding">
+                            <table id="GroupList" class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Groups</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                </tbody>
+                            </table>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@section JSSection {
+    <script src="/Content/js/jquery.dataTables.js"></script>
+    <script src="/Content/js/dataTables.bootstrap.js"></script>
+    <script src="/Content/js/masked.js"></script>
+    <script src="/Content/js/moment.js"></script>
+    <script src="/Content/js/combodate.js"></script>
+    <script src="/Content/js/bootstrap-datepicker.js"></script>
+    <script src="/Content/js/bootstrap-editable.min.js"></script>
+    <script src="/Content/js/jquery-confirm.js"></script>
+    <script src="/Content/js/select2.full.js"></script>
+    <script src="/Content/js/nn_admin.js"></script>
+}
+
+<script type="text/javascript">
+
+    //Icons List
+    var iconOptions = [];
+    //Colors List
+    var colorOptions = [];
+    
+    //Updates the image on selected menu
+    DocReady.push(function () { menuSelected("#servicesmnu") });
+    DocReady.push(function () {
+
+        //Sets edit in place as inline
+        $.fn.editable.defaults.mode = 'inline';
+
+        //Gets the Group Icons List into variable
+        NN_SendAjax("GET",
+                    "/NNAdmin1/Lists/GetGroupIcons",
+                    null,
+                    ["Get Group Icons List"],
+                    function (response) {   //Success
+
+                        if (response.odata != null) {
+                            var oOptions = response.odata.find(x => x.cListName == "groupicons").oItens;
+                            if (oOptions != null) {
+                                iconOptions = oOptions;
+                            }
+                        }
+                    },
+                    null,
+                    true);
+
+        //Gets the Group Colors List into variable
+        NN_SendAjax("GET",
+            "/NNAdmin1/Lists/GetGroupColors",
+            null,
+            ["Get Group Colors List"],
+            function (response) {   //Success
+
+                if (response.odata != null) {
+                    var oOptions = response.odata.find(x => x.cListName == "groupcolors").oItens;
+                    if (oOptions != null) {
+                        colorOptions = oOptions;
+                    }
+                }
+            },
+            null,
+            true);
+        
+        //Group List
+        $("#GroupList").DataTable({
+            ajax: {
+                url: "/NNAdmin1/Services/GetAllGroups",
+                dataSrc: ""
+            },
+            bInfo: false,
+            pagingType: "full_numbers",
+            columns: [
+                {
+                    data: null, target: 0, render: function (data, type, row, meta) {
+                        if (type == "sort") {
+                            return (data == null, "", data.GroupName);
+                        }
+                        if (type == "filter") {
+                            return (data == null, "", JSON.stringify(data));
+                        }
+                        //Internal complex data (expandable)
+                        if (type === "display") {
+                            var cinternal = "";
+                            var nDataIndex = meta.row;
+
+                            cinternal += '<table class="nn-dynamic-item" id="collapse-td"' + nDataIndex + '>';
+                            cinternal += '  <tr>';
+                            cinternal += '      <th id="itmhead' + nDataIndex + '" class="nn-di-th">';
+                            cinternal += '          <a data-parent="#collapse-td' + nDataIndex + '" href="#collapseTD' + nDataIndex + '" data-toggle="collapse">';
+                            cinternal += '              <i class="' + data.GroupIcon + '"></i> ' + data.GroupName;
+                            cinternal += '          </a>';
+                            cinternal += '      </th>';
+                            cinternal += '  </tr>';
+                            cinternal += '  <tr>';
+                            cinternal += '      <td class="nn-di-td">'
+                            cinternal += '          <div class="collapse nn-di-content" id="collapseTD' + nDataIndex + '">';
+                            cinternal += '              <div class="nn-di-inner-content">';
+                            cinternal += '                  <div class="row-fluid">';
+                            cinternal += '                      <div class="span12">';
+                            cinternal += '                          <ul class="nn-di-ul">';
+                            cinternal += '                              <li class="nn-di-li title">Group</li>';
+                            cinternal += '                          </ul>';
+                            cinternal += '                      </div>';
+                            cinternal += '                  </div>';
+                            cinternal += '                  <div class="row-fluid">';
+                            cinternal += '                      <div class="span6">';
+                            cinternal += '                          <ul class="nn-di-ul">';
+                            cinternal += '                              <li class="nn-di-li"><span>Group Id:</span> ' + ((data.GroupId == "NULLID") ? "New Group" : data.GroupId) + '</li>';
+                            cinternal += '                              <li class="nn-di-li"><span>Group Name:</span> <a id="GroupName' + nDataIndex + '" data-type="text">' + data.GroupName + '</a></li>';
+                            cinternal += '                              <li class="nn-di-li"><span>Group Description:</span> <a id="GroupDescription' + nDataIndex + '" data-type="textarea">' + data.GroupDescription + '</a></li>';
+                            cinternal += '                          </ul>';
+                            cinternal += '                      </div>';
+                            cinternal += '                      <div class="span6">';
+                            cinternal += '                          <ul class="nn-di-ul">';
+                            cinternal += '                              <li class="nn-di-li"><span>Group Color:</span> <a id="GroupColor' + nDataIndex + '" data-value="' + data.GroupColor + '" data-type="select2"><i class="nn-color-sq" style="background-color: ' + data.GroupColor + '"></i> ' + data.GroupColor + '</a></li>';
+                            cinternal += '                              <li class="nn-di-li"><span>Group Icon:</span>';
+                            cinternal += '                                  <a id="GroupIcon' + nDataIndex + '" data-title="Select Icon" data-value="' + data.GroupIcon + '" data-type="select2"><i id="GrpIcon' + nDataIndex + '" class="' + data.GroupIcon + '"></i> ' + data.GroupIcon + '</a>';
+                            cinternal += '                              </li>';
+                            cinternal += '                              <li class="nn-di-li"><span>Status:</span>';
+                            if (data.GroupStatus == "O") {
+                                cinternal += '                                  <span class="nn-active">Active</span>';
+                            }
+                            else {
+                                cinternal += '                                  <span class="nn-blocked">Inactive</span>';
+                            }
+                            cinternal += '                              </li>';
+                            cinternal += '                          </ul>';
+                            cinternal += '                      </div>';
+                            cinternal += '                  </div>';
+                            cinternal += '                  <div class="row-fluid">';
+                            cinternal += '                      <div class="span6">';
+                            cinternal += '                          <ul class="nn-di-ul">';
+                            cinternal += '                              <a onclick="EditGroup(\'' + data.GroupId + '\', ' + nDataIndex + ')" class="btnaction"><li class="nn-di-li ctrl"><i class="icon-edit"></i> Edit Group</li></a>';
+                            cinternal += '                          </ul>';
+                            cinternal += '                      </div>';
+                            cinternal += '                      <div class="span6">';
+                            cinternal += '                          <ul class="nn-di-ul">';
+                            cinternal += '                              <a onclick="SaveGroup(\'' + data.GroupId + '\', ' + nDataIndex + ')" id="SaveItm' + nDataIndex + '" class="svgrp hidden"><li class="nn-di-li ctrl btn-success"><i class="icon-save"></i> Save Changes</li></a>';
+                            cinternal += '                              <a onclick="CancelEditGroup(\'' + data.GroupId + '\', ' + nDataIndex + ')" id="CancItm' + nDataIndex + '" class="cangrp hidden"><li class="nn-di-li ctrl btn-danger"><i class="icon-ban-circle"></i> Cancel Changes</li></a>';
+                            if (data.GroupId != "7EE71651-DAC7-4E7C-A54A-BF774BCEE74D") {
+                                cinternal += '                              <a id="rembtn' + nDataIndex + '" class="btnaction removeconf" data-item="' + nDataIndex + '" data-target="#rembtn' + nDataIndex + '" data-group="' + data.GroupId + '" onclick="RemoveGroup(\'' + data.GroupId + '\', \'' + nDataIndex + '\')"><li class="nn-di-li ctrl"><i class="icon-remove"></i> Remove Group</li></a>';
+                                if (data.GroupStatus === "O") {
+                                    cinternal += '                              <a id="deacbtn' + nDataIndex + '" class="btnaction deactconf" data-item="' + nDataIndex + '" data-target="#deacbtn' + nDataIndex + '" data-group="' + data.GroupId + '" onclick="DeactivateGroup(\'' + data.GroupId + '\', \'' + nDataIndex + '\')"><li class="nn-di-li ctrl"><i class="icon-ban-circle"></i> Deactivate Group</li></a>';
+                                }
+                                else {
+                                    cinternal += '                              <a id="actvbtn' + nDataIndex + '" class="btnaction actvconf" data-item="' + nDataIndex + '" data-target="#actvbtn' + nDataIndex + '" data-group="' + data.GroupId + '" onclick="ActivateGroup(\'' + data.GroupId + '\', \'' + nDataIndex + '\')"><li class="nn-di-li ctrl"><i class="icon-ban-circle"></i> Activate Group</li></a>';
+                                }
+                            }
+                            cinternal += '                          </ul>';
+                            cinternal += '                      </div>';
+                            cinternal += '                  </div>';
+                            cinternal += '              </div>';
+                            cinternal += '          </div>';
+                            cinternal += '      </td>';
+                            cinternal += '  </tr>';
+                            cinternal += '</table>';
+
+                            return cinternal;
+                        }
+                        return data;
+                    }
+                }
+            ],
+            drawCallback: function (settings) {
+                //Adjust the classes
+                $("#GroupList_paginate").addClass("fg-buttonset ui-buttonset fg-buttonset-multi ui-buttonset-multi");
+                $(".paginate_button").removeClass("paginate_button").addClass("fg-button ui-button ui-state-default");
+                $("div .row:last-of-type").removeClass("row").addClass("fg-toolbar ui-toolbar ui-widget-header ui-helper-clearfix ui-corner-bl ui-corner-br");
+                $("#GroupList").removeAttr("style");
+            },
+            initComplete: function () { $("#GroupList").removeAttr("style") }
+        });
+        
+    });
+
+    function AddGroup() {
+
+        var oTable = $("#GroupList").DataTable();
+        var oTableApi = $("#GroupList").dataTable();
+        var nNewLine;
+        var nItm;
+        $.ajax({
+            type: "GET",
+            url: "/NNAdmin1/Services/GetNewGroup",
+        }).done(function (result) {
+            nNewLine = oTable.row.add(result);
+            nItm = nNewLine.index()
+            oTable.search("NULLID").draw(false);
+            $("#collapseTD" + nItm).collapse("toggle");
+            EditGroup(null, nItm);
+        }).fail(function (xhr, result, status) {
+            $.gritter.add({
+                title: "Error loading new group",
+                text: error,
+                sticky: false,
+                time: 3000
+            })
+        });
+    }
+
+    function EditGroup(cGroupId,nItm)
+    {
+        $(".btnaction").addClass("hidden");
+        $(".input-sm").attr("readonly", "");
+
+        $("#itmhead" + nItm).addClass("nn-editing-hd");
+        $("#SaveItm" + nItm).removeClass("hidden");
+        $("#CancItm" + nItm).removeClass("hidden");
+        $("#GroupName" + nItm).editable({ validate: notEmpty }).editable('enable');
+        $("#GroupDescription" + nItm).editable({ validate: notEmpty }).editable('enable');
+
+        //Color Select
+        $("#GroupColor" + nItm).editable({
+            placeholder: 'Select a color ...',
+            allowClear: true,
+            select2: {
+                data: colorOptions,
+                id: function (item) {
+                    return item.id;
+                },
+                templateResult: function (oRet) {
+                    var result = $('<i class="nn-color-sq" style="background-color: ' + oRet.id + '"></i><span style="color: #000"> ' + oRet.text + '</span>');
+                    return result;
+                },
+                templateSelection: function (oRet) {
+                    var result = $('<i class="nn-color-sq" style="background-color: ' + oRet.id + '"></i><span style="color: #000"> ' + oRet.text + '</span>');
+                    return result;
+                }
+            },
+            display: function (newValue) {
+                var oRet = colorOptions.find(x => x.id === newValue);
+                if (oRet) {
+                    $(this).html('<i class="nn-color-sq" style="background-color: ' + oRet.id + '"></i> ' + oRet.text );
+                } else {
+                    $(this).html("");
+                }
+            },
+            success: function (response, newvalue) {
+                //$("#GrpIcon" + nItm).removeClass();
+                //$("#GrpIcon" + nItm).addClass(newvalue);
+            }
+        }).editable('enable');
+
+        //Icon Select
+        $("#GroupIcon" + nItm).editable({
+            placeholder: 'Select an icon ...',
+            allowClear: true,
+            select2: {
+                data: iconOptions,
+                id: function (item) {
+                    return item.id;
+                },
+                templateResult: function (oRet) {
+                    var result = $('<i class="' + oRet.id + '"></i><span style="color: #000"> ' + oRet.text + '</span>');
+                    return result;
+                },
+                templateSelection: function (oRet) {
+                    var result = $('<i class="' + oRet.id + '"></i><span style="color: #000"> ' + oRet.text + '</span>');
+                    return result;
+                }
+            },
+            display: function (newValue) {
+                var oRet = iconOptions.find(x => x.id === newValue);
+                if (oRet) {
+                    $(this).html('<i class="' + oRet.id + '"></i> ' + oRet.text );
+                } else {
+                    $(this).html("");
+                }
+            },
+            success: function (response, newvalue) {
+                //$("#GrpIcon" + nItm).removeClass();
+                //$("#GrpIcon" + nItm).addClass(newvalue);
+            }
+        }).editable('enable');
+    }
+
+    function CancelEditGroup(cGroupId, nItm) {
+
+        var oDTTable = $("#GroupList").DataTable();
+
+        if (cGroupId == "NULLID") {    //Not saved yet
+            oDTTable.row(nItm).remove();
+        } else {
+            $("#GroupName" + nItm).editable('disable');
+            $("#GroupDescription" + nItm).editable('disable');
+            $("#GroupColor" + nItm).editable('disable');
+            $("#GroupIcon" + nItm).editable('disable');
+            $("#itmhead" + nItm).removeClass("nn-editing-hd");
+            $("#SaveItm" + nItm).addClass("hidden");
+            $("#CancItm" + nItm).addClass("hidden");
+            $(oDTTable.row(nItm).node()).removeClass("nn-editing-hd")
+        }
+        oDTTable.search("").draw();
+        $(".input-sm").removeAttr("readonly");
+        $(".btnaction").removeClass("hidden");
+    }
+
+    function SaveGroup(cGroupId, nItm) {
+        var oGroupUpdate = getUpdatedGroup(nItm);
+        console.log(oGroupUpdate);
+        $.ajax({
+            url: "/NNAdmin1/Services/GroupUpdate",
+            type: "POST",
+            data: oGroupUpdate,
+            success: function (response, textStatus, jqXHR) {
+                var cMessage = $.parseJSON(response.response).Message;
+                console.log(response);
+                if (response.success) {
+
+                    $("#GroupName" + nItm).editable('disable').removeClass('editable-unsaved');
+                    $("#GroupDescription" + nItm).editable('disable').removeClass('editable-unsaved');
+                    $("#GroupColor" + nItm).editable('disable').removeClass('editable-unsaved');
+                    $("#GroupIcon" + nItm).editable('disable').removeClass('editable-unsaved');
+                    $("#itmhead" + nItm).removeClass("nn-editing-hd");
+                    $("#SaveItm" + nItm).addClass("hidden");
+                    $(".btnaction").removeClass("hidden");
+                    
+                    ReloadGroupList();
+
+                    $.gritter.add({
+                        title: "Success",
+                        text: (cMessage ? cMessage : "Service Group Updated succefully."),
+                        sticky: false,
+                        time: 5000
+                    });
+
+                }
+                else {
+                    $.gritter.add({
+                        title: "Error Updating Service Group",
+                        text: (cMessage ? cMessage : "Service Group not Updated."),
+                        sticky: true,
+                        time: 5000
+                    })
+                }
+
+            },
+            error: function (jqXHR, textStatus, error) {
+                $.gritter.add({
+                    title: "Error Updating Service Group. Try again later.",
+                    text: error,
+                    sticky: false,
+                    time: 3000
+                })
+            }
+        });
+    }
+
+    function RemoveGroup(cGroupId, nItm) {
+        $.confirm({
+            title: "Remove Group",
+            content: "Really confirm group Removal? (this can\'t be undone)",
+            backgroundDismiss: false,
+            backgroundDismissAnimation: 'glow',
+            buttons: {
+                confirm: {
+                    btnClass: 'btn-primary',
+                    action: function () {
+                        $.ajax({
+                            url: "/NNAdmin1/Services/GroupDelete?cGroupId=" + cGroupId,
+                            type: "DELETE",
+                            async: true,
+                            success: function (response, textStatus, jqXHR) {
+                                var cMessage = $.parseJSON(response.response).Message;
+
+                                if (response.success) {
+                                    ReloadGroupList();
+                                    $.gritter.add({
+                                        title: "Success",
+                                        text: (cMessage ? cMessage : "Service Group Removed succefully."),
+                                        sticky: false,
+                                        time: 5000
+                                    });
+                                }
+                                else {
+                                    $.gritter.add({
+                                        title: "Error removing Service Group",
+                                        text: (cMessage ? cMessage : "Service Group Removal error."),
+                                        sticky: true,
+                                        time: 5000
+                                    })
+                                }
+                            },
+                            error: function (jqXHR, textStatus, error) {
+                                $.gritter.add({
+                                    title: "Error Removing Service Group. Try again later.",
+                                    text: error,
+                                    sticky: false,
+                                    time: 3000
+                                })
+                            }
+                        });
+                    }
+                },
+                cancel: {
+                    btnClass: 'btn-danger',
+                    keys: ['esc'],
+                    action: function(){}
+                }
+            }
+        });
+    }
+
+    function ActivateGroup(cGroupId, nItm) {
+        $.confirm({
+            title: "Activate Group",
+            content: "Really confirm group Activation?",
+            backgroundDismiss: false,
+            backgroundDismissAnimation: 'glow',
+            buttons: {
+                confirm: {
+                    btnClass: 'btn-primary',
+                    action: function () {
+                        var oGroupData = { "cGroupId": cGroupId };
+                        $.ajax({
+                            url: "/NNAdmin1/Services/GroupActivate",
+                            type: "POST",
+                            async: true,
+                            dataType: 'json',
+                            data: oGroupData,
+                            success: function (response, textStatus, jqXHR) {
+                                var cMessage = $.parseJSON(response.response).Message;
+                                if (response.success) {
+                                    ReloadGroupList();
+                                    $.gritter.add({
+                                        title: "Success",
+                                        text: (cMessage ? cMessage : "Service Group Activated succefully."),
+                                        sticky: false,
+                                        time: 5000
+                                    });
+                                }
+                                else {
+                                    $.gritter.add({
+                                        title: "Error removing Service Group",
+                                        text: (cMessage ? cMessage : "Service Group Activation errror."),
+                                        sticky: true,
+                                        time: 5000
+                                    })
+                                }
+                            },
+                            error: function (jqXHR, textStatus, error) {
+                                $.gritter.add({
+                                    title: "Error Activating Service Group. Try again later.",
+                                    text: error,
+                                    sticky: false,
+                                    time: 3000
+                                })
+                            }
+
+                        });
+                    }
+                },
+                cancel: {
+                    btnClass: 'btn-danger',
+                    keys: ['esc'],
+                    action: function () { }
+                }
+            }
+        });
+    }
+    
+    function DeactivateGroup(cGroupId, nItm) {
+
+        $.confirm({
+            title: "Deactivate Group",
+            content: "Really confirm group Deactivation?",
+            backgroundDismiss: false,
+            backgroundDismissAnimation: 'glow',
+            buttons: {
+                confirm: {
+                    btnClass: 'btn-primary',
+                    action: function () {
+                        var oGroupData = { "cGroupId": cGroupId };
+                        $.ajax({
+                            url: "/NNAdmin1/Services/GroupDeactivate",
+                            type: "POST",
+                            async: true,
+                            dataType: 'json',
+                            data: oGroupData,
+                            success: function (response, textStatus, jqXHR) {
+                                var cMessage = $.parseJSON(response.response).Message;
+                                if (response.success) {
+                                    ReloadGroupList();
+                                    $.gritter.add({
+                                        title: "Success",
+                                        text: (cMessage ? cMessage : "Service Group Deactivated succefully."),
+                                        sticky: false,
+                                        time: 5000
+                                    });
+                                }
+                                else {
+                                    $.gritter.add({
+                                        title: "Error removing Service Group",
+                                        text: (cMessage ? cMessage : "Service Group Deactivation error."),
+                                        sticky: true,
+                                        time: 5000
+                                    })
+                                }
+                            },
+                            error: function (jqXHR, textStatus, error) {
+                                $.gritter.add({
+                                    title: "Error Deactivating Service Group. Try again later.",
+                                    text: error,
+                                    sticky: false,
+                                    time: 3000
+                                })
+                            }
+                        });
+                    }
+                },
+                cancel: {
+                    btnClass: 'btn-danger',
+                    keys: ['esc'],
+                    action: function () { }
+                }
+            }
+        });
+        
+    }
+
+    function ReloadGroupList() {
+        $("#GroupList").DataTable().ajax.reload();
+    }
+    
+    function getUpdatedGroup(nItm) {
+
+        var oRowObj = $("#GroupList").DataTable().row(nItm).data();
+
+        //Override the values with updated one
+        oRowObj.GroupName = $("#GroupName" + nItm).text();
+        oRowObj.GroupDescription = $("#GroupDescription" + nItm).text();
+        oRowObj.GroupColor = $("#GroupColor" + nItm).editable("getValue")["GroupColor" + nItm];
+        oRowObj.GroupIcon = $("#GroupIcon" + nItm).editable("getValue")["GroupIcon" + nItm];
+
+        return oRowObj;
+    }
+
+</script>

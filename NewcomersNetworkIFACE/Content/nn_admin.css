@@ -261,3 +261,17 @@ div[class*="-info"] {
 .row {
   margin-bottom: 40px !important;
 }
+
+/*
+========================
+Services (Dashboard)
+========================
+*/
+
+.row-schditm {
+    margin: 0px !important;
+}
+
+.tbl-schditm {
+    width: 100%;
+}

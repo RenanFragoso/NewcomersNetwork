@@ -1,5 +1,5 @@
 ﻿CREATE PROCEDURE [dbo].[sp_Events_GetRegistrations]
-@cEventId nvarchar(126)
+@cEventId nvarchar(128)
 
 AS
 

@@ -1,5 +1,5 @@
 ﻿CREATE PROCEDURE [dbo].[sp_Services_Get]
-@cServiceId nvarchar(126)
+@cServiceId nvarchar(128)
 
 AS
 

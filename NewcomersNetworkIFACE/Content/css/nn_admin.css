@@ -1,0 +1,51 @@
+/*
+========================
+Services (Dashboard)
+========================
+*/
+
+.content-schditm {
+    margin: 0px !important;
+}
+
+.row-schditm {
+    margin: 0px !important;
+}
+
+.tbl-schditm {
+    width: 100%;
+    border-right: 1px solid #ddd !important;
+    border-bottom: 1px solid #ddd !important;
+}
+
+.nn-color-sq {
+    display: inline-block;
+    cursor: pointer;
+    width: 16px;
+    height: 16px;
+    margin-left: 10px;
+    padding: 0px !important;
+    border: 1px solid #ddd !important;
+    vertical-align: middle;
+}
+
+.nn-editing-hd {
+    background-color: #ff9797 !important;
+}
+
+.sorting_1 {
+    padding: 0 !important;
+}
+
+.nopadding {
+   padding: 0 !important;
+}
+
+.nopadding-bold {
+    padding: 0 !important;
+    font-weight: bold;
+}
+
+.nn-lineaction {
+    margin-left: 3px !important;
+}

@@ -34,7 +34,7 @@
                                             <div class="span6">
 
                                                 <ul class="nn-di-ul">
-                                                    <li class="nn-di-li"><span>ID:</span> @Service.ServiceId</li>
+                                                    <li class="nn-di-li"><span>Service Id:</span> @Service.ServiceId</li>
                                                     <li class="nn-di-li"><span>Service Name:</span> @Service.ServiceName</li>
                                                     <li class="nn-di-li"><span>Service Description:</span> @Service.ServiceDescription</li>
                                                               
@@ -43,7 +43,15 @@
 
                                             <div class="span6">
                                                 <ul class="nn-di-ul">
-                                                    <li class="nn-di-li"><span>Service Group:</span> @Service.ServiceGroup</li>
+                                                    <li class="nn-di-li"><span>Service Group:</span> @Service.oServiceGroup.GroupName</li>
+                                                    <li class="nn-di-li"><span>Group Description:</span> @Service.oServiceGroup.GroupDescription</li>
+                                                    <li class="nn-di-li"><span>Group Color:</span> <i class="nn-color-sq" style="background-color: @(Service.oServiceGroup.GroupColor)"></i> @Service.oServiceGroup.GroupColor</li>
+                                                    <li class="nn-di-li"><span>Group Icon:</span>
+                                                        @if (Service.oServiceGroup.GroupIcon.Length > 0)
+                                                        {
+                                                            <i class="@(Service.oServiceGroup.GroupIcon)"></i>
+                                                        }
+                                                    </li>
                                                 </ul>
                                             </div>
 

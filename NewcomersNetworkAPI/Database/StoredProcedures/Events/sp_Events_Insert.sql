@@ -10,7 +10,7 @@
 @nMaxSlots int=0, 
 @nCurSlots int=0, 
 @cImage NVARCHAR(255)=NULL, 
-@cCreatedBy nvarchar(126), 
+@cCreatedBy nvarchar(128), 
 @nType int=0,
 @dCreateDate datetime,
 @dAlterDate datetime,
@@ -18,8 +18,13 @@
 
 AS
 
-INSERT INTO [dbo].[Events] 
+DECLARE @NEWIDTBL Table (
+	Id nvarchar(128)
+);
+
+INSERT INTO [dbo].[Events]
 ( [Name], [Description], [StartDate], [EndDate], [Published], [StartPublishDate], [EndPublishDate], [Finished], [MaxSlots], [CurSlots], [Image], [CreatedBy], [Type], [CreateDate], [AlterDAte], [ExternalLink] ) 
+OUTPUT Inserted.Id into @NEWIDTBL
 VALUES ( @cName, @cDescription, @dStartDate, @dEndDate, @bPublished, @dStartPublishDate, @dEndPublishDate, @bFinished, @nMaxSlots, @nCurSlots, @cImage, @cCreatedBy, @nType, @dCreateDate, @dAlterDAte, @cExternalLink)
 
-SELECT SCOPE_IDENTITY() AS LAST_EVENT
+SELECT Id AS LAST_EVENT FROM @NEWIDTBL

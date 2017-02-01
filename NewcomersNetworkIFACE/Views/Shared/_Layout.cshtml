@@ -6,10 +6,12 @@
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 
+    <link rel="stylesheet" href="~/Content/css/font-awesome.css">
+
 </head>
 <body>
 
-    <nav class="navbar navbar-default navbar-fixed-top">
+    <nav class="navbar navbar-default">
         <div class="container">
             <div class="navbar-header">
 
@@ -18,7 +20,7 @@
                     <a class="navbar-brand" href="/">
                         <img class="nav-logo" alt="The Peoples Church" src="~/Content/Images/tpc-logo.jpg" height="49" width="87">
                     </a>
-                    <span>Newcomers Network</span>
+                    <p>Newcomers <br/> Network</p>
 
                 </div>
 
@@ -31,63 +33,145 @@
             </div>
 
             <div id="navbar" class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact Us", "Contact", "Home")</li>
-                    <li><a href="/Calendar">Church Calendar</a></li>
-                    <li><a href="/Classifieds">Classifieds</a></li>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="/Calendar">Find Us</a></li>
+                    <li><a href="/Classifieds">Events Calendar</a></li>
+                    @Html.Partial("_LoginPartial")
                 </ul>
-                @Html.Partial("_LoginPartial")
             </div>
         </div>
     </nav>
 
     <main class="content">
 
+        <!--
         <div class="welcome">
             <div class="container">
                 <h2>@System.Web.Configuration.WebConfigurationManager.AppSettings["ApplicationName"]</h2>
             </div>
         </div>
-
-        <div class="container body-content">
+        -->
+        <div class="body-content">
             @RenderBody()
         </div>
 
     </main>
-
+    
     <footer class="footer">
         <div class="container">
-            <div class="col-md-3 col-sm-4">
-                <div class="social">
-                    <a href="https://www.facebook.com/ThePeoplesChurchTO" target="_blank"><i class="fa fa-facebook"></i></a>
-                    <a href="https://twitter.com/TPCToronto" target="_blank"><i class="fa fa-twitter"></i></a>
-                    <a href="http://vimeo.com/thepeopleschurchtoronto" target="_blank"><i class="fa fa-vimeo-square"></i></a>
-                    <a href="https://thepeopleschurch.ca/email-subscription/"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span></a>
+
+            <div class="row">
+                <div class="col-md-12">
+
+                    <hr />
+
+                    <div>
+                        <center>
+                            <h2>Newcomers Network</h2>
+                            <h3>Compassion. Connection. Communty.</h3>
+                        </center>
+                    </div>
+
+                    <hr />
                 </div>
             </div>
-            <div class="col-md-3 col-sm-4">
-                <dl class="footer-meta-list">
-                    <dt class="footer-meta-title">About</dt>
-                    <dd class="footer-meta-item"><a href="#" class="footer-meta-link">Our Church</a></dd>
-                    <dd class="footer-meta-item"><a href="#" class="footer-meta-link">Legal/Privacy</a></dd>
-                    <dd class="footer-meta-item"><a href="#" class="footer-meta-link">Terms of Use</a></dd>
-                </dl>
+
+            <div class="row nn-ft-row1">
+                <div class="col-md-12">
+
+                    <div class="col-md-4">
+                        <a class="btn btn-social-icon btn-twitter">
+                            <span class="fa fa-twitter"></span>
+                        </a>
+                    </div>
+
+                    <div class="col-md-4">
+                        <a href="#"><h4><span class="grey-highlight">Donations</span></h4></a>
+                    </div>
+
+                    <div class="col-md-4">
+                        FIND US
+                    </div>
+
+
+                </div>
             </div>
-            <div class="col-md-3 col-sm-4">
-                <dl class="footer-meta-list">
-                    <dt class="footer-meta-title">Services</dt>
-                    <dd class="footer-meta-item"><a href="#" class="footer-meta-link">Eployment</a></dd>
-                    <dd class="footer-meta-item"><a href="#" class="footer-meta-link">Accessibility</a></dd>
-                    <dd class="footer-meta-item"><a href="#" class="footer-meta-link">Settlement</a></dd>
-                    <dd class="footer-meta-item"><a href="#" class="footer-meta-link">Housing</a></dd>
-                </dl>
+
+            <div class="row nn-ft-row2">
+                <div class="col-md-12">
+
+                    <div class="col-md-4 nn-ft-frst">
+                        <dl>
+                            <dt>About Us</dt>
+                            <dt>Volunteer Oportunities</dt>
+                            <dt>Our Policies</dt>
+                            <dt>Our Partners</dt>
+                        </dl>
+                    </div>
+
+                    <div class="col-md-4 nn-ft">
+
+                        <dl>
+                            <dt>Contact Us</dt>
+                            <dt>Terms of Use</dt>
+                            <dt>Legal / Privacy</dt>
+                        </dl>
+
+                    </div>
+
+                    <div class="col-md-4 nn-ft">
+                        <img alt="The Peoples Church" src="~/Content/Images/tpc-logo.jpg">
+                    </div>
+
+
+                </div>
             </div>
-        </div>
-    </footer>
+
+
+            <div class="row nn-ft-row3">
+                <div class="col-md-12">
+                    <span class="nn-ft-red">The Peoples Church</span>
+                    374 Sheppard Avenue East • Toronto, Ontario M2N 3B6 • Phone: 416.222.3341 © 2016
+                </div>
+            </div>
+
+
+           <!--
+                <div class="col-md-3 col-sm-4">
+                    <div class="social">
+                        <a href="https://www.facebook.com/ThePeoplesChurchTO" target="_blank"><i class="fa fa-facebook"></i></a>
+                        <a href="https://twitter.com/TPCToronto" target="_blank"><i class="fa fa-twitter"></i></a>
+                        <a href="http://vimeo.com/thepeopleschurchtoronto" target="_blank"><i class="fa fa-vimeo-square"></i></a>
+                        <a href="https://thepeopleschurch.ca/email-subscription/"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span></a>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-4">
+                    <dl class="footer-meta-list">
+                        <dt class="footer-meta-title">About</dt>
+                        <dd class="footer-meta-item"><a href="#" class="footer-meta-link">Our Church</a></dd>
+                        <dd class="footer-meta-item"><a href="#" class="footer-meta-link">Legal/Privacy</a></dd>
+                        <dd class="footer-meta-item"><a href="#" class="footer-meta-link">Terms of Use</a></dd>
+                    </dl>
+                </div>
+                <div class="col-md-3 col-sm-4">
+                    <dl class="footer-meta-list">
+                        <dt class="footer-meta-title">Services</dt>
+                        <dd class="footer-meta-item"><a href="#" class="footer-meta-link">Eployment</a></dd>
+                        <dd class="footer-meta-item"><a href="#" class="footer-meta-link">Accessibility</a></dd>
+                        <dd class="footer-meta-item"><a href="#" class="footer-meta-link">Settlement</a></dd>
+                        <dd class="footer-meta-item"><a href="#" class="footer-meta-link">Housing</a></dd>
+                    </dl>
+                </div>
+                -->
+
+
+                </div>
+</footer>
 
     @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
+    //@Scripts.Render("~/bundles/bootstrap")
+    <script src="/Content/js/bootstrap.min.js"></script>
+    <script src="/Content/js/respond.min.js"></script>
     @RenderSection("scripts", required: false)
 
 </body>

@@ -1,0 +1,679 @@
+﻿@model NewcomersNetworkAPI.Models.ServicesSchedule
+@{
+    Layout = "~/Areas/NNAdmin1/Views/Shared/_Layout1.cshtml";
+    ViewBag.Title = "View Service";
+}
+
+@section CSSSection {
+    <link rel="stylesheet" href="/Content/css/jquery.dataTables.css" />
+    <link rel="stylesheet" href="/Content/css/dataTables.bootstrap.css" />
+    <link rel="stylesheet" href="/Content/css/uniform.css" />
+    <link rel="stylesheet" href="/Content/css/select2.css" />
+    <link rel="stylesheet" href="/Content/css/datepicker.css" />
+    <link rel="stylesheet" href="/Content/css/bootstrap-editable.css" />
+    <link rel="stylesheet" href="/Content/css/jquery-confirm.css" />
+    <link rel="stylesheet" href="/Content/css/nn_admin.css" />
+}
+
+<div id="content">
+    <!--breadcrumbs-->
+    <div id="content-header">
+        <div id="breadcrumb">
+            <a href="/NNAdmin1/Dashboard" title="NNAdmin" class="tip-bottom">
+                <i class="icon-home"></i>
+                NNAdmin
+            </a>
+            <a href="/NNAdmin1/Services" title="Services" class="tip-bottom">
+                <i class="icon-th"></i>
+                Services
+            </a>
+            <a href="/NNAdmin1/Services/ServiceView?cServiceId=@(Model.ServiceId)" title="Service: @ViewBag.oService.ServiceName" class="tip-bottom">
+                <i class="icon-th"></i>
+                Service: @ViewBag.oService.ServiceName
+            </a>
+            <a href="/NNAdmin1/Services/ScheduleView?cServiceId=@(Model.ServiceId)&cScheduleId=@(Model.Id)" title="Schedule: @(Model.Name)" class="tip-bottom">
+                <i class="icon-th"></i>
+                Schedule: @(Model.Name)
+            </a>
+        </div>
+        <h1>@Model.Name</h1>
+    </div>
+    <!--End-breadcrumbs-->
+    <!--Action boxes-->
+    <div class="container-fluid">
+
+        <!--
+        <div class="quick-actions_homepage">
+            <ul class="quick-actions">
+                <li class="bg_lb"> <a href="index.html"> <i class="icon-th"></i> Add new Service</a> </li>
+            </ul>
+        </div>
+        -->
+        <!--End-Action boxes-->
+
+        <div class="row-fluid">
+
+            <!-- LEFT -->
+            <div class="span12">
+
+                <hr />
+
+                <div class="widget-box">
+                    <div class="widget-title">
+                        <span class="icon"><i class="icon-list-alt"></i></span>
+                        <h5>Schedule Details</h5>
+                    </div>
+                    <div class="widget-content">
+                        
+                        <div class="row-fluid">
+
+                            <div class="span6">
+                                <ul class="nn-di-ul">
+                                    <li class="nn-di-li"><span>Schedule Id:</span> @Model.Id</li>
+                                    <li class="nn-di-li"><span>Schedule Name:</span> <a id="ScheduleName" data-title="Schedule Name" data-type="text">@Model.Name</a></li>
+                                    <li class="nn-di-li"><span>Schedule Description:</span> <a id="ScheduleDescription" data-title="Schedule Description" data-type="textarea">@Model.Description</a></li>
+                                    <li class="nn-di-li"><span>Schedule Responsible:</span> <a id="Responsible" data-title="Schedule Responsible" data-value="@Model.oResponsible.Id" data-type="select2">@Model.oResponsible.getFullName()</a></li>
+                                </ul>
+                            </div>
+
+                            <div class="span6">
+                                <ul class="nn-di-ul">
+                                    <li class="nn-di-li"><span>Registered Users Only:</span> <a id="RequireReg" data-title=">Registered Users Only" data-value="@(Model.RequireRegister? 1 : 0)" data-type="select">@(Model.RequireRegister? "Yes" : "No")</a></li>
+                                    <li class="nn-di-li"><span>Unique Inscriptions:</span> <a id="UniqueInsc" data-title="Unique Inscriptions" data-value="@(Model.UniqueInscription? 1 : 2)" data-type="select">@(Model.UniqueInscription ? "Yes" : "No")</a></li>
+                                    <li class="nn-di-li"><span>Start Date:</span> <a id="StartDate" data-title="Schedule Name" data-type="date"> @Model.StartDate.ToString("dd/MM/yyyy").Replace("-", "/")</a></li>
+                                    <li class="nn-di-li"><span>End Date:</span> <a id="EndDate" data-title="Schedule Description" data-type="date"> @Model.EndDate.ToString("dd/MM/yyyy").Replace("-","/")</a></li>
+                                    <li class="nn-di-li"><span>Status:</span> 
+                                    @if (Model.Status == "O")
+                                    {
+                                        <span class="nn-active">Active</span>
+                                    }
+                                    else
+                                    {
+
+                                        if (Model.Status == "F")
+                                        {
+                                            <span class="nn-blocked">Finished</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="nn-blocked">Deactivated</span>
+                                        }
+
+                                    }
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="row-fluid">
+                            <div class="span6">
+                                <ul class="nn-di-ul">
+                                    @if (Model.Status != "D") //Not deactivated
+                                    {
+                                        <a onclick="EditSched()" class="btnaction"><li class="nn-di-li ctrl"><i class="icon-edit"></i> Edit Schedule</li></a>
+                                    }
+                                </ul>
+                            </div>
+                            <div class="span6">
+                                <ul class="nn-di-ul">
+                                    @if (Model.Status == "O")
+                                    {
+                                        <a onclick="DeactivateSchedule('@(Model.ServiceId)','@(Model.Id)')" class="btnaction"><li class="nn-di-li ctrl"><i class="icon-ban-circle"></i> Deactivate Schedule</li></a>
+                                    }
+                                    else
+                                    {
+                                        <a onclick="ActivateSchedule('@(Model.ServiceId)','@(Model.Id)')" class="btnaction"><li class="nn-di-li ctrl"><i class="icon-ban-circle"></i> Activate Schedule</li></a>
+                                    }
+                                    <a onclick="RemoveSchedule('@(Model.ServiceId)','@(Model.Id)')" class="btnaction"><li class="nn-di-li ctrl"><i class="icon-remove"></i> Remove Schedule</li></a>
+                                    <a onclick="SaveSched()" id="SaveSched" class="svgrp hidden"><li class="nn-di-li ctrl btn-success"><i class="icon-save"></i> Save Changes</li></a>
+                                    <a onclick="CancelEditSched()" id="CancSched" class="cangrp hidden"><li class="nn-di-li ctrl btn-danger"><i class="icon-ban-circle"></i> Cancel Changes</li></a>
+                                </ul>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="widget-box">
+                    <div class="widget-title">
+                        <span class="icon"><i class="icon-calendar"></i></span>
+                        <h5>Schedule Itens</h5>
+
+                        <div class="buttons">
+                            <a id="add-schedule" data-toggle="modal" href="#" class="btn btn-info btn-mini btnaction" onclick="AddScheduleItm('@(Model.Id)')"><i class="icon-plus icon-white"></i> Add Item</a>
+                        </div>
+
+                    </div>
+                    <div class="widget-content nopadding">
+                        <table id="ItensList" class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Start Date</th>
+                                    <th>Start Hour</th>
+                                    <th>End Date</th>
+                                    <th>End Hour</th>
+                                    <th>Slots</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section JSSection {
+    <script src="/Content/js/jquery.dataTables.js"></script>
+    <script src="/Content/js/dataTables.bootstrap.js"></script>
+    <script src="/Content/js/masked.js"></script>
+    <script src="/Content/js/moment.js"></script>
+    <script src="/Content/js/combodate.js"></script>
+    <script src="/Content/js/bootstrap-datepicker.js"></script>
+    <script src="/Content/js/bootstrap-editable.min.js"></script>
+    <script src="/Content/js/jquery-confirm.js"></script>
+    <script src="/Content/js/select2.full.js"></script>
+    <script src="/Content/js/nn_admin.js"></script>
+}
+
+<script type="text/javascript">
+
+    //Schedule Model
+    var oSchedule;
+
+    //Updates the image on selected menu
+    DocReady.push(function () { menuSelected("#servicesmnu") });
+    DocReady.push(function () {
+
+        //Sets edit in place as inline
+        $.fn.editable.defaults.mode = 'inline';
+
+        //Sets in memory the schedule model
+        NN_SendAjax("GET",
+            "/NNAdmin1/Services/GetNewSchedule?cServiceId=@(Model.ServiceId)",
+            null,
+            ["Get New Schedule"],
+            function (response) {   //Success
+                if (response.odata != null) {
+                    oSchedule = response.odata;
+                    oSchedule.Id = "@(Model.Id)";
+                    oSchedule.Enable = @(Model.Enable ? "true" : "false");
+                }
+            },
+            null, /* Error */
+            true /* Silent */);
+
+        //Group List
+        $("#ItensList").DataTable({
+            ajax: {
+                url: "/NNAdmin1/Services/GetScheduleItens?cServiceId=@(Model.ServiceId)&cScheduleId=@(Model.Id)",
+                dataSrc: "odata"
+            },
+            bInfo: false,
+            pagingType: "full_numbers",
+            columns: [
+                {
+                    data: null, target: 0, render: function (data, type, row, meta) { //Start Date
+                        var dStartDate = moment(parseInt(data.StartDate.substr(6)));
+                        var nDataIndex = meta.row;
+                        if (type == "sort") {
+                            return (dStartDate == null, "", dStartDate.format("YYYYMMDD"));
+                        }
+                        if (type == "filter") {
+                            return (dStartDate == null, "", dStartDate.format("DD/MM/YYYY"));
+                        }
+                        if (type === "display") {
+                            return '<a id="StartDate' + nDataIndex + '" data-type="date" data-value="' + dStartDate.format("DD/MM/YYYY") + '">' +  dStartDate.format("DD/MM/YYYY") + '</a>';
+                        }
+                        return data;
+                    }
+                },
+                {
+                    data: null, target: 1, render: function (data, type, row, meta) { //Start Hour
+                        var dStartDate = moment(parseInt(data.StartDate.substr(6)));
+                        var nDataIndex = meta.row;
+                        if (type == "sort") {
+                            return (dStartDate == null, "", dStartDate.valueOf());
+                        }
+                        if (type == "filter") {
+                            return (dStartDate == null, "", dStartDate.format("hh:mm A"));
+                        }
+                        if (type === "display") {
+                            return '<a id="StartHour' + nDataIndex + '" data-type="combodate">' + dStartDate.format("hh:mm A") + '</a>';
+                        }
+                        return data;
+                    }
+                },
+                {
+                    data: null, target: 2, render: function (data, type, row, meta) { //End Date
+                        var dEndDate = moment(parseInt(data.EndDate.substr(6)));
+                        var nDataIndex = meta.row;
+                        if (type == "sort") {
+                            return (dEndDate == null, "", dEndDate.format("YYYYMMDD"));
+                        }
+                        if (type == "filter") {
+                            return (dEndDate == null, "", dEndDate.format("DD/MM/YYYY"));
+                        }
+                        if (type === "display") {
+                            return '<a id="EndDate' + nDataIndex + '" data-type="date" data-value="' + dEndDate.format("DD/MM/YYYY") + '">' + dEndDate.format("DD/MM/YYYY") + '</a>';
+                        }
+                        return data;
+                    }
+                },
+                {
+                    data: null, target: 3, render: function (data, type, row, meta) { //End Hour
+                        var dEndDate = moment(parseInt(data.EndDate.substr(6)));
+                        var nDataIndex = meta.row;
+                        if (type == "sort") {
+                            return (dEndDate == null, "", dEndDate.valueOf());
+                        }
+                        if (type == "filter") {
+                            return (dEndDate == null, "", dEndDate.format("hh:mm A"));
+                        }
+                        if (type === "display") {
+                            return '<a id="EndHour' + nDataIndex + '" data-type="combodate">' + dEndDate.format("hh:mm A") + '</a>';
+                        }
+                        return data;
+                    }
+                },
+                {
+                    data: null, target: 4, render: function (data, type, row, meta) { //Slots
+                        var nDataIndex = meta.row;
+                        if (type == "sort") {
+                            return (data == null, 0, data.Slots);
+                        }
+                        if (type == "filter") {
+                            return (data == null, 0, data.Slots);
+                        }
+                        if (type === "display") {
+                            return data.Slots + "/" + '<a id="MaxSlots' + nDataIndex + '" data-type="text">' + data.MaxSlots + '</a>';
+                        }
+                        return data;
+                    }
+                },
+                {
+                    data: null, target: 5, orderable: false, render: function (data, type, row, meta) { //Buttons
+                        var cinternal = "";
+                        var nDataIndex = meta.row;
+
+                        if (type === "filter") {
+                            return (data == null ? "" : JSON.stringify(data));
+                        }
+                        if (type === "display") {
+                            if (data.Id > 0) {
+
+                                cinternal += '<a data-original-title="Edit Item" class="btn btn-primary btn-mini tip-top btnaction nn-lineaction" onclick="EditItem(' + nDataIndex + ')"><i class="icon-edit icon-white"></i></a>';
+                                cinternal += '<a data-original-title="Remove Item" class="btn btn-danger btn-mini tip-top btnaction nn-lineaction" onclick="RemoveItem(\'' + data.ScheduleId + '\',' + data.Id + ')"><i class="icon-remove icon-white"></i></a>';
+                                //cinternal += '<a data-original-title="Block Item" class="btn btn-warning btn-mini tip-top btnaction nn-lineaction" onclick="BlockItem(\'' + data.ScheduleId + '\',' + data.Id + ')"><i class="icon-ban-circle icon-white"></i></a>';
+                            }
+                            cinternal += '<a id="itmsave' + nDataIndex + '" data-original-title="Save Item" class="btn btn-success btn-mini tip-top btn-itmedit nn-lineaction" onclick="SaveItem(\'' + data.ScheduleId + '\',' + nDataIndex + ')"><i class="icon-save icon-white"></i></a>';
+                            cinternal += '<a id="itmcanc' + nDataIndex + '" data-original-title="Cancel Edit" class="btn btn-warning btn-mini tip-top btn-itmedit nn-lineaction" onclick="CancelItem(\'' + data.ScheduleId + '\',' + nDataIndex + ')"><i class="icon-ban-circle icon-white"></i></a>';
+                        }
+                        return cinternal;
+                    }
+                }
+
+            ],
+            drawCallback: function (settings) {
+                //Adjust the classes
+                $("#ItensList_paginate").addClass("fg-buttonset ui-buttonset fg-buttonset-multi ui-buttonset-multi");
+                $(".paginate_button").removeClass("paginate_button").addClass("fg-button ui-button ui-state-default");
+                $("div .row:last-of-type").removeClass("row").addClass("fg-toolbar ui-toolbar ui-widget-header ui-helper-clearfix ui-corner-bl ui-corner-br");
+                $("#ItensList").removeAttr("style");
+                $(".tip-top").tooltip({ placement: "top" });
+                $(".btn-itmedit").addClass("hidden");
+            },
+            initComplete: function () { $("#ItensList").removeAttr("style") }
+        });
+
+    });
+
+    //========== SCHEDULE FUNCTIONS ==========
+
+    function EditSched() {
+
+        var oUserData = [{id: "ce209094-2d37-489d-9eb5-db570b06fab5", text: "Renan Fragoso"},{id: "c1c78ba8-c367-4862-a881-57e0c2272817", text: "Nestor Abdon"}];
+
+        $(".btnaction").addClass("hidden");
+        $("#SaveSched").removeClass("hidden");
+        $("#CancSched").removeClass("hidden");
+
+        $("#ScheduleName").editable({ validate: notEmpty }).editable('enable');
+        $("#ScheduleDescription").editable({ validate: notEmpty }).editable('enable');
+        $("#Responsible").editable({ 
+            placeholder: "Select Responsible ...",
+            validate: notEmpty,
+            select2: {
+                data: oUserData,
+                id: function (item){
+                    return item.id;
+                },
+                formatSelection: function (item) {
+                    return item.text;
+                }
+            },
+            display: function(newValue) {
+                var oRet = oUserData.find(x => x.id === newValue);
+                if(oRet) {
+                    $(this).html(oRet.text);
+                } else {
+                    $(this).html("");
+                }
+            }
+        }).editable('enable');
+
+        $("#RequireReg").editable({
+            source: [{ value: 0, text: 'No' }, { value: 1, text: 'Yes' }]
+        }).editable('enable');
+
+        $("#UniqueInsc").editable({
+            source: [{ value: 0, text: 'No' }, { value: 1, text: 'Yes' }]
+        }).editable('enable');
+
+        $("#StartDate").editable({
+            validate: notEmpty,
+            format: 'dd/mm/yyyy',
+            viewformat: 'dd/mm/yyyy',
+            template: 'dd/mm/yyyy'
+        }).editable('enable');
+
+        $("#EndDate").editable({
+            validate: notEmpty,
+            format: 'dd/mm/yyyy',
+            viewformat: 'dd/mm/yyyy',
+            template: 'dd/mm/yyyy'
+        }).editable('enable');
+    }
+
+    function CancelEditSched() {
+
+        $("#ScheduleName").editable('disable');
+        $("#ScheduleDescription").editable('disable');
+        $("#Responsible").editable('disable');
+        $("#RequireReg").editable('disable');
+        $("#UniqueInsc").editable('disable');
+        $("#StartDate").editable('disable');
+        $("#EndDate").editable('disable');
+
+        $("#SaveSched").addClass("hidden");
+        $("#CancSched").addClass("hidden");
+        $(".btnaction").removeClass("hidden");
+        $(".input-sm").removeAttr("readonly");
+    }
+
+    function SaveSched() {
+        UpdateSchedModel(oSchedule);
+        //console.log(oSchedule);
+        
+        NN_SendAjax("POST",
+            "/NNAdmin1/Services/UpdateSchedule",
+            oSchedule,
+            ["Schedule Update", "Schedule Update"],
+            function () {   //Success
+                CancelEditSched();
+            },
+            null );
+        return;
+    }
+
+    function RemoveSchedule(cServiceId,cScheduleId){
+
+        $.confirm({
+            title: "Remove Schedule",
+            content: "Really confirm Schedule Removal? All Schedule Itens will be removed too. (this can\'t be undone)",
+            backgroundDismiss: false,
+            backgroundDismissAnimation: 'glow',
+            buttons: {
+                confirm: {
+                    btnClass: 'btn-primary',
+                    action: function () {
+                        NN_SendAjax("DELETE",
+                            "/NNAdmin1/Services/DeleteSchedule?cServiceId=" + cServiceId + "&cScheduleId=" + cScheduleId,
+                            null,
+                            ["Schedule Remove", "Schedule Remove"],
+                            function () {   //Success
+                                document.location = "/NNAdmin1/Services/ServiceView?cServiceId=" + cServiceId;
+                            },
+                            null );
+                    }
+                },
+                cancel: {
+                    btnClass: 'btn-danger',
+                    keys: ['esc'],
+                    action: function(){}
+                }
+            }
+        });
+    }
+
+    function DeactivateSchedule(cServiceId,cScheduleId){
+        $.confirm({
+            title: "Deactivate Schedule",
+            content: "Really confirm Schedule Deactivation? All Schedule Itens will be deactivated too.",
+            backgroundDismiss: false,
+            backgroundDismissAnimation: 'glow',
+            buttons: {
+                confirm: {
+                    btnClass: 'btn-primary',
+                    action: function () {
+                        NN_SendAjax("GET",
+                            "/NNAdmin1/Services/DeactivateSchedule?cServiceId=" + cServiceId + "&cScheduleId=" + cScheduleId,
+                            null,
+                            ["Schedule Deactivation", "Schedule Deactivation"],
+                            function(){location.reload(true)},
+                            null );
+                    }
+                },
+                cancel: {
+                    btnClass: 'btn-danger',
+                    keys: ['esc'],
+                    action: function(){}
+                }
+            }
+        });
+    }
+
+    function ActivateSchedule(cServiceId,cScheduleId){
+        $.confirm({
+            title: "Activate Schedule",
+            content: "Really confirm Schedule Activation?",
+            backgroundDismiss: false,
+            backgroundDismissAnimation: 'glow',
+            buttons: {
+                confirm: {
+                    btnClass: 'btn-primary',
+                    action: function () {
+                        NN_SendAjax("GET",
+                            "/NNAdmin1/Services/ActivateSchedule?cServiceId=" + cServiceId + "&cScheduleId=" + cScheduleId,
+                            null,
+                            ["Schedule Activation", "Schedule Activation"],
+                            function(){location.reload(true)},
+                            null );
+                    }
+                },
+                cancel: {
+                    btnClass: 'btn-danger',
+                    keys: ['esc'],
+                    action: function(){}
+                }
+            }
+        });
+    }
+
+    function UpdateSchedModel(oModel) {
+        
+        var dStartDate = moment($("#StartDate").text() + " 00:00:01", "DD-MM-YYYY hh:mm:ss");
+        var dEndDate = moment($("#EndDate").text() + " 23:59:59", "DD-MM-YYYY hh:mm:ss");
+
+        oModel.Name = $("#ScheduleName").text();
+        oModel.Description = $("#ScheduleDescription").text();
+        oModel.Responsible = $("#Responsible").editable("getValue").Responsible;
+        oModel.RequireRegister = $("#RequireReg").editable("getValue").RequireReg == "1";
+        oModel.UniqueInscription = $("#UniqueInsc").editable("getValue").UniqueInsc == "1";
+        oModel.StartDate = dStartDate.format("YYYY-MM-DDTHH:mm:ssZ");
+        oModel.EndDate = dEndDate.format("YYYY-MM-DDTHH:mm:ssZ");
+        oModel.AlterDate = moment(parseInt(oModel.AlterDate.substr(6))).format("YYYY-MM-DDTHH:mm:ssZ");
+        oModel.CreateDate = moment(parseInt(oModel.CreateDate.substr(6))).format("YYYY-MM-DDTHH:mm:ssZ");
+        oModel.oResponsible = {}; // Not sending the responsible object
+
+    }
+    //========== SCHEDULE FUNCTIONS END ==========
+
+    //========== SCHEDULE ITENS FUNCTIONS ==========
+    function AddScheduleItm(cScheduleId)
+    {
+        NN_SendAjax("GET",
+            "/NNAdmin1/Services/GetNewScheduleItem?cScheduleId=" + cScheduleId,
+            null,
+            ["Get New Schedle Item"],
+            function (response) {   //Success
+                if (response.odata != null) {
+                    var oTable = $("#ItensList").DataTable();
+                    var rowAdded = oTable.row.add(response.odata).draw(false);
+                    var nItm = rowAdded.index();
+                    oTable.search("-1").draw(false);
+                    EditItem(nItm);
+                }
+            },
+            null,
+            true);
+    }
+
+    function EditItem(nItm) {
+
+        var oDTTable = $("#ItensList").DataTable();
+        var oData = oData = oDTTable.row(nItm).data();
+
+        $("#itmsave"+nItm).removeClass("hidden");
+        $("#itmcanc"+nItm).removeClass("hidden");
+        $(".btnaction").addClass("hidden");
+        $(".input-sm").attr("readonly", "");
+        $(oDTTable.row(nItm).node()).addClass("nn-editing-hd")
+
+        $("#StartDate" + nItm).editable({ validate: notEmpty,
+            format: 'dd/mm/yyyy',
+            viewformat: 'dd/mm/yyyy',
+            template: 'dd/mm/yyyy'
+        }).editable('enable');
+
+        $("#StartHour" + nItm).editable({ validate: notEmpty,
+            format: "hh:mm A",
+            viewformat: 'hh:mm A',
+            template: 'hh:mm A'
+        }).editable('enable');
+
+        $("#EndDate" + nItm).editable({
+            validate: notEmpty,
+            format: 'dd/mm/yyyy',
+            viewformat: 'dd/mm/yyyy',
+            template: 'dd/mm/yyyy'
+        }).editable('enable');
+
+        $("#EndHour" + nItm).editable({
+            validate: notEmpty,
+            format: "hh:mm A",
+            viewformat: 'hh:mm A',
+            template: 'hh:mm A'
+        }).editable('enable');
+        $("#MaxSlots" + nItm).editable({
+            validate: notEmpty,
+            success: function (response, newValue) {
+                oData.MaxSlots = parseInt(newValue);
+            }
+        }).editable('enable');
+    }
+
+    function SaveItem(cScheduleId, nItm) {
+
+        var oDTTable = $("#ItensList").DataTable();
+        var oScheduleItem = oDTTable.row(nItm).data();
+
+        UpdateItemModel(oScheduleItem, nItm);
+
+        NN_SendAjax("POST",
+                    "/NNAdmin1/Services/UpdateItem",
+                    oScheduleItem,
+                    ["Schedule Item Update", "Schedule Item Update"],
+                    function () {   //Success
+                        ReloadItemList();
+                        $("#ItensList").DataTable().search("").draw();
+                        $(".input-sm").removeAttr("readonly");
+                        $(".btn-itmedit").addClass("hidden");
+                        $(".btnaction").removeClass("hidden");
+                    },
+                    null /* Error */);
+        return;
+    }
+
+    function CancelItem(cScheduleId, nItm) {
+
+        var oDTTable = $("#ItensList").DataTable();
+        var cId = oDTTable.row(nItm).data().Id;
+
+        if (cId == -1) {    //Not saved yet
+            oDTTable.row(nItm).remove();
+        } else {
+            $("#StartDate" + nItm).editable('disable');
+            $("#StartHour" + nItm).editable('disable');
+            $("#EndDate" + nItm).editable('disable');
+            $("#EndHour" + nItm).editable('disable');
+            $("#MaxSlots" + nItm).editable('disable');
+            $(oDTTable.row(nItm).node()).removeClass("nn-editing-hd")
+        }
+        oDTTable.search("").draw();
+        $(".input-sm").removeAttr("readonly");
+        $(".btnaction").removeClass("hidden");
+    }
+
+    function RemoveItem(cScheduleId, nItemId) {
+        $.confirm({
+            title: "Remove Schedule Item",
+            content: "Really confirm Schedule Item Removal? (this can\'t be undone)",
+            backgroundDismiss: false,
+            backgroundDismissAnimation: 'glow',
+            buttons: {
+                confirm: {
+                    btnClass: 'btn-primary',
+                    action: function () {
+
+                        NN_SendAjax("DELETE",
+                            "/NNAdmin1/Services/DeleteItem?cScheduleId="+cScheduleId+"&nItemId="+nItemId,
+                            null,
+                            ["Schedule Item Remove", "Schedule Item Remove"],
+                            function () {   //Success
+                                ReloadItemList();
+                            },
+                            null /* Error */);
+                    }
+                },
+                cancel: {
+                    btnClass: 'btn-danger',
+                    keys: ['esc'],
+                    action: function () { }
+                }
+            }
+        });
+    }
+
+    function ReloadItemList(){
+        $("#ItensList").DataTable().ajax.reload().draw();
+    }
+
+    function UpdateItemModel(oModelItem, nItm) {
+
+        var dStartDate = moment($("#StartDate" + nItm).text() + " " + $("#StartHour" + nItm).text(), "DD-MM-YYYY hh:mm a");
+        var dEndDate = moment($("#EndDate" + nItm).text() + " " + $("#EndHour" + nItm).text(), "DD-MM-YYYY hh:mm a");
+
+        oModelItem.AlterDate = moment(parseInt(oModelItem.AlterDate.substr(6))).format("YYYY-MM-DDTHH:mm:ssZ");
+        oModelItem.CreateDate = moment(parseInt(oModelItem.CreateDate.substr(6))).format("YYYY-MM-DDTHH:mm:ssZ");
+        oModelItem.StartDate = dStartDate.format("YYYY-MM-DDTHH:mm:ssZ");
+        oModelItem.EndDate = dEndDate.format("YYYY-MM-DDTHH:mm:ssZ");
+        oModelItem.MaxSlots = parseInt($("#MaxSlots" + nItm).text());
+    }
+
+    //========== SCHEDULE ITENS FUNCTIONS END ==========
+
+</script>

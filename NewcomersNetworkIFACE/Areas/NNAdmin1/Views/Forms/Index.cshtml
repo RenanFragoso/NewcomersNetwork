@@ -1,0 +1,46 @@
+﻿@{
+    Layout = "~/Areas/NNAdmin1/Views/Shared/_Layout1.cshtml";
+    ViewBag.Title = "Forms";
+}
+
+@section CSSSection {
+    <link rel="stylesheet" href="/Content/css/nn_admin.css" />
+}
+
+<div id="content">
+    <!--breadcrumbs-->
+    <div id="content-header">
+        <div id="breadcrumb">
+            <a href="/NNAdmin1/Dashboard" title="NNAdmin" class="tip-bottom">
+                <i class="icon-home"></i>
+                NNAdmin
+            </a>
+            <a href="/NNAdmin1/Forms" title="Forms" class="tip-bottom">
+                <i class="icon-file-alt"></i>
+                Forms
+            </a>
+        </div>
+        <h1>Forms</h1>
+    </div>
+    <!--End-breadcrumbs-->
+
+    <!--Action boxes-->
+    <div class="container-fluid">
+
+        <hr />
+
+        <div class="quick-actions_homepage">
+            <ul class="quick-actions">
+                <li class="bg_lb" id="newcomerform"><a href="/NNAdmin1/Forms/NewcomersForm"><i class="icon-file-alt"></i> Newcomers Intake Form</a></li>
+            </ul>
+        </div>
+        <!--End-Action boxes-->
+
+    </div>
+
+</div>
+
+<script type="text/javascript">
+    //Updates the image on selected menu
+    DocReady.push(function () { menuSelected("#formsmnu") });
+</script>

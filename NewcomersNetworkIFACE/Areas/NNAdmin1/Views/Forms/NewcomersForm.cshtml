@@ -1,0 +1,471 @@
+﻿@{
+    Layout = "~/Areas/NNAdmin1/Views/Shared/_Layout1.cshtml";
+    ViewBag.Title = "Newcomers Intake Form";
+}
+
+@section CSSSection {
+    <link rel="stylesheet" href="/Content/css/uniform.css" />
+    <link rel="stylesheet" href="/Content/css/select2.css" />
+    <link rel="stylesheet" href="/Content/css/nn_admin.css" />
+}
+
+<div id="content">
+    <!--breadcrumbs-->
+    <div id="content-header">
+        <div id="breadcrumb">
+            <a href="/NNAdmin1/Dashboard" title="NNAdmin" class="tip-bottom">
+                <i class="icon-home"></i>
+                NNAdmin
+            </a>
+            <a href="/NNAdmin1/Forms" title="Forms" class="tip-bottom">
+                <i class="icon-file-alt"></i>
+                Forms
+            </a>
+            <a href="/NNAdmin1/Users" title="Newcomers Form" class="tip-bottom">
+                <i class="icon-file-alt"></i>
+                Newcomers Intake Form
+            </a>
+        </div>
+        <h1>Newcomers Form</h1>
+    </div>
+    <!--End-breadcrumbs-->
+
+    <!--Action boxes-->
+    <div class="container-fluid">
+
+        <hr />
+        <!--
+        <div class="quick-actions_homepage">
+            <ul class="quick-actions">
+                <li class="bg_lb" id="edituser"><a><i class="icon-user"></i> Add new User</a></li>
+                <li class="bg_lo" id="usersroles"> <a href="#" data-toggle="modal" data-target="#UsersRoles"> <i class="icon-tags"></i> Users Roles</a> </li>
+            </ul>
+        </div>
+        <!--End-Action boxes-->
+       
+        <div class="row-fluid">
+
+            <!-- LEFT -->
+            <div class="span12">
+
+                <div class="widget-box">
+
+                    <div class="widget-title">
+                        <span class="icon"><i class="icon-th"></i></span>
+                        <h5>Newcomers Intake Form</h5>
+                    </div>
+
+                    <div class="widget-content nopadding">
+
+                        <form class="form-horizontal" id="NewcomersForm">
+
+                            @Html.AntiForgeryToken()
+
+                            <div class="control-group">
+                                <label class="control-label">Name</label>
+                                <div class="controls">
+                                    <input type="text" name="name" class="span11" placeholder="Name" />
+                                </div>
+                            </div>
+
+                            <div class="control-group">
+                                <label class="control-label">Gender</label>
+                                <div class="controls">
+                                    
+                                </div>
+                            </div>
+
+                            <div class="control-group">
+                                <label class="control-label">Address</label>
+                                <div class="controls">
+                                    <input type="text" name="address" class="span11" placeholder="Adress" />
+                                </div>
+                            </div>
+
+                            <div class="control-group">
+                                <label class="control-label">Marital Status</label>
+                                <div class="controls">
+
+                                </div>
+                            </div>
+
+                            <div class="control-group">
+                                <label class="control-label">Phone</label>
+                                <div class="controls">
+                                    <input type="text" name="name" class="span11" placeholder="Phone" />
+                                </div>
+                            </div>
+
+                            <div class="control-group">
+                                <label class="control-label">Email</label>
+                                <div class="controls">
+                                    <input type="text" name="email" class="span11" placeholder="E-Mail" />
+                                </div>
+                            </div>
+
+                            <div class="control-group">
+                                <label class="control-label">Date of Arrival</label>
+                                <div class="controls">
+
+                                </div>
+                            </div>
+
+                            <div class="control-group">
+                                <label class="control-label">Country of Origin</label>
+                                <div class="controls">
+
+                                </div>
+                            </div>
+
+                            <div class="control-group">
+                                <label class="control-label">Languages Spoken</label>
+                                <div class="controls">
+
+                                </div>
+                            </div>
+
+                            <div class="control-group">
+                                <label class="control-label">Immigration Status</label>
+                                <div class="controls">
+
+                                </div>
+                            </div>
+
+                            <div class="control-group">
+                                <label class="control-label">Age Range</label>
+                                <div class="controls">
+
+                                </div>
+                            </div>
+
+                            <div class="control-group">
+                                <label class="control-label">English Language Proficiency (CLB)</label>
+                                <div class="controls">
+
+                                </div>
+                            </div>
+
+                            <div class="control-group">
+                                <label class="control-label">Education</label>
+                                <div class="controls">
+
+                                </div>
+                            </div>
+
+                            <div class="control-group">
+                                <div class="span2"></div>
+                                <div class="span8">
+                                    <label>How can the Newcomers Network help? (please check all that applies)</label>
+                                </div>
+                                <div class="span2"></div>
+                            </div>
+
+                            <div class="control-group">
+
+                                <div class="span3">
+                                    <div class="widget-box">
+                                        <div class="widget-title">
+                                            <span class="icon"> <i class="icon-th"></i> </span>
+                                            <h5>HOSTING</h5>
+                                        </div>
+                                        <div class="widget-content nopadding">
+                                            <table class="table table-bordered table-striped with-check">
+                                                <tbody>
+                                                    <tr>
+                                                        <td><div class="checker" id="uniform-undefined"><span><input type="checkbox"></span></div></td>
+                                                        <td>Learn about Canadian Culture and Weather </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><div class="checker" id="uniform-undefined"><span><input type="checkbox"></span></div></td>
+                                                        <td>Learn about Transportation System</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><div class="checker" id="uniform-undefined"><span><input type="checkbox"></span></div></td>
+                                                        <td>Learn about Recreational or Community Centres (parks, libraries, museums, etc.)</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><div class="checker" id="uniform-undefined"><span><input type="checkbox"></span></div></td>
+                                                        <td>Other: <input type="text" /></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="span3">
+                                    <div class="widget-box">
+                                        <div class="widget-title">
+                                            <span class="icon"> <i class="icon-th"></i> </span>
+                                            <h5>HOUSING/SETTLEMENT</h5>
+                                        </div>
+                                        <div class="widget-content nopadding">
+                                            <table class="table table-bordered table-striped with-check">
+                                                <tbody>
+                                                    <tr>
+                                                        <td><div class="checker" id="uniform-undefined"><span><input type="checkbox"></span></div></td>
+                                                        <td>Find affordable housing/shared accommodation</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><div class="checker" id="uniform-undefined"><span><input type="checkbox"></span></div></td>
+                                                        <td>Landlord/Tenancy Rights</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><div class="checker" id="uniform-undefined"><span><input type="checkbox"></span></div></td>
+                                                        <td>Buying a House</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><div class="checker" id="uniform-undefined"><span><input type="checkbox"></span></div></td>
+                                                        <td>Other: <input type="text" /></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="span3">
+                                    <div class="widget-box">
+                                        <div class="widget-title">
+                                            <span class="icon"> <i class="icon-th"></i> </span>
+                                            <h5>LANGUAGE SERVICES</h5>
+                                        </div>
+                                        <div class="widget-content nopadding">
+                                            <table class="table table-bordered table-striped with-check">
+                                                <tbody>
+                                                    <tr>
+                                                        <td><div class="checker" id="uniform-undefined"><span><input type="checkbox"></span></div></td>
+                                                        <td>Practice Speaking English</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><div class="checker" id="uniform-undefined"><span><input type="checkbox"></span></div></td>
+                                                        <td>English Second Language Course (ESL)</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><div class="checker" id="uniform-undefined"><span><input type="checkbox"></span></div></td>
+                                                        <td>English Language Proficiency Assessment</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><div class="checker" id="uniform-undefined"><span><input type="checkbox"></span></div></td>
+                                                        <td>Other: <input type="text" /></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="span3">
+                                    <div class="widget-box">
+                                        <div class="widget-title">
+                                            <span class="icon"> <i class="icon-th"></i> </span>
+                                            <h5>LEGAL INFORMATION SERVICES</h5>
+                                        </div>
+                                        <div class="widget-content nopadding">
+                                            <table class="table table-bordered table-striped with-check">
+                                                <tbody>
+                                                    <tr>
+                                                        <td><div class="checker" id="uniform-undefined"><span><input type="checkbox"></span></div></td>
+                                                        <td>Canadian Citzenship</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><div class="checker" id="uniform-undefined"><span><input type="checkbox"></span></div></td>
+                                                        <td>Permanent Residency</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><div class="checker" id="uniform-undefined"><span><input type="checkbox"></span></div></td>
+                                                        <td>Sponsorship of Relatives</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><div class="checker" id="uniform-undefined"><span><input type="checkbox"></span></div></td>
+                                                        <td>Accessing Legal Aid</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><div class="checker" id="uniform-undefined"><span><input type="checkbox"></span></div></td>
+                                                        <td>Other: <input type="text" /></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                            </div>
+
+
+                            <div class="control-group">
+
+                                <div class="span3">
+                                    <div class="widget-box">
+                                        <div class="widget-title">
+                                            <span class="icon"> <i class="icon-th"></i> </span>
+                                            <h5>EMPLOYMENT SERVICES</h5>
+                                        </div>
+                                        <div class="widget-content nopadding">
+                                            <table class="table table-bordered table-striped with-check">
+                                                <tbody>
+                                                    <tr>
+                                                        <td><div class="checker" id="uniform-undefined"><span><input type="checkbox"></span></div></td>
+                                                        <td>Credential Assessment</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><div class="checker" id="uniform-undefined"><span><input type="checkbox"></span></div></td>
+                                                        <td>Resume Writing</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><div class="checker" id="uniform-undefined"><span><input type="checkbox"></span></div></td>
+                                                        <td>Interview Skills</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><div class="checker" id="uniform-undefined"><span><input type="checkbox"></span></div></td>
+                                                        <td>Job Search Strategies</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><div class="checker" id="uniform-undefined"><span><input type="checkbox"></span></div></td>
+                                                        <td>Carreer Exploration</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><div class="checker" id="uniform-undefined"><span><input type="checkbox"></span></div></td>
+                                                        <td>Bridging Programs</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><div class="checker" id="uniform-undefined"><span><input type="checkbox"></span></div></td>
+                                                        <td>Employment Mentoring</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><div class="checker" id="uniform-undefined"><span><input type="checkbox"></span></div></td>
+                                                        <td>Other: <input type="text" /></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="span3">
+                                    <div class="widget-box">
+                                        <div class="widget-title">
+                                            <span class="icon"> <i class="icon-th"></i> </span>
+                                            <h5>SPIRITUAL SUPPORT</h5>
+                                        </div>
+                                        <div class="widget-content nopadding">
+                                            <table class="table table-bordered table-striped with-check">
+                                                <tbody>
+                                                    <tr>
+                                                        <td><div class="checker" id="uniform-undefined"><span><input type="checkbox"></span></div></td>
+                                                        <td>Prayer Request</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><div class="checker" id="uniform-undefined"><span><input type="checkbox"></span></div></td>
+                                                        <td>Meet with a Pastor or Counselor</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><div class="checker" id="uniform-undefined"><span><input type="checkbox"></span></div></td>
+                                                        <td>Join a Life Group or Bible Study</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><div class="checker" id="uniform-undefined"><span><input type="checkbox"></span></div></td>
+                                                        <td>Attend a Christian church</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><div class="checker" id="uniform-undefined"><span><input type="checkbox"></span></div></td>
+                                                        <td>Other: <input type="text" /></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="span6">
+                                    <div class="widget-box">
+                                        <div class="widget-title">
+                                            <span class="icon"> <i class="icon-th"></i> </span>
+                                            <h5>OTHER NEEDS</h5>
+                                        </div>
+                                        <div class="widget-content nopadding">
+                                            <table class="table table-bordered table-striped with-check">
+                                                <tbody>
+                                                    <tr>
+                                                        <td><div class="checker" id="uniform-undefined"><span><input type="checkbox"></span></div></td>
+                                                        <td>Temporary Shelter</td>
+                                                        <td><div class="checker" id="uniform-undefined"><span><input type="checkbox"></span></div></td>
+                                                        <td>Furniture</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><div class="checker" id="uniform-undefined"><span><input type="checkbox"></span></div></td>
+                                                        <td>Groceries</td>
+                                                        <td><div class="checker" id="uniform-undefined"><span><input type="checkbox"></span></div></td>
+                                                        <td>Kitchen utensils/appliances</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><div class="checker" id="uniform-undefined"><span><input type="checkbox"></span></div></td>
+                                                        <td>Seasonal Outerwear or Footwear</td>
+                                                        <td><div class="checker" id="uniform-undefined"><span><input type="checkbox"></span></div></td>
+                                                        <td>Bedding (sheets, pillows, blankets, etc.)</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><div class="checker" id="uniform-undefined"><span><input type="checkbox"></span></div></td>
+                                                        <td>Personal Items (toiletries, underclothes, etc.)</td>
+                                                        <td><div class="checker" id="uniform-undefined"><span><input type="checkbox"></span></div></td>
+                                                        <td>Children/Baby Items (toys, diapers, clothes, formula, etc.)</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><div class="checker" id="uniform-undefined"><span><input type="checkbox"></span></div></td>
+                                                        <td colspan="3">Other: <input type="text" /></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                            </div>
+
+
+
+                            <div class="form-actions">
+                                <button type="submit" class="btn btn-success">Print Form</button>
+                            </div>
+
+                        </form>
+
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+</div>
+@* @RenderPage("~/Areas/NNAdmin1/Views/Users/_EditRolesModal.cshtml") *@
+
+<script type="text/javascript">
+    //Updates the image on selected menu
+    DocReady.push(function () { menuSelected("#formsmnu") });
+
+    DocReady.push(function () {
+
+        $('input[type=checkbox],input[type=radio],input[type=file]').uniform();
+
+        $("span.icon input:checkbox, th input:checkbox").click(function () {
+            var checkedStatus = this.checked;
+            var checkbox = $(this).parents('.widget-box').find('tr td:first-child input:checkbox');
+            checkbox.each(function () {
+                this.checked = checkedStatus;
+                if (checkedStatus == this.checked) {
+                    $(this).closest('.checker > span').removeClass('checked');
+                }
+                if (this.checked) {
+                    $(this).closest('.checker > span').addClass('checked');
+                }
+            });
+        });
+
+    });
+
+</script>

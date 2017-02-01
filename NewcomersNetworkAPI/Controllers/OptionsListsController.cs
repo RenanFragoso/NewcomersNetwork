@@ -21,5 +21,17 @@ namespace NewcomersNetworkAPI.Controllers
             return Ok(oOptions);
         }
 
+        [Route("{cListName}")]
+        [HttpGet]
+        public IHttpActionResult GetList(string cListName)
+        {
+            OptionsLists oOptions = new OptionsLists(cListName);
+            if (oOptions.isValid)
+            {
+                return Ok(oOptions);
+            }
+            return BadRequest(string.Join(",", oOptions.sMsgError.ToArray()));
+        }
+
     }
 }

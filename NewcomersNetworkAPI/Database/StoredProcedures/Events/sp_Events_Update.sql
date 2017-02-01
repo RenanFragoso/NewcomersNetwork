@@ -1,5 +1,5 @@
 ﻿CREATE PROCEDURE [dbo].[sp_Events_Update]
-@cId nvarchar(126),
+@cId nvarchar(128),
 @cName NVARCHAR(50)=NULL, 
 @cDescription NVARCHAR(1000)=NULL, 
 @dStartDate datetime, 

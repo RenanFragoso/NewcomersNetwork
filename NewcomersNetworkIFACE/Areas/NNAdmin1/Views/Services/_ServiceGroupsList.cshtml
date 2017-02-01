@@ -1,0 +1,109 @@
+﻿@model List<NewcomersNetworkAPI.Models.ServiceGroup>
+@{
+    int lineId = 0;
+}
+
+        @foreach (var Group in Model)
+        {
+
+            <tr class="nn-di-td">
+                <td class="nn-di-td">
+
+                    <table class="nn-dynamic-item" id="collapse-td@(lineId.ToString())">
+                        <tr>
+                            <th id="itmhead@(lineId.ToString())" class="nn-di-th"> 
+                                <a data-parent="#collapse-td@(lineId.ToString())" href="#collapseTD@(lineId.ToString())" data-toggle="collapse">
+                                    @if (Group.GroupIcon.Length > 0)
+                                    {
+                                        <i class="@(Group.GroupIcon)"></i>
+                                    }    
+                                    @Group.GroupName
+                                </a> 
+                            </th>
+                        </tr>
+                        <tr>
+                            <td class="nn-di-td">
+                                <div class="collapse nn-di-content" id="collapseTD@(lineId.ToString())">
+                                    <div class="nn-di-inner-content">
+
+                                        <div class="row-fluid">
+
+                                            <div class="span12">
+                                                <ul class="nn-di-ul">
+                                                    <li class="nn-di-li title">Group</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="row-fluid">
+
+                                            <div class="span6">
+
+                                                <ul class="nn-di-ul">
+                                                    <li class="nn-di-li"><span>Group Id:</span> @Group.GroupId</li>
+                                                    <li class="nn-di-li"><span>Group Name:</span> <a id="grpname@(lineId)" data-type="text">@Group.GroupName</a></li>
+                                                    <li class="nn-di-li"><span>Group Description:</span> <a id="grpdesc@(lineId)" data-type="textarea">@Group.GroupDescription</a></li>
+                                                </ul>
+                                            </div>
+
+                                            <div class="span6">
+                                                <ul class="nn-di-ul">
+                                                    <li class="nn-di-li"><span>Group Color:</span> <i id="clrshow@(lineId)" class="nn-color-sq" style="background-color: @(Group.GroupColor)"></i> <a id="grpclr@(lineId)" data-type="text">@Group.GroupColor</a></li>
+                                                    <li class="nn-di-li"><span>Group Icon:</span>
+                                                        @if (Group.GroupIcon.Length > 0)
+                                                        {
+                                                            <i class="@(Group.GroupIcon)"></i>
+                                                        }
+                                                    </li>
+                                                    <li class="nn-di-li"><span>Status:</span> 
+                                                        @if (Group.GroupStatus.ToString() == "O")
+                                                        {
+                                                            <span class="nn-active">Active</span>
+                                                        }
+                                                        else
+                                                        {
+                                                            <span class="nn-blocked">Inactive</span>
+                                                        }
+                                                    </li>
+
+                                                </ul>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="row-fluid">
+
+                                            <div class="span6">
+                                                <ul class="nn-di-ul">
+                                                    <a onclick="EditGroup('@(Group.GroupId)', @(lineId.ToString()))" class="btnaction"><li class="nn-di-li ctrl"><i class="icon-edit"></i> Edit Group</li></a>
+                                                    <a onclick="SaveGroup('@(Group.GroupId)', @(lineId.ToString()))" id="SaveItm@(lineId.ToString())" class="svgrp hidden"><li class="nn-di-li ctrl btn-success"><i class="icon-save"></i> Save Changes</li></a>
+                                                </ul>
+                                            </div>
+
+                                            @if (Group.GroupId != "7EE71651-DAC7-4E7C-A54A-BF774BCEE74D") // Can't remove "Other" (Default) Group
+                                            {
+                                                <div class="span6">
+                                                    <ul class="nn-di-ul">
+                                                        <a id="rembtn@(lineId.ToString())" class="btnaction removeconf" data-item="@(lineId.ToString())" data-target="#rembtn@(lineId.ToString())" data-group="@(Group.GroupId)" data-toogle="confirmation"><li class="nn-di-li ctrl"><i class="icon-remove"></i> Remove Group</li></a>
+                                                        <a id="deacbtn@(lineId.ToString())" class="btnaction deactconf" data-item="@(lineId.ToString())" data-target="#deacbtn@(lineId.ToString())" data-group="@(Group.GroupId)" data-toogle="confirmation"><li class="nn-di-li ctrl"><i class="icon-ban-circle"></i> Deactivate Group</li></a>
+                                                    </ul>
+                                                </div>
+                                            }
+
+                                        </div>
+
+
+                                    </div>
+
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+
+                </td>
+            </tr>
+
+            lineId++;
+
+        }

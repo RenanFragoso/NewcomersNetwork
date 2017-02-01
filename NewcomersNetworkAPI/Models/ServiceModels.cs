@@ -15,13 +15,14 @@ namespace NewcomersNetworkAPI.Models
         public string ServiceId { get; set; } = "";
         public string ServiceName { get; set; } = "";
         public string ServiceDescription { get; set; } = "";
+        [JsonIgnore]
         public string ServiceResponsible { get; set; } = "";
         public string ServiceGroup { get; set; } = "";
         public DateTime ServiceCreateDate { get; set; } = DateTime.Now;
         public DateTime ServiceAlterDate { get; set; } = DateTime.Now;
-
-        [JsonIgnore]
-        List<ServicesSchedule> ServiceSchedule;
+        public List<ServicesSchedule> ServiceSchedule { get; set; } = new List<ServicesSchedule>();
+        public string ServiceStatus { get; set; } = "";
+        public ServiceGroup oServiceGroup { get; set; } = new ServiceGroup();
 
         public Service()
         {
@@ -64,8 +65,10 @@ namespace NewcomersNetworkAPI.Models
                 this.ServiceDescription = row["ServiceDescription"].ToString();
                 this.ServiceResponsible = row["ServiceResponsible"].ToString();
                 this.ServiceGroup = row["ServiceGroup"].ToString();
+                this.ServiceStatus = row["ServiceStatus"].ToString();
                 this.ServiceCreateDate = (DateTime) row["ServiceCreateDate"];
                 this.ServiceAlterDate = (DateTime) row["ServiceAlterDate"];
+
 
             }
             catch (Exception e)
@@ -83,44 +86,32 @@ namespace NewcomersNetworkAPI.Models
 
         public override bool Save()
         {
-
             DateTime dNow = DateTime.Now;
             DataSet oInsertCMD;
             DataTable oServicesDB;
             Dictionary<string, object> infoParameters = new Dictionary<string, object>();
 
-            if (this.isValid)
+            infoParameters.Add("cServiceName", this.ServiceName);
+            infoParameters.Add("cServiceDescription", this.ServiceDescription);
+            infoParameters.Add("cServiceGroup", this.ServiceGroup);
+            infoParameters.Add("dServiceCreateDate", dNow);
+
+
+            oInsertCMD = DBConn.ExecuteCommand("sp_Services_Insert", infoParameters);
+            oServicesDB = oInsertCMD.Tables[0];
+
+            if (!oServicesDB.HasErrors && oServicesDB.Rows[0]["LAST_SERVICE"] != null)
             {
-                infoParameters.Add("cServiceName", this.ServiceName);
-                infoParameters.Add("cServiceDescription", this.ServiceDescription);
-                infoParameters.Add("cServiceResponsible", this.ServiceResponsible);
-                infoParameters.Add("cServiceGroup", this.ServiceGroup);
-                infoParameters.Add("dServiceCreateDate", dNow);
-                infoParameters.Add("dServiceAlterDate", dNow);
-
-                oInsertCMD = DBConn.ExecuteCommand("sp_Services_Insert", infoParameters);
-                oServicesDB = oInsertCMD.Tables[0];
-
-                if (oServicesDB.Rows[0]["LAST_SERVICE"] != null)
-                {
-                    this.ServiceId = oServicesDB.Rows[0]["LAST_SERVICE"].ToString();
-                    this.ServiceAlterDate = dNow;
-                    this.ServiceCreateDate = dNow;
-                    return true;
-                }
-                else
-                {
-                    this.sMsgError.Add("Error Saving Service.");
-                    return false;
-                }
-
+                this.ServiceId = oServicesDB.Rows[0]["LAST_SERVICE"].ToString();
+                this.ServiceAlterDate = dNow;
+                this.ServiceCreateDate = dNow;
+                return true;
             }
             else
             {
                 this.sMsgError.Add("Error Saving Service.");
                 return false;
             }
-
         }
 
         public override bool Update()
@@ -129,17 +120,16 @@ namespace NewcomersNetworkAPI.Models
             DataTable oServicesDB;
             Dictionary<string, object> infoParameters = new Dictionary<string, object>();
 
-            if (this.Validate())
+            infoParameters.Add("cServiceId", this.ServiceId);
+            infoParameters.Add("cServiceName", this.ServiceName);
+            infoParameters.Add("cServiceDescription", this.ServiceDescription);
+            infoParameters.Add("cServiceGroup", this.ServiceGroup);
+            infoParameters.Add("dServiceAlterDate", dNow);
+
+            oServicesDB = DBConn.ExecuteCommand("sp_Services_Update", infoParameters).Tables[0];
+
+            if (!oServicesDB.HasErrors)
             {
-                infoParameters.Add("cServiceId", this.ServiceId);
-                infoParameters.Add("cServiceName", this.ServiceName);
-                infoParameters.Add("cServiceDescription", this.ServiceDescription);
-                infoParameters.Add("cServiceResponsible", this.ServiceResponsible);
-                infoParameters.Add("cServiceGroup", this.ServiceGroup);
-                infoParameters.Add("dServiceAlterDate", dNow);
-
-                oServicesDB = DBConn.ExecuteCommand("sp_Services_Update", infoParameters).Tables[0];
-
                 return true;
             }
             else
@@ -147,7 +137,6 @@ namespace NewcomersNetworkAPI.Models
                 this.sMsgError.Add("Error Updating Service.");
                 return false;
             }
-
         }
 
         public override bool Delete()
@@ -155,11 +144,11 @@ namespace NewcomersNetworkAPI.Models
             DataTable oServicesDB;
             Dictionary<string, object> infoParameters = new Dictionary<string, object>();
 
-            if (this.Validate())
-            {
-                infoParameters.Add("cServiceId", this.ServiceId);
-                oServicesDB = DBConn.ExecuteCommand("sp_Services_Delete", infoParameters).Tables[0];
+            infoParameters.Add("cServiceId", this.ServiceId);
+            oServicesDB = DBConn.ExecuteCommand("sp_Services_Delete", infoParameters).Tables[0];
 
+            if (!oServicesDB.HasErrors)
+            {
                 return true;
             }
             else
@@ -168,6 +157,87 @@ namespace NewcomersNetworkAPI.Models
                 return false;
             }
 
+        }
+        public bool Activate()
+        {
+            DataTable oServicesDB;
+            Dictionary<string, object> infoParameters = new Dictionary<string, object>();
+
+            infoParameters.Add("cServiceId", this.ServiceId);
+            oServicesDB = DBConn.ExecuteCommand("sp_Services_Activate", infoParameters).Tables[0];
+
+            if (!oServicesDB.HasErrors)
+            {
+                return true;
+            }
+            else
+            {
+                this.sMsgError.Add("Error Activating Service.");
+                return false;
+            }
+        }
+
+        public bool Deactivate()
+        {
+            DataTable oServicesDB;
+            Dictionary<string, object> infoParameters = new Dictionary<string, object>();
+
+            infoParameters.Add("cServiceId", this.ServiceId);
+            oServicesDB = DBConn.ExecuteCommand("sp_Services_Deactivate", infoParameters).Tables[0];
+
+            if (!oServicesDB.HasErrors)
+            {
+                return true;
+            }
+            else
+            {
+                this.sMsgError.Add("Error Deactivating Service.");
+                return false;
+            }
+        }
+
+        public void LoadSchedule(bool bLoadItens = false)
+        {
+            Dictionary<string, object> infoParameters = new Dictionary<string, object>();
+            infoParameters.Add("cServiceId", this.ServiceId);
+            DataTable oSchedDB = DBConn.ExecuteCommand("sp_Schedule_GetAll", infoParameters).Tables[0];
+
+            if (oSchedDB.Rows.Count > 0)
+            {
+                ServicesSchedule oSchedule;
+                foreach (DataRow row in oSchedDB.Rows)
+                {
+                    oSchedule = new ServicesSchedule();
+                    oSchedule.MapFromTableRow(row);
+                    if (oSchedule.isValid)
+                    {
+                        if (bLoadItens)
+                        {
+                            oSchedule.LoadFullDetails();
+                        }
+                        this.ServiceSchedule.Add(oSchedule);
+                    }
+                }
+            }
+        }
+
+        public void LoadScheduleFull()
+        {
+            this.LoadSchedule(true);
+        }
+
+        public void LoadGroup()
+        {
+            if (this.ServiceGroup.Length > 0)
+            {
+                this.oServiceGroup = new ServiceGroup(this.ServiceGroup);
+            }
+        }
+
+        public override void LoadFullDetails()
+        {
+            this.LoadGroup();
+            this.LoadScheduleFull();
         }
 
     }

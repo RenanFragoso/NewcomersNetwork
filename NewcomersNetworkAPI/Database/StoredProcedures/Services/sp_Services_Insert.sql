@@ -1,15 +1,18 @@
 ﻿CREATE PROCEDURE [dbo].[sp_Services_Insert]
 @cServiceName NVARCHAR(50)=NULL,
 @cServiceDescription NVARCHAR(1000)=NULL, 
-@cServiceResponsible nvarchar(126),
-@cServiceGroup nvarchar(126),
-@dServiceCreateDate datetime,
-@dServiceAlterDate datetime
+@cServiceGroup nvarchar(128),
+@dServiceCreateDate datetime
 
 AS
 
-INSERT INTO [dbo].[Services] 
-( [ServiceName], [ServiceDescription], [ServiceResponsible], [ServiceGroup], [ServiceCreateDate], [ServiceAlterDate] )
-VALUES ( @cServiceName, @cServiceDescription, @cServiceResponsible, @cServiceGroup, @dServiceCreateDate, @dServiceAlterDate )
+DECLARE @NEWIDTBL Table (
+	Id nvarchar(128)
+);
 
-SELECT SCOPE_IDENTITY() AS LAST_SERVICE
+INSERT INTO [dbo].[Services] 
+( [ServiceName], [ServiceDescription], [ServiceGroup], [ServiceStatus], [ServiceCreateDate], [ServiceAlterDate] )
+OUTPUT Inserted.ServiceID into @NEWIDTBL
+VALUES ( @cServiceName, @cServiceDescription, @cServiceGroup, 'O', @dServiceCreateDate, @dServiceCreateDate )
+
+SELECT Id AS LAST_SERVICE FROM @NEWIDTBL

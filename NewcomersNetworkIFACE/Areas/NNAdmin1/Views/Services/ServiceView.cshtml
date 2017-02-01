@@ -1,12 +1,18 @@
 ﻿@model NewcomersNetworkAPI.Models.Service
 @{
     Layout = "~/Areas/NNAdmin1/Views/Shared/_Layout1.cshtml";
-    ViewBag.Title = "View Service" ;
+    ViewBag.Title = "View Service";
 }
 
 @section CSSSection {
+    <link rel="stylesheet" href="/Content/css/jquery.dataTables.css" />
+    <link rel="stylesheet" href="/Content/css/dataTables.bootstrap.css" />
     <link rel="stylesheet" href="/Content/css/uniform.css" />
     <link rel="stylesheet" href="/Content/css/select2.css" />
+    <link rel="stylesheet" href="/Content/css/datepicker.css" />
+    <link rel="stylesheet" href="/Content/css/bootstrap-editable.css" />
+    <link rel="stylesheet" href="/Content/css/jquery-confirm.css" />
+    <link rel="stylesheet" href="/Content/css/nn_admin.css" />
 }
 
 <div id="content">
@@ -51,50 +57,603 @@
                 <div class="widget-box">
                     <div class="widget-title">
                         <span class="icon"><i class="icon-list-alt"></i></span>
-                        <h5>Newcomers Network | Service Details</h5>
+                        <h5>Service Details</h5>
                     </div>
-                    <div class="widget-content nopadding">
-                        Service Details
+                    <div class="widget-content">
+                        
+                        <div class="row-fluid">
+
+                            <div class="span6">
+                                <ul class="nn-di-ul">
+                                    <li class="nn-di-li"><span>Service Id:</span> <a id="ServiceId">@Model.ServiceId</a></li>
+                                    <li class="nn-di-li"><span>Service Name:</span> <a id="ServiceName" data-title="Service Name" data-type="text">@Model.ServiceName</a></li>
+                                    <li class="nn-di-li"><span>Service Description:</span> <a id="ServiceDesc" data-title="Service Description" data-type="textarea">@Model.ServiceDescription</a></li>
+                                </ul>
+                            </div>
+
+                            <div class="span6">
+                                <ul class="nn-di-ul">
+                                    <li class="nn-di-li"><span>Service Group:</span> <a id="ServiceGroup" data-title="Service Group" data-value="@(Model.oServiceGroup.GroupId)" data-type="select2"><i id="SvcGrpColor" class="nn-color-sq" style="background-color: @(Model.oServiceGroup.GroupColor)"></i> <i id="SvcGrpIcon" class="@(Model.oServiceGroup.GroupIcon)"></i> @(Model.oServiceGroup.GroupName)</a></li>
+                                    <li class="nn-di-li"><span>Group Description:</span> <a id="SvcGrpDesc">@Model.oServiceGroup.GroupDescription</a></li>
+                                    <li class="nn-di-li"><span>Service Status:</span>
+                                    @if (Model.ServiceStatus == "O")
+                                    {
+                                        <span class="nn-active">Active</span>
+                                    }
+                                    else
+                                    {
+                                        if (Model.ServiceStatus == "F")
+                                        {
+                                            <span class="nn-blocked">Finished</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="nn-blocked">Deactivated</span>
+                                        }
+                                    }
+                                    </li>
+
+                                </ul>
+                            </div>
+
+                        </div>
+                        
+
+                        <div class="row-fluid">
+
+                            <div class="span6">
+                                <ul class="nn-di-ul">
+                                    <a onclick="EditService()" class="btnaction"><li class="nn-di-li ctrl"><i class="icon-edit"></i> Edit Service</li></a>
+                                </ul>
+                            </div>
+                            <div class="span6">
+                                <ul class="nn-di-ul">
+                                    <a onclick="RemoveService()" class="btnaction"><li class="nn-di-li ctrl"><i class="icon-remove"></i> Remove Service</li></a>
+                                    @if (Model.ServiceStatus == "O")
+                                    {
+                                        <a onclick="DeactivateService()" class="btnaction"><li class="nn-di-li ctrl"><i class="icon-ban-circle"></i> Deactivate Service</li></a>
+                                    }
+                                    else
+                                    {
+                                        <a onclick="ActivateService()" class="btnaction"><li class="nn-di-li ctrl"><i class="icon-ban-circle"></i> Activate Service</li></a>
+                                    }
+                                    <a onclick="SaveService()" id="SaveSvc" class="svgrp hidden"><li class="nn-di-li ctrl btn-success"><i class="icon-save"></i> Save Changes</li></a>
+                                    <a onclick="CancelEditService()" id="CancSvc" class="cangrp hidden"><li class="nn-di-li ctrl btn-danger"><i class="icon-ban-circle"></i> Cancel Changes</li></a>
+                                </ul>
+                            </div>
+
+                        </div>
                     </div>
                 </div>
 
                 <div class="widget-box">
                     <div class="widget-title">
                         <span class="icon"><i class="icon-calendar"></i></span>
-                        <h5>Newcomers Network | Service Schedule</h5>
+                        <h5>Service Schedule</h5>
+
+                        <div class="buttons">
+                            <a id="add-schedule" data-toggle="modal" href="#" class="btn btn-info btn-mini btnaction" onclick="AddSchedule(@(Model.ServiceId))"><i class="icon-plus icon-white"></i> Add new Schedule</a>
+                        </div>
+
                     </div>
                     <div class="widget-content nopadding">
-                        <table class="table table-bordered data-table">
+                        <table id="ScheduleList" class="table table-bordered">
                             <thead>
                                 <tr>
-                                    <th>Service Schedule</th>
-                                    <th>Service Description</th>
+                                    <th>Schedule</th>
                                 </tr>
                             </thead>
-                            <tbody id="ServiceSchedule">
-
-                                <tr>
-                                    <td>Schedule 1</td>
-                                    <td>Schedule Desc</td>
-                                </tr>
-
-
+                            <tbody>
                             </tbody>
                         </table>
                     </div>
                 </div>
-
-
             </div>
-
         </div>
-
     </div>
-
-
 </div>
 
+@RenderPage("~/Areas/NNAdmin1/Views/Services/_ServiceScheduleAddModal.cshtml")
+@RenderPage("~/Areas/NNAdmin1/Views/Services/_ScheduleItmAddModal.cshtml")
+
+@section JSSection {
+    <script src="~/Content/js/jquery.dataTables.js"></script>
+    <script src="~/Content/js/dataTables.bootstrap.js"></script>
+    <script src="/Content/js/masked.js"></script>
+    <script src="/Content/js/moment.js"></script>
+    <script src="/Content/js/combodate.js"></script>
+    <script src="/Content/js/bootstrap-datepicker.js"></script>
+    <script src="/Content/js/bootstrap-editable.min.js"></script>
+    <script src="/Content/js/jquery-confirm.js"></script>
+    <script src="/Content/js/select2.full.js"></script>
+    <script src="/Content/js/nn_admin.js"></script>
+}
+
 <script type="text/javascript">
+        
+    //Service Group select list (select2)    
+    var oGroupList = [];
+    
+    //Schedule Model
+    var oService = {};
+    
+    //User select
+    var oUserData = [{id: "ce209094-2d37-489d-9eb5-db570b06fab5", text: "Renan Fragoso"},{id: "c1c78ba8-c367-4862-a881-57e0c2272817", text: "Nestor Abdon"}];
+
     //Updates the image on selected menu
     DocReady.push(function () { menuSelected("#servicesmnu") });
+    DocReady.push(function () {
+
+        //Sets edit in place as inline
+        $.fn.editable.defaults.mode = 'inline';
+
+        //Sets in memory the Service model
+        NN_SendAjax("GET",
+            "/NNAdmin1/Services/GetNewService?cServiceId=@(Model.ServiceId)",
+            null,
+            ["Get New Schedule"],
+            function (response) {   //Success
+                if (response.odata != null) {
+                    oService = response.odata;
+                }
+            },
+            null, /* Error */
+            true /* Silent */);
+
+
+        //Schedule List
+        $("#ScheduleList").DataTable({
+            ajax: {
+                url: "/NNAdmin1/Services/GetSchedules?cServiceId=@(Model.ServiceId)",
+                dataSrc: ""
+            },
+            bInfo: false,
+            pagingType: "full_numbers",
+            columns: [
+                {
+                    data: null, target: 0, render: function (data, type, row, meta) {
+                        if (type == "sort") {
+                            return (data == null, "", data.Name);
+                        }
+                        if (type == "filter") {
+                            return (data == null, "", JSON.stringify(data));
+                        }
+                        //Internal complex data (expandable)
+                        if (type === "display") {
+                            var cinternal = "";
+                            var nDataIndex = meta.row;
+                            var dStartDate = moment(parseInt(data.StartDate.substr(6)));
+                            var dEndDate = moment(parseInt(data.EndDate.substr(6)));
+
+                            cinternal += '<table class="nn-dynamic-item" id="collapse-td"' + nDataIndex + '>';
+                            cinternal += '  <tr>';
+                            cinternal += '      <th id="itmhead' + nDataIndex + '" class="nn-di-th">';
+                            cinternal += '          <a data-parent="#collapse-td' + nDataIndex + '" href="#collapseTD' + nDataIndex + '" data-toggle="collapse">';
+                            cinternal +=                data.Name;
+                            cinternal += '          </a>';
+                            cinternal += '      </th>';
+                            cinternal += '  </tr>';
+                            cinternal += '  <tr>';
+                            cinternal += '      <td class="nn-di-td">'
+                            cinternal += '          <div class="collapse nn-di-content" id="collapseTD' + nDataIndex + '">';
+                            cinternal += '              <div class="nn-di-inner-content">';
+                            cinternal += '                  <div class="row-fluid">';
+                            cinternal += '                      <div class="span12">';
+                            cinternal += '                          <ul class="nn-di-ul">';
+                            cinternal += '                              <li class="nn-di-li title">Schedule Details</li>';
+                            cinternal += '                          </ul>';
+                            cinternal += '                      </div>';
+                            cinternal += '                  </div>';
+                            cinternal += '                  <div class="row-fluid">';
+                            cinternal += '                      <div class="span6">';
+                            cinternal += '                          <ul class="nn-di-ul">';
+                            cinternal += '                              <li class="nn-di-li"><span>Schedule Id:</span> ' + ((data.Id == "NULLID") ? "" : data.Id) + '</li>';
+                            cinternal += '                              <li class="nn-di-li"><span>Schedule Name:</span> <a id="SchedName' + nDataIndex + '" data-type="text"> ' + data.Name + '</a></li>';
+                            cinternal += '                              <li class="nn-di-li"><span>Schedule Description:</span> <a id="SchedDescription' + nDataIndex + '" data-type="textarea"> ' + data.Description + '</a></li>';
+                            cinternal += '                              <li class="nn-di-li"><span>Schedule Responsible:</span> <a id="Responsible' + nDataIndex + '" data-value="' + data.Responsible + '" data-type="select2"> ' + data.oResponsible.oDetails.FirstName + ' ' + data.oResponsible.oDetails.LastName + '</a></li>';
+                            cinternal += '                          </ul>';
+                            cinternal += '                      </div>';
+
+                            cinternal += '                      <div class="span6">';
+                            cinternal += '                          <ul class="nn-di-ul">';
+                            cinternal += '                              <li class="nn-di-li"><span>Registered Users Only:</span><a id="RequireReg' + nDataIndex + '" data-value="' + (data.RequireRegister? "1" : "0") + '" data-type="select"> ' + (data.RequireRegister? "Yes" : "No") + '</a></li>';
+                            cinternal += '                              <li class="nn-di-li"><span>Unique Inscriptions:</span><a id="UniqueInsc' + nDataIndex + '" data-value="' + (data.UniqueInscription? "1" : "0") + '" data-type="select"> ' + (data.UniqueInscription? "Yes" : "No") + '</a></li>';
+                            cinternal += '                              <li class="nn-di-li"><span>Start Date:</span> <a id="StartDate' + nDataIndex + '" data-type="date"> ' + dStartDate.format("DD/MM/YYYY") + '</a></li>';
+                            cinternal += '                              <li class="nn-di-li"><span>End Date:</span><a id="EndDate' + nDataIndex + '" data-type="date"> ' + dEndDate.format("DD/MM/YYYY") + '</a></li>';
+                            cinternal += '                              <li class="nn-di-li"><span>Status:</span>';
+                            if (data.Status == 'O') {
+                                cinternal += '                                  <span class="nn-active">Active</span>';
+                            }
+                            else {
+                                if(data.Status == 'F') {
+                                    cinternal += '                                  <span class="nn-blocked">Finished</span>';
+                                } else {
+                                    cinternal += '                                  <span class="nn-blocked">Deactivated</span>';
+                                }
+                            }
+                            cinternal += '                              </li>';
+                            cinternal += '                          </ul>';
+                            cinternal += '                      </div>';
+                            cinternal += '                  </div>';
+                            cinternal += '                  <div class="row-fluid">';
+                            cinternal += '                      <div class="span6">';
+                            cinternal += '                          <ul class="nn-di-ul">';
+                            cinternal += '                              <a href="ScheduleView?cServiceId=' + data.ServiceId + '&cScheduleId=' + data.Id + '" class="btnaction"><li class="nn-di-li ctrl"><i class="icon-eye-open"></i> View Schedule</li></a>';
+                            cinternal += '                          </ul>';
+                            cinternal += '                      </div>';
+                            cinternal += '                      <div class="span6">';
+                            cinternal += '                          <ul class="nn-di-ul">';
+                            cinternal += '                              <a onclick="SaveSchedule(' + nDataIndex + ')" id="SaveSched' + nDataIndex + '" class="svgrp hidden"><li class="nn-di-li ctrl btn-success"><i class="icon-save"></i> Save Changes</li></a>';
+                            cinternal += '                              <a onclick="CancelEditSchedule(' + nDataIndex + ')" id="CancSched' + nDataIndex + '" class="cangrp hidden"><li class="nn-di-li ctrl btn-danger"><i class="icon-ban-circle"></i> Cancel Changes</li></a>';
+                            cinternal += '                          </ul>';
+                            cinternal += '                      </div>';
+                            cinternal += '                  </div>';
+                            cinternal += '              </div>';
+                            cinternal += '          </div>';
+                            cinternal += '      </td>';
+                            cinternal += '  </tr>';
+                            cinternal += '</table>';
+
+                            return cinternal;
+                        }
+                        return data;
+                    }
+                }
+            ],
+            drawCallback: function (settings) {
+                //Adjust the classes
+                $("#ScheduleList_paginate").addClass("fg-buttonset ui-buttonset fg-buttonset-multi ui-buttonset-multi");
+                $(".paginate_button").removeClass("paginate_button").addClass("fg-button ui-button ui-state-default");
+                $("div .row:last-of-type").removeClass("row").addClass("fg-toolbar ui-toolbar ui-widget-header ui-helper-clearfix ui-corner-bl ui-corner-br");
+                $("#ScheduleList").removeAttr("style");
+            },
+            initComplete: function () { $("#ScheduleList").removeAttr("style") }
+        });
+        
+        //Gets the Group List into variable (select2 ajax into x-editable not working)
+        NN_SendAjax("GET",
+                    "/NNAdmin1/Lists/GetGroupIconList",
+                    null,
+                    ["Get Group List"],
+                    function (response) {   //Success
+
+                        if (response.odata != null) {
+                            var oOptions = response.odata.find(x => x.cListName == "servicesgroupicon" ).oItens;
+                            if(oOptions != null)
+                            {
+                                oGroupList = oOptions;
+                            }
+                        }
+                    },
+                    null,
+                    true);
+    });
+
+    function EditService()
+    {
+        $(".btnaction").addClass("hidden");
+        $("#SaveSvc").removeClass("hidden");
+        $("#CancSvc").removeClass("hidden");
+        $("#ServiceName").editable({ validate: notEmpty }).editable('enable');
+        $("#ServiceDesc").editable({ validate: notEmpty }).editable('enable');
+
+        //Service Group
+        $("#ServiceGroup").editable({
+            placeholder: 'Select a group ...',
+            allowClear: true,
+            select2: {
+                data: oGroupList,
+                id: function (item){
+                    return item.id;
+                },
+                templateResult: function (oRet) {
+                    var result = "";
+                    if (oRet.id == "") {
+                        return oRet.text;
+                    }
+                    if(!oRet.disabled){
+                        var oParse = JSON.parse(oRet.text);
+                        result = $('<i id="SvcGrpColor" class="nn-color-sq" style="background-color: ' + oParse.GroupColor + '"></i> <i id="SvcGrpIcon" class="' + oParse.GroupIcon +'"></i><span style="color: #000"> ' + oParse.GroupName + '</span>');
+                    }
+                    return result;
+                },
+                templateSelection: function (oRet) {
+                    var result = "";
+                    if (oRet.id == "") {
+                        return oRet.text;
+                    }
+                    if(!oRet.disabled){
+                        var oParse = JSON.parse(oRet.text);
+                        result = $('<i id="SvcGrpColor" class="nn-color-sq" style="background-color: ' + oParse.GroupColor + '"></i> <i id="SvcGrpIcon" class="' + oParse.GroupIcon +'"></i><span style="color: #000"> ' + oParse.GroupName + '</span>');
+                    }
+                    return result;
+                }
+            },
+            display: function(newValue) {
+                var oRet = oGroupList.find(x => x.id === newValue);
+                if(oRet) {
+                    var oParse = JSON.parse(oRet.text);
+                    $(this).html('<i id="SvcGrpColor" class="nn-color-sq" style="background-color: ' + oParse.GroupColor + '"></i> <i id="SvcGrpIcon" class="' + oParse.GroupIcon +'"></i> ' + oParse.GroupName);
+                } else {
+                    $(this).html("");
+                }
+            },
+            success: function(response, newValue) {
+                var oRet = oGroupList.find(x => x.id === newValue);
+                if(oRet) {
+                    var oParse = JSON.parse(oRet.text);
+                    console.log(oParse.GroupDescription);
+                    $("#SvcGrpDesc").html(oParse.GroupDescription);
+                }
+            }
+        }).editable('enable');
+    }
+
+    function CancelEditService() {
+
+        $("#ServiceName").editable('disable');
+        $("#ServiceDesc").editable('disable');
+        $("#ServiceGroup").editable('disable');
+
+        $("#SaveSvc").addClass("hidden");
+        $("#CancSvc").addClass("hidden");
+        $(".btnaction").removeClass("hidden");
+    }
+
+    function SaveService() {
+        UpdateSvcModel(oService);
+        console.log(oService);
+        NN_SendAjax("POST",
+            "/NNAdmin1/Services/UpdateService",
+            oService,
+            ["Service Update", "Service Update"],
+            function () {   //Success
+                CancelEditService();
+            },
+            null );
+    }
+
+    function RemoveService() {
+
+        var cServiceId = $("#ServiceId").text();
+
+        $.confirm({
+            title: "Remove Service",
+            content: "Really confirm Service Removal? All Schedule and Schedule Itens will be removed too. (this can\'t be undone)",
+            backgroundDismiss: false,
+            backgroundDismissAnimation: 'glow',
+            buttons: {
+                confirm: {
+                    btnClass: 'btn-primary',
+                    action: function () {
+                        NN_SendAjax("DELETE",
+                            "/NNAdmin1/Services/DeleteService?cServiceId=" + cServiceId,
+                            null,
+                            ["Service Remove", "Service Remove"],
+                            function () {   //Success
+                                document.location = "/NNAdmin1/Services";
+                            },
+                            null);
+                    }
+                },
+                cancel: {
+                    btnClass: 'btn-danger',
+                    keys: ['esc'],
+                    action: function () { }
+                }
+            }
+        });
+
+    }
+
+    function ActivateService(cServiceId) {
+
+        var cServiceId = $("#ServiceId").text();
+
+        $.confirm({
+            title: "Activate Service",
+            content: "Really confirm Service Activation?",
+            backgroundDismiss: false,
+            backgroundDismissAnimation: 'glow',
+            buttons: {
+                confirm: {
+                    btnClass: 'btn-primary',
+                    action: function () {
+                        NN_SendAjax("GET",
+                            "/NNAdmin1/Services/ActivateService?cServiceId=" + cServiceId,
+                            null,
+                            ["Service Activation", "Service Activation"],
+                            function () { location.reload(true) },
+                            null);
+                    }
+                },
+                cancel: {
+                    btnClass: 'btn-danger',
+                    keys: ['esc'],
+                    action: function () { }
+                }
+            }
+        });
+
+    }
+
+    function DeactivateService(cServiceId) {
+
+        var cServiceId = $("#ServiceId").text();
+
+        $.confirm({
+            title: "Deactivate Service",
+            content: "Really confirm Service Deactivation? All Schedule and Schedule Itens will be deactivated too.",
+            backgroundDismiss: false,
+            backgroundDismissAnimation: 'glow',
+            buttons: {
+                confirm: {
+                    btnClass: 'btn-primary',
+                    action: function () {
+                        NN_SendAjax("GET",
+                            "/NNAdmin1/Services/DeactivateService?cServiceId=" + cServiceId,
+                            null,
+                            ["Service Activation", "Service Activation"],
+                            function () { location.reload(true) },
+                            null);
+                    }
+                },
+                cancel: {
+                    btnClass: 'btn-danger',
+                    keys: ['esc'],
+                    action: function () { }
+                }
+            }
+        });
+    }
+
+    function UpdateSvcModel(oModel) {
+        oModel.ServiceId = $("#ServiceId").text();
+        oModel.ServiceName = $("#ServiceName").editable("getValue").ServiceName;
+        oModel.ServiceDescription = $("#ServiceDesc").editable("getValue").ServiceDesc;
+
+        oModel.ServiceGroup = $("#ServiceGroup").editable("getValue").ServiceGroup;
+
+        oModel.ServiceAlterDate = moment(parseInt(oModel.ServiceAlterDate.substr(6))).format("YYYY-MM-DDTHH:mm:ssZ");
+        oModel.ServiceCreateDate = moment(parseInt(oModel.ServiceCreateDate.substr(6))).format("YYYY-MM-DDTHH:mm:ssZ");
+        oModel.ServiceSchedule = []; // Not sending the schedule here
+        oModel.oServiceGroup = {}; // Not sending the group object
+    }
+
+    //================= SCHEDULE FUNCTIONS =================
+    
+    function AddSchedule(cServiceId)
+    {
+        NN_SendAjax("GET",
+            "/NNAdmin1/Services/GetNewSchedule?cServiceId=" + cServiceId,
+            null,
+            ["Get New Schedle"],
+            function (response) {   //Success
+                if (response.odata != null) {
+                    var oTable = $("#ScheduleList").DataTable();
+                    var rowAdded = oTable.row.add(response.odata);
+                    oTable.page("last").draw(false)
+                    var nItm = rowAdded.index();
+                    EditSchedule(nItm);
+                }
+            },
+            null,
+            true);
+    }
+   
+    function EditSchedule(nItm) {
+        $("#itmhead" + nItm).addClass("nn-editing-hd");
+        $("#collapseTD" + nItm).collapse("toggle");
+        $(".input-sm").attr("readonly", "");
+        $(".btnaction").addClass("hidden");
+        $("#SaveSched"+nItm).removeClass("hidden");
+        $("#CancSched"+nItm).removeClass("hidden");
+        $("#SchedName"+nItm).editable({ validate: notEmpty }).editable('enable');
+        $("#SchedDescription"+nItm).editable({ validate: notEmpty }).editable('enable');
+        $("#Responsible"+nItm).editable({ 
+            placeholder: "Select Responsible ...",
+            validate: notEmpty,
+            select2: {
+                data: oUserData,
+                id: function (item){
+                    return item.id;
+                },
+                formatSelection: function (item) {
+                    return item.text;
+                }
+            },
+            display: function(newValue) {
+                var oRet = oUserData.find(x => x.id === newValue);
+                if(oRet) {
+                    $(this).html(oRet.text);
+                } else {
+                    $(this).html("");
+                }
+            }
+        }).editable('enable');
+
+        $("#RequireReg"+nItm).editable({
+            source: [{ value: 0, text: 'No' }, { value: 1, text: 'Yes' }]
+        }).editable('enable');
+
+        $("#UniqueInsc"+nItm).editable({
+            source: [{ value: 0, text: 'No' }, { value: 1, text: 'Yes' }]
+        }).editable('enable');
+
+        $("#StartDate"+nItm).editable({
+            validate: notEmpty,
+            format: 'dd/mm/yyyy',
+            viewformat: 'dd/mm/yyyy',
+            template: 'dd/mm/yyyy'
+        }).editable('enable');
+
+        $("#EndDate"+nItm).editable({
+            validate: notEmpty,
+            format: 'dd/mm/yyyy',
+            viewformat: 'dd/mm/yyyy',
+            template: 'dd/mm/yyyy'
+        }).editable('enable');
+    }
+
+    function CancelEditSchedule(nItm) {
+
+        var oDTTable = $("#ScheduleList").DataTable();
+        var cId = oDTTable.row(nItm).data().Id;
+        if (cId == "NULLID") {    //Not saved yet
+            oDTTable.row(nItm).remove().draw();
+        } else {
+            $("#itmhead" + nItm).removeClass("nn-editing-hd");
+            $("#SchedName"+nItm).editable('disable');
+            $("#SchedDescription"+nItm).editable('disable');
+            $("#Responsible"+nItm).editable('disable');
+            $("#RequireReg"+nItm).editable('disable');
+            $("#UniqueInsc"+nItm).editable('disable');
+            $("#StartDate"+nItm).editable('disable');
+            $("#EndDate"+nItm).editable('disable');
+            $("#SaveSched"+nItm).addClass("hidden");
+            $("#CancSched"+nItm).addClass("hidden");
+        }
+        $(".btnaction").removeClass("hidden");
+        $(".input-sm").removeAttr("readonly");
+    }
+
+    function SaveSchedule(nItm) {
+
+        var oDTTable = $("#ScheduleList").DataTable();
+        var oSchedule = oDTTable.row(nItm).data();
+        UpdateScheduleModel(oSchedule,nItm);
+        console.log(oSchedule);
+
+        NN_SendAjax("POST",
+            "UpdateSchedule",
+            oSchedule,
+            ["Schedule Creation", "Schedule Creation"],
+            function () {   //Success
+                CancelEditSchedule();
+                ReloadScheduleList();
+            },
+            null );
+    }
+
+    function UpdateScheduleModel(oSchedule,nItm) {
+       
+        var dStartDate = moment($("#StartDate" + nItm).text() + " 00:00:00", "DD-MM-YYYY HH:mm:ss" );
+        var dEndDate = moment($("#EndDate" + nItm).text() + " 23:59:59", "DD-MM-YYYY HH:mm:ss");
+        
+        oSchedule.Name = $("#SchedName"+nItm).text();
+        oSchedule.Description = $("#SchedDescription"+nItm).text();
+        oSchedule.Responsible = $("#Responsible"+nItm).editable("getValue")["Responsible"+nItm];
+        oSchedule.RequireRegister = $("#RequireReg"+nItm).editable("getValue")["RequireReg"+nItm] == "1";
+        oSchedule.UniqueInscription = $("#UniqueInsc"+nItm).editable("getValue")["UniqueInsc"+nItm] == "1";
+        oSchedule.StartDate = dStartDate.format("YYYY-MM-DDTHH:mm:ssZ");
+        oSchedule.EndDate = dEndDate.format("YYYY-MM-DDTHH:mm:ssZ");
+        oSchedule.AlterDate = moment(parseInt(oSchedule.AlterDate.substr(6))).format("YYYY-MM-DDTHH:mm:ssZ");
+        oSchedule.CreateDate = moment(parseInt(oSchedule.CreateDate.substr(6))).format("YYYY-MM-DDTHH:mm:ssZ");
+        oSchedule.oResponsible = {}; //Not sending responsible object
+    }
+    
+    function ReloadScheduleList() {
+        $("#ScheduleList").DataTable().ajax.reload();
+    }
+
 </script>

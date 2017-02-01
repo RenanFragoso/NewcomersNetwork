@@ -1,5 +1,5 @@
 ﻿CREATE PROCEDURE [dbo].[sp_ServicesGroup_GetById]
-@cGroupId nvarchar(126)
+@cGroupId nvarchar(128)
 
 AS
 

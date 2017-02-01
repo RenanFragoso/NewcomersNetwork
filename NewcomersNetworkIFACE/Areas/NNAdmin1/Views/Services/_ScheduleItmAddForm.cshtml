@@ -1,0 +1,91 @@
+﻿@model NewcomersNetworkAPI.Models.ScheduleItem
+@{
+    var newItem = (Model.Id == -1);
+}
+<div class="row-fluid">
+    <div class="span12">
+
+        <div class="widget-box">
+            <div class="widget-title">
+                <span class="icon"> <i class="icon-user"></i> </span>
+                <h5>@(newItem ? "New " : "" )Schedule Item @(newItem ? "" : "Update" )</h5>
+            </div>
+            <div class="widget-content nopadding">
+
+                <form class="form-horizontal" id="ScheduleAddForm">
+
+                    @Html.AntiForgeryToken()
+                    @Html.HiddenFor(model => model.Id)
+
+                    <div class="control-group">
+                        @Html.LabelFor(model => model.StartDate, new { @class = "control-label" })
+                        <div class="controls">
+                            @* <input type="text" id="StartDateItm" name="StartDate" class="span11" data-format="YYYY-MM-DD hh:mm:ss a" data-template="DD / MM / YYYY     hh : mm a" value="@(Model.StartDate.Date.ToString())" /> *@
+                            <div data-date="(@DateTime.Now.Date.ToString("dd/MM/yyyy"))" class="input-append date datepicker">
+                                <input id="dateStrt" name="StartDate" type="text" class="span11" data-date='@(Model.StartDate.Date.ToString("dd/MM/yyyy").Replace("-","/"))' value='@(Model.StartDate.Date.ToString("dd/MM/yyyy").Replace("-","/"))' />
+                                <span class="add-on"><i class="icon-th"></i></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <label class = "control-label">Start Time</label>
+                        <div class="controls">
+                            <input type="text" id="StartTime" name="StartTime" class="span11" data-format="hh:mm a" data-template="hh : mm a" value="@(Model.StartDate.Date.ToString("hh:mm tt"))" />
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        @Html.LabelFor(model => model.EndDate, new { @class = "control-label" })
+                        <div class="controls">
+                            <div data-date="(@DateTime.Now.Date.ToString("dd/MM/yyyy"))" class="input-append date datepicker">
+                                <input id="dateEnd" name="EndDate" type="text" class="span11" data-date='@(Model.EndDate.Date.ToString("dd/MM/yyyy").Replace("-","/"))' value='@(Model.EndDate.Date.ToString("dd/MM/yyyy").Replace("-","/"))' />
+                                <span class="add-on"><i class="icon-th"></i></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <label class="control-label">End Time</label>
+                        <div class="controls">
+                            <input type="text" id="EndTime" name="EndTime" class="span11" data-format="hh:mm a" data-template="hh : mm a" value="@(Model.EndDate.Date.ToString("hh:mm tt"))" />
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        @Html.LabelFor(model => model.MaxSlots, new { @class = "control-label" })
+                        <div class="controls">
+                            <div class="input-prepend input-append">
+                                <span class="input-group-btn">
+                                    <span class="add-on" id="slt-dwn" data-dir="dwn"><i class="icon-minus"></i></span>
+                                </span>
+                                @Html.TextBoxFor(model => model.MaxSlots, new { @class = "form-control text-center span4", @id = "MaxSlots" })
+                                <span class="input-group-btn">
+                                    <span class="add-on" id="slt-up" data-dir="up"><i class="icon-plus"></i></span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="control-group" id="FormErrors">
+                        <div class="alert alert-error alert-block" id="ErrorsSummary" style="visibility: hidden">
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-success">Save</button>
+                    </div>
+
+                  </form>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+<style>
+    .datepicker.dropdown-menu {
+        z-index: 100000 !important;
+    }
+</style>

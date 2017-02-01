@@ -20,6 +20,7 @@ namespace NewcomersNetworkIFACE.Areas.NNAdmin1.Controllers
         // GET: NNAdmin1/Users
         public ActionResult Index()
         {
+            this.oUsers.LoadUsers();
             ListPopulate(null);
             return View(oUsers);
         }
@@ -51,6 +52,28 @@ namespace NewcomersNetworkIFACE.Areas.NNAdmin1.Controllers
             return PartialView("_EditUserForm", oUserEdit);
         }
 
+        [HttpGet]
+        public ActionResult GetUsers()
+        {
+            List<User> oUsers;
+            oUsers = this.oUsers.GetAllUsers();
+            if(oUsers != null)
+            {
+                return Json(oUsers, JsonRequestBehavior.AllowGet);
+            }
+            oUsers = new List<User>();
+            return Json(oUsers, JsonRequestBehavior.AllowGet);
+        }
+
+        /*
+        [HttpGet]
+        public ActionResult GetUsers()
+        {
+
+            return PartialView("_UsersList", this.oUsers.oUserList);
+        }
+        */
+
         /* Edit sender */
         [HttpPost]
         public async Task<ActionResult> EditUser(User oUser)
@@ -68,10 +91,8 @@ namespace NewcomersNetworkIFACE.Areas.NNAdmin1.Controllers
                     statuscode = (int)oResponse.StatusCode,
                     response = await oResponse.Content.ReadAsStringAsync() }, JsonRequestBehavior.AllowGet);
             }
-
-            if (!ModelState.IsValid)
+            else
             {
-                
                 return Json(new
                 {
                     success = false,
@@ -81,9 +102,6 @@ namespace NewcomersNetworkIFACE.Areas.NNAdmin1.Controllers
 
             }
 
-            return Json(new {   success = false,
-                                statuscode = 400,
-                                response = "{ \"Message\": \"Malformed request.\"}"  }, JsonRequestBehavior.AllowGet);
         }
 
         [HttpGet]
@@ -92,7 +110,7 @@ namespace NewcomersNetworkIFACE.Areas.NNAdmin1.Controllers
             ListPopulate(null);
             return PartialView("_UsersList", this.oUsers.oUserList);
         }
-
+        
         [HttpDelete]
         public async Task<ActionResult> RemoveUser(string cUserId)
         {

@@ -1,5 +1,5 @@
 ﻿CREATE PROCEDURE [dbo].[sp_Events_Delete]
-@cId int
+@cId nvarchar(128)
 
 AS
 

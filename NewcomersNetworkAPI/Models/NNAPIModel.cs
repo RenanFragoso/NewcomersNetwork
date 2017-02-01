@@ -55,6 +55,9 @@ namespace NewcomersNetworkAPI.Models
             return string.Join(",",this.sMsgError.ToArray());
         }
 
+        public virtual void LoadFullDetails()
+        {
+        }
 
     }
 }

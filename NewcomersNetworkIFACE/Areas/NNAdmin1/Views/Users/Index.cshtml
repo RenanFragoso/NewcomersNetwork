@@ -1,12 +1,16 @@
-﻿@model NewcomersNetworkIFACE.Areas.NNAdmin1.Models.Users
-@{
+﻿@{
     Layout = "~/Areas/NNAdmin1/Views/Shared/_Layout1.cshtml";
     ViewBag.Title = "Users";
 }
 
 @section CSSSection {
+    <link rel="stylesheet" href="~/Content/css/jquery.dataTables.css" />
+    <link rel="stylesheet" href="~/Content/css/dataTables.bootstrap.css" />
     <link rel="stylesheet" href="/Content/css/uniform.css" />
     <link rel="stylesheet" href="/Content/css/select2.css" />
+    <link rel="stylesheet" href="/Content/css/bootstrap-editable.css" />
+    <link rel="stylesheet" href="/Content/css/jquery-confirm.css" />
+    <link rel="stylesheet" href="/Content/css/nn_admin.css" />
 }
 
 <div id="content">
@@ -22,7 +26,7 @@
                 Users
             </a>
         </div>
-        <h1>Services</h1>
+        <h1>Users</h1>
     </div>
     <!--End-breadcrumbs-->
     <!--Action boxes-->
@@ -52,36 +56,41 @@
                         <h5>Newcomers Network | Users</h5>
                     </div>
 
-                    <div class="widget-content nopadding" id="users-list">
-
-                        <table class="table table-bordered data-table" id="UsersTable">
-
+                    <div class="widget-content nopadding">
+                        <table class="table table-bordered" id="UsersList">
                             <thead>
                                 <tr>
                                     <th>Users</th>
                                 </tr>
                             </thead>
-                            <tbody id="UsersList">
-
+                            <tbody>
+                                @*
                                 @Html.Partial("_UsersList", Model.oUserList)
-
+                                *@
                             </tbody>
                         </table>
-
                     </div>
                 </div>
-                       
             </div>
-
         </div>
-
     </div>
-
-
 </div>
 
+@*
 @RenderPage("~/Areas/NNAdmin1/Views/Users/_EditRolesModal.cshtml")
 @RenderPage("~/Areas/NNAdmin1/Views/Users/_EditUserModal.cshtml")
+*@
+
+@section JSSection {
+    <script src="~/Content/js/jquery.dataTables.js"></script>
+    <script src="~/Content/js/dataTables.bootstrap.js"></script>
+    <script src="/Content/js/bootstrap-datepicker.js"></script>
+    <script src="/Content/js/bootstrap-editable.min.js"></script>
+    <script src="/Content/js/masked.js"></script>
+    <script src="/Content/js/moment.js"></script>
+    <script src="/Content/js/jquery-confirm.js"></script>
+    <script src="/Content/js/select2.full.js"></script>
+}
 
 <script type="text/javascript">
     //Updates the image on selected menu
@@ -89,144 +98,357 @@
 
     DocReady.push(function () {
 
-        $('#edituser').click(function () {
-            var url = "/NNAdmin1/Users/EditUserView";
-            var id = $(this).attr('data-id');
-            if (id) {
-                url += "/" + id;
-            }
-            $.get(url, EditFormSet);
-        });
+        //Sets edit in place as inline
+        $.fn.editable.defaults.mode = 'inline';
 
+        //Group List
+        $("#UsersList").DataTable({
+            ajax: {
+                url: "/NNAdmin1/Users/GetUsers",
+                dataSrc: ""
+            },
+            bInfo: false,
+            pagingType: "full_numbers",
+            columns: [
+                {
+                    data: null, target: 0, render: function (data, type, row, meta) {
+                        if (type == "sort") {
+                            return (data.oDetails == null, "", data.oDetails.FirstName + ' ' + data.oDetails.LastName);
+                        }
+                        if (type == "filter") {
+                            return (data == null, "", JSON.stringify(data));
+                        }
+                        //Internal complex data (expandable)
+                        if (type === "display") {
+                            //console.log(data);
+                            var cinternal = "";
+                            var nDataIndex = meta.row;
+                            var CreateDate = moment(parseInt( data.oDetails.DateCreated.substr(6)));
+                            var AlterDate = moment(parseInt(data.oDetails.LastModified.substr(6)));
+
+                            cinternal += '<table class="nn-dynamic-item" id="collapse-td"' + nDataIndex + '>';
+                            cinternal += '  <tr>';
+                            cinternal += '      <th id="itmhead' + nDataIndex + '" class="nn-di-th itmhead' + nDataIndex + '">';
+                            cinternal += '          <a data-parent="#collapse-td' + nDataIndex + '" href="#collapseTD' + nDataIndex + '" data-toggle="collapse">';
+                            cinternal +=                data.oDetails.FirstName + ' ' + data.oDetails.LastName;
+                            cinternal += '          </a>';
+                            cinternal += '      </th>';
+                            cinternal += '      <th id="itmhead' + nDataIndex + '" class="nn-di-th itmhead' + nDataIndex + '">';
+                            cinternal += '          <a data-parent="#collapse-td' + nDataIndex + '" href="#collapseTD' + nDataIndex + '" data-toggle="collapse">';
+                            cinternal +=                data.Email;
+                            cinternal += '          </a>';
+                            cinternal += '      </th>';
+                            cinternal += '  </tr>';
+                            cinternal += '  <tr>';
+                            cinternal += '      <td class="nn-di-td" colspan="2">'
+                            cinternal += '          <div class="collapse nn-di-content" id="collapseTD' + nDataIndex + '">';
+                            cinternal += '              <div class="nn-di-inner-content">';
+                            cinternal += '                  <div class="row-fluid">';
+                            cinternal += '                      <div class="span12">';
+                            cinternal += '                          <ul class="nn-di-ul">';
+                            cinternal += '                              <li class="nn-di-li title">Group</li>';
+                            cinternal += '                          </ul>';
+                            cinternal += '                      </div>';
+                            cinternal += '                  </div>';
+                            cinternal += '                  <div class="row-fluid">';
+                            cinternal += '                      <div class="span6">';
+                            cinternal += '                          <ul class="nn-di-ul">';
+                            cinternal += '                              <li class="nn-di-li"><span>Id:</span> ' + ((data.Id == "NULLID") ? "" : data.Id) + '</li>';
+                            cinternal += '                              <li class="nn-di-li"><span>First Name:</span> <a id="FirstName' + nDataIndex + '" data-type="text"> ' + data.oDetails.FirstName + '</a></li>';
+                            cinternal += '                              <li class="nn-di-li"><span>Last Name:</span> <a id="LastName' + nDataIndex + '" data-type="text"> ' + data.oDetails.LastName + '</a></li>';
+                            cinternal += '                              <li class="nn-di-li"><span>E-Mail:</span> <a id="Email' + nDataIndex + '" data-type="text"> ' + data.oDetails.Email + '</a></li>';
+                            cinternal += '                              <li class="nn-di-li"><span>Gender:</span> <a id="Gender' + nDataIndex + '" data-value="' + data.oDetails.Gender + '" data-type="text"> ' + data.oDetails.Gender + '</a></li>';
+                            cinternal += '                              <li class="nn-di-li"><span>Age Range:</span> <a id="AgeRange' + nDataIndex + '" data-value="' + data.oDetails.AgeRange + '" data-type="text"> ' + data.oDetails.AgeRange + '</a></li>';
+                            cinternal += '                              <li class="nn-di-li"><span>Marital Status:</span> <a id="Marital' + nDataIndex + '" data-value="' + data.oDetails.MaritalStatus + '" data-type="text"> ' + data.oDetails.MaritalStatus + '</a></li>';
+                            cinternal += '                          </ul>';
+                            cinternal += '                      </div>';
+                            cinternal += '                      <div class="span6">';
+                            cinternal += '                          <ul class="nn-di-ul">';
+                            cinternal += '                              <li class="nn-di-li"><span>Education:</span> <a id="Education' + nDataIndex + '" data-value="' + data.oDetails.Education + '" data-type="text"> ' + data.oDetails.Education + '</a></li>';
+                            cinternal += '                              <li class="nn-di-li"><span>Date Created:</span> ' + CreateDate.format("DD/MM/YYYY") + '</li>';
+                            cinternal += '                              <li class="nn-di-li"><span>Last Modified:</span> ' + AlterDate.format("DD/MM/YYYY") + '</li>';
+                            cinternal += '                              <li class="nn-di-li"><span>Status:</span>';
+                            if (data.oDetails.Status == "O") {
+                                cinternal += '                                  <span class="nn-active">Active</span>';
+                            }
+                            else {
+                                cinternal += '                                  <span class="nn-blocked">Inactive</span>';
+                            }
+                            cinternal += '                              </li>';
+                            cinternal += '                          </ul>';
+                            cinternal += '                      </div>';
+                            cinternal += '                  </div>';
+                            //User Category
+                            cinternal += '                  <div class="row-fluid">';
+                            cinternal += '                      <div class="span6">';
+
+                            cinternal += '                      </div>';
+                            cinternal += '                      <div class="span6">';
+                            cinternal += '                          <ul class="nn-di-ul">';
+                            cinternal += '                              <li class="nn-di-li title">User Categories</li>';
+                            cinternal += '                          </ul>';
+                            cinternal += '                          <ul class="nn-di-ul">';
+
+
+                            cinternal += '                          </ul>';
+
+
+                            cinternal += '                      </div>';
+                            cinternal += '                  </div>';
+                            //Action Buttons
+                            cinternal += '                  <div class="row-fluid">';
+                            cinternal += '                      <div class="span6">';
+                            cinternal += '                          <ul class="nn-di-ul">';
+                            cinternal += '                              <a onclick="EditUser(\'' + data.UserId + '\', ' + nDataIndex + ')" class="btnaction"><li class="nn-di-li ctrl"><i class="icon-edit"></i> Edit User</li></a>';
+                            cinternal += '                          </ul>';
+                            cinternal += '                      </div>';
+
+                            cinternal += '                      <div class="span6">';
+                            cinternal += '                          <ul class="nn-di-ul">';
+                            cinternal += '                              <a onclick="SaveUser(\'' + data.UserId + '\', ' + nDataIndex + ')" id="SaveUsr' + nDataIndex + '" class="svusr hidden"><li class="nn-di-li ctrl btn-success"><i class="icon-save"></i> Save Changes</li></a>';
+                            cinternal += '                              <a onclick="CancelEditUser(\'' + data.GroupId + '\', ' + nDataIndex + ')" id="CancUsr' + nDataIndex + '" class="canusr hidden"><li class="nn-di-li ctrl btn-danger"><i class="icon-ban-circle"></i> Cancel Changes</li></a>';
+
+                            cinternal += '                              <a id="rembtn' + nDataIndex + '" class="btnaction removeconf" data-item="' + nDataIndex + '" data-target="#rembtn' + nDataIndex + '" data-group="' + data.UserId + '" onclick="RemoveUser(\'' + data.UserId + '\', \'' + nDataIndex + '\')"><li class="nn-di-li ctrl"><i class="icon-remove"></i> Remove User</li></a>';
+
+                            if (data.oDetails.Status === "O") {
+                                cinternal += '                              <a id="deacbtn' + nDataIndex + '" class="btnaction deactconf" data-item="' + nDataIndex + '" data-target="#deacbtn' + nDataIndex + '" data-group="' + data.UserId + '" onclick="DeactivateUser(\'' + data.UserId + '\', \'' + nDataIndex + '\')"><li class="nn-di-li ctrl"><i class="icon-ban-circle"></i> Deactivate User</li></a>';
+                            }
+                            else {
+                                cinternal += '                              <a id="actvbtn' + nDataIndex + '" class="btnaction actvconf" data-item="' + nDataIndex + '" data-target="#actvbtn' + nDataIndex + '" data-group="' + data.UserId + '" onclick="ActivateUser(\'' + data.UserId + '\', \'' + nDataIndex + '\')"><li class="nn-di-li ctrl"><i class="icon-ban-circle"></i> Activate User</li></a>';
+                            }
+                            cinternal += '                          </ul>';
+                            cinternal += '                      </div>';
+
+                            cinternal += '                  </div>';
+                            cinternal += '              </div>';
+                            cinternal += '          </div>';
+                            cinternal += '      </td>';
+                            cinternal += '  </tr>';
+                            cinternal += '</table>';
+
+                            return cinternal;
+                        }
+                        return data;
+                    }
+                }
+            ],
+            drawCallback: function (settings) {
+                //Adjust the classes
+                $("#UsersList_paginate").addClass("fg-buttonset ui-buttonset fg-buttonset-multi ui-buttonset-multi");
+                $(".paginate_button").removeClass("paginate_button").addClass("fg-button ui-button ui-state-default");
+                $("div .row:last-of-type").removeClass("row").addClass("fg-toolbar ui-toolbar ui-widget-header ui-helper-clearfix ui-corner-bl ui-corner-br");
+                $("#UsersList").removeAttr("style");
+            },
+            initComplete: function () { $("#UsersList").removeAttr("style") }
+        });
     });
 
-    function EditUser(cUserId) {
-        var url = "/NNAdmin1/Users/EditUserView"; // the url to the controller
-        if (cUserId) {
-            url += "?cUserId=" + cUserId;
-        }
-        $.get(url, EditFormSet)
-    }
+    function EditUser(cUserId, nItm) {
+        $(".btnaction").addClass("hidden");
+        $(".itmhead" + nItm).addClass("nn-editing-hd");
+        $("#SaveUsr" + nItm).removeClass("hidden");
+        $("#CancUsr" + nItm).removeClass("hidden");
 
-    function RemoveUser(cUserId) {
-
-        var cUrl = "/NNAdmin1/Users/RemoveUser"; // the url to the controller
-        if (cUserId) {
-            cUrl += "?cUserId=" + cUserId;
-        }
-
-        $.ajax({
-            url: cUrl,
-            type: "DELETE",
-            async: true,
-            success: function (response, textStatus, jqXHR) {
-
-                if (response.success) {
-                    var cMessage = $.parseJSON(response.response).Message;
-                    
-                    ReloadUserList();
-                    
-                    $.gritter.add({
-                        title: "Success",
-                        text: (cMessage ? cMessage : "User removed succefully." ),
-                        sticky: false,
-                        time: 5000
-                    });
-
-                }
-                else
-                {
-                    $.gritter.add({
-                        title: "Error removing user",
-                        text: $.parseJSON(response.response).Message,
-                        sticky: true,
-                        time: 5000
-                    })
-                }
-
-            },
-            error: function (jqXHR, textStatus, errorThrown) {
-                $.gritter.add({
-                    title: "Error removing user",
-                    text: errorThrown,
-                    sticky: false,
-                    time: 3000
-                })
-            }
-
-        });
-
-    }
-
-    function BlockUser(cUserId) {
-
-        var cUrl = "/NNAdmin1/Users/BlockUser"; // the url to the controller
-        if (cUserId) {
-            cUrl += "?cUserId=" + cUserId;
-        }
-
-        $.ajax({
-            url: cUrl,
-            type: "DELETE",
-            async: true,
-            success: function (response, textStatus, jqXHR) {
-
-                if (response.success) {
-                    var cMessage = $.parseJSON(response.response).Message;
-
-                    ReloadUserList();
-
-                    $.gritter.add({
-                        title: "Success",
-                        text: (cMessage ? cMessage : "User removed succefully."),
-                        sticky: false,
-                        time: 5000
-                    });
-
-                }
-                else {
-                    $.gritter.add({
-                        title: "Error removing user",
-                        text: $.parseJSON(response.response).Message,
-                        sticky: true,
-                        time: 5000
-                    })
-                }
-
-            },
-            error: function (jqXHR, textStatus, errorThrown) {
-                $.gritter.add({
-                    title: "Error removing user",
-                    text: errorThrown,
-                    sticky: false,
-                    time: 3000
-                })
-            }
-
-        });
-
+        //Editables
+        $("#FirstName" + nItm).editable({ validate: notEmpty }).editable('enable');
+        $("#LastName" + nItm).editable({ validate: notEmpty }).editable('enable');
+        $("#Email" + nItm).editable({ validate: notEmpty }).editable('enable');
     }
     
-    function ReloadUserList() {
-                               
-        $.ajax({
-            url: "/NNAdmin1/Users/Userslist",
-            type: "GET",
-            async: true,
-            success: function (data, textStatus, jqXHR) {
-                $("#UsersList").html(data);
-                //$('#UsersTable').draw();
-            },
-            error: function (jqXHR, textStatus, errorThrown) {
-                $.gritter.add({
-                    title: "Error getting User List",
-                    text: errorThrown,
-                    sticky: false,
-                    time: 3000
-                })
-            }
+    function CancelEditUser(cUserId, nItm) {
+        $(".itmhead" + nItm).removeClass("nn-editing-hd");
+        $("#SaveUsr" + nItm).addClass("hidden");
+        $("#CancUsr" + nItm).addClass("hidden");
+        $(".btnaction").removeClass("hidden");
 
+        //Editables
+        $("#FirstName" + nItm).editable('disable');
+        $("#LastName" + nItm).editable('disable');
+        $("#Email" + nItm).editable('disable');
+    }
+
+    function RemoveUser(cUserId, nItm) {
+        $.confirm({
+            title: "Remove User",
+            content: "Really confirm User Removal? (this can\'t be undone)",
+            backgroundDismiss: false,
+            backgroundDismissAnimation: 'glow',
+            buttons: {
+                confirm: {
+                    btnClass: 'btn-primary',
+                    action: function () {
+                        $.ajax({
+                            url: "/NNAdmin1/Users/UserDelete?cUserId=" + cUserId,
+                            type: "DELETE",
+                            async: true,
+                            success: function (response, textStatus, jqXHR) {
+                                var cMessage = $.parseJSON(response.response).Message;
+
+                                if (response.success) {
+                                    //ReloadUserList();
+                                    $.gritter.add({
+                                        title: "Success",
+                                        text: (cMessage ? cMessage : "User Removed succefully."),
+                                        sticky: false,
+                                        time: 5000
+                                    });
+                                }
+                                else {
+                                    $.gritter.add({
+                                        title: "Error removing User",
+                                        text: (cMessage ? cMessage : "User Removal error."),
+                                        sticky: true,
+                                        time: 5000
+                                    })
+                                }
+                            },
+                            error: function (jqXHR, textStatus, error) {
+                                $.gritter.add({
+                                    title: "Error Removing User. Try again later.",
+                                    text: error,
+                                    sticky: false,
+                                    time: 3000
+                                })
+                            }
+                        });
+                    }
+                },
+                cancel: {
+                    btnClass: 'btn-danger',
+                    keys: ['esc'],
+                    action: function () { }
+                }
+            }
         });
+    }
+
+    function ActivateUser(cUserId, nItm) {
+        $.confirm({
+            title: "Activate User",
+            content: "Really confirm User Activation?",
+            backgroundDismiss: false,
+            backgroundDismissAnimation: 'glow',
+            buttons: {
+                confirm: {
+                    btnClass: 'btn-primary',
+                    action: function () {
+                        var oGroupData = { "cUserId": cUserId };
+                        $.ajax({
+                            url: "/NNAdmin1/Users/UserActivate",
+                            type: "POST",
+                            async: true,
+                            dataType: 'json',
+                            data: oGroupData,
+                            success: function (response, textStatus, jqXHR) {
+                                var cMessage = $.parseJSON(response.response).Message;
+                                if (response.success) {
+                                    ReloadGroupList();
+                                    $.gritter.add({
+                                        title: "Success",
+                                        text: (cMessage ? cMessage : "User Activated succefully."),
+                                        sticky: false,
+                                        time: 5000
+                                    });
+                                }
+                                else {
+                                    $.gritter.add({
+                                        title: "Error Activating User",
+                                        text: (cMessage ? cMessage : "User Activation errror."),
+                                        sticky: true,
+                                        time: 5000
+                                    })
+                                }
+                            },
+                            error: function (jqXHR, textStatus, error) {
+                                $.gritter.add({
+                                    title: "Error Activating User. Try again later.",
+                                    text: error,
+                                    sticky: false,
+                                    time: 3000
+                                })
+                            }
+
+                        });
+                    }
+                },
+                cancel: {
+                    btnClass: 'btn-danger',
+                    keys: ['esc'],
+                    action: function () { }
+                }
+            }
+        });
+    }
+
+    function DeactivateUser(cUserId, nItm) {
+
+        $.confirm({
+            title: "Deactivate User",
+            content: "Really confirm User Deactivation?",
+            backgroundDismiss: false,
+            backgroundDismissAnimation: 'glow',
+            buttons: {
+                confirm: {
+                    btnClass: 'btn-primary',
+                    action: function () {
+                        var oGroupData = { "cUserId": cUserId };
+                        $.ajax({
+                            url: "/NNAdmin1/Users/UserDeactivate",
+                            type: "POST",
+                            async: true,
+                            dataType: 'json',
+                            data: oGroupData,
+                            success: function (response, textStatus, jqXHR) {
+                                var cMessage = $.parseJSON(response.response).Message;
+                                if (response.success) {
+                                    ReloadGroupList();
+                                    $.gritter.add({
+                                        title: "Success",
+                                        text: (cMessage ? cMessage : "User Deactivated succefully."),
+                                        sticky: false,
+                                        time: 5000
+                                    });
+                                }
+                                else {
+                                    $.gritter.add({
+                                        title: "Error Deactivating User",
+                                        text: (cMessage ? cMessage : "User Deactivation error."),
+                                        sticky: true,
+                                        time: 5000
+                                    })
+                                }
+                            },
+                            error: function (jqXHR, textStatus, error) {
+                                $.gritter.add({
+                                    title: "Error Deactivating User. Try again later.",
+                                    text: error,
+                                    sticky: false,
+                                    time: 3000
+                                })
+                            }
+                        });
+                    }
+                },
+                cancel: {
+                    btnClass: 'btn-danger',
+                    keys: ['esc'],
+                    action: function () { }
+                }
+            }
+        });
+
+    }
+
+
+    function notEmpty(value) {
+        if ($.trim(value) == '') {
+            return 'This field is required';
+        }
+    }
+
+
+    function ReloadUserList() {
+        $("#UsersList").DataTable().ajax.reload();
     }
 
     function EditFormSet(data) {
@@ -236,7 +458,7 @@
             /* ----- BIND FORM ----- */
 
             $("#UserEdit").submit(function (e) {
-                    
+
                 e.preventDefault();
 
                 $("#ErrorsSummary").css("visibility", "hidden");
@@ -312,10 +534,10 @@
                 }
             });
 
-            /* ----- END BIND FORM -----*/ 
+            /* ----- END BIND FORM -----*/
 
             $('#EditUser').modal("show").css({ 'width': '800px', 'margin-left': function () { return -($(this).width() / 2); } });
 
     }
-    
+
 </script>

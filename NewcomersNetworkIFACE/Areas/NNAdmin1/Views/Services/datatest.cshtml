@@ -1,0 +1,71 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+	<meta charset="utf-8" />
+
+    <link rel="stylesheet" href="/Content/css/bootstrap.css" />
+    <link rel="stylesheet" href="/Content/css/jquery.dataTables.css" />
+    <link rel="stylesheet" href="/Content/css/dataTables.bootstrap.css" />
+
+</head>
+<body>
+
+    <br />
+    <br />
+    <br />
+    
+    <div class="content">
+        <div class="span6">
+            <table id="TestDt">
+                <thead>
+                    <tr>
+                        <th>Groups</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+        
+        
+        
+        
+    <script src="/Content/js/jquery.min.js"></script>
+    <script src="/Content/js/bootstrap.min.js"></script>
+    <script src="/Content/js/jquery.dataTables.min.js"></script>
+    <script src="/Content/js/dataTables.bootstrap.min.js"></script>
+    
+
+    <script>
+        $(document).ready(function () {
+
+            $("#TestDt").DataTable({
+                ajax: {
+                    url: "/NNAdmin1/Services/GetAllGroups",
+                    dataSrc: ""
+                },
+                data: "",
+                columns: [
+                    {
+                        data: null, render: function (data, type, row, meta) {
+                            if (type === "display") {
+
+                                return cReturn;
+                            }
+                            return data;
+                        }
+                    }
+                ]
+            });
+        });
+    </script>
+
+
+
+
+
+</body>
+</html>

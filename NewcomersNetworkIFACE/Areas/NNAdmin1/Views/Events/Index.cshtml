@@ -5,6 +5,8 @@
 }
 
 @section CSSSection {
+    <link rel="stylesheet" href="/Content/css/jquery.dataTables.css" />
+    <link rel="stylesheet" href="/Content/css/dataTables.bootstrap.css" />
     <link rel="stylesheet" href="/Content/css/uniform.css" />
     <link rel="stylesheet" href="/Content/css/select2.css" />
     <link rel="stylesheet" href="/Content/css/datepicker.css" />
@@ -79,6 +81,9 @@
 @RenderPage("~/Areas/NNAdmin1/Views/Events/_EventRegistrationModal.cshtml")
 
 @section JSSection {
+    <script src="/Content/js/jquery.dataTables.js"></script>
+    <script src="/Content/js/dataTables.bootstrap.js"></script>
+    <script src="/Content/js/jquery.validate.js"></script>
     <script src="/Content/js/masked.js"></script>
     <script src="/Content/js/bootstrap-datepicker.js"></script>  
 }
@@ -98,22 +103,32 @@
             $.get(url, EditFormSet);
         });
 
+
         $("#RegTable").DataTable({
             ajax: {
                 url: "/NNAdmin1/Events/EventRegistrationList",
-                dataSrc: '',
+                dataSrc: "",
                 data: function (d) {
                     d.cEventId = $(event.srcElement.parentElement).data('id');
                 }
             },
+            bInfo: false,
+            pagingType: "full_numbers",
             columns: [
                 { data: 'oUser.oDetails.FirstName' },
                 { data: 'oUser.oDetails.Email' },
                 { data: 'RegisterDate' },
                 { data: 'SlotsRequested' }
-            ]
+            ],
+            drawCallback: function (settings) {
+                //Adjust the classes
+                $("#RegTable_paginate").addClass("fg-buttonset ui-buttonset fg-buttonset-multi ui-buttonset-multi");
+                $(".paginate_button").removeClass("paginate_button").addClass("fg-button ui-button ui-state-default");
+                $("div .row:last-of-type").removeClass("row").addClass("fg-toolbar ui-toolbar ui-widget-header ui-helper-clearfix ui-corner-bl ui-corner-br");
+                $("#RegTable").removeAttr("style");
+            },
+            initComplete: function () { $("#RegTable").removeAttr("style") }
         });
-
     });
 
     function ReloadEventList() {

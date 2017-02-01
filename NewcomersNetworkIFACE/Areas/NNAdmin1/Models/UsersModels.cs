@@ -19,17 +19,27 @@ namespace NewcomersNetworkIFACE.Areas.NNAdmin1.Models
 
         public Users()
         {
+        }
+
+        public void LoadUsers()
+        {
             //Get the users from API
             oUserList = oNNAPICLient.Get<List<User>>("/Users");
-            
+
             //Get the roles from API
             oUserRoles = oNNAPICLient.Get<List<UsersRoles>>("/UsersRoles");
 
             //Get the Lists
-            oLists = oNNAPICLient.Get<OptionsLists>("/OptionsLists"); 
+            oLists = oNNAPICLient.Get<OptionsLists>("/OptionsLists");
 
         }
 
+        public List<User> GetAllUsers()
+        {
+            this.LoadUsers();
+            return this.oUserList;
+        }
+        
         public HttpResponseMessage UpdateUser( User oUser )
         {
             HttpResponseMessage response;
