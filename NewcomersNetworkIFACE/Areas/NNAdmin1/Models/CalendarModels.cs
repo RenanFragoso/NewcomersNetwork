@@ -38,10 +38,13 @@ namespace NewcomersNetworkIFACE.Areas.NNAdmin1.Models
         public void LoadServices(DateTime dStartDate, DateTime dEndDate, bool bHasSlots = false)
         {
             List<CalendarEvent> oServiceList;
-            oServiceList = oNNAPICLient.Get<List<CalendarEvent>>("/Calendar/Services/" + dStartDate.ToString() + "/" + dEndDate.ToString());
-            foreach (CalendarEvent oService in oServiceList)
+            oServiceList = oNNAPICLient.Get<List<CalendarEvent>>("/Calendar/Services/" + dStartDate.ToString("yyyy-MM-dd") + "/" + dEndDate.ToString("yyyy-MM-dd"));
+            if (oServiceList != null)
             {
-                this.oEvents.Add(oService);
+                foreach (CalendarEvent oService in oServiceList)
+                {
+                    this.oEvents.Add(oService);
+                }
             }
         }
 

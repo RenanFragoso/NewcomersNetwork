@@ -247,6 +247,7 @@
     <Compile Include="Controllers\EventsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\OptionsListsController.cs" />
+    <Compile Include="Controllers\CalendarController.cs" />
     <Compile Include="Controllers\ServicesController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Controllers\UsersRolesController.cs" />
@@ -257,6 +258,7 @@
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\CalendarEventModels.cs" />
+    <Compile Include="Models\CalendarApiModels.cs" />
     <Compile Include="Models\EventRegistrationModels.cs" />
     <Compile Include="Models\OptionList.cs" />
     <Compile Include="Models\OptionsLists.cs" />
@@ -282,6 +284,8 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\img\events\event7_publish.png" />
+    <Content Include="Database\StoredProcedures\Calendar\sp_Calendar_GetServices.sql" />
+    <Content Include="Database\StoredProcedures\Calendar\sp_Calendar_GetEvents.sql" />
     <Content Include="Database\StoredProcedures\Choices\sp_GetChoices_GroupIcons.sql" />
     <Content Include="Database\StoredProcedures\Choices\sp_GetChoices_ServicesGroupColors - Copy.sql" />
     <Content Include="Database\StoredProcedures\Choices\sp_GetChoices_GroupColors.sql" />
@@ -413,7 +417,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Database\Functions\" />
-    <Folder Include="Database\StoredProcedures\Calendar\" />
     <Folder Include="Database\StoredProcedures\Mentorship\" />
     <Folder Include="Database\StoredProcedures\Reports\" />
     <Folder Include="Views\Event\" />

@@ -14,7 +14,6 @@ namespace NewcomersNetworkIFACE.Areas.NNAdmin1.Controllers
     [RoutePrefix("NNAdmin1/Calendar")]
     public class CalendarController : NNAPIController
     {
-
         protected Calendar oCalendar = new Calendar();
 
         public ActionResult Index()
@@ -23,26 +22,37 @@ namespace NewcomersNetworkIFACE.Areas.NNAdmin1.Controllers
         }
 
         [HttpGet]
-        public ActionResult GetEvents(DateTime dStartDate, DateTime dEndDate)
+        //public ActionResult GetEvents(DateTime start, DateTime end)
+        public ActionResult GetEvents(long start, long end)
         {
-            if (dStartDate != null && dEndDate != null)
-            {
-                this.oCalendar.LoadAllEvents(dStartDate, dEndDate);
-                return Json(new
-                {
-                    success = true,
-                    statuscode = 200,
-                    response = "",
-                    odata = this.oCalendar.oEvents
-                }, JsonRequestBehavior.AllowGet);
-            }
+            DateTime dStartDate = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+            DateTime dEndDate = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
 
+            dStartDate = dStartDate.AddSeconds(start);
+            dEndDate = dEndDate.AddSeconds(end);
+            this.oCalendar.LoadServices(dStartDate, dEndDate);
+            //this.oCalendar.LoadServices(start, end);
             return Json(new
             {
-                success = false,
-                statuscode = 400,
-                response = "{ \"Message\": \"Bad Request.\"}"
+                success = true,
+                statuscode = 200,
+                response = "",
+                odata = this.oCalendar.oEvents
             }, JsonRequestBehavior.AllowGet);
         }
+
+        [HttpGet]
+        public ActionResult GetNewEvent()
+        {
+            CalendarEvent oEvent = new CalendarEvent();
+            return Json(new
+            {
+                success = true,
+                statuscode = 200,
+                response = "",
+                odata = oEvent
+            }, JsonRequestBehavior.AllowGet);
+        }
+
     }
 }

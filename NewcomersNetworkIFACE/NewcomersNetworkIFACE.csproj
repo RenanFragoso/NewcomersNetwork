@@ -416,6 +416,7 @@
     <Content Include="Content\css\jquery.dataTables.min.css" />
     <Content Include="Content\css\jquery.easy-pie-chart.css" />
     <Content Include="Content\css\jquery.gritter.css" />
+    <Content Include="Content\css\jquery.qtip.css" />
     <Content Include="Content\css\matrix-login.css" />
     <Content Include="Content\css\matrix-media.css" />
     <Content Include="Content\css\matrix-style.css" />
@@ -506,6 +507,8 @@
     <Content Include="Areas\NNAdmin1\Views\Services\_ServiceGroupsAddForm.cshtml" />
     <None Include="Content\js\jquery.dataTables.min.js.old" />
     <Content Include="Content\css\jquery.dataTables.css" />
+    <Content Include="Content\css\fullcalendar_310.css" />
+    <Content Include="Content\js\fullcalendar_310.js" />
     <Content Include="Content\js\jquery-confirm.js" />
     <Content Include="Content\js\jquery.dataTables.js" />
     <Content Include="Content\js\jquery.dataTables.min.js" />
@@ -519,6 +522,7 @@
     <Content Include="Content\js\jquery.gritter.min.js" />
     <Content Include="Content\js\jquery.min.js" />
     <Content Include="Content\js\jquery.peity.min.js" />
+    <Content Include="Content\js\jquery.qtip.js" />
     <Content Include="Content\js\jquery.ui.custom.js" />
     <Content Include="Content\js\jquery.uniform.js" />
     <Content Include="Content\js\jquery.validate.js" />

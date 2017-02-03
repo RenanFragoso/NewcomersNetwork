@@ -10,8 +10,8 @@ namespace NewcomersNetworkAPI.Models
         public string id { get; set; } = "";
         public string title { get; set; } = "";
         public bool allDay { get; set; } = false;
-        public DateTime start { get; set; } = DateTime.Now;
-        public DateTime end { get; set; } = DateTime.Now;
+        public string start { set; get; } = DateTime.Now.ToString();
+        public string end { set; get; } = DateTime.Now.ToString();
         public string url { get; set; } = "";
         public List<string> className { get; set; } = new List<string>();
         public bool editable { get; set; } = false;
@@ -26,8 +26,11 @@ namespace NewcomersNetworkAPI.Models
         public string borderColor { get; set; } = "";
         public string textColor { get; set; } = "";
         public string Type { get; set; } = ""; // "S" - Service, "E" - Event
+
+        //Specific Attributes
         public int Slots { get; set; } = 0;
         public int MaxSlots { get; set; } = 0;
+        public string GroupIcon { get; set; } = "";
 
         public CalendarEvent()
         {

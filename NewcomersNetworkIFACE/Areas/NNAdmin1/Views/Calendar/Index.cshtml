@@ -1,13 +1,14 @@
 ﻿@model NewcomersNetworkIFACE.Areas.NNAdmin1.Models.Events
 @{
     Layout = "~/Areas/NNAdmin1/Views/Shared/_Layout1.cshtml";
-    ViewBag.Title = "Calendar";
+    ViewBag.Title = "Newcomers Network Calendar";
 }
 
 @section CSSSection {
     <link rel="stylesheet" href="/Content/css/uniform.css" />
     <link rel="stylesheet" href="/Content/css/select2.css" />
-    <link rel="stylesheet" href="/Content/css/fullcalendar.css" />
+    <link rel="stylesheet" href="/Content/css/fullcalendar_310.css" />
+    <link rel="stylesheet" href="/Content/css/jquery.qtip.css" />
     <link rel="stylesheet" href="/Content/css/nn_admin.css" />
 }
 
@@ -27,6 +28,7 @@
         <h1>Calendar</h1>
     </div>
     <!--End-breadcrumbs-->
+
     <!--Action boxes-->
     <div class="container-fluid">
 
@@ -38,45 +40,13 @@
                     <div class="widget-title">
                         <span class="icon"><i class="icon-calendar"></i></span>
                         <h5>Newcomers Network Calendar</h5>
-                        <!--
-                        <div class="buttons">
-                            <a id="add-event" data-toggle="modal" href="#modal-add-event" class="btn btn-inverse btn-mini"><i class="icon-plus icon-white"></i> Add new event</a>
-                            <div class="modal hide" id="modal-add-event">
-                                <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal">×</button>
-                                    <h3>Add a new event</h3>
-                                </div>
-                                <div class="modal-body">
-                                    <p>Enter event name:</p>
-                                    <p>
-                                        <input id="event-name" type="text" />
-                                    </p>
-                                </div>
-                                <div class="modal-footer"> <a href="#" class="btn" data-dismiss="modal">Cancel</a> <a href="#" id="add-event-submit" class="btn btn-primary">Add event</a> </div>
-                            </div>
-                        </div>
-                        -->
                     </div>
+
                     <div class="widget-content">
                         <div class="row-fluid">
-                        
-                        <!-- <div class="panel-left"> -->
                             <div id="fullcalendar"></div>
                         </div>
-                        <!--
-                        <div id="external-events" class="panel-right">
-                            <div class="panel-title">
-                                <h5>Drag Events to the calander</h5>
-                            </div>
-                            <div class="panel-content">
-                                <div class="external-event ui-draggable label label-inverse">My Event 1</div>
-                                <div class="external-event ui-draggable label label-inverse">My Event 2</div>
-                                <div class="external-event ui-draggable label label-inverse">My Event 3</div>
-                                <div class="external-event ui-draggable label label-inverse">My Event 4</div>
-                                <div class="external-event ui-draggable label label-inverse">My Event 5</div>
-                            </div>
-                        </div>
-                        -->
+
                     </div>
                 </div>
             </div>
@@ -86,13 +56,12 @@
     </div>
 </div>
 
-@*RenderPage("_ServicesGroupView.cshtml")*@
-
 @section JSSection {
-    <script src="/Content/js/fullcalendar.min.js"></script>
+    <script src="/Content/js/moment.js"></script>
+    <script src="/Content/js/fullcalendar_310.js"></script>
+    <script src="/Content/js/jquery.qtip.js"></script>
     <script src="/Content/js/nn_admin.js"></script> 
 }
-
 
 <script type="text/javascript">
     //Updates the image on selected menu
@@ -104,37 +73,83 @@
         var m = date.getMonth();
         var y = date.getFullYear();
 
-        $('#fullcalendar').fullCalendar({
+        var tooltip = $('<div/>').qtip({
+            id: 'fullcalendar',
+            prerender: true,
+            content: {
+                text: ' ',
+                title: {
+                    button: true
+                }
+            },
+            position: {
+                my: 'bottom center',
+                at: 'top center',
+                target: 'event',
+                viewport: $('#fullcalendar'),
+                adjust: {
+                    mouse: true,
+                    scroll: false
+                }
+            },
+            show: false,
+            hide: false,
+            style: 'qtip-light'
+        }).qtip('api');
+
+        var oCalendar = $('#fullcalendar').fullCalendar({
             header: {
                 left: 'prev,next',
                 center: 'title',
-                right: 'month,basicWeek,basicDay'
+                right: 'month,agendaWeek,agendaDay'
             },
-            editable: false,
-            droppable: false, // this allows things to be dropped onto the calendar !!!
-            drop: function (date, allDay) { // this function is called when something is dropped
+            eventSources: [{
+                events: function (start, end, timezone, callback) {
+                    var dStartDate = moment(start);
+                    var dEndDate = moment(end);
+                    //Updates the events in Calendar
+                    NN_SendAjax("GET",
+                        "/NNAdmin1/Calendar/GetEvents?start=" + dStartDate.format("X") + "&end=" + dEndDate.format("X"),
+                        null,
+                        ["Get Events"],
+                        function (response) {   //Success
+                            if (response.odata != null) {
+                                //console.log(response.odata);
+                                callback(response.odata);
+                            }
+                        },
+                        null,
+                        true);
+                }               
+            }],
+            eventRender: function (event, element) {
+                //console.log(event);
+                //console.log(element);
+            },
+            eventClick: function (data, event, view) {
+                var content = ""
 
-                // retrieve the dropped element's stored Event Object
-                var originalEventObject = $(this).data('eventObject');
+                content += '<h4><i class="' + data.GroupIcon + '" style="display: \'inline-block\'"></i> ' + data.title + '</h4>';
+                content += '<p><b>Starts:</b> ' + data.start.format("DD/MM/YYYY - hh:mm A") + '<br />';
+                content += (data.end && '<p><b>Ends:</b> ' + data.end.format("DD/MM/YYYY - hh:mm A") + '</p>' || '');
 
-                // we need to copy it, so that multiple events don't have a reference to the same object
-                var copiedEventObject = $.extend({}, originalEventObject);
+                //Show slots only when available (MaxSlots == 0 means a service with no slot limit) 
+                if (data.MaxSlots > 0) {
+                    content += "<p>" + (data.MaxSlots - data.Slots) + " Free Slot" + ((data.MaxSlots - data.Slots) == 1 ? "" : "s") + "</p>"
+                }
 
-                // assign it the date that was reported
-                copiedEventObject.start = date;
-                copiedEventObject.allDay = allDay;
+                //console.log(data);
+                tooltip.set({
+                    'content.text': content
+                })
+                .reposition(event).show(event);
 
-                // render the event on the calendar
-                // the last `true` argument determines if the event "sticks" (http://arshaw.com/fullcalendar/docs/event_rendering/renderEvent/)
-                $('#fullcalendar').fullCalendar('renderEvent', copiedEventObject, true);
-
-                // is the "remove after drop" checkbox checked?
-                // if so, remove the element from the "Draggable Events" list
-                $(this).remove();
-
-            }
+            },
+            dayClick: function () { tooltip.hide() },
+            eventResizeStart: function () { tooltip.hide() },
+            eventDragStart: function () { tooltip.hide() },
+            viewDisplay: function () { tooltip.hide() },
         });
-
     });
 
 </script>
