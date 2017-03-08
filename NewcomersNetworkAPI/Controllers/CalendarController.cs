@@ -20,13 +20,7 @@ namespace NewcomersNetworkAPI.Controllers
         [HttpGet]
         public IHttpActionResult GetAllEvents(DateTime dStartDate, DateTime dEndDate)
         {
-            /*
-            Dictionary<string, object> infoParameters = new Dictionary<string, object>();
-            infoParameters.Add("cServiceId", cServiceId);
-            DataTable oServicesDB = DBConn.ExecuteCommand("sp_Services_GetByID", infoParameters).Tables[0];
-            //return Ok(oService); */
             return StatusCode(HttpStatusCode.NoContent);
-            
         }
         
         [Route("Services/{dStartDate}/{dEndDate}", Name = "GetServices")]
@@ -43,10 +37,8 @@ namespace NewcomersNetworkAPI.Controllers
         public IHttpActionResult GetEvents(DateTime dStartDate, DateTime dEndDate)
         {
             this.oCalendar.setDates(dStartDate, dEndDate);
-            this.oCalendar.LoadServices();
-           
-            //return Ok(oService);
-            return StatusCode(HttpStatusCode.NoContent);
+            this.oCalendar.LoadEvents();
+            return Ok(this.oCalendar.oEvents);
         }
     }
 }

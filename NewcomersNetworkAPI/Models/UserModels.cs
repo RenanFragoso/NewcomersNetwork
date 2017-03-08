@@ -79,15 +79,15 @@ namespace NewcomersNetworkAPI.Models
         public override bool Validate()
         {
             //Object structure validation
-            if (this.Id.Length == 0)
+            if (this.Id != null && this.Id.Length > 0)
             {
-                this.isValid = false;
-                this.sMsgError.Add("Invalid User ID.");
-                return false;
+                this.isValid = true;
+                return true;
             }
 
-            this.isValid = true;
-            return true;
+            this.isValid = false;
+            this.sMsgError.Add("Invalid User ID.");
+            return false;
         }
 
         public void getDetails()
@@ -244,5 +244,22 @@ namespace NewcomersNetworkAPI.Models
             return "";
         }
 
+        public void GetByMail(string cUserMail)
+        {
+            Dictionary<string, object> infoParameters = new Dictionary<string, object>();
+            infoParameters.Add("cUserName", cUserMail);
+            DataTable oUserData = DBConn.ExecuteCommand("sp_User_GetByUsername", infoParameters).Tables[0];
+
+            if (oUserData.Rows.Count > 0)
+            {
+                this.MapFromTableRow(oUserData.Rows[0]);
+            }
+
+            if (this.isValid)
+            {
+                this.oDetails = new UserDetails(this.Id);
+            }
+        }
+        
     }
 }

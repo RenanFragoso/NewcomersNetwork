@@ -4,7 +4,8 @@
 
 AS
 
-SELECT [EventID], [EventName], [EventDescription], [EventStartDate], [EventEndDate], [EventPublished], [EventStartPublishDate], [EventEndPublishDate], [EventFinished], [EventMaxSlots], [EventCurSlots], [EventImage], [EventCreatedBy], [EventType] 
-FROM [dbo].[Events]
-WHERE [EventStartDate] >= @dStartDate
-AND [EventEndDate] <= @dEndDate
+SELECT [Id], [Name], [Description], [StartDate], [EndDate], [StartPublishDate], [EndPublishDate], [ExternalLink]
+FROM [dbo].[Events] 
+WHERE [StartDate] >= @dStartDate
+AND [EndDate] <= @dEndDate
+AND [Status] = 'O'

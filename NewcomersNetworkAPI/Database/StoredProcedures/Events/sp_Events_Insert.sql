@@ -13,8 +13,14 @@
 @cCreatedBy nvarchar(128), 
 @nType int=0,
 @dCreateDate datetime,
-@dAlterDate datetime,
-@cExternalLink nvarchar(256)
+@cExternalLink nvarchar(256)='',
+@cTitle nvarchar(50)='',
+@cSubTitle nvarchar(100)='',
+@cText1 ntext = '',
+@cText2 ntext = '',
+@cFooter ntext = '',
+@cHeadImg nvarchar(256) = '',
+@cLocation ntext = ''
 
 AS
 
@@ -23,8 +29,8 @@ DECLARE @NEWIDTBL Table (
 );
 
 INSERT INTO [dbo].[Events]
-( [Name], [Description], [StartDate], [EndDate], [Published], [StartPublishDate], [EndPublishDate], [Finished], [MaxSlots], [CurSlots], [Image], [CreatedBy], [Type], [CreateDate], [AlterDAte], [ExternalLink] ) 
+([Name], [Description], [StartDate], [EndDate], [Published], [StartPublishDate], [EndPublishDate], [Finished], [MaxSlots], [CurSlots], [Image], [CreatedBy], [Type], [CreateDate], [AlterDAte], [ExternalLink], [Title], [SubTitle], [Text1], [Text2],[Footer], [HeadImg], [Location])
 OUTPUT Inserted.Id into @NEWIDTBL
-VALUES ( @cName, @cDescription, @dStartDate, @dEndDate, @bPublished, @dStartPublishDate, @dEndPublishDate, @bFinished, @nMaxSlots, @nCurSlots, @cImage, @cCreatedBy, @nType, @dCreateDate, @dAlterDAte, @cExternalLink)
+VALUES ( @cName, @cDescription, @dStartDate, @dEndDate, @bPublished, @dStartPublishDate, @dEndPublishDate, @bFinished, @nMaxSlots, @nCurSlots, @cImage, @cCreatedBy, @nType, @dCreateDate, @dCreateDate, @cExternalLink, @cTitle, @cSubTitle, @cText1, @cText2, @cFooter, @cHeadImg, @cLocation)
 
 SELECT Id AS LAST_EVENT FROM @NEWIDTBL

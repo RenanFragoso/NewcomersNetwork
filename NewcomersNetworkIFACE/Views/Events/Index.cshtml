@@ -1,0 +1,55 @@
+﻿@model List<NewcomersNetworkAPI.Models.Event>
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Events";
+}
+
+<!-- Page Title ============================================= -->
+<section id="page-title">
+
+    <div class="container clearfix">
+        <h1>Events</h1>
+        <span>Newcomers Network Upcoming Events</span>
+        <ol class="breadcrumb">
+            <li><a href="/">Newcomers Network</a></li>
+            <li class="active">Events</li>
+        </ol>
+    </div>
+
+</section><!-- #page-title end -->
+
+<!-- Content ============================================= -->
+<section id="content">
+    <div class="content-wrap">
+        <div class="container clearfix">
+            <div id="posts" class="events small-thumbs">
+
+                @foreach (var Event in Model)
+                {
+                    <div class="entry clearfix">
+                        <div class="entry-image">
+                            <a href="/Events/Details?Id=@(Convert.ToBase64String(ViewBag.Encoder.GetBytes(Event.Id)))">
+                                <img src="@Event.Image" alt="@Event.Name">
+                                <div class="entry-date">@Event.StartDate.ToString("dd")<span>@Event.StartDate.ToString("MMM")</span></div>
+                            </a>
+                        </div>
+                        <div class="entry-c">
+                            <div class="entry-title">
+                                <h2><a href="#">@Event.SubTitle</a></h2>
+                            </div>
+                            <ul class="entry-meta clearfix">
+                                <li><a href="#"><i class="icon-time"></i> @Event.StartDate.ToString("HH.mm")</a></li>
+                                <li><a href="#"><i class="icon-map-marker2"></i> @Event.Location</a></li>
+                            </ul>
+                            <div class="entry-content">
+                                <p>@Event.Description</p>
+                                <a href="/Events/Details?Id=@(Convert.ToBase64String(ViewBag.Encoder.GetBytes(Event.Id)))" class="btn btn-danger">Details</a> <a href="@Event.ExternalLink" class="btn btn-success">Join Event</a>
+                            </div>
+                        </div>
+                    </div>
+                }
+
+            </div>
+        </div>
+    </div>
+</section><!-- #content end -->

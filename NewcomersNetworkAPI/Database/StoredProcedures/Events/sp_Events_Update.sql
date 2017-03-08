@@ -5,7 +5,6 @@
 @dStartDate datetime, 
 @dEndDate datetime, 
 @bPublished bit=0, 
-@dPublishDate date, 
 @dStartPublishDate datetime,
 @dEndPublishDate datetime, 
 @bFinished bit=0, 
@@ -14,8 +13,16 @@
 @cImage NVARCHAR(255)=NULL, 
 @cCreatedBy nvarchar(128), 
 @nType int=0,
+@cStatus nchar(1)='O',
 @dAlterDate datetime,
-@cEsternalLink nvarchar(256)
+@cExternalLink nvarchar(256) = '',
+@cTitle nvarchar(50)='',
+@cSubTitle nvarchar(100)='',
+@cHeadImg nvarchar(256)= '',
+@cText1 ntext = '',
+@cText2 ntext = '',
+@cFooter ntext = '',
+@cLocation ntext = ''
 
 AS
 
@@ -34,5 +41,13 @@ SET [Name] = @cName,
 [CreatedBy] = @cCreatedBy, 
 [Type] = @nType,
 [AlterDate] = @dAlterDate,
-[ExternalLink] = @cEsternalLink
+[ExternalLink] = @cExternalLink,
+[Status] = @cStatus,
+[HeadImg] = @cHeadImg,
+[Title] = @cTitle,
+[SubTitle] = @cSubTitle,
+[Text1] = @cText1,
+[Text2] = @cText2,
+[Footer] = @cFooter,
+[Location] = @cLocation
 WHERE [Id] = @cId

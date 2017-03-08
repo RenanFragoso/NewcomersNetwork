@@ -17,7 +17,7 @@
                 Dashboard
             </a>
         </div>
-        <h1>Dashboard</h1>
+        <h1><i class="icon-dashboard"></i> Dashboard</h1>
     </div>
     <!--End-breadcrumbs-->
     <!--Action boxes-->
@@ -277,16 +277,12 @@
 
 </div>
 
-<script type="text/javascript">
-    //Updates the image on selected menu
-    DocReady.push(function () { menuSelected("#dashboardmnu") });
-</script>
-
 @section JSSection{
-    <script src="~/Content/js/jquery.flot.min.js"></script>
-    <script src="~/Content/js/jquery.flot.resize.min.js"></script>
-    <script src="~/Content/js/matrix.dashboard.js"></script>
-    <script src="~/Content/js/nn_dashboard.js"></script>
+    <script src="~/Content/NNAdmin/js/jquery.flot.min.js"></script>
+    <script src="~/Content/NNAdmin/js/jquery.flot.resize.min.js"></script>
+    <script src="~/Content/NNAdmin/js/matrix.dashboard.js"></script>
+    <script src="~/Content/NNAdmin/js/nn_dashboard.js"></script>
+
     <!-- Google Charts -->
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
@@ -298,3 +294,7 @@
     </script>
 }
 
+<script type="text/javascript">
+        //Updates the image on selected menu
+        DocReady.push(function () { menuSelected("#dashboardmnu") });
+</script>

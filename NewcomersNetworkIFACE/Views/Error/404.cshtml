@@ -1,0 +1,47 @@
+﻿@model System.Web.Mvc.HandleErrorInfo
+@{
+    Layout = "~/Views/Shared/_LayoutError.cshtml";
+    ViewBag.Title = "Not Found";
+}
+
+<!-- Page Title
+============================================= -->
+<section id="page-title">
+
+    <div class="container clearfix">
+        <h1>Page Not Found</h1>
+        <ol class="breadcrumb">
+            <li><a href="/">Home</a></li>
+            <li class="active">404</li>
+        </ol>
+    </div>
+
+</section><!-- #page-title end -->
+<!-- Content
+============================================= -->
+<section id="content">
+
+    <div class="content-wrap">
+
+        <div class="container clearfix">
+
+            <div class="col_half nobottommargin">
+                <div class="error404 center">404</div>
+            </div>
+
+            <div class="col_half nobottommargin col_last">
+
+                <div class="heading-block nobottomborder">
+                    <h4>Page Not Found</h4>
+                    <span>Try browse the links below:</span>
+                </div>
+
+                @{Html.RenderPartial("~/Views/Error/_ErrorLinks.cshtml");}
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section><!-- #content end -->

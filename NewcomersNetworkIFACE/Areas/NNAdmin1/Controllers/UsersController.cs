@@ -8,9 +8,12 @@ using NewcomersNetworkIFACE.Areas.NNAdmin1.Models;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using NewcomersNetworkIFACE.Filters;
+using NewcomersNetworkIFACE.Util;
 
 namespace NewcomersNetworkIFACE.Areas.NNAdmin1.Controllers
 {
+    [NNAuthorize(NNRoles.Administrator,NNRoles.Assistant)]
     [RoutePrefix("NNAdmin1/Users")]
     public class UsersController : Controller
     {

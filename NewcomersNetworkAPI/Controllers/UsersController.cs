@@ -9,6 +9,8 @@ using NewcomersNetworkAPI.Providers;
 using System.Data;
 using Microsoft.AspNet.Identity;
 using System.Threading.Tasks;
+using System.Web;
+using System.Text;
 
 namespace NewcomersNetworkAPI.Controllers
 {
@@ -17,6 +19,7 @@ namespace NewcomersNetworkAPI.Controllers
     {
         [Route("")]
         [HttpGet]
+        [Authorize(Roles = "Administrator")]
         public IHttpActionResult Get()
         {
             DataTable oUsersDB = DBConn.ExecuteCommand("sp_User_GetAll", null).Tables[0];    //Gets all Users
@@ -45,24 +48,32 @@ namespace NewcomersNetworkAPI.Controllers
         [HttpGet]
         public IHttpActionResult Get(string cUserId)      //Gets a specific User
         {
-            Dictionary<string, object> infoParameters = new Dictionary<string, object>();
-            infoParameters.Add("cUserId", cUserId);
-            DataTable oUserDB = DBConn.ExecuteCommand("sp_User_Get", infoParameters).Tables[0];
-
-            User oUser = new User();
-            if (oUserDB.Rows.Count > 0)
+            User oUser;
+            if (cUserId != null && cUserId.Length > 0)
             {
-                oUser.MapFromTableRow(oUserDB.Rows[0]);
+                oUser = new User(cUserId);
+                return Ok(oUser);
             }
 
-            if (!oUser.Validate())
-            {
-                return StatusCode(HttpStatusCode.NoContent);
-            }
-
-            return Ok(oUser);
+            return StatusCode(HttpStatusCode.NoContent);
         }
-        
+
+        [Authorize]
+        [Route("GetDetails/{cUserMail}")]
+        [HttpGet]
+        public IHttpActionResult GetDetails(string cUserMail)      //Gets a specific User
+        {
+            User oUser;
+            if (cUserMail != null && cUserMail.Length > 0)
+            {
+                oUser = new User();
+                oUser.GetByMail(Encoding.Unicode.GetString(Convert.FromBase64String(cUserMail)));
+                return Ok(oUser);
+            }
+
+            return StatusCode(HttpStatusCode.NoContent);
+        }
+
         [Route("Create")]
         [HttpPost]
         public IHttpActionResult AddUser([FromBody]User oUser)       //Inserts an User

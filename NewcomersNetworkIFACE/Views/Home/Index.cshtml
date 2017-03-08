@@ -1,202 +1,129 @@
 ﻿@{
-    ViewBag.Title = "Home Page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Main";
 }
 
-<div class="container">
-    <div class="jumbotron">
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <div class="floating-menu">
-            <ul class="menu-item-list">
-                <li class="mnu-lst-frst">MenuItem 1</li>
-                <li class="mnu-lst">MenuItem 2</li>
-                <li class="mnu-lst">MenuItem 3</li>
-                <li class="mnu-lst">MenuItem 4</li>
-                <li class="mnu-lst">MenuItem 5</li>
-                <li class="mnu-lst">MenuItem 6</li>
-            </ul>
-        </div>
-    </div>
-</div>
+<section id="slider" class="slider-parallax swiper_wrapper clearfix">
 
-<div class="col-md-12 pre-text">
-    <div class="container">
-        <div class="row">
-        <h3>This period can be challenging. Our desire is to offer compassion, connection and community to jump-start your transition.</h3>
-        </div>
-    </div>
-</div>
+    <div class="slider-parallax-inner">
 
-<section class="services">
+        <div class="swiper-container swiper-parent">
+            <div class="swiper-wrapper">
 
-    <div class="container">
-
-        <div class="row">
-            <div class="col-md-6">
-
-                <div class="services-title">
-                    <h2>A place for you <br /> &emsp;&emsp;to build <span class="grey-highlight">connections.</span></h2>
-                </div>
-
-                <div class="row">
-                    <div class="service-item">
-                        <img class="img-responsive svc-itm-img" src="~/Content/Images/square-image.png" />
-                        <span class="svc-itm-title">ESL CLass</span>
-                        <span class="svc-itm-desc">English as a Second Language</span>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="service-item">
-                        <img class="img-responsive svc-itm-img" src="~/Content/Images/square-image.png" />
-                        <span class="svc-itm-title">Newcomers Fellowship</span>
-                        <span class="svc-itm-desc">Group reflections on the migration Journey</span>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="service-item">
-                        <img class="img-responsive svc-itm-img" src="~/Content/Images/square-image.png" />
-                        <span class="svc-itm-title">Special Events</span>
-                        <span class="svc-itm-desc">Retreats, Special Dinners and Social activities for you to have fun</span>
-                    </div>
-                </div>
-
-            </div>
-            <div class="col-md-6">
-
-                <div class="classified-title">
-                    <h2><span class="gold-highlight">Free</span> Deals!</h2>
-                </div>
-
-                <div class="classified-content">
-                    <br />
-                    <br />
-                    <br />
-                    <br />
-                    <br />
-
-                    <a href="#">
-                        <div class="donate-txt">
-                            <span class="gold-highlight-slt">I Want to donate</span>
-                        </div>
-                    </a>
-                </div>
-
-            </div>
-
-        </div>
-    </div>
-
-</section>
-
-<section class="testimonials">
-
-    <div class="container">
-
-        <div class="row">
-            <div class="col-md-12">
-                <div class="title">
-                    <h3>A safe <span class="grey-highlight">community</span><br />&emsp;&emsp;for you to engage with.</h3>
-                </div>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-md-12">
-                <div class="contents">
-
-                    <div class="col-md-4">
-                        <div class="testimonial">
-                            <img class="avatar img-circle img-responsive" src="~/Content/Images/square-image.png" />
-                            <p class="name">Pr. Nestor Abdon</p>
-                            <p class="position">Newcomers Network Pastor and Organizer</p>
-                            <p class="test-text">Integer elementum massa at nulla placerat varius. Suspendissevitae metus faucib</p>
+                <div class="swiper-slide dark" style="background-image: url('/Content/Images/slider/1.jpg');">
+                    <div class="container clearfix">
+                        <div class="slider-caption slider-caption-left">
+                            <h2 data-caption-animate="fadeInUp">New to Canada?</h2>
+                            <p data-caption-animate="fadeInUp" data-caption-delay="200">We are here to help you settle in.</p>
                         </div>
                     </div>
-
-                    <div class="col-md-4">
-                        <div class="testimonial">
-                            <img class="avatar img-circle img-responsive" src="~/Content/Images/square-image.png" />
-                            <p class="name">Muhamed Ahmed(*)</p>
-                            <p class="position">Sirian Refugee</p>
-                            <p class="test-text">Integer elementum massa at nulla placerat varius. Suspendissevitae metus faucib</p>
+                </div>
+                <!--
+                <div class="swiper-slide dark">
+                    <div class="container clearfix">
+                        <div class="slider-caption slider-caption-center">
+                            <h2 data-caption-animate="fadeInUp">Beautifully Flexible</h2>
+                            <p data-caption-animate="fadeInUp" data-caption-delay="200">Looks beautiful &amp; ultra-sharp on Retina Screen Displays. Powerful Layout with Responsive functionality that can be adapted to any screen size.</p>
                         </div>
                     </div>
-                
-                    <div class="col-md-4">
-                        <div class="testimonial">
-                            <img class="avatar img-circle img-responsive" src="~/Content/Images/square-image.png" />
-                            <p class="name">Dr. Norman Last Name(*)</p>
-                            <p class="position">Volunteer Doctor</p>
-                            <p class="test-text">Integer elementum massa at nulla placerat varius. Suspendissevitae metus faucib</p>
+                    <div class="video-wrap">
+                        <video poster="images/videos/explore.jpg" preload="auto" loop autoplay muted>
+                            <source src='images/videos/explore.mp4' type='video/mp4' />
+                            <source src='images/videos/explore.webm' type='video/webm' />
+                        </video>
+                        <div class="video-overlay" style="background-color: rgba(0,0,0,0.55);"></div>
+                    </div>
+                </div>
+                -->
+                <div class="swiper-slide" style="background-image: url('/Content/Images/slider/3.jpg'); background-position: center top;">
+                    <div class="container clearfix">
+                        <div class="slider-caption">
+                            <h2 data-caption-animate="fadeInUp">Great Events</h2>
+                            <p data-caption-animate="fadeInUp" data-caption-delay="200">Stay tuned on our events.</p>
                         </div>
                     </div>
-
-
                 </div>
             </div>
+
+            <div id="slider-arrow-left"><i class="icon-angle-left"></i></div>
+            <div id="slider-arrow-right"><i class="icon-angle-right"></i></div>
+            <div id="slide-number"><div id="slide-number-current"></div><span>/</span><div id="slide-number-total"></div></div>
         </div>
 
     </div>
 
 </section>
 
-<section class="social-media">
-
-
-<div class="container">
-
-
-    <div class="row">
-        <div class="col-md-12">
-            <div class="title">
-                <h3>Follow us on <span class="grey-highlight">Social Media: </span></h3>
-            </div>
-        </div>
-    </div>
-
-    <div class="row">
+<section id="content">
+    <div class="content-wrap">
         
-        <div class="col-md-6">
-            <div class="nn-media">
-                <h3><span class="label label-info">Twitter</span></h3>
-                @@NewcomersTO
-                <br />
-                <br />
-                <br />
-                <br />
-                <br />
-                <br />
-                <br />
-                <br />
-                <br />
-                <br />
+        <div class="promo promo-dark promo-full bottommargin-lg header-stick notopborder" style="padding-bottom: 0px !important">
+
+            <div class="container clearfix">
+
+                <div class="col_one_sixth nobottommargin" style="margin: 0px">
+                    <div class="feature-box fbox-center fbox-light fbox-effect nobottomborder" style="border-right: 1px dotted white">
+                        <div class="fbox-icon">
+                            <a href="#"><i class="i-alt noborder icon-shop"></i></a>
+                        </div>
+                        <h3>Immigration &amp; Settlement</h3>
+                    </div>
+                    <div style="position: relative; bottom: 0px; min-height: 20px; border-bottom: 10px solid #fec33e !important"></div>
+                </div>
+
+                <div class="col_one_sixth nobottommargin" style="margin: 0px">
+                    <div class="feature-box fbox-center fbox-light fbox-effect nobottomborder" style="border-right: 1px dotted white">
+                        <div class="fbox-icon">
+                            <a href="#"><i class="i-alt noborder icon-wallet"></i></a>
+                        </div>
+                        <h3>Employment &amp; Career</h3>
+                    </div>
+                    <div style="position: relative; bottom: 0px; min-height: 20px; border-bottom: 10px solid #ba0f6b !important"></div>
+                </div>
+
+                <div class="col_one_sixth nobottommargin" style="margin: 0px">
+                    <div class="feature-box fbox-center fbox-light fbox-effect nobottomborder" style="border-right: 1px dotted white">
+                        <div class="fbox-icon">
+                            <a href="#"><i class="i-alt noborder icon-shop"></i></a>
+                        </div>
+                        <h3>Legal Clinic</h3>
+                    </div>
+                    <div style="position: relative; bottom: 0px; min-height: 20px; border-bottom: 10px solid #00588d !important"></div>
+                </div>
+
+                <div class="col_one_sixth nobottommargin" style="margin: 0px">
+                    <div class="feature-box fbox-center fbox-light fbox-effect nobottomborder" style="border-right: 1px dotted white">
+                        <div class="fbox-icon">
+                            <a href="#"><i class="i-alt noborder icon-wallet"></i></a>
+                        </div>
+                        <h3>Language Centre</h3>
+                    </div>
+                    <div style="position: relative; bottom: 0px; min-height: 20px; border-bottom: 10px solid #ff6a00 !important"></div>
+                </div>
+
+                <div class="col_one_sixth nobottommargin" style="margin: 0px">
+                    <div class="feature-box fbox-center fbox-light fbox-effect nobottomborder" style="border-right: 1px dotted white">
+                        <div class="fbox-icon">
+                            <a href="#"><i class="i-alt noborder icon-wallet"></i></a>
+                        </div>
+                        <h3>Health &amp; Well-being</h3>
+                    </div>
+                    <div style="position: relative; bottom: 0px; min-height: 20px; border-bottom: 10px solid #b6d554 !important"></div>
+                </div>
+
+                <div class="col_one_sixth nobottommargin" style="margin-right: 0px !important">
+                    <a href="/Classifieds"><img src="~/Content/Images/classifieds.png" alt="Classifieds"></a>
+                </div>
+
+                <!--
+                <h3>Call us today at <span>+91.22.57412541</span> or Email us at <span>support@canvas.com</span></h3>
+                <span>We strive to provide Our Customers with Top Notch Support to make their Theme Experience Wonderful</span>
+                <a href="#" class="button button-dark button-xlarge button-rounded">Start Browsing</a>
+                -->
+
+
+
             </div>
         </div>
-
-        <div class="col-md-6">
-            <div class="nn-media">
-                <h3><span class="label label-primary">Facebook</span></h3>
-                @@NewcomersNetworkTPC
-                <br />
-                <br />
-                <br />
-                <br />
-                <br />
-                <br />
-                <br />
-                <br />
-                <br />
-                <br />
-            </div>
-        </div>
-
-        </div>
-
-</div>
-
+    </div>
 </section>

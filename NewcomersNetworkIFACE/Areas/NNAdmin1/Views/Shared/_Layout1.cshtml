@@ -7,18 +7,18 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <link rel="stylesheet" href="~/Content/css/bootstrap.css" />
-    <link rel="stylesheet" href="~/Content/css/bootstrap-responsive.css" />
+    <link rel="stylesheet" href="~/Content/NNAdmin/css/bootstrap.css" />
+    <link rel="stylesheet" href="~/Content/NNAdmin/css/bootstrap-responsive.css" />
     <link rel="stylesheet" href="~/Content/font-awesome/css/font-awesome.css" />
-    <link rel="stylesheet" href="~/Content/css/jquery.gritter.css" />
-    <link rel="stylesheet" href="~/Content/css/matrix-style.css" />
-    <link rel="stylesheet" href="~/Content/css/matrix-media.css" />
+    <link rel="stylesheet" href="~/Content/NNAdmin/css/jquery.gritter.css" />
+    <link rel="stylesheet" href="~/Content/NNAdmin/css/matrix-style.css" />
+    <link rel="stylesheet" href="~/Content/NNAdmin/css/matrix-media.css" />
 
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,800' rel='stylesheet' type='text/css'>
 
     @RenderSection("CSSSection", required: false)
     
-    <script src="~/Content/js/nn_admin_init.js"></script>
+    <script src="~/Content/NNAdmin/js/nn_admin_init.js"></script>
 
 </head>
 
@@ -36,12 +36,11 @@
             <li class="dropdown" id="profile-messages">
                 <a title="" href="#" data-toggle="dropdown" data-target="#profile-messages" class="dropdown-toggle"><i class="icon icon-user"></i>  <span class="text"> Welcome Renan Fragoso</span><b class="caret"></b></a>
                 <ul class="dropdown-menu">
-                    <li><a href="#"><i class="icon-user"></i> My Profile</a></li>
+                    <li><a href="/UserProfile"><i class="icon-user"></i> My Profile</a></li>
                     <li class="divider"></li>
-                    <li><a href="login.html"><i class="icon icon-share-alt"></i> Log Out</a></li>
+                    <li><a href="/UserProfile/LogOut"><i class="icon icon-signout"></i> Log Out</a></li>
                 </ul>
             </li>
-            <li class=""><a title="" href="login.html"><i class="icon icon-share-alt"></i> <span class="text">Logout</span></a></li>
         </ul>
     </div>
     <!--close-top-Header-menu-->
@@ -64,9 +63,13 @@
                <a href="@Url.Action("", "Dashboard", new { Area = "NNAdmin1" })"><i class="icon icon-dashboard"></i> <span>Dashboard</span></a>
             </li>
             <li id="calendarmnu" class="menuitem"><a href="@Url.Action("", "Calendar", new { Area = "NNAdmin1" })"><i class="icon icon-calendar"></i> <span>Calendar</span></a></li>
-            <li id="classifiedsmnu" class="menuitem">
-               <!-- <a href="@Url.Action("", "Classifieds", new { Area = "NNAdmin1" })"><i class="icon icon-list-ul"></i> <span>Classifieds</span><span class="label label-important">10</span></a> -->
-               <a class="menuclick(1)"><i class="icon icon-list-ul"></i> <span>Classifieds</span><span class="label label-important">10</span></a>
+            <li id="classifiedsmnu" class="submenu">
+               <a href="@Url.Action("", "Classifieds", new { Area = "NNAdmin1" })"><i class="icon icon-list-ul"></i> <span>Classifieds</span></a>
+                <ul>
+                    <li id="needspendmnu" class="menuitem"><a href="@Url.Action("NeedsPending", "Classifieds", new { Area = "NNAdmin1" })"><i class="icon icon-list-ul"></i> <span>Needs Pending</span><span id="ClsNPending" class="label label-important">1</span></a></li>
+                    <li id="helppendmnu" class="menuitem"><a href="@Url.Action("HelpPending", "Classifieds", new { Area = "NNAdmin1" })"><i class="icon icon-list-ul"></i> <span>Help Pending</span><span id="ClsHPending" class="label label-important"></span></a></li>
+                    <li id="clsreportmnu" class="menuitem"><a href="@Url.Action("Reported", "Classifieds", new { Area = "NNAdmin1" })"><i class="icon icon-list-ul"></i> <span>Reported</span><span id="ClsReport" class="label label-important"></span></a></li>
+                </ul>
             </li>
             <li id="eventsmnu" class="menuitem"><a href="@Url.Action("", "Events", new { Area = "NNAdmin1" })"><i class="icon icon-th"></i> <span>Events</span></a></li>
             <li id="formsmnu" class="menuitem"><a href="@Url.Action("", "Forms", new { Area = "NNAdmin1" })"><i class="icon icon-file-alt"></i> <span>Forms</span></a></li>
@@ -78,6 +81,7 @@
                 </ul>
             </li>
             <li id="servicesmnu" class="menuitem"><a href="@Url.Action("", "Services", new { Area = "NNAdmin1" })"><i class="icon icon-th"></i> <span>Services</span></a></li>
+            <li id="settingssmnu" class="menuitem"><a href="@Url.Action("", "Settings", new { Area = "NNAdmin1" })"><i class="icon icon-cogs"></i> <span>Settings</span></a></li>
             <li id="usersmnu" class="menuitem"><a href="@Url.Action("", "Users", new { Area = "NNAdmin1" })"><i class="icon icon-user"></i> <span>Users</span></a></li>
             <!-- <li id="mailingmnu" class="menuitem"><a href="@Url.Action("", "Mailing", new { Area = "NNAdmin1" })"><i class="icon icon-envelope"></i> <span>Mailing</span></a></li> -->
         </ul>
@@ -92,38 +96,35 @@
     </div>
     <!--end-Footer-part-->
     
-    <script src="/Content/js/jquery.min.js"></script>
-    <script src="/Content/js/jquery.ui.custom.js"></script>
-    <script src="/Content/js/bootstrap.min.js"></script>
-    <script src="/Content/js/jquery.peity.min.js"></script>
-    <script src="/Content/js/jquery.gritter.min.js"></script>
-    <script src="/Content/js/matrix.js"></script>
-    <script src="/Content/js/matrix.popover.js"></script>
-    <script src="/Content/js/nn_admin.js"></script>
+    <script src="/Content/NNAdmin/js/jquery.min.js"></script>
+    <script src="/Content/NNAdmin/js/jquery.ui.custom.js"></script>
+    <script src="/Content/NNAdmin/js/bootstrap.min.js"></script>
+    <script src="/Content/NNAdmin/js/jquery.peity.min.js"></script>
+    <script src="/Content/NNAdmin/js/jquery.gritter.min.js"></script>
+    <script src="/Content/NNAdmin/js/matrix.js"></script>
+    <script src="/Content/NNAdmin/js/matrix.popover.js"></script>
+    <script src="/Content/NNAdmin/js/nn_admin.js"></script>
     
-    <!--
-    <script src="~/Content/js/jquery.min.js"></script>
-    <script src="~/Content/js/excanvas.min.js"></script>
-    <script src="~/Content/js/jquery.ui.custom.js"></script>
-    <script src="~/Content/js/bootstrap.min.js"></script>
-    <script src="~/Content/js/jquery.peity.min.js"></script>
-    <script src="~/Content/js/fullcalendar.min.js"></script>
-    <script src="~/Content/js/matrix.js"></script>
-    <script src="~/Content/js/jquery.gritter.min.js"></script>
-    <script src="~/Content/js/matrix.interface.js"></script>
-    <script src="~/Content/js/jquery.validate.js"></script>
-    <script src="~/Content/js/matrix.form_validation.js"></script>
-    <script src="~/Content/js/jquery.wizard.js"></script>
-    <script src="~/Content/js/jquery.uniform.js"></script>
-    <script src="~/Content/js/select2.min.js"></script>
-    <script src="~/Content/js/matrix.popover.js"></script>
-    <script src="~/Content/js/jquery.dataTables.js"></script>
-    <script src="~/Content/js/dataTables.bootstrap.js"></script>
-    <script src="~/Content/js/matrix.tables.js"></script>
-    <script src="~/Content/js/nn_admin.js"></script>
-    -->
-    
-    @RenderSection("JSSection", required: false);
+    @RenderSection("JSSection", required: false)
+
+    <script type="text/javascript">
+        DocReady.push(function () {
+
+            //Gets Pending Classifieds
+            NN_SendAjax("GET",
+                "/NNAdmin1/Classifieds/PendingNum",
+                null,
+                ["Get Pending Classifieds"],
+                function (response) {   //Success
+                    if (response.odata != null) {
+                        $("#ClsNPending").text(response.odata);
+                    }
+                },
+                null, /* Error */
+                true /* Silent */);
+
+        });
+    </script>
 
     <script type="text/javascript">
         $(document).ready(RunInit);

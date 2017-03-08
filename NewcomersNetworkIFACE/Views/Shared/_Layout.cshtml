@@ -1,178 +1,156 @@
 ﻿<!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewBag.Title - @System.Web.Configuration.WebConfigurationManager.AppSettings["ApplicationName"]</title>
-    @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
 
-    <link rel="stylesheet" href="~/Content/css/font-awesome.css">
+    <link rel="stylesheet" href="~/Content/css/bootstrap3.3.6.css" />
+    <link rel="stylesheet" href="~/Content/css/style.css" />
+    <link rel="stylesheet" href="~/Content/css/swiper.css" />
+    <link rel="stylesheet" href="~/Content/css/dark.css" />
+    <link rel="stylesheet" href="~/Content/css/font-icons.css" />
+    <link rel="stylesheet" href="~/Content/css/animate.css" />
+    <link rel="stylesheet" href="~/Content/css/magnific-popup.css" />
+    <link rel="stylesheet" href="~/Content/css/responsive.css" />
+    <link rel="stylesheet" href="~/Content/css/nn.css" />
+    
+    <link href="https://fonts.googleapis.com/css?family=Quicksand" rel="stylesheet">          
+    
+    <!--[if lt IE 9]>
+        <script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
+    <![endif]-->
 
 </head>
-<body>
+<body class="">
+    <div id="wrapper" class="clearfix">
 
-    <nav class="navbar navbar-default">
-        <div class="container">
-            <div class="navbar-header">
+        <header id="header" class="full-header">
 
-                <div class="head-logo">
-                    
-                    <a class="navbar-brand" href="/">
-                        <img class="nav-logo" alt="The Peoples Church" src="~/Content/Images/tpc-logo.jpg" height="49" width="87">
-                    </a>
-                    <p>Newcomers <br/> Network</p>
+            <div id="header-wrap">
 
-                </div>
+                <div class="container clearfix">
 
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-            </div>
+                    <div id="primary-menu-trigger"><i class="icon-reorder"></i></div>
 
-            <div id="navbar" class="navbar-collapse collapse">
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a href="/Calendar">Find Us</a></li>
-                    <li><a href="/Classifieds">Events Calendar</a></li>
-                    @Html.Partial("_LoginPartial")
-                </ul>
-            </div>
-        </div>
-    </nav>
-
-    <main class="content">
-
-        <!--
-        <div class="welcome">
-            <div class="container">
-                <h2>@System.Web.Configuration.WebConfigurationManager.AppSettings["ApplicationName"]</h2>
-            </div>
-        </div>
-        -->
-        <div class="body-content">
-            @RenderBody()
-        </div>
-
-    </main>
-    
-    <footer class="footer">
-        <div class="container">
-
-            <div class="row">
-                <div class="col-md-12">
-
-                    <hr />
-
-                    <div>
-                        <center>
-                            <h2>Newcomers Network</h2>
-                            <h3>Compassion. Connection. Communty.</h3>
-                        </center>
-                    </div>
-
-                    <hr />
-                </div>
-            </div>
-
-            <div class="row nn-ft-row1">
-                <div class="col-md-12">
-
-                    <div class="col-md-4">
-                        <a class="btn btn-social-icon btn-twitter">
-                            <span class="fa fa-twitter"></span>
+                    <!-- Logo
+                    ============================================= -->
+                    <div id="logo">
+                        <a href="/" class="standard-logo"><img src="~/Content/Images/tpc-logo.png" alt="The Peoples Church"></a>
+                        <a href="/" class="retina-logo" data-dark-logo="~/Content/Images/tpc-logo.png">
+                            <img src="~/Content/Images/tpc-logo.png" alt="The People's Church">
                         </a>
-                    </div>
+                    </div><!-- #logo end -->
+                    
+                    @if (ViewBag.SessionUser != null)
+                    {
+                        <div id="top-account" class="dropdown">
+                            <a href="#" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="icon-user"></i> <span class="nn-usrname-mnu">@(ViewBag.SessionUser.Name)</span> <i class="icon-angle-down"></i></a>
+                            <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu1">
+                                <li>
+                                    <img src="@(ViewBag.SessionUser.Picture)" class="aligncenter img-usrprofile img-thumbnail notopmargin nobottommargin" alt="Avatar" style="max-width: 84px; display:block">
+                                </li>
+                                <li>
+                                    <a href="#"><h5>@ViewBag.SessionUser.Name</h5></a>
+                                </li>
+                                <li role="separator" class="divider"></li>
+                                <li><a href="/UserProfile"><i class="icon-user"></i> Profile</a></li>
+                                    @if (ViewBag.SessionUser.HasRole("Administrator") || ViewBag.SessionUser.HasRole("Assistant"))
+                                    {
+                                        <li><a href="/NNAdmin1/Dashboard"><i class="icon icon-cog"></i> Administration</a></li>
+                                    }
+                                <li role="separator" class="divider"></li>
+                                <li><a href="/UserProfile/LogOut"><i class="icon-signout"></i> Logout</a></li>
+                            </ul>
+                        </div>
+                    }
 
-                    <div class="col-md-4">
-                        <a href="#"><h4><span class="grey-highlight">Donations</span></h4></a>
-                    </div>
+                    <!-- Primary Navigation
+                    ============================================= -->
+                    <nav id="primary-menu">
+                        <ul>
+                            <li>
+                                <a href="/FindUs"><div>Find Us</div></a>
+                            </li>
 
-                    <div class="col-md-4">
-                        FIND US
-                    </div>
+                            <li>
+                                <a href="/Calendar"><div>Events Schdule</div></a>
+                            </li>
 
+                            <li>
+                                <a href="/Serving"><div>Serving Opportunities</div></a>
+                            </li>
 
+                            @if (ViewBag.SessionUser == null)
+                            {
+                                <li>
+                                    <a href="#"><div>Join Us</div></a>
+                                    <ul>
+                                        <li><a href="/UserProfile/Login"><div>Login</div></a></li>
+                                        <li><a href="/UserProfile/SignIn"><div>Sign-In</div></a></li>
+                                    </ul>
+                                </li>
+                            }
+                        </ul>
+                    </nav>
                 </div>
             </div>
+        </header><!-- #header end -->
 
-            <div class="row nn-ft-row2">
-                <div class="col-md-12">
+        @RenderBody()
 
-                    <div class="col-md-4 nn-ft-frst">
-                        <dl>
-                            <dt>About Us</dt>
-                            <dt>Volunteer Oportunities</dt>
-                            <dt>Our Policies</dt>
-                            <dt>Our Partners</dt>
-                        </dl>
+        <!-- Footer   ============================================= -->
+        <footer id="footer" class="dark">
+
+            <!-- Copyrights ============================================= -->
+            <div id="copyrights">
+
+                <div class="container clearfix">
+
+                    <div class="col_full left">
+
+                        <div class="fleft clearfix">
+                            <a href="#" class="social-icon si-small si-borderless nobottommargin si-facebook">
+                                <i class="icon-facebook"></i>
+                                <i class="icon-facebook"></i>
+                            </a>
+                            <a href="#" class="social-icon si-small si-borderless nobottommargin si-twitter">
+                                <i class="icon-twitter"></i>
+                                <i class="icon-twitter"></i>
+                            </a>
+                            <a href="#" class="social-icon si-small si-borderless nobottommargin si-gplus">
+                                <i class="icon-gplus"></i>
+                                <i class="icon-gplus"></i>
+                            </a>
+                        </div>
+                        <div class="fleft clearfix">
+                            Find Us
+                        </div>
                     </div>
-
-                    <div class="col-md-4 nn-ft">
-
-                        <dl>
-                            <dt>Contact Us</dt>
-                            <dt>Terms of Use</dt>
-                            <dt>Legal / Privacy</dt>
-                        </dl>
-
-                    </div>
-
-                    <div class="col-md-4 nn-ft">
-                        <img alt="The Peoples Church" src="~/Content/Images/tpc-logo.jpg">
-                    </div>
-
-
-                </div>
-            </div>
-
-
-            <div class="row nn-ft-row3">
-                <div class="col-md-12">
-                    <span class="nn-ft-red">The Peoples Church</span>
-                    374 Sheppard Avenue East • Toronto, Ontario M2N 3B6 • Phone: 416.222.3341 © 2016
-                </div>
-            </div>
-
-
-           <!--
-                <div class="col-md-3 col-sm-4">
-                    <div class="social">
-                        <a href="https://www.facebook.com/ThePeoplesChurchTO" target="_blank"><i class="fa fa-facebook"></i></a>
-                        <a href="https://twitter.com/TPCToronto" target="_blank"><i class="fa fa-twitter"></i></a>
-                        <a href="http://vimeo.com/thepeopleschurchtoronto" target="_blank"><i class="fa fa-vimeo-square"></i></a>
-                        <a href="https://thepeopleschurch.ca/email-subscription/"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span></a>
+                    <div class="col_half">
+                        <img src="~/Content/Images/tpc-logo.png" alt="" class="footer-logo">
+                        Copyrights &copy; 2017 All Rights Reserved by Newcomers Network.
                     </div>
                 </div>
-                <div class="col-md-3 col-sm-4">
-                    <dl class="footer-meta-list">
-                        <dt class="footer-meta-title">About</dt>
-                        <dd class="footer-meta-item"><a href="#" class="footer-meta-link">Our Church</a></dd>
-                        <dd class="footer-meta-item"><a href="#" class="footer-meta-link">Legal/Privacy</a></dd>
-                        <dd class="footer-meta-item"><a href="#" class="footer-meta-link">Terms of Use</a></dd>
-                    </dl>
-                </div>
-                <div class="col-md-3 col-sm-4">
-                    <dl class="footer-meta-list">
-                        <dt class="footer-meta-title">Services</dt>
-                        <dd class="footer-meta-item"><a href="#" class="footer-meta-link">Eployment</a></dd>
-                        <dd class="footer-meta-item"><a href="#" class="footer-meta-link">Accessibility</a></dd>
-                        <dd class="footer-meta-item"><a href="#" class="footer-meta-link">Settlement</a></dd>
-                        <dd class="footer-meta-item"><a href="#" class="footer-meta-link">Housing</a></dd>
-                    </dl>
-                </div>
-                -->
+            </div><!-- #copyrights end -->
 
+        </footer><!-- #footer end -->
 
-                </div>
-</footer>
+    </div>
 
-    @Scripts.Render("~/bundles/jquery")
-    //@Scripts.Render("~/bundles/bootstrap")
-    <script src="/Content/js/bootstrap.min.js"></script>
-    <script src="/Content/js/respond.min.js"></script>
-    @RenderSection("scripts", required: false)
+    <script src="~/Content/js/jquery-1.12.4.js"></script>
+    <script src="~/Content/js/plugins.js"></script>
+    <script src="~/Content/js/functions.js"></script>
+    
+    @RenderSection("JSSection", required: false)
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            @RenderSection("DocReadySection", required: false)
+
+        });
+    </script>
 
 </body>
 </html>

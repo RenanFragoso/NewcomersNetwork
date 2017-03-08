@@ -192,4 +192,31 @@ $(window).resize(function() {
 
 $(window).on('resizeEnd', drawGCharts);
 
+//Function to change the selected sidebar class menu
+function menuclick(nMenuID) {
+    
+    var menuActions = [
+        { "menuLInk": "/NNAdmin1/Dashboard", "menuID": "#dashboardmnu" },
+        { "menuLInk": "/NNAdmin1/Classifieds", "menuID": "#classifiedsmnu" },
+        { "menuLInk": "/NNAdmin1/Events", "menuID": "#eventsmnu" },
+        { "menuLInk": "/NNAdmin1/Reports", "menuID": "#reportsmnu" },
+        { "menuLInk": "/NNAdmin1/Reports/MentorXMentee", "menuID": "#reportsmnu" },
+        { "menuLInk": "/NNAdmin1/Reports/NeedsXHelp", "menuID": "#reportsmnu" },
+        { "menuLInk": "/NNAdmin1/Services", "menuID": "#servicesmnu" },
+        { "menuLInk": "/NNAdmin1/Users", "menuID": "#usersmnu" },
+        { "menuLInk": "/NNAdmin1/Calendar", "menuID": "#calendarmnu" },
+        { "menuLInk": "/NNAdmin1/Mailing", "menuID": "#mailingmnu" }
+    ];
+    var oAction;
+
+    oAction = menuActions[nMenuID];
+
+    if(oAction != null ){
+        $(".menuitem").removeClass("active");
+        $(oAction.menuID).addClass("active");
+        window.location = oAction.menuLInk;
+    }
+
+}
+
 

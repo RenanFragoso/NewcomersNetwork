@@ -59,12 +59,34 @@ namespace NewcomersNetworkAPI.Models
 
                 this.oEvents.Add(oEvent);
             }
-
-
-
-
         }
 
+        public void LoadEvents()
+        {
+            Dictionary<string, object> infoParameters = new Dictionary<string, object>();
+            infoParameters.Add("dStartDate", dStartDate);
+            infoParameters.Add("dEndDate", dEndDate);
+            DataTable oEventsDB = DBConn.ExecuteCommand("sp_Calendar_GetEvents", infoParameters).Tables[0];
+
+            CalendarEvent oEvent;
+
+            foreach (DataRow row in oEventsDB.Rows)
+            {
+                oEvent = new CalendarEvent();
+                oEvent.id = row["Id"].ToString();
+                oEvent.title = row["Name"].ToString();
+                oEvent.start = ((DateTime)row["StartDate"]).ToString("yyyy-MM-ddTHH:mm:ssZ");
+                oEvent.end = ((DateTime)row["EndDate"]).ToString("yyyy-MM-ddTHH:mm:ssZ");
+
+                oEvent.color = "#ba0f6b"; //Magenta
+                oEvent.textColor = "#fff";
+                oEvent.url = "/Events?cEventId=" + row["Id"];
+
+                //Specific Attributes
+
+                this.oEvents.Add(oEvent);
+            }
+        }
 
 
     }

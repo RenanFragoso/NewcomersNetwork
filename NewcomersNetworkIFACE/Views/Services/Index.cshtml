@@ -1,0 +1,43 @@
+﻿@model List<NewcomersNetworkAPI.Models.Service>
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Services";
+}
+
+<!-- Page Title ============================================= -->
+<section id="page-title">
+
+    <div class="container clearfix">
+        <h1>Services</h1>
+        <span>Newcomers Network services provided</span>
+        <ol class="breadcrumb">
+            <li><a href="/">Newcomers Network</a></li>
+            <li class="active">Services</li>
+        </ol>
+    </div>
+
+</section><!-- #page-title end -->
+
+<!-- Content ============================================= -->
+<section id="content">
+    <div class="content-wrap">
+        <div class="container clearfix">
+
+            @foreach (var Service in Model)
+            {
+                <div class="col_one_third nobottommargin">
+                    <div class="feature-box media-box">
+                        <div class="fbox-media">
+                            <img src="http://127.0.0.1:10000/devstoreaccount1/services/square-image.png" alt="@Service.ServiceName">
+                        </div>
+                        <div class="fbox-desc">
+                            <i class="icon @(Service.oServiceGroup.GroupIcon)" style="display:inline-block !important"></i> <h3 style="display:inline-block !important">@Service.ServiceName</h3>
+                            <p>@Service.ServiceDescription</p>
+                        </div>
+                    </div>
+                </div>
+            }
+
+        </div>
+    </div>
+</section><!-- #content end -->

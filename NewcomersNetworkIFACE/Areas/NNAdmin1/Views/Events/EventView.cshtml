@@ -1,0 +1,416 @@
+﻿@model NewcomersNetworkAPI.Models.Event
+@{
+    Layout = "~/Areas/NNAdmin1/Views/Shared/_Layout1.cshtml";
+    ViewBag.Title = "View Event";
+}
+
+@section CSSSection {
+    <link rel="stylesheet" href="~/Content/NNAdmin/css/jquery.dataTables.css" />
+    <link rel="stylesheet" href="~/Content/NNAdmin/css/dataTables.bootstrap.css" />
+    <link rel="stylesheet" href="~/Content/NNAdmin/css/uniform.css" />
+    <link rel="stylesheet" href="~/Content/NNAdmin/css/select2.css" />
+    <link rel="stylesheet" href="~/Content/NNAdmin/css/datepicker.css" />
+    <link rel="stylesheet" href="~/Content/NNAdmin/css/bootstrap-editable.css" />
+    <link rel="stylesheet" href="~/Content/NNAdmin/css/jquery-confirm.css" />
+    <link rel="stylesheet" href="~/Content/NNAdmin/css/nn_admin.css" />
+}
+
+<div id="content">
+    <!--breadcrumbs-->
+    <div id="content-header">
+        <div id="breadcrumb">
+            <a href="/NNAdmin1/Dashboard" title="NNAdmin" class="tip-bottom">
+                <i class="icon-home"></i>
+                NNAdmin
+            </a>
+            <a href="/NNAdmin1/Events" title="Events" class="tip-bottom">
+                <i class="icon-th"></i>
+                Events
+            </a>
+            <a href="/NNAdmin1/Events/EventView?cEventId=@(Model.Id)" title="Event: @Model.Name" class="tip-bottom">
+                <i class="icon-th"></i>
+                Event: @Model.Name
+            </a>
+        </div>
+        <h1>Event: @Model.Name</h1>
+    </div>
+    <!--End-breadcrumbs-->
+
+    <div class="container-fluid">
+
+        <div class="row-fluid">
+
+            <!-- LEFT -->
+            <div class="span12">
+
+                <hr />
+
+                <div class="widget-box">
+                    <div class="widget-title">
+                        <span class="icon"><i class="icon-list-alt"></i></span>
+                        <h5>Event Details</h5>
+                    </div>
+                    <div class="widget-content nn-detail">
+
+                        <div class="row-fluid">
+
+                            <div class="span6">
+                                <ul class="nn-di-ul">
+                                    <li class="nn-di-li"><span>Event Id:</span> <a id="EventId" data-title="Event Id" data-value="@(Model.Id)" data-type="text">@Model.Id</a></li>
+                                    <li class="nn-di-li"><span>Event Name:</span> <a id="Name" data-title="Event Name" data-value="@(Model.Name)" data-type="text">@Model.Name</a></li>
+                                    <li class="nn-di-li"><span>Event Description:</span> <a id="Description" data-title="Event Description" data-value="@(Model.Description)" data-type="textarea">@Model.Description</a></li>
+                                    <li class="nn-di-li"><span>Start Date:</span> <a id="StartDate" data-title="Event Start Date" data-value="@(Model.StartDate.ToString("dd/MM/yyyy").Replace("-", "/"))" data-type="date"> @Model.StartDate.ToString("dd/MM/yyyy").Replace("-", "/")</a></li>
+                                    <li class="nn-di-li"><span>End Date:</span> <a id="EndDate" data-title="Event End Date" data-value="@(Model.EndDate.ToString("dd/MM/yyyy").Replace("-", "/"))" data-type="date"> @Model.EndDate.ToString("dd/MM/yyyy").Replace("-", "/")</a></li>
+                                    <li class="nn-di-li"><span>Created By:</span> <a id="CreatedBy" data-title="Created By" data-type="text"></a></li>
+                                    <li class="nn-di-li"><span>Create Date:</span> @Model.CreateDate.ToString("dd/MM/yyyy").Replace("-", "/")</li>
+                                </ul>
+                            </div>
+
+                            <div class="span6">
+                                <ul class="nn-di-ul">
+                                    <li class="nn-di-li"><span>Start Publish Date:</span> <a id="StartPubDate" data-title="Event Start Publish Date" data-value="@(Model.StartPublishDate.ToString("dd/MM/yyyy").Replace("-", "/"))" data-type="date"> @Model.StartPublishDate.ToString("dd/MM/yyyy").Replace("-", "/")</a></li>
+                                    <li class="nn-di-li"><span>End Publish Date:</span> <a id="EndPubDate" data-title="Event End Publish Date" data-value="@(Model.EndPublishDate.ToString("dd/MM/yyyy").Replace("-", "/"))" data-type="date"> @Model.EndPublishDate.ToString("dd/MM/yyyy").Replace("-", "/")</a></li>
+                                    <li class="nn-di-li"><span>External Link:</span> <a id="ExternalLink" href="@(Model.ExternalLink)" target="_blank" data-title="External Link" data-type="text">@(Model.ExternalLink)</a></li>
+                                    <li class="nn-di-li">
+                                        <span>Status:</span>
+                                        @if (Model.Status == "O")
+                                        {
+                                            <span class="nn-active">Active</span>
+                                        }
+                                        else
+                                        {
+
+                                            if (Model.Status == "F")
+                                            {
+                                                <span class="nn-blocked">Finished</span>
+                                            }
+                                            else
+                                            {
+                                                <span class="nn-blocked">Deactivated</span>
+                                            }
+
+                                        }
+                                    </li>
+                                    <li class="nn-di-li"><span>Display Image:</span> <a id="DisplayImg" data-title="Schedule Name" data-value="@(Model.HeadImg)" data-type="text"><img id="ImgEvent" class="img-responsive img-thumbnail" src="@(Model.Image)" width="112" height="100"></a></li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="row-fluid">
+                            <div class="span12">
+                                <ul class="nn-di-ul">
+                                    <li class="nn-di-li title">Event Layout</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="row-fluid">
+
+                            <div class="span6">
+                                <ul class="nn-di-ul">
+                                    <li class="nn-di-li"><span>Title:</span> <a id="Title" data-title="Title" data-value="@(Model.Title)" data-type="text">@Model.Title</a></li>
+                                    <li class="nn-di-li"><span>Sub-Title:</span> <a id="SubTitle" data-title="Sub-Title" data-value="@(Model.SubTitle)" data-type="text">@Model.SubTitle</a></li>
+                                    <li class="nn-di-li"><span>Text 1:</span> <a id="Text1" data-title="Text 1" data-value="@(Model.Text1)" data-type="textarea">@Model.Text1</a></li>
+                                    <li class="nn-di-li"><span>Text 2:</span> <a id="Text2" data-title="Text 2" data-value="@(Model.Text2)" data-type="textarea">@Model.Text2</a></li>
+                                </ul>
+                            </div>
+
+                            <div class="span6">
+                                <ul class="nn-di-ul">
+                                    <li class="nn-di-li"><span>Footer:</span> <a id="Footer" data-title="Title" data-value="@(Model.Footer)" data-type="textarea">@Model.Footer</a></li>
+                                    <li class="nn-di-li"><span>Header Image:</span> <a id="HeadImg" data-title="Schedule Name" data-value="@(Model.HeadImg)" data-type="text"><img class="img-responsive img-thumbnail" src="@(Model.HeadImg)" width="112" height="100" /></a></li>
+                                    <li class="nn-di-li"><span>Location:</span> <a id="Location" data-title="Schedule Description" data-value="@(Model.Location)" data-type="textarea">@Model.Location</a></li>
+                                </ul>
+                            </div>
+                            
+                        </div>
+
+                        <div class="row-fluid">
+
+                            <div class="span6">
+                                <ul class="nn-di-ul">
+                                    <a onclick="EditEvent()" class="btnaction"><li class="nn-di-li ctrl"><i class="icon-edit"></i> Edit Event</li></a>
+                                    <a onclick="ViewLayout()" class="btnaction"><li class="nn-di-li ctrl"><i class="icon-eye-open"></i> View Layout</li></a>
+                                </ul>
+                            </div>
+
+                            <div class="span6">
+                                <ul class="nn-di-ul">
+                                    <a onclick="RemoveEvent()" class="btnaction"><li class="nn-di-li ctrl"><i class="icon-remove"></i> Remove Event</li></a>
+                                    @if (Model.Status == "O")
+                                    {
+                                        <a onclick="DeactivateEvent()" class="btnaction"><li class="nn-di-li ctrl"><i class="icon-ban-circle"></i> Deactivate Event</li></a>
+                                    }
+                                    else
+                                    {
+                                        <a onclick="ActivateEvent()" class="btnaction"><li class="nn-di-li ctrl"><i class="icon-ban-circle"></i> Activate Event</li></a>
+                                    }
+                                    <a onclick="SaveEvent()" id="SaveEvt" class="svgrp hidden"><li class="nn-di-li ctrl btn-success"><i class="icon-save"></i> Save Changes</li></a>
+                                    <a onclick="CancelEditEvent()" id="CancEvt" class="cangrp hidden"><li class="nn-di-li ctrl btn-danger"><i class="icon-ban-circle"></i> Cancel Changes</li></a>
+                                </ul>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section JSSection {
+    <script src="~/Content/NNAdmin/js/jquery.dataTables.js"></script>
+    <script src="~/Content/NNAdmin/js/dataTables.bootstrap.js"></script>
+    <script src="~/Content/NNAdmin/js/masked.js"></script>
+    <script src="~/Content/NNAdmin/js/moment.js"></script>
+    <script src="~/Content/NNAdmin/js/combodate.js"></script>
+    <script src="~/Content/NNAdmin/js/bootstrap-datepicker.js"></script>
+    <script src="~/Content/NNAdmin/js/bootstrap-editable.min.js"></script>
+    <script src="~/Content/NNAdmin/js/jquery-confirm.js"></script>
+    <script src="~/Content/NNAdmin/js/select2.full.js"></script>
+    <script src="~/Content/NNAdmin/js/nn_admin.js"></script>
+}
+
+<script type="text/javascript">
+
+    //Event Model
+    var oEvent = {};
+
+    //User select
+    var oUserData = [{ id: "ce209094-2d37-489d-9eb5-db570b06fab5", text: "Renan Fragoso" }, { id: "c1c78ba8-c367-4862-a881-57e0c2272817", text: "Nestor Abdon" }];
+    var cCreatedBy = "";
+
+    //Updates the image on selected menu
+    DocReady.push(function () { menuSelected("#eventsmnu") });
+    DocReady.push(function () {
+
+        //Sets edit in place as inline
+        $.fn.editable.defaults.mode = 'inline';
+
+        //Sets the Event model in memory
+        NN_SendAjax("GET",
+            "/NNAdmin1/Events/GetNewEvent?cEventId=@(Model.Id)",
+            null,
+            ["Get New Event"],
+            function (response) {   //Success
+                if (response.odata != null) {
+                    oEvent = response.odata;
+                }
+            },
+            null, /* Error */
+            true /* Silent */);
+
+        cCreatedBy = oUserData.find(usr => usr.id == "@(Model.CreatedBy)").text;
+        if (cCreatedBy) {
+            $("#CreatedBy").text(cCreatedBy);
+        }
+
+    });
+
+    function EditEvent()
+    {
+        $(".btnaction").addClass("hidden");
+        $("#SaveEvt").removeClass("hidden");
+        $("#CancEvt").removeClass("hidden");
+
+        $("#Name").editable({ validate: notEmpty }).editable('enable');
+        $("#Description").editable({ validate: notEmpty }).editable('enable');
+        $("#StartDate").editable({
+            validate: notEmpty,
+            format: 'dd/mm/yyyy',
+            viewformat: 'dd/mm/yyyy',
+            template: 'dd/mm/yyyy'
+        }).editable('enable');
+        $("#EndDate").editable({
+            validate: notEmpty,
+            format: 'dd/mm/yyyy',
+            viewformat: 'dd/mm/yyyy',
+            template: 'dd/mm/yyyy'
+        }).editable('enable');
+        $("#StartPubDate").editable({
+            validate: notEmpty,
+            format: 'dd/mm/yyyy',
+            viewformat: 'dd/mm/yyyy',
+            template: 'dd/mm/yyyy'
+        }).editable('enable');
+        $("#EndPubDate").editable({
+            validate: notEmpty,
+            format: 'dd/mm/yyyy',
+            viewformat: 'dd/mm/yyyy',
+            template: 'dd/mm/yyyy'
+        }).editable('enable');
+        $("#ExternalLink").editable({ validate: notEmpty }).editable('enable');
+        $("#Title").editable({ validate: notEmpty }).editable('enable');
+        $("#SubTitle").editable({ validate: notEmpty }).editable('enable');
+        $("#Text1").editable({ validate: notEmpty }).editable('enable');
+        $("#Text2").editable({ validate: notEmpty }).editable('enable');
+        $("#Footer").editable({ validate: notEmpty }).editable('enable');
+        $("#Location").editable({ validate: notEmpty }).editable('enable');
+    }
+
+    function CancelEditEvent() {
+
+        $("#SaveEvt").addClass("hidden");
+        $("#CancEvt").addClass("hidden");
+        $(".btnaction").removeClass("hidden");
+
+        $("#Name").editable('disable');
+        $("#Description").editable('disable');
+        $("#StartDate").editable('disable');
+        $("#EndDate").editable('disable');
+        $("#StartPubDate").editable('disable');
+        $("#EndPubDate").editable('disable');
+        $("#ExternalLink").editable('disable');
+        $("#Title").editable().editable('disable');
+        $("#SubTitle").editable().editable('disable');
+        $("#Text1").editable().editable('disable');
+        $("#Text2").editable().editable('disable');
+        $("#Footer").editable().editable('disable');
+        $("#Location").editable().editable('disable');
+
+    }
+
+    function SaveEvent() {
+        UpdateEvtModel(oEvent);
+        //console.log(oEvent);
+        NN_SendAjax("POST",
+            "/NNAdmin1/Events/UpdateEvent",
+            oEvent,
+            ["Event Update", "Event Update"],
+            function () {   //Success
+                CancelEditEvent();
+                location.reload(true);
+            },
+            null );
+    }
+
+    function RemoveEvent() {
+
+        var cEventId = $("#EventId").text();
+
+        $.confirm({
+            title: "Remove Event",
+            content: "Really confirm Event Removal? All Layouts will be removed too. (this can\'t be undone)",
+            backgroundDismiss: false,
+            backgroundDismissAnimation: 'glow',
+            buttons: {
+                confirm: {
+                    btnClass: 'btn-primary',
+                    action: function () {
+                        NN_SendAjax("DELETE",
+                            "/NNAdmin1/Events/DeleteEvent?cEventId=" + cEventId,
+                            null,
+                            ["Event Remove", "Event Remove"],
+                            function () {   //Success
+                                document.location = "/NNAdmin1/Events";
+                            },
+                            null);
+                    }
+                },
+                cancel: {
+                    btnClass: 'btn-danger',
+                    keys: ['esc'],
+                    action: function () { }
+                }
+            }
+        });
+
+    }
+
+    function ActivateEvent() {
+
+        var cEventId = $("#EventId").text();
+
+        $.confirm({
+            title: "Activate Event",
+            content: "Really confirm Event Activation?",
+            backgroundDismiss: false,
+            backgroundDismissAnimation: 'glow',
+            buttons: {
+                confirm: {
+                    btnClass: 'btn-primary',
+                    action: function () {
+                        NN_SendAjax("GET",
+                            "/NNAdmin1/Events/ActivateEvent?cEventId=" + cEventId,
+                            null,
+                            ["Service Activation", "Service Activation"],
+                            function () { location.reload(true) },
+                            null);
+                    }
+                },
+                cancel: {
+                    btnClass: 'btn-danger',
+                    keys: ['esc'],
+                    action: function () { }
+                }
+            }
+        });
+
+    }
+
+    function DeactivateEvent() {
+
+        var cEventId = $("#EventId").text();
+
+        $.confirm({
+            title: "Deactivate Event",
+            content: "Really confirm Event Deactivation? All Layouts will be deactivated too.",
+            backgroundDismiss: false,
+            backgroundDismissAnimation: 'glow',
+            buttons: {
+                confirm: {
+                    btnClass: 'btn-primary',
+                    action: function () {
+                        NN_SendAjax("GET",
+                            "/NNAdmin1/Events/DeactivateEvent?cEventId=" + cEventId,
+                            null,
+                            ["Event Activation", "Event Activation"],
+                            function () { location.reload(true) },
+                            null);
+                    }
+                },
+                cancel: {
+                    btnClass: 'btn-danger',
+                    keys: ['esc'],
+                    action: function () { }
+                }
+            }
+        });
+    }
+
+    function UpdateEvtModel(oModel) {
+
+        var dStartDate = moment($("#StartDate").text() + " 00:00:01", "DD-MM-YYYY hh:mm:ss");
+        var dEndDate = moment($("#EndDate").text() + " 23:59:59", "DD-MM-YYYY hh:mm:ss");
+        var dStartPubDate = moment($("#StartPubDate").text() + " 00:00:01", "DD-MM-YYYY hh:mm:ss");
+        var dEndPubDate = moment($("#EndPubDate").text() + " 23:59:59", "DD-MM-YYYY hh:mm:ss");
+
+        oModel.Id = $("#EventId").data("value");
+        oModel.Name = $("#Name").editable("getValue").Name;
+        oModel.Description = $("#Description").editable("getValue").Description;
+
+        oModel.StartDate = dStartDate.format("YYYY-MM-DDTHH:mm:ssZ");
+        oModel.EndDate = dEndDate.format("YYYY-MM-DDTHH:mm:ssZ");
+        oModel.StartPublishDate = dStartPubDate.format("YYYY-MM-DDTHH:mm:ssZ");
+        oModel.EndPublishDate = dEndPubDate.format("YYYY-MM-DDTHH:mm:ssZ");
+
+        oModel.ExternalLink = $("#ExternalLink").editable("getValue").ExternalLink;
+        oModel.Title = $("#Title").editable("getValue").Title;
+        oModel.SubTitle = $("#SubTitle").editable("getValue").SubTitle;
+        oModel.Text1 = $("#Text1").editable("getValue").Text1;
+        oModel.Text2 = $("#Text2").editable("getValue").Text2;
+        oModel.Footer = $("#Footer").editable("getValue").Footer;
+        oModel.Location = $("#Location").editable("getValue").Location;
+
+        //Not touching these values yet
+        oModel.Status = "@(Model.Status)";
+        oModel.HeadImg = "@(Model.HeadImg)";
+        oModel.Image = "@(Model.Image)";
+        oModel.CreatedBy = "@(Model.CreatedBy)";
+
+        oModel.AlterDate = moment(parseInt(oModel.AlterDate.substr(6))).format("YYYY-MM-DDTHH:mm:ssZ");
+        oModel.CreateDate = moment(parseInt(oModel.CreateDate.substr(6))).format("YYYY-MM-DDTHH:mm:ssZ");
+    }
+
+</script>

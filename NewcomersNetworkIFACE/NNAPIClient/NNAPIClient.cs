@@ -9,6 +9,8 @@ using System.Net.Http.Headers;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using System.Text;
+using NewcomersNetworkIFACE.Models;
+using System.Threading.Tasks;
 
 namespace NewcomersNetworkIFACE.Client
 {
@@ -22,11 +24,12 @@ namespace NewcomersNetworkIFACE.Client
         public NNAPIClient()
         {
             oApiClient = new HttpClient();
-            oApiClient.MaxResponseContentBufferSize = 256000;
+            oApiClient.MaxResponseContentBufferSize = 1024000;
             oApiClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             /*
             if (Request.Cookies["UserSettings"] != null) { 
-                cClientToken = Request.Cookies["UserSettings"]["Font"];
+                this.cClientToken = Request.Cookies["UserSettings"]["NNAPIUserToken"];
+                oApiClient.DefaultRequestHeaders.Add("Authorization", "Bearer " + this.cClientToken);
             }
             */
         }
@@ -34,14 +37,23 @@ namespace NewcomersNetworkIFACE.Client
         public void setToken(string cToken)
         {
             this.cClientToken = cToken;
-            //oApiClient.DefaultRequestHeaders.Add("Authorization", "Bearer " + cClientToken);
+            this.oApiClient.DefaultRequestHeaders.Add("Authorization", "bearer " + this.cClientToken);
         }
 
-        public T Get<T>(string cAction, string cParam = "")
+        public T Get<T>(string cAction, string cParam = "", bool bIgnoreApiAddress = false)
         {
 
             oApiClient.DefaultRequestHeaders.Accept.Clear();
-            HttpResponseMessage response = oApiClient.GetAsync(this.cNNAPIAddress + cAction + cParam).Result;
+            HttpResponseMessage response;
+
+            if (bIgnoreApiAddress)
+            {
+                response = oApiClient.GetAsync(cAction + cParam).Result;
+            } else
+            {
+                response = oApiClient.GetAsync(this.cNNAPIAddress + cAction + cParam).Result;
+            }
+            
             if (response.IsSuccessStatusCode)
             {
                 return JsonConvert.DeserializeObject<T>(response.Content.ReadAsStringAsync().Result);
@@ -52,26 +64,73 @@ namespace NewcomersNetworkIFACE.Client
             }
         }
 
-        public HttpResponseMessage Post<T>(string cAction, T data)
+        public HttpResponseMessage Post<T>(string cAction, T data, bool bIgnoreApiAddress = false)
         {
 
             oApiClient.DefaultRequestHeaders.Accept.Clear();
-            HttpResponseMessage response = oApiClient.PostAsJsonAsync(this.cNNAPIAddress + cAction, data).Result;
+            HttpResponseMessage response;
+            if (bIgnoreApiAddress)
+            {
+                response = oApiClient.PostAsJsonAsync(cAction, data).Result;
+            }
+            else
+            {
+                response = oApiClient.PostAsJsonAsync(this.cNNAPIAddress + cAction, data).Result;
+            }
             return response;
         }
 
-        public HttpResponseMessage Put<T>(string cAction, T data)
+        public HttpResponseMessage Put<T>(string cAction, T data, bool bIgnoreApiAddress = false)
         {
             oApiClient.DefaultRequestHeaders.Accept.Clear();
-            HttpResponseMessage response = oApiClient.PutAsJsonAsync(this.cNNAPIAddress + cAction, data).Result;
+            HttpResponseMessage response;
+            if (bIgnoreApiAddress)
+            {
+                response = oApiClient.PutAsJsonAsync(cAction, data).Result;
+            }
+            else
+            {
+                response = oApiClient.PutAsJsonAsync(this.cNNAPIAddress + cAction, data).Result;
+            }
             return response;
         }
 
-        public HttpResponseMessage Delete(string cAction, string cParam)
+        public HttpResponseMessage Delete(string cAction, string cParam, bool bIgnoreApiAddress = false)
         {
             oApiClient.DefaultRequestHeaders.Accept.Clear();
-            HttpResponseMessage response = oApiClient.DeleteAsync(this.cNNAPIAddress + cAction + "/" + cParam).Result;
+            HttpResponseMessage response;
+            if (bIgnoreApiAddress)
+            {
+                response = oApiClient.DeleteAsync(cAction + "/" + cParam).Result;
+            }
+            else
+            {
+                response = oApiClient.DeleteAsync(this.cNNAPIAddress + cAction + "/" + cParam).Result;
+            }
+
+
             return response;
         }
+
+        public async Task<HttpResponseMessage> RequestToken(Login data)
+        {
+            oApiClient.DefaultRequestHeaders.Accept.Clear();
+
+            HttpResponseMessage response;
+            HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, ConfigurationManager.AppSettings["TokenEndPoint"]);
+
+            var formValues = new List<KeyValuePair<string, string>>();
+
+            formValues.Add(new KeyValuePair<string, string>("grant_type", "password"));
+            formValues.Add(new KeyValuePair<string, string>("username", data.UserName));
+            formValues.Add(new KeyValuePair<string, string>("password", data.Password));
+
+            request.Content = new FormUrlEncodedContent(formValues);
+            //oApiClient.BaseAddress = new Uri(ConfigurationManager.AppSettings["TokenEndPoint"]);
+            response = await oApiClient.SendAsync(request);
+            
+            return response;
+        }
+
     }
 }

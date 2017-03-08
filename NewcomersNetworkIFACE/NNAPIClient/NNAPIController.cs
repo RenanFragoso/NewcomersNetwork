@@ -9,5 +9,15 @@ namespace NewcomersNetworkIFACE.Client
     public class NNAPIController : Controller
     {
         protected NNAPIClient oNNAPIClient = new NNAPIClient();
+
+        public virtual void setNNAPIToken(string cToken)
+        {
+            this.oNNAPIClient.setToken(cToken);
+        }
+
+        protected virtual void VerifyCredential()
+        {
+            ViewBag.SessionUser = Session["SessionUser"];
+        }
     }
 }

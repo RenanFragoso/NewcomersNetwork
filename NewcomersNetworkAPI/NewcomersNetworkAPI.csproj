@@ -77,6 +77,18 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Extensions.Configuration, Version=1.1.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Configuration.1.1.0\lib\netstandard1.1\Microsoft.Extensions.Configuration.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Configuration.Abstractions, Version=1.1.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Configuration.Abstractions.1.1.0\lib\netstandard1.0\Microsoft.Extensions.Configuration.Abstractions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Primitives, Version=1.1.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Primitives.1.1.0\lib\netstandard1.0\Microsoft.Extensions.Primitives.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.Practices.EnterpriseLibrary.TransientFaultHandling, Version=6.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\EnterpriseLibrary.TransientFaultHandling.6.0.1304.0\lib\portable-net45+win+wp8\Microsoft.Practices.EnterpriseLibrary.TransientFaultHandling.dll</HintPath>
       <Private>True</Private>
@@ -85,9 +97,21 @@
       <HintPath>..\packages\EnterpriseLibrary.TransientFaultHandling.Data.6.0.1304.1\lib\NET45\Microsoft.Practices.EnterpriseLibrary.TransientFaultHandling.Data.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Microsoft.WindowsAzure.Storage, Version=4.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.IO.Compression" />
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.3.0\lib\netstandard1.0\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Runtime.InteropServices.RuntimeInformation, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.InteropServices.RuntimeInformation.4.3.0\lib\net45\System.Runtime.InteropServices.RuntimeInformation.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Security" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -211,6 +235,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\IdentityConfig.cs" />
+    <Compile Include="App_Start\NNAPIBlobServices.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
@@ -243,9 +268,11 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ClassifiedsController.cs" />
     <Compile Include="Controllers\EventDetailsController.cs" />
     <Compile Include="Controllers\EventsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\NNAuthController.cs" />
     <Compile Include="Controllers\OptionsListsController.cs" />
     <Compile Include="Controllers\CalendarController.cs" />
     <Compile Include="Controllers\ServicesController.cs" />
@@ -259,7 +286,10 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\CalendarEventModels.cs" />
     <Compile Include="Models\CalendarApiModels.cs" />
+    <Compile Include="Models\ClassifiedEventsModels.cs" />
+    <Compile Include="Models\ClassifiedModels.cs" />
     <Compile Include="Models\EventRegistrationModels.cs" />
+    <Compile Include="Models\NNClassifiedsFilterModels.cs" />
     <Compile Include="Models\OptionList.cs" />
     <Compile Include="Models\OptionsLists.cs" />
     <Compile Include="Models\ScheduleItemModels.cs" />
@@ -303,12 +333,25 @@
     <Content Include="Database\StoredProcedures\Choices\sp_GetChoices_NeedsCategory.sql" />
     <Content Include="Database\StoredProcedures\Choices\sp_GetChoices_Occupation.sql" />
     <Content Include="Database\StoredProcedures\Choices\sp_GetChoices_UsersRoles.sql" />
+    <Content Include="Database\StoredProcedures\Classifieds\sp_Classifieds_GetFiltered.sql" />
+    <Content Include="Database\StoredProcedures\Classifieds\sp_Classifieds_GetAll.sql" />
+    <Content Include="Database\StoredProcedures\Classifieds\sp_Classifieds_GetByID.sql" />
+    <Content Include="Database\StoredProcedures\Classifieds\sp_Classifieds_Delete.sql" />
+    <Content Include="Database\StoredProcedures\Classifieds\sp_Classifieds_Insert.sql" />
+    <Content Include="Database\StoredProcedures\Classifieds\sp_Classifieds_PendingNum.sql" />
+    <Content Include="Database\StoredProcedures\Classifieds\sp_Classifieds_Pending.sql" />
+    <Content Include="Database\StoredProcedures\Classifieds\sp_Classifieds_Approve.sql" />
+    <Content Include="Database\StoredProcedures\Classifieds\sp_Classifieds_Reject.sql" />
+    <Content Include="Database\StoredProcedures\Classifieds\sp_Classifieds_Publish.sql" />
+    <Content Include="Database\StoredProcedures\Classifieds\sp_Classifieds_Update.sql" />
     <Content Include="Database\StoredProcedures\Events\sp_EventDetail_GetByEvntID.sql" />
     <Content Include="Database\StoredProcedures\Events\sp_EventDetail_Insert.sql" />
     <Content Include="Database\StoredProcedures\Events\sp_EventDetail_Update.sql" />
     <Content Include="Database\StoredProcedures\Events\sp_EventDetail_Delete.sql" />
     <Content Include="Database\StoredProcedures\Events\sp_Events_Delete.sql" />
     <Content Include="Database\StoredProcedures\Events\sp_Events_GetRegistrations.sql" />
+    <Content Include="Database\StoredProcedures\Events\sp_Events_Activate.sql" />
+    <Content Include="Database\StoredProcedures\Events\sp_Events_Deactivate.sql" />
     <Content Include="Database\StoredProcedures\Schedule\sp_Schedule_Deactivate.sql" />
     <Content Include="Database\StoredProcedures\Schedule\sp_Schedule_Activate.sql" />
     <Content Include="Database\StoredProcedures\Schedule\sp_Schedule_Delete.sql" />
@@ -341,6 +384,7 @@
     <Content Include="Database\StoredProcedures\Users\sp_UserDetails_Create.sql" />
     <Content Include="Database\StoredProcedures\Users\sp_UserDetails_Get.sql" />
     <Content Include="Database\StoredProcedures\Users\sp_User_Delete.sql" />
+    <Content Include="Database\StoredProcedures\Users\sp_User_GetByUsername.sql" />
     <Content Include="Database\StoredProcedures\Users\sp_User_GetAll.sql" />
     <Content Include="Database\StoredProcedures\Users\sp_User_Get.sql" />
     <Content Include="Database\StoredProcedures\Users\sp_Roles_GetUsrRoles.sql" />
@@ -419,6 +463,7 @@
     <Folder Include="Database\Functions\" />
     <Folder Include="Database\StoredProcedures\Mentorship\" />
     <Folder Include="Database\StoredProcedures\Reports\" />
+    <Folder Include="Filters\" />
     <Folder Include="Views\Event\" />
     <Folder Include="Views\UsersRoles\" />
     <Folder Include="Views\Users\" />
@@ -433,6 +478,9 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

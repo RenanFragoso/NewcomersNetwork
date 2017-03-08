@@ -71,6 +71,7 @@ namespace NewcomersNetworkAPI.Models
         [Display(Name = "Is Immigrant?")]
         [UIHint("_IsImmigrant")]
         public bool IsImmigrant { get; set; } = false;
+        public string Picture { get; set; } = "";
 
         public List<UsersRoles> oUserRoles { get; set; } = new List<UsersRoles>();
 
@@ -142,6 +143,7 @@ namespace NewcomersNetworkAPI.Models
                 return;
             }
 
+            this.Picture = this.AdjustImageFile("users", this.Id);
             this.Validate();
             
         }

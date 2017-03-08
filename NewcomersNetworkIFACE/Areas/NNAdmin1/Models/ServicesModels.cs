@@ -22,7 +22,7 @@ namespace NewcomersNetworkIFACE.Areas.NNAdmin1.Models
 
         public void LoadServices()
         {
-            //Gets the events from API
+            //Gets the services from API
             this.oServiceList = oNNAPICLient.Get<List<Service>>("/Services");
 
             //Get the Lists

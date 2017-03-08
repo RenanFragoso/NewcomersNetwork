@@ -1,0 +1,88 @@
+﻿@model NewcomersNetworkIFACE.Models.Login
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Profile";
+}
+
+<section id="content">
+    <div class="content-wrap">
+
+        <div id="Message" class="stretched nobottommargin clearfix"></div>
+
+        <div class="acc_content clearfix divcenter" style="max-width: 400px; background-color: #fff; padding: 40px; border: 0px">
+
+            <form id="login-form" name="login-form" class="nobottommargin" action="/UserProfile/Authenticate" method="post">
+                @Html.AntiForgeryToken()
+                <div><h3><i class="icon-lock3" style="margin-right: 15px"></i>Login to your Account</h3></div>
+                @Html.HiddenFor(model => model.ReturnUrl)
+
+                <div class="col_full">
+                    @Html.LabelFor(model => model.UserName)
+                    @Html.TextBoxFor(model => model.UserName, new { @class = "form-control not-dark", Placeholder = "E-Mail" })
+                </div>
+
+                <div class="col_full">
+                    @Html.LabelFor(model => model.Password)
+                    @Html.PasswordFor(model => model.Password, new { @class = "form-control not-dark", Placeholder = "Password" })
+                </div>
+
+                <div class="col_full">
+                    @Html.CheckBoxFor(model => model.StayConnected, new { @class = "checkbox-style" })
+                    @Html.LabelFor(model => model.StayConnected, new { @class = "checkbox-style-3-label" })
+                </div>
+
+                <div class="col_full nobottommargin">
+                    <button class="button button-3d button-black nomargin" id="login-form-submit" name="login-form-submit" value="login">Login</button>
+                    <a href="/Forgot" class="fright">Forgot Password?</a>
+                </div>
+            </form>
+
+        </div>
+
+    </div>
+</section>
+
+@section JSSection {
+
+    <script type="text/javascript">
+
+        var oMessage = {};
+
+        $(document).ready(function () {
+
+            //Sets the security token
+
+            oMessage = JSON.parse('@Html.Raw(Json.Encode((TempData["StatusMessage"] != null ? TempData["StatusMessage"] : "{}" )))');
+
+            if (oMessage.success != undefined) {
+                if (oMessage.success) {
+                    $("#Message").append(
+                        $("<div />")
+                        .attr("id", "SuccessMsg")
+                        .addClass("alert alert-success")
+                        .append(
+                            $("<i />")
+                            .addClass("icon icon-thumbs-up")
+                        ).append(
+                            $("<strong />").append(document.createTextNode(oMessage.response))
+                        )
+                    );
+                }
+                else {
+                    $("#Message").append(
+                        $("<div />")
+                        .attr("id", "ErrorMsg")
+                        .addClass("alert alert-danger stretched")
+                        .append(
+                            $("<i />")
+                            .addClass("icon icon-remove-sign")
+                        ).append(
+                            $("<strong />").append(document.createTextNode(oMessage.response))
+                        )
+                    );
+                }
+            }
+        });
+
+    </script>
+}

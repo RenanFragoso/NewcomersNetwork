@@ -1,0 +1,50 @@
+﻿@{
+    Layout = "~/Areas/NNAdmin1/Views/Shared/_Layout1.cshtml";
+    ViewBag.Title = "Newcomers Network Settings";
+}
+
+@section CSSSection {
+    <link rel="stylesheet" href="/Content/NNAdmin/css/uniform.css" />
+    <link rel="stylesheet" href="/Content/NNAdmin/css/select2.css" />
+    <link rel="stylesheet" href="/Content/NNAdmin/css/fullcalendar_310.css" />
+    <link rel="stylesheet" href="/Content/NNAdmin/css/jquery.qtip.css" />
+    <link rel="stylesheet" href="/Content/NNAdmin/css/nn_admin.css" />
+}
+
+<div id="content">
+    <!--breadcrumbs-->
+    <div id="content-header">
+        <div id="breadcrumb">
+            <a href="/NNAdmin1/Dashboard" title="NNAdmin" class="tip-bottom">
+                <i class="icon-home"></i>
+                NNAdmin
+            </a>
+            <a href="/NNAdmin1/Settings" title="Settings" class="tip-bottom">
+                <i class="icon-cogs"></i>
+                Settings
+            </a>
+        </div>
+        <h1><i class="icon-cogs"></i> Website Settings</h1>
+    </div>
+    <!--End-breadcrumbs-->
+
+    <!--Action boxes-->
+    <div class="container-fluid">
+
+        <hr />
+
+    </div>
+</div>
+
+@section JSSection {
+    <script src="/Content/NNAdmin/js/moment.js"></script>
+    <script src="/Content/NNAdmin/js/fullcalendar_310.js"></script>
+    <script src="/Content/NNAdmin/js/jquery.qtip.js"></script>
+    <script src="/Content/NNAdmin/js/nn_admin.js"></script> 
+}
+
+<script type="text/javascript">
+    //Updates the image on selected menu
+    DocReady.push(function () { menuSelected("#settingsmnu") });
+</script>
+

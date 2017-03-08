@@ -7,6 +7,7 @@ using System.Web.Http;
 using NewcomersNetworkAPI.Models;
 using NewcomersNetworkAPI.Providers;
 using System.Data;
+using System.Web.Http.ModelBinding;
 
 namespace NewcomersNetworkAPI.Controllers
 {
@@ -21,7 +22,7 @@ namespace NewcomersNetworkAPI.Controllers
             List<Event> oEvents = new List<Event>();
 
             Event oEvent;
-            EventDetails oDetails;
+            //EventDetails oDetails;
 
             if (oEventsDB.Rows.Count > 0)
             {
@@ -32,6 +33,7 @@ namespace NewcomersNetworkAPI.Controllers
 
                     if (oEvent.isValid)
                     {
+                        /*
                         if (getFull)
                         {
                             oDetails = new EventDetails(oEvent.Id);
@@ -40,9 +42,9 @@ namespace NewcomersNetworkAPI.Controllers
                                 oEvent.oDetails = oDetails;
                             }
                         }
+                        */
                         oEvents.Add(oEvent);
                     }
-                    
                 }
             }
 
@@ -60,13 +62,14 @@ namespace NewcomersNetworkAPI.Controllers
         {
 
             Event oEvent = new Event(cEventId);
-            EventDetails oDetails;
+            //EventDetails oDetails;
 
             if (!oEvent.isValid)
             {
                 return StatusCode(HttpStatusCode.NoContent);
             }
-
+            
+            /*
             if (getFull)
             {
                 oDetails = new EventDetails(oEvent.Id);
@@ -75,7 +78,7 @@ namespace NewcomersNetworkAPI.Controllers
                     oEvent.oDetails = oDetails;
                 }
             }
-
+            */
             return Ok(oEvent);
         }
 
@@ -140,18 +143,18 @@ namespace NewcomersNetworkAPI.Controllers
 
         [Route("Create")]
         [HttpPost]
-        public IHttpActionResult AddEvent([FromBody]Event oEvent)       //Inserts an event
+        public IHttpActionResult CreateEvent([FromBody]Event oEvent)       //Inserts an event
         {
 
             if (oEvent != null && oEvent.Save())
             {
 
-                return CreatedAtRoute("GetEvent", new { cEventId = oEvent.Id }, oEvent);
-                //return Ok();
+                //return CreatedAtRoute("GetEvent", new { cEventId = oEvent.Id }, oEvent);
+                return Ok();
             }
             else
             {
-                return BadRequest(oEvent.sMsgError.ToString());
+                return BadRequest(string.Join(",", oEvent.sMsgError.ToArray()));
             }
 
         }
@@ -163,15 +166,62 @@ namespace NewcomersNetworkAPI.Controllers
 
             if (oEvent != null && oEvent.Update())
             {
-                return CreatedAtRoute("GetEvent", new { cEventId = oEvent.Id }, oEvent);
+                //return CreatedAtRoute("GetEvent", new { cEventId = oEvent.Id }, oEvent);
+                return Ok();
             }
             else
             {
-                return BadRequest(oEvent.sMsgError.ToString());
+                return BadRequest(string.Join(",", oEvent.sMsgError.ToArray()));
             }
 
         }
 
+        [Route("Delete/{cEventId}")]
+        [HttpDelete]
+        public IHttpActionResult DeleteEvent(string cEventId)
+        {
+            Event oEvent = new Event(cEventId);
+            if (oEvent.isValid && oEvent.Delete())
+            {
+                return Ok();
+            }
+            else
+            {
+                return BadRequest(string.Join(",", oEvent.sMsgError.ToArray()));
+            }
+        }
+
+        [Route("Activate/{cEventId}")]
+        [HttpPost]
+        public IHttpActionResult ActivateEvent(string cEventId)
+        {
+            Event oEvent = new Event(cEventId);
+            if (oEvent.isValid && oEvent.Activate())
+            {
+                return Ok();
+            }
+            else
+            {
+                return BadRequest(string.Join(",", oEvent.sMsgError.ToArray()));
+            }
+        }
+
+        [Route("Deactivate/{cEventId}")]
+        [HttpPost]
+        public IHttpActionResult DeactivateService(string cEventId)
+        {
+            Event oEvent = new Event(cEventId);
+            if (oEvent.isValid && oEvent.Deactivate())
+            {
+                return Ok();
+            }
+            else
+            {
+                return BadRequest(string.Join(",", oEvent.sMsgError.ToArray()));
+            }
+        }
+
+        /*
         [Route("Registrations/{cEventId}", Name = "GetRegistrations")]
         [HttpGet]
         public IHttpActionResult GetRegistrations(string cEventId)
@@ -208,6 +258,7 @@ namespace NewcomersNetworkAPI.Controllers
             return BadRequest("Invalid Event ID.");
 
         }
+        */
 
     }
 }

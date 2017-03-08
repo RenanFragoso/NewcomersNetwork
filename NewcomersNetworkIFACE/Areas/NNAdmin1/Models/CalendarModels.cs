@@ -28,7 +28,7 @@ namespace NewcomersNetworkIFACE.Areas.NNAdmin1.Models
         public void LoadEvents(DateTime dStartDate, DateTime dEndDate, bool bHasSlots = false)
         {
             List<CalendarEvent> oEventList;
-            oEventList = oNNAPICLient.Get<List<CalendarEvent>>("/Calendar/Events/" + dStartDate.ToString() + "/" + dEndDate.ToString());
+            oEventList = oNNAPICLient.Get<List<CalendarEvent>>("/Calendar/Events/" + dStartDate.ToString("yyyy-MM-dd") + "/" + dEndDate.ToString("yyyy-MM-dd"));
             foreach (CalendarEvent oEvent in oEventList)
             {
                 this.oEvents.Add(oEvent);

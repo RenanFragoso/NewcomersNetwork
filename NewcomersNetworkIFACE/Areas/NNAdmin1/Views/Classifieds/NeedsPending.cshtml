@@ -1,0 +1,651 @@
+﻿@{
+    Layout = "~/Areas/NNAdmin1/Views/Shared/_Layout1.cshtml";
+    ViewBag.Title = "Newcomers Network Classifieds";
+}
+
+@section CSSSection {
+    <link rel="stylesheet" href="~/Content/NNAdmin/css/jquery.dataTables.css" />
+    <link rel="stylesheet" href="~/Content/NNAdmin/css/dataTables.bootstrap.css" />
+    <link rel="stylesheet" href="~/Content/NNAdmin/css/uniform.css" />
+    <link rel="stylesheet" href="~/Content/NNAdmin/css/select2.css" />
+    <link rel="stylesheet" href="~/Content/NNAdmin/css/datepicker.css" />
+    <link rel="stylesheet" href="~/Content/NNAdmin/css/bootstrap-editable.css" />
+    <link rel="stylesheet" href="~/Content/NNAdmin/css/jquery-confirm.css" />
+    <link rel="stylesheet" href="~/Content/NNAdmin/css/nn_admin.css" />
+}
+
+<div id="content">
+    <!--breadcrumbs-->
+    <div id="content-header">
+        <div id="breadcrumb">
+            <a href="/NNAdmin1/Dashboard" title="NNAdmin" class="tip-bottom">
+                <i class="icon-home"></i>
+                NNAdmin
+            </a>
+            <a href="/NNAdmin1/Classifieds" title="Classifieds" class="tip-bottom">
+                <i class="icon-list-ul"></i>
+                Classifieds: Needs Pending
+            </a>
+        </div>
+        <h1><i class="icon-list-ul"></i> Classifieds: Needs Pending</h1>
+    </div>
+    <!--End-breadcrumbs-->
+
+    <!--Action boxes-->
+    <div class="container-fluid">
+
+        <hr />
+
+        <div class="row-fluid">
+            <div class="span12">
+                <div class="widget-box widget-calendar">
+                    <div class="widget-title">
+                        <span class="icon"><i class="icon-list-ul"></i></span>
+                        <h5>Needs Pending Approval</h5> 
+                    </div>
+
+                    <div class="widget-content nopadding">
+                        <table id="ClsList" class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Needs Classifieds</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section JSSection {
+    <script src="~/Content/NNAdmin/js/file_upload/vendor/jquery.ui.widget.js"></script>
+    <script src="~/Content/NNAdmin/js/jquery.dataTables.js"></script>
+    <script src="~/Content/NNAdmin/js/dataTables.bootstrap.js"></script>
+    <script src="~/Content/NNAdmin/js/jquery.validate.js"></script>
+    <script src="~/Content/NNAdmin/js/masked.js"></script>
+    <script src="~/Content/NNAdmin/js/moment.js"></script>
+    <script src="~/Content/NNAdmin/js/combodate.js"></script>
+    <script src="~/Content/NNAdmin/js/bootstrap-datepicker.js"></script>
+    <script src="~/Content/NNAdmin/js/bootstrap-editable.min.js"></script>
+    <script src="~/Content/NNAdmin/js/jquery-confirm.js"></script>
+    <script src="~/Content/NNAdmin/js/select2.full.js"></script>
+    <script src="~/Content/NNAdmin/js/file_upload/load-image.all.min.js"></script>
+}
+
+<script type="text/javascript">
+
+    //Classified Model
+    var oClsModel = {};
+
+    //Classified Event Model
+    var oClsEvtModel = {};
+
+    //Classifieds pending approval
+    var oPending = [];
+
+    //User select
+    var oUserData = [{ id: "ce209094-2d37-489d-9eb5-db570b06fab5", text: "Renan Fragoso" }, { id: "c1c78ba8-c367-4862-a881-57e0c2272817", text: "Nestor Abdon" }];
+
+    //Classified Types
+    var oTypes = [{ id: 'N', text: "Needs" }, { id: "H", text: "Help" }];
+
+    //Service Groups as Categories
+    var oGroupList = [];
+
+    //Image data object
+    var oFileReader = new FileReader();
+
+    DocReady.push(function () {
+        menuSelected("#classifiedsmnu");
+        menuSelected("#needspendmnu");
+    });
+    DocReady.push(function () {
+
+        //Sets the security token
+        cAntiForgeryToken = "@(ViewBag.NNAdmin_Token)";
+
+        //Sets edit in place as inline
+        $.fn.editable.defaults.mode = 'inline';
+
+        //Gets the Group List into variable (select2 ajax into x-editable not working)
+        NN_SendAjax("GET",
+                    "/NNAdmin1/Lists/GetGroupIconList",
+                    null,
+                    ["Get Group List"],
+                    function (response) {   //Success
+                        if (response.odata != null) {
+                            var oOptions = response.odata.find(x => x.cListName == "servicesgroupicon").oItens;
+                            if (oOptions != null) {
+                                oGroupList = oOptions;
+                            }
+                        }
+                    },
+                    null,
+                    true);
+
+        //Gets new Classified Model
+        NN_SendAjax("GET",
+                    "/NNAdmin1/Classifieds/GetNewClassified",
+                    null,
+                    ["Get new Classified Model"],
+                    function (response) {   //Success
+                        if (response.odata != null) {
+                            oClsModel = response.odata;
+                        }
+                    },
+                    null,
+                    true);
+
+        //Gets the pending list
+        UpdatePending();
+
+    });
+
+    function UpdatePending() {
+        //Sets in memory the Service model
+        NN_SendAjax("GET",
+            "/NNAdmin1/Classifieds/GetPending",
+            null,
+            ["Get Pending Classifieds"],
+            function (response) {   //Success
+                if (response.odata != null) {
+                    oPending = response.odata;
+                    //console.log(oPending);
+                    UpdatePendingList();
+                }
+            },
+            null, /* Error */
+            true /* Silent */);
+    }
+
+
+    function UpdatePendingList()
+    {
+
+        //Needs List
+        $("#ClsList").DataTable({
+            data: oPending.filter(item => item.Type == 'N'),
+            bInfo: false,
+            pagingType: "full_numbers",
+            columns: [
+                {
+                    data: null, target: 0, render: function (data, type, row, meta) {
+                        if (type == "sort") {
+                            if (data != null) {
+                                var oCreated = moment(parseInt(data.CreateDate.substr(6)));
+                                return oCreated.format("yyyyMMdd");
+                            }
+                            else {
+                                return "";
+                            }
+                        }
+                        if (type == "filter") {
+                            return (data == null, "", JSON.stringify(data));
+                        }
+                        //Internal complex data (expandable)
+                        if (type === "display") {
+                            var cinternal = "";
+                            var nDataIndex = meta.row;
+                            var dCreateDate = moment(parseInt(data.CreateDate.substr(6)));
+
+                            cinternal += '<table class="nn-dynamic-item" id="collapse-td"' + nDataIndex + '>';
+                            cinternal += '  <tr>';
+                            cinternal += '      <th id="itmhead' + nDataIndex + '" class="nn-di-th">';
+                            cinternal += '          <a data-parent="#collapse-td' + nDataIndex + '" href="#collapseTD' + nDataIndex + '" data-toggle="collapse">';
+                            cinternal += '              <img src="' + data.Image + '" class="thumbnail responsive nn-clsimg-list"/> <h4 class="nn-clstitle-list">' + data.Title + '</h4>';
+                            cinternal += '          </a>';
+                            cinternal += '      </th>';
+                            cinternal += '  </tr>';
+                            cinternal += '  <tr>';
+                            cinternal += '      <td class="nn-di-td">'
+                            cinternal += '          <div class="collapse nn-di-content" id="collapseTD' + nDataIndex + '">';
+                            cinternal += '              <div class="nn-di-inner-content">';
+                            cinternal += '                  <div class="row-fluid">';
+                            cinternal += '                      <div class="span12">';
+                            cinternal += '                          <ul class="nn-di-ul">';
+                            cinternal += '                              <li class="nn-di-li title">Classified Details</li>';
+                            cinternal += '                          </ul>';
+                            cinternal += '                      </div>';
+                            cinternal += '                  </div>';
+
+                            cinternal += '                  <div class="row-fluid">';
+                            cinternal += '                      <div class="span6">';
+                            cinternal += '                          <ul class="nn-di-ul">';
+                            cinternal += '                              <li class="nn-di-li"><span>Classified Id:</span> <a id="Id' + nDataIndex + '">' + ((data.Id == "NULLID") ? "New Classified" : data.Id) + '</a></li>';
+                            cinternal += '                              <li class="nn-di-li"><span>Create Date:</span> <a id="CreateDate' + nDataIndex + '" data-value="' + dCreateDate.format("DD/MM/YYYY") + '" data-type="date">' + dCreateDate.format("DD/MM/YYYY - hh:mm A") + '</a></li>';
+                            cinternal += '                              <li class="nn-di-li"><span>Created By:</span> <a id="CreatedBy' + nDataIndex + '" data-value="' + data.CreatedBy + '" data-type="select2">' + RenderAuthor(data.CreatedBy) + '</a></li>';
+                            cinternal += '                          </ul>';
+                            cinternal += '                      </div>';
+                            cinternal += '                      <div class="span6">';
+                            cinternal += '                          <ul class="nn-di-ul">';
+                            cinternal += '                              <li class="nn-di-li"><span>Category:</span> <a id="Category' + nDataIndex + '" data-value="' + data.Category + '" data-type="select2">' + RenderCategory(data.Category) + '</a></li>';
+                            cinternal += '                              <li class="nn-di-li"><span>Type:</span> <a id="Type' + nDataIndex + '" data-value="' + data.Type + '" data-type="select2">' + (data.Type == "N" ? "Need" : "Help") + '</a></li>';
+                            cinternal += '                              <li class="nn-di-li"><span>Status:</span>';
+                            if (data.Status === "P") {
+                                cinternal += '                                  <span class="nn-blocked">Pending Approval</span>';
+                            }
+                            else {
+                                cinternal += '                                  <span class="nn-blocked"></span>';
+                            }
+                            cinternal += '                              </li>';
+                            cinternal += '                          </ul>';
+                            cinternal += '                      </div>';
+                            cinternal += '                  </div>';
+
+                            cinternal += '                  <div class="row-fluid">';
+                            cinternal += '                      <div class="span12">';
+                            cinternal += '                          <ul class="nn-di-ul">';
+                            cinternal += '                              <li class="nn-di-li title">Classified Details</li>';
+                            cinternal += '                          </ul>';
+                            cinternal += '                      </div>';
+                            cinternal += '                  </div>';
+
+
+                            cinternal += '                  <div class="row-fluid">';
+                            cinternal += '                      <div class="span12">';
+                            cinternal += '                          <ul class="nn-di-ul">';
+                            cinternal += '                              <li class="nn-di-li"><span>Title:</span> <a id="Title' + nDataIndex + '" data-type="text" data-maxlength="100">' + data.Title + '</a></li>';
+                            cinternal += '                          </ul>';
+                            cinternal += '                      </div>';
+                            cinternal += '                  </div>';
+
+                            cinternal += '                  <div class="row-fluid">';
+                            cinternal += '                      <div class="span3">';
+                            cinternal += '                          <ul class="nn-di-ul">';
+                            cinternal += '                              <li class="nn-di-li"><span>Picture:</span> <a id="Image' + nDataIndex + '" data-type="text"><img id="Img' + nDataIndex + '" src="' + data.Image + '" class="nn-clsimg-itm responsive" /></a>';
+                            cinternal += '                              <a onclick="ChangeImage(' + nDataIndex + ')" id="ChImg' + nDataIndex + '" class="hidden"><div class="nn-div-ctrl"><i class="icon-picture"></i> Change Image</div></a></li><input id="ImgFile' + nDataIndex + '" type="file" class="hidden" data-item="' + nDataIndex + '">';
+                            cinternal += '                          </ul>';
+                            cinternal += '                      </div>';
+
+                            cinternal += '                      <div class="span9">';
+                            cinternal += '                          <ul class="nn-di-ul">';
+                            cinternal += '                              <li class="nn-di-li"><span>Text:</span> <a id="Text' + nDataIndex + '" data-type="textarea" data-maxlength="2048">' + data.Text + '</a></li>';
+                            cinternal += '                          </ul>';
+                            cinternal += '                      </div>';
+                            cinternal += '                  </div>';
+
+                            cinternal += '                  <div class="row-fluid">';
+
+                            cinternal += '                      <div class="span3">';
+                            cinternal += '                          <ul class="nn-di-ul">';
+                            cinternal += '                              <a onclick="EditClassified(' + nDataIndex + ')" class="btnaction"><li class="nn-di-li ctrl"><i class="icon-edit"></i> Edit Classified</li></a>';
+                            cinternal += '                          </ul>';
+                            cinternal += '                      </div>';
+                            cinternal += '                      <div class="span9">';
+                            cinternal += '                          <ul class="nn-di-ul">';
+                            cinternal += '                              <a onclick="ApproveClassified(' + nDataIndex + ')" class="btnaction"><li class="nn-di-li ctrl"><i class="icon-certificate"></i> Approve Classified</li></a>';
+                            cinternal += '                              <a onclick="RejectClassified(' + nDataIndex + ')" class="btnaction"><li class="nn-di-li ctrl"><i class="icon-ban-circle"></i> Reject Classified</li></a>';
+                            cinternal += '                              <a onclick="SaveClassified(' + nDataIndex + ')" id="SaveCls' + nDataIndex + '" class="svcls hidden"><li class="nn-di-li ctrl btn-success"><i class="icon-save"></i> Save Changes</li></a>';
+                            cinternal += '                              <a onclick="CancelEditCls(' + nDataIndex + ')" id="CancCls' + nDataIndex + '" class="cancls hidden"><li class="nn-di-li ctrl btn-danger"><i class="icon-ban-circle"></i> Cancel Changes</li></a>';
+                            cinternal += '                          </ul>';
+                            cinternal += '                      </div>';
+                            cinternal += '                  </div>';
+
+                            cinternal += '              </div>';
+                            cinternal += '          </div>';
+                            cinternal += '      </td>';
+                            cinternal += '  </tr>';
+                            cinternal += '</table>';
+
+                            return cinternal;
+                        }
+                        return data;
+                    }
+                }
+            ],
+            drawCallback: function (settings) {
+                //Adjust the classes
+                $("#ClsList_paginate").addClass("fg-buttonset ui-buttonset fg-buttonset-multi ui-buttonset-multi");
+                $(".paginate_button").removeClass("paginate_button").addClass("fg-button ui-button ui-state-default");
+                $("div .row:last-of-type").removeClass("row").addClass("fg-toolbar ui-toolbar ui-widget-header ui-helper-clearfix ui-corner-bl ui-corner-br");
+                $("#ClsList").removeAttr("style");
+            },
+            initComplete: function () {
+                $("#ClsList").removeAttr("style");
+            }
+        });
+    }
+
+    function EditClassified(nItm) {
+
+        $("#itmhead" + nItm).addClass("nn-editing-hd");
+        $(".input-sm").attr("readonly", "");
+        $(".btnaction").addClass("hidden");
+        $("#SaveCls" + nItm).removeClass("hidden");
+        $("#CancCls" + nItm).removeClass("hidden");
+        $("#ChImg" + nItm).removeClass("hidden");
+
+        $("#CreateDate" + nItm).editable({ validate: notEmpty }).editable('enable');
+        $("#CreatedBy" + nItm).editable({ validate: notEmpty }).editable('enable');
+        $("#Type" + nItm).editable({
+            validate: notEmpty,
+            select2: {
+                data: oTypes,
+                id: function (item){
+                    return item.id;
+                },
+                formatSelection: function (item) {
+                    return item.text;
+                }
+            },
+            display: function(newValue) {
+                var oRet = oTypes.find(x => x.id === newValue);
+                if(oRet) {
+                    $(this).html(oRet.text);
+                } else {
+                    $(this).html("");
+                }
+            }
+        }).editable('enable');
+        $("#Title" + nItm).editable({
+            validate: notEmpty,
+            tpl: '<input type="text" maxlength="100">'
+        }).editable('enable');
+        $("#Text" + nItm).editable({
+            validate: notEmpty,
+            tpl: '<textarea maxlength="2048"></textarea>'
+        }).editable('enable');
+
+        //Category
+        $("#Category" + nItm).editable({
+            placeholder: 'Select a Category ...',
+            allowClear: true,
+            select2: {
+                data: oGroupList,
+                id: function (item) {
+                    return item.id;
+                },
+                templateResult: function (oRet) {
+                    var result = "";
+                    if (oRet.id == "") {
+                        return oRet.text;
+                    }
+                    if (!oRet.disabled) {
+                        var oParse = JSON.parse(oRet.text);
+                        result = $('<i id="SvcGrpColor" class="nn-color-sq" style="background-color: ' + oParse.GroupColor + '"></i> <i id="SvcGrpIcon" class="' + oParse.GroupIcon + '"></i><span style="color: #000"> ' + oParse.GroupName + '</span>');
+                    }
+                    return result;
+                },
+                templateSelection: function (oRet) {
+                    var result = "";
+                    if (oRet.id == "") {
+                        return oRet.text;
+                    }
+                    if (!oRet.disabled) {
+                        var oParse = JSON.parse(oRet.text);
+                        result = $('<i id="SvcGrpColor" class="nn-color-sq" style="background-color: ' + oParse.GroupColor + '"></i> <i id="SvcGrpIcon" class="' + oParse.GroupIcon + '"></i><span style="color: #000"> ' + oParse.GroupName + '</span>');
+                    }
+                    return result;
+                }
+            },
+            display: function (newValue) {
+                var oRet = oGroupList.find(x => x.id === newValue);
+                if (oRet) {
+                    var oParse = JSON.parse(oRet.text);
+                    $(this).html('<i id="SvcGrpColor" class="nn-color-sq" style="background-color: ' + oParse.GroupColor + '"></i> <i id="SvcGrpIcon" class="' + oParse.GroupIcon + '"></i> ' + oParse.GroupName);
+                } else {
+                    $(this).html("");
+                }
+            }
+        }).editable('enable');
+
+        $("#CreatedBy" + nItm).editable({
+            placeholder: "Select Author ...",
+            validate: notEmpty,
+            select2: {
+                data: oUserData,
+                id: function (item) {
+                    return item.id;
+                },
+                formatSelection: function (item) {
+                    return item.text;
+                }
+            },
+            display: function (newValue) {
+                var oRet = oUserData.find(x => x.id === newValue);
+                if (oRet) {
+                    $(this).html(oRet.text);
+                } else {
+                    $(this).html("");
+                }
+            }
+        }).editable('enable');
+
+        $("#ImgFile" + nItm).on("change", function (e) {
+            var nItm = $(this).data("item");
+            var container = $("#Image" + nItm);
+            var file = e.target.files[0];
+
+            if (!file)
+                return;
+
+            if (file.size <= 512000) {
+
+                if (/(\.|\/)(gif|jpe?g|png)$/i.test(file.type)) {
+
+                    loadImage(file,
+                        function (img) {
+                            container.html("");
+                            container.append(img);
+                        },
+                        {
+                            maxWidth: 100,
+                            maxHeight: 100,
+                            minWidth: 100,
+                            minHeight: 100,
+                            canvas: false
+                        }
+                    );
+                    oFileReader.readAsDataURL(file);
+                }
+                else {
+                    e.target.value = "";
+                    $.gritter.add({
+                        title: "Ivalid file format.",
+                        text: "File format must be a valid image file (jpg, jpeg, gif, png).",
+                        sticky: false,
+                        time: 5000
+                    });
+                }
+            }
+            else {
+                e.target.value = "";
+                $.gritter.add({
+                    title: "Ivalid image size",
+                    text: "Image size must be 500KB or less.",
+                    sticky: false,
+                    time: 5000
+                });
+            }
+        });
+    }
+
+    function ChangeImage(nItm) {
+        $("#ImgFile" + nItm).click();
+        return false;
+    }
+
+    function CancelEditCls(nItm) {
+        $("#itmhead" + nItm).removeClass("nn-editing-hd");
+        $(".btnaction").removeClass("hidden");
+        $(".input-sm").removeAttr("readonly");
+        $("#SaveCls" + nItm).addClass("hidden");
+        $("#CancCls" + nItm).addClass("hidden");
+        $("#ChImg" + nItm).addClass("hidden");
+        $("#CreateDate" + nItm).editable('disable');
+        $("#CreatedBy" + nItm).editable('disable');
+        $("#Category" + nItm).editable('disable');
+        $("#Type" + nItm).editable('disable');
+        $("#Title" + nItm).editable('disable');
+        $("#Text" + nItm).editable('disable');
+    }
+
+    function SaveClassified(nItm) {
+        UpdateClsModel(oClsModel, nItm);
+        var cId = $("#Id" + nItm).text();
+        NN_SendAjax("POST",
+            "/NNAdmin1/Classifieds/UpdateClassified",
+            oClsModel,
+            ["Update Classified"],
+            function () {
+                NN_SendAjax("GET",
+                "/NNAdmin1/Classifieds/GetClassified?cClassifiedId=" + cId,
+                oClsEvtModel,
+                ["Classified Rejection", "Classified Rejection"],
+                function (response) {   //Success
+                    console.log(response);
+                    var oTable = $("#ClsList").DataTable();
+                    var rowAdded = oTable.row.add(response.odata[0]);
+                    oTable.row(nItm).remove();
+                    nItm = rowAdded.index();
+                    oTable.draw();
+                },
+                null,
+                true);
+            },
+            null, /* Error */
+            false /* Silent */);
+    }
+
+    function ApproveClassified(nItm) {
+
+        var cId = $("#Id"+nItm).text();
+
+        $.confirm({
+            title: "Approve Classified",
+            content: "Do you confirm Classified Approval?",
+            type: "green",
+            backgroundDismiss: false,
+            backgroundDismissAnimation: 'glow',
+            buttons: {
+                confirm: {
+                    btnClass: 'btn-success',
+                    action: function () {
+                        NN_SendAjax("GET",
+                        "/NNAdmin1/Classifieds/ApproveClassified?cClassifiedId=" + cId,
+                        null,
+                        ["Approve Classified"],
+                        function () {
+                            //location.reload(true);
+                            $("#ClsList").DataTable().row(nItm).remove().draw();
+                        },
+                        null, /* Error */
+                        false /* Silent */);
+                    }
+                },
+                cancel: {
+                    btnClass: 'btn-danger',
+                    keys: ['esc'],
+                    action: function () { }
+                }
+            }
+        });
+    }
+
+    function RejectClassified(nItm) {
+
+        var cId = $("#Id" + nItm).text();
+        var confirmContent = '<h5>Please, inform the reason for rejection: </h3><form id="Rejection"><textarea style=" width: 20em; height: 5em" id="RejectReason" name="RejectReason"></textarea></form>';
+
+        $.confirm({
+            title: "Reject Classified",
+            content: confirmContent,
+            type: "red",
+            backgroundDismiss: false,
+            backgroundDismissAnimation: 'glow',
+            onContentReady: function () {
+                //$("#RejectReason").editable({ validate: notEmpty }).editable('enable');
+                $("#Rejection").validate({
+                    rules: {
+                        RejectReason: {
+                            required: true
+                        }
+                    }
+                });
+            },
+            buttons: {
+                confirm: {
+                    btnClass: 'btn-primary',
+                    action: function () {
+                        if ($("#Rejection").valid()) {
+                            NN_SendAjax("GET",
+                                "/NNAdmin1/Classifieds/RejectClassified?cClassifiedId=" + cId,
+                                oClsEvtModel,
+                                ["Classified Rejection", "Classified Rejection"],
+                                function () {   //Success
+                                    //location.reload(true);
+                                    $("#ClsList").DataTable().row(nItm).remove().draw();
+                                },
+                                null);
+                            return true;
+                        }
+                        return false;
+                    }
+                },
+                cancel: {
+                    btnClass: 'btn-danger',
+                    keys: ['esc'],
+                    action: function () { }
+                }
+            }
+        });
+    }
+
+    function UpdateClsModel(oModel, nItm) {
+
+        var dCreateDate = moment($("#CreateDate" + nItm).text() + " 00:00:00", "DD-MM-YYYY HH:mm:ss");
+        var oFile = $("#ImgFile" + nItm)[0].files[0];
+
+        oModel.Id = $("#Id" + nItm).text();
+        oModel.CreateDate = dCreateDate.format("YYYY-MM-DDTHH:mm:ssZ");
+        oModel.CreatedBy = $("#CreatedBy" + nItm).editable("getValue")["CreatedBy" + nItm];
+        oModel.Category = $("#Category" + nItm).editable("getValue")["Category" + nItm];
+        oModel.Type = $("#Type" + nItm).editable("getValue")["Type" + nItm];
+        oModel.Title = $("#Title" + nItm).text();
+        oModel.Text = $("#Text" + nItm).text();
+        oModel.Image = ""; //Image is treated in API
+
+        oModel.AlterDate = moment(parseInt(oModel.AlterDate.substr(6))).format("YYYY-MM-DDTHH:mm:ssZ");
+
+        if (oFile) {
+            oModel.ImageData = oFileReader.result;
+            //oModel.ImageData = "";
+        }
+    }
+
+    function RenderCategory(cCategory) {
+        var oCategory = oGroupList.find(grp => grp.id == cCategory);
+        if (oCategory) {
+            var oItem = JSON.parse(oCategory.text);
+            return '<i class="nn-color-sq" style="background-color: ' + oItem.GroupColor + '"></i> <i id="SvcGrpIcon" class="' + oItem.GroupIcon + '"></i> ' + oItem.GroupName
+        }
+    }
+
+    function RenderAuthor(cCreatedBy) {
+        var oAuthor = oUserData.find(usr => usr.id == cCreatedBy);
+        if (oAuthor) {
+            return oAuthor.text
+        }
+    }
+
+    function TestToken() {
+        NN_SendAjax("POST",
+                "/NNAdmin1/Classifieds/TestToken",
+                null,
+                ["TestToken", "TestToken"],
+                function (response) {   //Success
+                    console.log(response);
+                },
+                function () {   //Error
+                    console.log("Deu Pau");
+                },
+                true);
+    }
+
+
+</script>
+

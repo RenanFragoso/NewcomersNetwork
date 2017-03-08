@@ -4,9 +4,12 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using NewcomersNetworkIFACE.Areas.NNAdmin1.Models;
+using NewcomersNetworkIFACE.Util;
+using NewcomersNetworkIFACE.Filters;
 
 namespace NewcomersNetworkIFACE.Areas.NNAdmin1.Controllers
 {
+    [NNAuthorize(NNRoles.Administrator, NNRoles.Assistant)]
     public class DashboardController : Controller
     {
         // GET: NNAdmin/Dashboard

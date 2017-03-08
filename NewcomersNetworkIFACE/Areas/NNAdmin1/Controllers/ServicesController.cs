@@ -32,12 +32,12 @@ namespace NewcomersNetworkIFACE.Areas.NNAdmin1.Controllers
             {
                 this.oServices.LoadServices();
                 Service oService = this.oServices.getService(cServiceId);
-                return View(oService);
+                if (oService.ServiceId.Length > 0)
+                {
+                    return View(oService);
+                }
             }
-            else
-            {
-                return RedirectToAction("Index", "Services");
-            }
+            return RedirectToAction("Index", "Services");
         }
 
         public ActionResult ServicesGroups()

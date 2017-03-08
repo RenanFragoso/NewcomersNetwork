@@ -4,14 +4,14 @@
 }
 
 @section CSSSection {
-    <link rel="stylesheet" href="/Content/css/jquery.dataTables.css" />
-    <link rel="stylesheet" href="/Content/css/dataTables.bootstrap.css" />
-    <link rel="stylesheet" href="/Content/css/uniform.css" />
-    <link rel="stylesheet" href="/Content/css/select2.css" />
-    <link rel="stylesheet" href="/Content/css/datepicker.css" />
-    <link rel="stylesheet" href="/Content/css/bootstrap-editable.css" />
-    <link rel="stylesheet" href="/Content/css/jquery-confirm.css" />
-    <link rel="stylesheet" href="/Content/css/nn_admin.css" />
+    <link rel="stylesheet" href="~/Content/NNAdmin/css/jquery.dataTables.css" />
+    <link rel="stylesheet" href="~/Content/NNAdmin/css/dataTables.bootstrap.css" />
+    <link rel="stylesheet" href="~/Content/NNAdmin/css/uniform.css" />
+    <link rel="stylesheet" href="~/Content/NNAdmin/css/select2.css" />
+    <link rel="stylesheet" href="~/Content/NNAdmin/css/datepicker.css" />
+    <link rel="stylesheet" href="~/Content/NNAdmin/css/bootstrap-editable.css" />
+    <link rel="stylesheet" href="~/Content/NNAdmin/css/jquery-confirm.css" />
+    <link rel="stylesheet" href="~/Content/NNAdmin/css/nn_admin.css" />
 }
 
 <div id="content">
@@ -27,7 +27,7 @@
                 Services
             </a>
         </div>
-        <h1>Services</h1>
+        <h1><i class="icon-th"></i> Services</h1>
     </div>
     <!--End-breadcrumbs-->
     <!--Action boxes-->
@@ -68,36 +68,31 @@
                                 </tr>
                             </thead>
                             <tbody>
-
                             </tbody>
                         </table>
                     </div>
                 </div>
             </div>
-
         </div>
-
     </div>
-
-
 </div>
 
 @section JSSection {
-    <script src="/Content/js/jquery.dataTables.js"></script>
-    <script src="/Content/js/dataTables.bootstrap.js"></script>
-    <script src="/Content/js/masked.js"></script>
-    <script src="/Content/js/moment.js"></script>
-    <script src="/Content/js/combodate.js"></script>
-    <script src="/Content/js/bootstrap-datepicker.js"></script>
-    <script src="/Content/js/bootstrap-editable.min.js"></script>
-    <script src="/Content/js/jquery-confirm.js"></script>
-    <script src="/Content/js/select2.full.js"></script>
-    <script src="/Content/js/nn_admin.js"></script>
+    <script src="~/Content/NNAdmin/js/jquery.dataTables.js"></script>
+    <script src="~/Content/NNAdmin/js/dataTables.bootstrap.js"></script>
+    <script src="~/Content/NNAdmin/js/masked.js"></script>
+    <script src="~/Content/NNAdmin/js/moment.js"></script>
+    <script src="~/Content/NNAdmin/js/combodate.js"></script>
+    <script src="~/Content/NNAdmin/js/bootstrap-datepicker.js"></script>
+    <script src="~/Content/NNAdmin/js/bootstrap-editable.min.js"></script>
+    <script src="~/Content/NNAdmin/js/jquery-confirm.js"></script>
+    <script src="~/Content/NNAdmin/js/select2.full.js"></script>
+    <script src="~/Content/NNAdmin/js/nn_admin.js"></script>
 }
 
 <script type="text/javascript">
 
-    //Schedule Model
+    //Service Model
     var oService = {};
 
     //Service Group select list (select2)    
@@ -114,7 +109,7 @@
         NN_SendAjax("GET",
             "/NNAdmin1/Services/GetNewService",
             null,
-            ["Get New Schedule"],
+            ["Get New Service"],
             function (response) {   //Success
                 if (response.odata != null) {
                     oService = response.odata;
@@ -159,7 +154,7 @@
                             cinternal += '                  <div class="row-fluid">';
                             cinternal += '                      <div class="span12">';
                             cinternal += '                          <ul class="nn-di-ul">';
-                            cinternal += '                              <li class="nn-di-li title">Group</li>';
+                            cinternal += '                              <li class="nn-di-li title">Service</li>';
                             cinternal += '                          </ul>';
                             cinternal += '                      </div>';
                             cinternal += '                  </div>';
@@ -260,7 +255,6 @@
 
     function ServiceEdit(nItm) {
 
-        //console.log(nItm);
         $("#itmhead" + nItm).addClass("nn-editing-hd");
         $("#collapseTD" + nItm).collapse("toggle");
         $(".input-sm").attr("readonly", "");
@@ -343,7 +337,6 @@
 
     function SaveService(nItm) {
         UpdateSvcModel(oService, nItm);
-        console.log(oService);
         NN_SendAjax("POST",
             "/NNAdmin1/Services/UpdateService",
             oService,

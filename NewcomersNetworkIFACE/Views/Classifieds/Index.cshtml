@@ -1,0 +1,154 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Classifieds";
+}
+
+<!-- Page Title ============================================= -->
+<section id="page-title">
+
+    <div class="container clearfix">
+        <h1>Classifieds</h1>
+        <span>Newcomers Network Classifieds</span>
+        <ol class="breadcrumb">
+            <li><a href="/">Newcomers Network</a></li>
+            <li class="active">Classifieds</li>
+        </ol>
+    </div>
+
+</section><!-- #page-title end -->
+
+<!-- Content ============================================= -->
+<section id="content">
+
+    <div class="content-wrap">
+
+        <div class="container clearfix">
+
+            <!-- Sidebar ============================================= -->
+            <div class="sidebar nobottommargin">
+                <div class="sidebar-widgets-wrap">
+                    <form name="ClsFilters" id="ClsFilters">
+                    <div class="widget widget_links clearfix">
+                        <h4>Classifieds Type</h4>
+                        <ul>
+                            <li>
+                                <select name="Type" style="width: 100%">
+                                    <option value=""></option>
+                                    <option value="H">Help</option>
+                                    <option value="N">Needs</option>
+                                </select>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="widget widget_links clearfix">
+                        <h4>Classifieds Category</h4>
+                        <ul>
+                            <li><input type="checkbox" name="Category" value="AAAAAAAAA" /> AAAAAAAAA</li>
+                            <li><input type="checkbox" name="Category" value="BBBBBBBBB" /> BBBBBBBBB</li>
+                            <li><input type="checkbox" name="Category" value="CCCCCCCCC" /> CCCCCCCCC</li>
+                            <li><input type="checkbox" name="Category" value="DDDDDDDDD" /> DDDDDDDDD</li>
+                        </ul>
+                    </div>
+
+                    <div class="widget widget_links clearfix">
+                        <h4>Filter Words</h4>
+                        <ul>
+                            <li>
+                                <input type="text" name="Word" style="width: 100%" />
+                            </li>
+                        </ul>
+                    </div>
+                    </form>
+                    <div class="widget widget_links clearfix">
+                        <ul>
+                            <li>
+                                <button type="button" class="btn btn-primary" style="width: 100%" onclick="ApplyFilter()">Apply Filter</button>
+                            </li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div><!-- .sidebar end -->
+            
+            <!-- Post Content ============================================= -->
+            <div class="postcontent nobottommargin col_last">
+
+                <!-- Shop ============================================= -->
+                <div id="Classifieds" class="shop product-1 clearfix">
+                   
+                </div><!-- #shop end -->
+            </div><!-- .postcontent end -->
+
+        </div>
+
+    </div>
+
+</section><!-- #content end -->
+
+@section JSSection {
+    <script src="~/Content/NNAdmin/js/moment.js"></script>
+    <script src="~/Content/js/NNClassifiedRender.js"></script>
+}
+
+<script type="text/javascript">
+    @section DocReadySection {
+        $("#Classifieds").NNClassifiedRender({
+            cEndPointURL: '/Classifieds/GetClassifieds',
+            cRequestType: 'POST',
+            cData: 'odata',
+            cTemplate: function (aData) {
+                //var dCreatedDate = moment(parseInt(aData.dCreatedDate.substr(6)));
+                var cRet = "";
+                cRet += '<div class="product clearfix">';
+                cRet += '   <div class="classified-image" style="display: inline-block">';
+                cRet += '       <a href="#"><img src="' + aData.Image + '" alt="" class="thumbnail responsive" style="width: 100px; height: 100px" ></a>';
+                cRet += '   </div>';
+                cRet += '   <div class="product-desc" style="display: inline-block">';
+                cRet += '       <div class="product-title"><h3><a href="#">' + aData.Title + '</a></h3></div>';
+                cRet += '       <p>' + aData.Text + '</p>';
+                cRet += '   </div>';
+                cRet += '</div>';
+                return cRet;
+            },
+            fAfterRender: function (oElement, aData) {
+                console.log(oElement);
+                var cPagination = "";
+                cPagination += '<ul class="pagination">';
+                cPagination += '    <li><a href="#">«</a></li>';
+                cPagination += '    <li><a href="#">1</a></li>';
+                cPagination += '    <li><a href="#">2</a></li>';
+                cPagination += '    <li><a href="#">3</a></li>';
+                cPagination += '    <li><a href="#">4</a></li>';
+                cPagination += '    <li><a href="#">5</a></li>';
+                cPagination += '    <li><a href="#">»</a></li>';
+                cPagination += '</ul>';
+                oElement.append(cPagination);
+            }
+        });
+    }
+
+    function ApplyFilter() {
+        var oFilter = {
+            cType: "",
+            aCategory: [],
+            cWord: ""
+        };
+        var aForm = $("#ClsFilters").serializeArray();
+        for (var nI = 0; nI < aForm.length; nI++) {
+            switch (aForm[nI].name) {
+                case "Type":
+                    oFilter.cType = aForm[nI].value;
+                    break;
+                case "Word":
+                    oFilter.cWord = aForm[nI].value;
+                    break;
+                case "Category":
+                    oFilter.aCategory.push( aForm[nI].value );
+                    break;
+            }
+        }
+        $("#Classifieds").nnClassifiedRender().ApplyFilter(oFilter).getPage(1);
+    }
+    
+</script>

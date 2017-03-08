@@ -1,0 +1,123 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Profile";
+}
+
+<section id="content">
+
+    <div class="content-wrap">
+
+        <div class="container clearfix">
+
+            <div class="row clearfix">
+
+                <div class="col-sm-12 col-md-12 col-lg-9">
+
+                    <img src="@(ViewBag.SessionUser.Picture)" class="alignleft img-usrprofile img-thumbnail notopmargin nobottommargin" alt="Avatar" style="max-width: 84px;">
+
+                    <div class="heading-block noborder">
+                        <h3>@ViewBag.SessionUser.Name</h3>
+                        <span>User Title</span>
+                    </div>
+
+                    <div class="clear"></div>
+
+                    <div class="row clearfix">
+
+                        <div class="col-md-12">
+
+                            <div class="tabs tabs-alt clearfix" id="tabs-profile">
+
+                                <ul class="tab-nav clearfix">
+                                    <li><a href="#tab-events"><i class="icon-th"></i> Events</a></li>
+                                    <li><a href="#tab-signed-services"><i class="icon-check-sign"></i> Signed Services</a></li>
+                                    <li><a href="#tab-classifieds"><i class="icon-pencil2"></i> My Classifieds</a></li>
+                                </ul>
+
+                                <div class="tab-container">
+
+                                    <div class="tab-content clearfix" id="tab-events">
+                                        <div class="row topmargin-sm clearfix" id="NNEvents">
+                                        </div>                                        
+                                    </div>
+                                    
+                                    <div class="tab-content clearfix" id="tab-signed-services">
+
+                                    </div>
+                                    
+                                    <div class="tab-content clearfix" id="tab-classifieds">
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="line visible-xs-block"></div>
+
+                <div class="col-lg-3 clearfix visible-lg">
+
+                    <div class="list-group">
+                        <a href="#" class="list-group-item clearfix">Edit Profile <i class="icon-edit pull-right"></i></a>
+                        @if(ViewBag.SessionUser != null && (ViewBag.SessionUser.HasRole("Administrator") || ViewBag.SessionUser.HasRole("Assistant")))
+                        {
+                            <a href="/NNAdmin1/Dashboard" class="list-group-item clearfix">Administration <i class="icon-cog pull-right"></i></a>
+                        }
+                        <a href="/UserProfile/LogOut" class="list-group-item clearfix">Logout <i class="icon-signout pull-right"></i></a>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section><!-- #content end -->
+
+
+@section JSSection {
+    <script src="~/Content/NNAdmin/js/moment.js"></script>
+    <script src="~/Content/js/NNEventRender.js"></script>
+}
+
+<script type="text/javascript">
+
+    @section DocReadySection {
+
+        $("#NNEvents").NNEventRender({
+            cEndPointURL: '/Events/GetEvents',
+            cEventTemplate: function (aData) {
+                var dStartDate = moment(parseInt(aData.StartDate.substr(6)));
+                var cRet = "";
+                cRet += '<div class="col-xs-12 bottommargin-sm">';
+                cRet += '    <div class="ipost clearfix">';
+                cRet += '        <div class="row clearfix">';
+                cRet += '            <div class="col-sm-4">';
+                cRet += '                <div class="entry-image">';
+                cRet += '                    <a href="' + aData.Image + '" data-lightbox="image"><img class="image_fade" src="' + aData.Image + '" alt="' + aData.Name + '"></a>';
+                cRet += '               </div>';
+                cRet += '            </div>';
+                cRet += '            <div class="col-sm-8">';
+                cRet += '                <div class="entry-title">';
+                cRet += '                    <h3><a href="/Events/Details?id=' + btoa(aData.Id) + '">' + aData.Name + '</a></h3>';
+                cRet += '                </div>';
+                cRet += '                <ul class="entry-meta clearfix">';
+                cRet += '                    <li><i class="icon-calendar3"></i> ' + dStartDate.format("Do MMM YYYY") + '</li>';
+                cRet += '                </ul>';
+                cRet += '                <div class="entry-content">';
+                cRet += '                    <p>' + aData.Description + '</p>';
+                cRet += '                </div>';
+                cRet += '            </div>';
+                cRet += '        </div>';
+                cRet += '    </div>';
+                cRet += '</div>';
+                return cRet;
+            }
+        });
+
+    }
+
+</script>

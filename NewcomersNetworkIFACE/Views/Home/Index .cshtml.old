@@ -1,0 +1,202 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="container">
+    <div class="jumbotron">
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <div class="floating-menu">
+            <ul class="menu-item-list">
+                <li class="mnu-lst-frst">MenuItem 1</li>
+                <li class="mnu-lst">MenuItem 2</li>
+                <li class="mnu-lst">MenuItem 3</li>
+                <li class="mnu-lst">MenuItem 4</li>
+                <li class="mnu-lst">MenuItem 5</li>
+                <li class="mnu-lst">MenuItem 6</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="row-fluid">
+    <div class="span12 pre-text">
+        <div class="container">
+            <h3>This period can be challenging. Our desire is to offer compassion, connection and community to jump-start your transition.</h3>
+        </div>
+    </div>
+</div>
+
+<section class="services">
+
+    <div class="container">
+
+        <div class="row">
+            <div class="span6">
+
+                <div class="services-title">
+                    <h2>A place for you <br /> &emsp;&emsp;to build <span class="grey-highlight">connections.</span></h2>
+                </div>
+
+                <div class="row">
+                    <div class="service-item">
+                        <img class="img-responsive svc-itm-img" src="~/Content/Images/square-image.png" />
+                        <span class="svc-itm-title">ESL CLass</span>
+                        <span class="svc-itm-desc">English as a Second Language</span>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="service-item">
+                        <img class="img-responsive svc-itm-img" src="~/Content/Images/square-image.png" />
+                        <span class="svc-itm-title">Newcomers Fellowship</span>
+                        <span class="svc-itm-desc">Group reflections on the migration Journey</span>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="service-item">
+                        <img class="img-responsive svc-itm-img" src="~/Content/Images/square-image.png" />
+                        <span class="svc-itm-title">Special Events</span>
+                        <span class="svc-itm-desc">Retreats, Special Dinners and Social activities for you to have fun</span>
+                    </div>
+                </div>
+
+            </div>
+            <div class="span6">
+
+                <div class="classified-title">
+                    <h2><span class="gold-highlight">Free</span> Deals!</h2>
+                </div>
+
+                <div class="classified-content">
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+
+                    <a href="#">
+                        <div class="donate-txt">
+                            <span class="gold-highlight-slt">I Want to donate</span>
+                        </div>
+                    </a>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+</section>
+
+<section class="testimonials">
+
+    <div class="container">
+
+        <div class="row">
+            <div class="span12">
+                <div class="title">
+                    <h3>A safe <span class="grey-highlight">community</span><br />&emsp;&emsp;for you to engage with.</h3>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="span12">
+                <div class="contents">
+
+                    <div class="span4">
+                        <div class="testimonial">
+                            <img class="avatar img-circle img-responsive" src="~/Content/Images/square-image.png" />
+                            <p class="name">Pr. Nestor Abdon</p>
+                            <p class="position">Newcomers Network Pastor and Organizer</p>
+                            <p class="test-text">Integer elementum massa at nulla placerat varius. Suspendissevitae metus faucib</p>
+                        </div>
+                    </div>
+
+                    <div class="span4">
+                        <div class="testimonial">
+                            <img class="avatar img-circle img-responsive" src="~/Content/Images/square-image.png" />
+                            <p class="name">Muhamed Ahmed(*)</p>
+                            <p class="position">Sirian Refugee</p>
+                            <p class="test-text">Integer elementum massa at nulla placerat varius. Suspendissevitae metus faucib</p>
+                        </div>
+                    </div>
+                
+                    <div class="span4">
+                        <div class="testimonial">
+                            <img class="avatar img-circle img-responsive" src="~/Content/Images/square-image.png" />
+                            <p class="name">Dr. Norman Last Name(*)</p>
+                            <p class="position">Volunteer Doctor</p>
+                            <p class="test-text">Integer elementum massa at nulla placerat varius. Suspendissevitae metus faucib</p>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</section>
+
+<section class="social-media">
+
+
+<div class="container">
+
+
+    <div class="row">
+        <div class="span12">
+            <div class="title">
+                <h3>Follow us on <span class="grey-highlight">Social Media: </span></h3>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        
+        <div class="span6">
+            <div class="nn-media">
+                <h3><span class="label label-info">Twitter</span></h3>
+                @@NewcomersTO
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+            </div>
+        </div>
+
+        <div class="span6">
+            <div class="nn-media">
+                <h3><span class="label label-primary">Facebook</span></h3>
+                @@NewcomersNetworkTPC
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+            </div>
+        </div>
+
+        </div>
+
+</div>
+
+</section>

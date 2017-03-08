@@ -1,15 +1,17 @@
-﻿@model NewcomersNetworkIFACE.Areas.NNAdmin1.Models.Events
-@{
+﻿@{
     Layout = "~/Areas/NNAdmin1/Views/Shared/_Layout1.cshtml";
     ViewBag.Title = "Events";
 }
 
 @section CSSSection {
-    <link rel="stylesheet" href="/Content/css/jquery.dataTables.css" />
-    <link rel="stylesheet" href="/Content/css/dataTables.bootstrap.css" />
-    <link rel="stylesheet" href="/Content/css/uniform.css" />
-    <link rel="stylesheet" href="/Content/css/select2.css" />
-    <link rel="stylesheet" href="/Content/css/datepicker.css" />
+    <link rel="stylesheet" href="~/Content/NNAdmin/css/jquery.dataTables.css" />
+    <link rel="stylesheet" href="~/Content/NNAdmin/css/dataTables.bootstrap.css" />
+    <link rel="stylesheet" href="~/Content/NNAdmin/css/uniform.css" />
+    <link rel="stylesheet" href="~/Content/NNAdmin/css/select2.css" />
+    <link rel="stylesheet" href="~/Content/NNAdmin/css/datepicker.css" />
+    <link rel="stylesheet" href="~/Content/NNAdmin/css/bootstrap-editable.css" />
+    <link rel="stylesheet" href="~/Content/NNAdmin/css/jquery-confirm.css" />
+    <link rel="stylesheet" href="~/Content/NNAdmin/css/nn_admin.css" />
 }
 
 <div id="content">
@@ -25,19 +27,20 @@
                 Events
             </a>
         </div>
-        <h1>Events</h1>
+        <h1><i class="icon-th"></i> Events</h1>
     </div>
     <!--End-breadcrumbs-->
     <!--Action boxes-->
     <div class="container-fluid">
-
+        <!--
         <hr />
-
+        
         <div class="quick-actions_homepage">
             <ul class="quick-actions">
                 <li class="bg_lb" id="editevent"><a><i class="icon-th"></i> Add new Event</a></li>
             </ul>
         </div>
+        -->
         <!--End-Action boxes-->
 
         <div class="row-fluid">
@@ -51,115 +54,291 @@
                     <div class="widget-title">
                         <span class="icon"><i class="icon-th"></i></span>
                         <h5>Newcomers Network | Events</h5>
+
+                        <div class="buttons">
+                            <a id="add-event" data-toggle="modal" href="#" class="btn btn-info btn-mini btnaction" onclick="EventAdd()"><i class="icon-plus icon-white"></i> Add Event</a>
+                        </div>
                     </div>
                     <div class="widget-content nopadding">
-                        <table class="table table-bordered data-table">
+                        <table id="EventsList" class="table table-bordered">
                             <thead>
                                 <tr>
                                     <th>Events</th>
                                 </tr>
                             </thead>
-                            <tbody id="EventsList">
-                                
-                                @Html.Partial("_EventsList", Model.oEventList)
-
+                            <tbody>
                             </tbody>
                         </table>
                     </div>
                 </div>
-
             </div>
-
         </div>
-
     </div>
-
-
 </div>
 
-@RenderPage("~/Areas/NNAdmin1/Views/Events/_EditEventModal.cshtml")
-@RenderPage("~/Areas/NNAdmin1/Views/Events/_EventRegistrationModal.cshtml")
-
 @section JSSection {
-    <script src="/Content/js/jquery.dataTables.js"></script>
-    <script src="/Content/js/dataTables.bootstrap.js"></script>
-    <script src="/Content/js/jquery.validate.js"></script>
-    <script src="/Content/js/masked.js"></script>
-    <script src="/Content/js/bootstrap-datepicker.js"></script>  
+    <script src="~/Content/NNAdmin/js/jquery.dataTables.js"></script>
+    <script src="~/Content/NNAdmin/js/dataTables.bootstrap.js"></script>
+    <script src="~/Content/NNAdmin/js/masked.js"></script>
+    <script src="~/Content/NNAdmin/js/moment.js"></script>
+    <script src="~/Content/NNAdmin/js/combodate.js"></script>
+    <script src="~/Content/NNAdmin/js/bootstrap-datepicker.js"></script>
+    <script src="~/Content/NNAdmin/js/bootstrap-editable.min.js"></script>
+    <script src="~/Content/NNAdmin/js/jquery-confirm.js"></script>
+    <script src="~/Content/NNAdmin/js/select2.full.js"></script>
+    <script src="~/Content/NNAdmin/js/nn_admin.js"></script>
 }
 
 <script type="text/javascript">
+
+    //Service Model
+    var oEvent = {};
+
     //Updates the image on selected menu
     DocReady.push(function () { menuSelected("#eventsmnu") });
-
     DocReady.push(function () {
 
-        $('#editevent').click(function () {
-            var url = "/NNAdmin1/Events/EditEventView";
-            var id = $(this).attr('data-id');
-            if (id) {
-                url += "/" + id;
-            }
-            $.get(url, EditFormSet);
-        });
+        //Sets edit in place as inline
+        $.fn.editable.defaults.mode = 'inline';
 
-
-        $("#RegTable").DataTable({
-            ajax: {
-                url: "/NNAdmin1/Events/EventRegistrationList",
-                dataSrc: "",
-                data: function (d) {
-                    d.cEventId = $(event.srcElement.parentElement).data('id');
+        //Sets in memory the Service model
+        NN_SendAjax("GET",
+            "/NNAdmin1/Events/GetNewEvent",
+            null,
+            ["Get New Event"],
+            function (response) {   //Success
+                if (response.odata != null) {
+                    oEvent = response.odata;
                 }
+            },
+            null, /* Error */
+            true /* Silent */);
+        
+        //Event List
+        $("#EventsList").DataTable({
+            ajax: {
+                url: "/NNAdmin1/Events/GetEvents",
+                dataSrc: "odata"
             },
             bInfo: false,
             pagingType: "full_numbers",
             columns: [
-                { data: 'oUser.oDetails.FirstName' },
-                { data: 'oUser.oDetails.Email' },
-                { data: 'RegisterDate' },
-                { data: 'SlotsRequested' }
+                {
+                    data: null, target: 0, render: function (data, type, row, meta) {
+                        if (type == "sort") {
+                            return (data == null, "", data.Name);
+                        }
+                        if (type == "filter") {
+                            return (data == null, "", JSON.stringify(data));
+                        }
+                        //Internal complex data (expandable)
+                        if (type === "display") {
+                            var cinternal = "";
+                            var nDataIndex = meta.row;
+                            var dStartDate = moment(parseInt(data.StartDate.substr(6)));
+                            var dEndDate = moment(parseInt(data.EndDate.substr(6)));
+                            var dStartPubDate = moment(parseInt(data.StartPublishDate.substr(6)));
+                            var dEndPubDate = moment(parseInt(data.EndPublishDate.substr(6)));
+
+                            cinternal += '<table class="nn-dynamic-item" id="collapse-td"' + nDataIndex + '>';
+                            cinternal += '  <tr>';
+                            cinternal += '      <th id="itmhead' + nDataIndex + '" class="nn-di-th">';
+                            cinternal += '          <a data-parent="#collapse-td' + nDataIndex + '" href="#collapseTD' + nDataIndex + '" data-toggle="collapse">';
+                            cinternal += data.Name;
+                            cinternal += '          </a>';
+                            cinternal += '      </th>';
+                            cinternal += '  </tr>';
+                            cinternal += '  <tr>';
+                            cinternal += '      <td class="nn-di-td">'
+                            cinternal += '          <div class="collapse nn-di-content" id="collapseTD' + nDataIndex + '">';
+                            cinternal += '              <div class="nn-di-inner-content">';
+                            cinternal += '                  <div class="row-fluid">';
+                            cinternal += '                      <div class="span12">';
+                            cinternal += '                          <ul class="nn-di-ul">';
+                            cinternal += '                              <li class="nn-di-li title">Event Details</li>';
+                            cinternal += '                          </ul>';
+                            cinternal += '                      </div>';
+                            cinternal += '                  </div>';
+                            cinternal += '                  <div class="row-fluid">';
+                            cinternal += '                      <div class="span6">';
+                            cinternal += '                          <ul class="nn-di-ul">';
+                            cinternal += '                              <li class="nn-di-li"><span>Event Id:</span> ' + ((data.Id == "NULLID") ? "" : data.Id) + '</li>';
+                            cinternal += '                              <li class="nn-di-li"><span>Event Name:</span> <a id="EventName' + nDataIndex + '" data-type="text"> ' + data.Name + '</a></li>';
+                            cinternal += '                              <li class="nn-di-li"><span>Event Description:</span> <a id="EventDesc' + nDataIndex + '" data-type="textarea"> ' + data.Description + '</a></li>';
+                            cinternal += '                              <li class="nn-di-li"><span>Start Date:</span> <a id="StartDate' + nDataIndex + '" data-value="' + dStartDate.format("DD/MM/YYYY") + '" data-type="date"> ' + dStartDate.format("DD/MM/YYYY") + '</a></li>';
+                            cinternal += '                              <li class="nn-di-li"><span>End Date:</span><a id="EndDate' + nDataIndex + '" data-value="' + dEndDate.format("DD/MM/YYYY") + '" data-type="date"> ' + dEndDate.format("DD/MM/YYYY") + '</a></li>';
+                            cinternal += '                          </ul>';
+                            cinternal += '                      </div>';
+
+                            cinternal += '                      <div class="span6">';
+                            cinternal += '                          <ul class="nn-di-ul">';
+                            cinternal += '                              <li class="nn-di-li"><span>Start Publishing Date:</span> <a id="StartPubDate' + nDataIndex + '" data-value="' + dStartPubDate.format("DD/MM/YYYY")  + '" data-type="date"> ' + dStartPubDate.format("DD/MM/YYYY") + '</a></li>';
+                            cinternal += '                              <li class="nn-di-li"><span>End Publishing Date:</span><a id="EndPubDate' + nDataIndex + '" data-value="' + dEndPubDate.format("DD/MM/YYYY") + '" data-type="date"> ' + dEndPubDate.format("DD/MM/YYYY") + '</a></li>';
+                            cinternal += '                              <li class="nn-di-li"><span>End Publishing Date:</span><a id="CreatedBy' + nDataIndex + '" data-value="ce209094-2d37-489d-9eb5-db570b06fab5" data-type="date"> Renan Fragoso</a></li>';
+                            cinternal += '                              <li class="nn-di-li"><span>Status:</span>';
+                            if (data.Status == 'O') {
+                                cinternal += '                                  <span class="nn-active">Active</span>';
+                            }
+                            else {
+                                if (data.Status == 'F') {
+                                    cinternal += '                                  <span class="nn-blocked">Finished</span>';
+                                } else {
+                                    cinternal += '                                  <span class="nn-blocked">Deactivated</span>';
+                                }
+                            }
+                            cinternal += '                              </li>';
+                            cinternal += '                          </ul>';
+                            cinternal += '                      </div>';
+                            cinternal += '                  </div>';
+                            cinternal += '                  <div class="row-fluid">';
+                            cinternal += '                      <div class="span6">';
+                            cinternal += '                          <ul class="nn-di-ul">';
+                            cinternal += '                              <a href="Events/EventView?cEventId=' + data.Id + '" class="btnaction"><li class="nn-di-li ctrl"><i class="icon-eye-open"></i> View Event</li></a>';
+                            cinternal += '                          </ul>';
+                            cinternal += '                      </div>';
+                            cinternal += '                      <div class="span6">';
+                            cinternal += '                          <ul class="nn-di-ul">';
+                            cinternal += '                              <a onclick="SaveEvent(' + nDataIndex + ')" id="SaveEvt' + nDataIndex + '" class="svevt hidden"><li class="nn-di-li ctrl btn-success"><i class="icon-save"></i> Save Changes</li></a>';
+                            cinternal += '                              <a onclick="CancelEditEvent(' + nDataIndex + ')" id="CancEvt' + nDataIndex + '" class="canevt hidden"><li class="nn-di-li ctrl btn-danger"><i class="icon-ban-circle"></i> Cancel Changes</li></a>';
+                            cinternal += '                          </ul>';
+                            cinternal += '                      </div>';
+                            cinternal += '                  </div>';
+                            cinternal += '              </div>';
+                            cinternal += '          </div>';
+                            cinternal += '      </td>';
+                            cinternal += '  </tr>';
+                            cinternal += '</table>';
+
+                            return cinternal;
+                        }
+                        return data;
+                    }
+                }
             ],
             drawCallback: function (settings) {
                 //Adjust the classes
-                $("#RegTable_paginate").addClass("fg-buttonset ui-buttonset fg-buttonset-multi ui-buttonset-multi");
+                $("#EventsList_paginate").addClass("fg-buttonset ui-buttonset fg-buttonset-multi ui-buttonset-multi");
                 $(".paginate_button").removeClass("paginate_button").addClass("fg-button ui-button ui-state-default");
                 $("div .row:last-of-type").removeClass("row").addClass("fg-toolbar ui-toolbar ui-widget-header ui-helper-clearfix ui-corner-bl ui-corner-br");
-                $("#RegTable").removeAttr("style");
+                $("#EventsList").removeAttr("style");
             },
-            initComplete: function () { $("#RegTable").removeAttr("style") }
+            initComplete: function () { $("#EventsList").removeAttr("style") }
         });
     });
 
-    function ReloadEventList() {
 
-        $.ajax({
-            url: "/NNAdmin1/Events/Eventslist",
-            type: "GET",
-            async: true,
-            success: function (data, textStatus, jqXHR) {
-                $("#EventList").html(data);
-            },
-            error: function (jqXHR, textStatus, errorThrown) {
-                $.gritter.add({
-                    title: "Error getting Event List",
-                    text: errorThrown,
-                    sticky: false,
-                    time: 3000
-                })
-            }
-
-        });
+    function EventAdd() {
+        NN_SendAjax("GET",
+            "/NNAdmin1/Events/GetNewEvent",
+            null,
+            ["Get New Event", "Get New Event"],
+                function (response) {   //Success
+                    if (response.odata != null) {
+                        var oTable = $("#EventsList").DataTable();
+                        var rowAdded = oTable.row.add(response.odata);
+                        oTable.search("NULLID").draw(false);
+                        var nItm = rowAdded.index();
+                        EventEdit(nItm);
+                    }
+                },
+            null,
+            true);
     }
 
-    function EditEvent(cEventId) {
-        var url = "/NNAdmin1/Events/EditEventView"; // the url to the controller
-        if (cEventId) {
-            url += "?cEventId=" + cEventId;
+    function EventEdit(nItm) {
+        $("#itmhead" + nItm).addClass("nn-editing-hd");
+        $("#collapseTD" + nItm).collapse("toggle");
+        $(".input-sm").attr("readonly", "");
+        $(".btnaction").addClass("hidden");
+        $("#SaveEvt" + nItm).removeClass("hidden");
+        $("#CancEvt" + nItm).removeClass("hidden");
+
+        $("#EventName" + nItm).editable({ validate: notEmpty }).editable('enable');
+        $("#EventDesc" + nItm).editable({ validate: notEmpty }).editable('enable');
+        $("#StartDate" + nItm).editable({
+            validate: notEmpty,
+            format: 'dd/mm/yyyy',
+            viewformat: 'dd/mm/yyyy',
+            template: 'dd/mm/yyyy'
+        }).editable('enable');
+        $("#EndDate" + nItm).editable({
+            validate: notEmpty,
+            format: 'dd/mm/yyyy',
+            viewformat: 'dd/mm/yyyy',
+            template: 'dd/mm/yyyy'
+        }).editable('enable');
+        $("#StartPubDate" + nItm).editable({
+            validate: notEmpty,
+            format: 'dd/mm/yyyy',
+            viewformat: 'dd/mm/yyyy',
+            template: 'dd/mm/yyyy'
+        }).editable('enable');
+        $("#EndPubDate" + nItm).editable({
+            validate: notEmpty,
+            format: 'dd/mm/yyyy',
+            viewformat: 'dd/mm/yyyy',
+            template: 'dd/mm/yyyy'
+        }).editable('enable');
+    }
+
+    function CancelEditEvent(nItm) {
+        var oDTTable = $("#EventsList").DataTable();
+        var cId = oDTTable.row(nItm).data().Id;
+        if (cId == "NULLID") {    //Not saved yet
+            oDTTable.row(nItm).remove();
+            oDTTable.search("NULLID").draw(false);
+        } else {
+            $("#EventName" + nItm).editable('disable');
+            $("#EventDesc" + nItm).editable('disable');
+            $("#StartDate" + nItm).editable('disable');
+            $("#EndDate" + nItm).editable('disable');
+            $("#StartPubDate" + nItm).editable('disable');
+            $("#EndPubDate" + nItm).editable('disable');
         }
-        $.get(url, EditFormSet)
+        $(".input-sm").removeAttr("readonly");
+        oDTTable.search("").draw();
+        $("#SaveEvt" + nItm).addClass("hidden");
+        $("#CancEvt" + nItm).addClass("hidden");
+        $(".btnaction").removeClass("hidden");
+    }
+    
+    function SaveEvent(nItm) {
+        UpdateEvtModel(oEvent, nItm);
+        console.log(oEvent);
+        NN_SendAjax("POST",
+            "/NNAdmin1/Events/UpdateEvent",
+            oEvent,
+            ["Event Creation", "Event Creation"],
+            function () {   //Success
+                CancelEditEvent(nItm);
+                ReloadEventList();
+            },
+            null);
     }
 
+    function UpdateEvtModel(oModel, nItm) {
+
+        var dStartDate = moment($("#StartDate" + nItm).text() + " 00:00:01", "DD-MM-YYYY hh:mm:ss");
+        var dEndDate = moment($("#EndDate" + nItm).text() + " 23:59:59", "DD-MM-YYYY hh:mm:ss");
+        var dStartPubDate = moment($("#StartPubDate" + nItm).text() + " 00:00:01", "DD-MM-YYYY hh:mm:ss");
+        var dEndPubDate = moment($("#EndPubDate" + nItm).text() + " 23:59:59", "DD-MM-YYYY hh:mm:ss");
+
+        oModel.Name = $("#EventName" + nItm).editable("getValue")["EventName" + nItm];
+        oModel.Description = $("#EventDesc" + nItm).editable("getValue")["EventDesc" + nItm];
+        oModel.CreatedBy = $("#CreatedBy" + nItm).editable("getValue")["CreatedBy" + nItm];
+        oModel.StartDate = dStartDate.format("YYYY-MM-DDTHH:mm:ssZ");
+        oModel.EndDate = dEndDate.format("YYYY-MM-DDTHH:mm:ssZ");
+        oModel.StartPublishDate = dStartPubDate.format("YYYY-MM-DDTHH:mm:ssZ");
+        oModel.EndPublishDate = dEndPubDate.format("YYYY-MM-DDTHH:mm:ssZ");
+
+        oModel.AlterDate = moment(parseInt(oModel.AlterDate.substr(6))).format("YYYY-MM-DDTHH:mm:ssZ");
+        oModel.CreateDate = moment(parseInt(oModel.CreateDate.substr(6))).format("YYYY-MM-DDTHH:mm:ssZ");
+    }
+
+    function ReloadEventList() {
+        $("#EventsList").DataTable().ajax.reload();
+    }
+        
     function EditFormSet(data) {
 
         $('#EditEvent-container').html(data);
