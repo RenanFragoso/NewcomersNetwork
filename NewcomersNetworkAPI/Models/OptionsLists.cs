@@ -13,7 +13,8 @@ namespace NewcomersNetworkAPI.Models
     {
         public List<OptionList> oOptions = new List<OptionList>();
 
-        protected Dictionary<string, string> oAvailabeLists = new Dictionary<string, string>();
+        //protected Dictionary<string, string> oAvailabeLists = new Dictionary<string, string>();
+        protected List<AvailabeList> oAvailabeLists = new List<AvailabeList>();
 
         public OptionsLists()
         {
@@ -28,41 +29,25 @@ namespace NewcomersNetworkAPI.Models
 
         protected void LoadParams()
         {
-            #region Users Lists
-            //Users Administration
-            
-            //User Education List
-            this.oAvailabeLists.Add("education", "sp_GetChoices_Education");
-            //User Age Range List
-            this.oAvailabeLists.Add("agerange", "sp_GetChoices_AgeRange");
-            //User Gender List
-            this.oAvailabeLists.Add("gender", "sp_GetChoices_Gender");
-            //User Marital Status List
-            this.oAvailabeLists.Add("maritalstatus", "sp_GetChoices_MaritalStatus");
-            //Users Roles List
-            this.oAvailabeLists.Add("usersroles", "sp_GetChoices_UsersRoles");
-            #endregion
 
-            #region Services Lists
-            //Services Group List
-            this.oAvailabeLists.Add("servicesgroup", "sp_GetChoices_ServicesGroups");
-            //Services Group List Icon/Color
-            this.oAvailabeLists.Add("servicesgroupicon", "sp_GetChoices_ServicesGroupsIcon");
-            //Services Group Colors
-            this.oAvailabeLists.Add("groupcolors", "sp_GetChoices_GroupColors");
-            //Services Group Icons
-            this.oAvailabeLists.Add("groupicons", "sp_GetChoices_GroupIcons");
-            #endregion
+            DataTable oLists = DBConn.ExecuteCommand("sp_GetChoices", null).Tables[0];
+            for( int nX = 0; nX < oLists.Rows.Count; nX++)
+            {
+                this.oAvailabeLists.Add( new AvailabeList( oLists.Rows[nX]["ChoiceName"].ToString(), oLists.Rows[nX]["ChoiceGroup"].ToString(), oLists.Rows[nX]["ChoiceSP"].ToString()));
+            }
         }
 
         public bool LoadList(string cListName)
         {
             if (cListName != null && cListName.Length > 0)
             {
-                string cSPList;
-                if (this.oAvailabeLists.TryGetValue(cListName, out cSPList))
+                AvailabeList oAvailable;
+                //string cSPList;
+                //if (this.oAvailabeLists.TryGetValue(cListName, out cSPList))
+                oAvailable = this.oAvailabeLists.Find(itm => itm.cListName == cListName);
+                if (oAvailable != null)
                 {
-                    this.oOptions.Add( new OptionList(cListName, cSPList));
+                    this.oOptions.Add( new OptionList(oAvailable.cListName, oAvailable.cListSP));
                     return true;
                 }
                 else
@@ -77,11 +62,29 @@ namespace NewcomersNetworkAPI.Models
 
         }
 
+        public bool LoadListGroup(string cGroupName)
+        {
+            if (cGroupName != null && cGroupName.Length > 0)
+            {
+                //if (this.oAvailabeLists.TryGetValue(out cListName, out cSPList))
+                foreach (AvailabeList oAvailable in oAvailabeLists.FindAll(itm => itm.cListGroup == cGroupName))
+                {
+                    this.oOptions.Add(new OptionList(oAvailable.cListName, oAvailable.cListSP));
+                }
+                return true;
+            }
+
+            this.sMsgError.Add("Invalid Parameter.");
+            return false;
+
+        }
+
         public bool LoadAll()
         {
-            foreach (KeyValuePair<string, string> entry in this.oAvailabeLists)
+            //foreach (KeyValuePair<string, string> entry in this.oAvailabeLists)
+            foreach (AvailabeList oList in this.oAvailabeLists)
             {
-                this.oOptions.Add(new OptionList(entry.Key, entry.Value));
+                this.oOptions.Add(new OptionList(oList.cListName, oList.cListSP));
             }
 
             return true;
@@ -92,10 +95,13 @@ namespace NewcomersNetworkAPI.Models
             OptionList oListRet;
             if (cListName != null && cListName.Length > 0)
             {
+                AvailabeList oAvailable;
                 string cSPList;
-                if (this.oAvailabeLists.TryGetValue(cListName, out cSPList))
+                //if (this.oAvailabeLists.TryGetValue(cListName, out cSPList))
+                oAvailable = this.oAvailabeLists.Find(itm => itm.cListName == cListName);
+                if(oAvailable != null)
                 {
-                    oListRet = new OptionList(cListName, cSPList);
+                    oListRet = new OptionList(oAvailable.cListName, oAvailable.cListSP);
                 }
                 else
                 {
@@ -137,5 +143,21 @@ namespace NewcomersNetworkAPI.Models
         }
 
     }
+
+    public class AvailabeList
+    {
+        public string cListName { get; set; } = "";
+        public string cListGroup { get; set; } = "";
+        public string cListSP { get; set; } = "";
+
+        public AvailabeList(string cListName, string cListGroup, string cListSP)
+        {
+            this.cListName = cListName;
+            this.cListGroup = cListGroup;
+            this.cListSP = cListSP;
+        }
+
+    }
+
 
 }

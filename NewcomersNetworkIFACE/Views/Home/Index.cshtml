@@ -1,9 +1,9 @@
 ﻿@{
     Layout = "~/Views/Shared/_Layout.cshtml";
-    ViewBag.Title = "Main";
+    ViewBag.Title = "Home";
 }
 
-<section id="slider" class="slider-parallax swiper_wrapper clearfix">
+<section id="slider" class="slider-parallax swiper_wrapper clearfix" style="height: 960px;">
 
     <div class="slider-parallax-inner">
 
@@ -50,17 +50,72 @@
             <div id="slide-number"><div id="slide-number-current"></div><span>/</span><div id="slide-number-total"></div></div>
         </div>
 
+        <a href="#" data-scrollto="#content" data-offset="100" class="dark one-page-arrow">
+            <i class="icon-angle-down infinite animated fadeInDown"></i>
+        </a>
+
     </div>
 
 </section>
 
 <section id="content">
+
     <div class="content-wrap">
         
-        <div class="promo promo-dark promo-full bottommargin-lg header-stick notopborder" style="padding-bottom: 0px !important">
+        <div class="promo promo-dark promo-full bottommargin-lg header-stick notopborder" style="padding: 0px !important">
 
-            <div class="container clearfix">
+            <div class="clearfix">
 
+                <div class="col-lg-2 col-md-6 col-sm-6 nobottommargin svc-grp-1" style="background-color: #fec33e">
+                    <a href="#">
+                        <div class="center svc-grp-cont">
+                            <h3>Immigration &amp; Settlement</h3>
+                            <i class="icon icon-home2" style="font-size: 5em; color: #fff "></i>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="col-lg-2 col-md-6 col-sm-6 nobottommargin svc-grp-2" style="background-color: #ba0f6b">
+                    <a href="#">
+                        <div class="center">
+                            <h3>Employment &amp; Career</h3>
+                            <i class="icon icon-suitcase" style="font-size: 5em; color: #fff "></i>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="col-lg-2 col-md-6 col-sm-6 nobottommargin svc-grp-3" style="background-color: #00588d">
+                    <a href="#">
+                        <div class="center">
+                            <h3>Legal Clinic</h3>
+                            <i class="icon icon-legal" style="font-size: 5em; color: #fff "></i>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="col-lg-2 col-md-6 col-sm-6 nobottommargin svc-grp-4" style="background-color: #ff6a00">
+                    <a href="#">
+                        <div class="center">
+                            <h3>Language Centre</h3>
+                            <i class="icon icon-chat" style="font-size: 5em; color: #fff "></i>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="col-lg-2 col-md-6 col-sm-6 nobottommargin svc-grp-5" style="background-color: #b6d554">
+                    <a href="#">
+                        <div class="center">
+                            <h3>Health &amp; Well-being</h3>
+                            <i class="icon icon-heart2" style="font-size: 5em; color: #fff "></i>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="col-lg-2 col-md-6 col-sm-6 nobottommargin svc-grp-6" >
+                    <a href="/Classifieds"></a>
+                </div>
+                
+                <!--
                 <div class="col_one_sixth nobottommargin" style="margin: 0px">
                     <div class="feature-box fbox-center fbox-light fbox-effect nobottomborder" style="border-right: 1px dotted white">
                         <div class="fbox-icon">
@@ -114,16 +169,16 @@
                 <div class="col_one_sixth nobottommargin" style="margin-right: 0px !important">
                     <a href="/Classifieds"><img src="~/Content/Images/classifieds.png" alt="Classifieds"></a>
                 </div>
-
+                -->
                 <!--
                 <h3>Call us today at <span>+91.22.57412541</span> or Email us at <span>support@canvas.com</span></h3>
                 <span>We strive to provide Our Customers with Top Notch Support to make their Theme Experience Wonderful</span>
                 <a href="#" class="button button-dark button-xlarge button-rounded">Start Browsing</a>
                 -->
-
-
-
             </div>
+
         </div>
+
     </div>
+
 </section>

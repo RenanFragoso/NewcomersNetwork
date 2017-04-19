@@ -11,6 +11,7 @@ using Microsoft.AspNet.Identity;
 using System.Threading.Tasks;
 using System.Web;
 using System.Text;
+using System.Security.Claims;
 
 namespace NewcomersNetworkAPI.Controllers
 {
@@ -22,7 +23,7 @@ namespace NewcomersNetworkAPI.Controllers
         [Authorize(Roles = "Administrator")]
         public IHttpActionResult Get()
         {
-            DataTable oUsersDB = DBConn.ExecuteCommand("sp_User_GetAll", null).Tables[0];    //Gets all Users
+            DataTable oUsersDB = DBConn.ExecuteCommand("sp_User_GetAll", null).Tables[0];    //Get all Users
             List<User> oUsers = new List<User>();
 
             if (oUsersDB.Rows.Count > 0)
@@ -46,7 +47,7 @@ namespace NewcomersNetworkAPI.Controllers
 
         [Route("{cUserId}", Name = "GetUser")]
         [HttpGet]
-        public IHttpActionResult Get(string cUserId)      //Gets a specific User
+        public IHttpActionResult Get(string cUserId)      //Get a specific User
         {
             User oUser;
             if (cUserId != null && cUserId.Length > 0)
@@ -58,13 +59,19 @@ namespace NewcomersNetworkAPI.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        [Authorize]
+        /// <summary>  
+        /// This method need to ensure that the request has been made
+        /// from a valid user and this user is the same as the token user
+        /// (using ClaimsPrincipal to compare token and get attr value)
+        /// </summary> 
         [Route("GetDetails/{cUserMail}")]
+        [Authorize]
         [HttpGet]
-        public IHttpActionResult GetDetails(string cUserMail)      //Gets a specific User
+        public IHttpActionResult GetDetails(string cUserMail)      //Get a specific User by email
         {
             User oUser;
-            if (cUserMail != null && cUserMail.Length > 0)
+            ClaimsPrincipal oPrincipal = (ClaimsPrincipal)Request.GetRequestContext().Principal;
+            if (cUserMail != null && cUserMail.Length > 0 && oPrincipal.Identity.Name == Encoding.Unicode.GetString(Convert.FromBase64String(cUserMail)))
             {
                 oUser = new User();
                 oUser.GetByMail(Encoding.Unicode.GetString(Convert.FromBase64String(cUserMail)));
@@ -76,7 +83,7 @@ namespace NewcomersNetworkAPI.Controllers
 
         [Route("Create")]
         [HttpPost]
-        public IHttpActionResult AddUser([FromBody]User oUser)       //Inserts an User
+        public IHttpActionResult AddUser([FromBody]User oUser)       //Insert an User
         {
             if (oUser != null && oUser.Save())
             {
@@ -86,12 +93,11 @@ namespace NewcomersNetworkAPI.Controllers
             {
                 return BadRequest(string.Join(",", oUser.sMsgError.ToArray()));
             }
-
         }
 
         [Route("Activate/{cUserId}", Name = "ActivateUser")]
         [HttpPost]
-        public IHttpActionResult ActivateUser(string cUserId)       //Activates an User
+        public IHttpActionResult ActivateUser(string cUserId)       //Activate an User
         {
             User oUser;
 
@@ -116,7 +122,7 @@ namespace NewcomersNetworkAPI.Controllers
 
         [Route("Block/{cUserId}", Name = "BlockUser")]
         [HttpPost]
-        public IHttpActionResult BlockUser(string cUserId)       //Activates an User
+        public IHttpActionResult BlockUser(string cUserId)       //Activate an User
         {
             User oUser;
 
@@ -142,7 +148,7 @@ namespace NewcomersNetworkAPI.Controllers
 
         [Route("Update")]
         [HttpPut]
-        public IHttpActionResult UpdateUser([FromBody]User oUser)       //Updates an User
+        public IHttpActionResult UpdateUser([FromBody]User oUser)       //Update an User
         {
             if (oUser != null && oUser.Update())
             {
@@ -157,7 +163,7 @@ namespace NewcomersNetworkAPI.Controllers
 
         [Route("Delete/{cUserId}", Name = "DeleteUser")]
         [HttpDelete]
-        public IHttpActionResult DeleteUser(string cUserId)       //Deletes an User
+        public IHttpActionResult DeleteUser(string cUserId)       //Delete an User
         {
             User oUser;
 

@@ -111,19 +111,19 @@ dl, dt, dd, ol, ul, li {
 }
 
 ::selection {
-	background: #1ABC9C;
+	background: #ba0f6b;
 	color: #FFF;
 	text-shadow: none;
 }
 
 ::-moz-selection {
-	background: #1ABC9C; /* Firefox */
+	background: #ba0f6b; /* Firefox */
 	color: #FFF;
 	text-shadow: none;
 }
 
 ::-webkit-selection {
-	background: #1ABC9C; /* Safari */
+	background: #ba0f6b; /* Safari */
 	color: #FFF;
 	text-shadow: none;
 }
@@ -207,7 +207,6 @@ pre,
 ul,
 ol,
 dl,
-dd,
 blockquote,
 address,
 table,

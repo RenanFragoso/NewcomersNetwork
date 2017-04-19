@@ -475,6 +475,7 @@
     <Content Include="Content\Images\spinner.gif" />
     <Content Include="Content\Images\sprite.png" />
     <Content Include="Content\Images\square-image.png" />
+    <Content Include="Content\Images\tpc-logo-transparent.png" />
     <Content Include="Content\Images\tpc-logo.jpg" />
     <Content Include="Content\Images\tpc-logo.png" />
     <Content Include="Content\Images\wanttohelp.png" />
@@ -717,6 +718,7 @@
     <Content Include="Views\Error\403.cshtml" />
     <Content Include="Views\Classifieds\Index.cshtml" />
     <None Include="Views\Error\Index.cshtml" />
+    <None Include="Views\UserProfile\Edit.cshtml" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -769,6 +771,7 @@
     <Folder Include="Content\Images\NNAdmin1\gallery\" />
     <Folder Include="Content\Images\NNAdmin1\icons\" />
     <Folder Include="Content\themes\" />
+    <Folder Include="Views\Calendar\" />
     <Folder Include="Views\NNAPI\" />
   </ItemGroup>
   <ItemGroup>

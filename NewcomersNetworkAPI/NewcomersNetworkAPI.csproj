@@ -333,6 +333,7 @@
     <Content Include="Database\StoredProcedures\Choices\sp_GetChoices_NeedsCategory.sql" />
     <Content Include="Database\StoredProcedures\Choices\sp_GetChoices_Occupation.sql" />
     <Content Include="Database\StoredProcedures\Choices\sp_GetChoices_UsersRoles.sql" />
+    <Content Include="Database\StoredProcedures\Choices\sp_GetChoices.sql" />
     <Content Include="Database\StoredProcedures\Classifieds\sp_Classifieds_GetFiltered.sql" />
     <Content Include="Database\StoredProcedures\Classifieds\sp_Classifieds_GetAll.sql" />
     <Content Include="Database\StoredProcedures\Classifieds\sp_Classifieds_GetByID.sql" />

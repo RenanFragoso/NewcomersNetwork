@@ -41,7 +41,6 @@ namespace NewcomersNetworkIFACE.Controllers
 
         public ActionResult LogOut()
         {
-            //Session.RemoveAll();
             HttpCookie oCookieTkn;
             HttpCookie oCookieUsr;
 
@@ -73,8 +72,21 @@ namespace NewcomersNetworkIFACE.Controllers
         [NNAuthorize]
         public ActionResult Edit()
         {
+            SessionUser oSessionUsr;
             base.VerifyCredential();
-            return View();
+
+            oSessionUsr = (SessionUser)Session["SessionUser"];
+            
+            if(oSessionUsr != null)
+            {
+                //Get user data
+                this.oUserAPI.setToken(Session["UserToken"].ToString());
+                if (this.oUserAPI.getUserData(oSessionUsr))
+                {
+                    return View(this.oUserAPI.getDetails());
+                }
+            }
+            return RedirectToAction("Index", "Home");
         }
 
         #endregion

@@ -17,7 +17,7 @@ namespace NewcomersNetworkIFACE.Filters
     {
         /// <summary>  
         /// Permissive Filter responsible for getting the token/user information
-        /// when "Stay Connected" available. This filter doesn't blocks anything.
+        /// when "Stay Connected" available. This filter doesn't block anything.
         /// </summary>
         protected override bool AuthorizeCore(HttpContextBase httpContext)
         {

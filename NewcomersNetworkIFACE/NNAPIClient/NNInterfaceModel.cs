@@ -26,5 +26,23 @@ namespace NewcomersNetworkIFACE.Client
 
             return oList;
         }
+
+        public virtual List<OptionsLists> getSelectList(List<string> aListNames)
+        {
+            OptionsLists oList;
+            List<OptionsLists> aOptions = new List<OptionsLists>();
+
+            foreach (string cListName in aListNames)
+            {
+                oList = this.oNNAPICLient.Get<OptionsLists>("/OptionsLists/" + cListName);
+                if (oList != null)
+                {
+                    aOptions.Add(oList);
+                }
+            }
+
+            return aOptions;
+        }
+
     }
 }

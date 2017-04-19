@@ -92,6 +92,36 @@ namespace NewcomersNetworkIFACE.Models
             return null;            
         }
         
+        public bool getUserData(SessionUser oSessionUsr)
+        {
+            this.oUserDetails = oNNAPICLient.Get<User>("/Users/GetDetails/" + Convert.ToBase64String(Encoding.Unicode.GetBytes(oSessionUsr.EMail)));
+            if (this.oUserDetails != null)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        public UserDetails getDetails()
+        {
+            return this.oUserDetails.oDetails;
+        }
+
+        public void setToken(string cToken)
+        {
+            this.cUserToken = cToken;
+            this.oNNAPICLient.setToken(this.cUserToken);
+        }
+
+        public OptionsLists getLists()
+        {
+            //Get the Lists - user Group
+            OptionsLists oLists = oNNAPICLient.Get<OptionsLists>("/OptionsLists/Group/user");
+            return oLists;
+        }
+
+
     }
 
     public class LoginSendForm

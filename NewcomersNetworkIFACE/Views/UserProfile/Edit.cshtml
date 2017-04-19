@@ -1,0 +1,25 @@
+﻿@model NewcomersNetworkAPI.Models.UserDetails
+@{ 
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Edit Profile";
+}
+
+<form>
+    
+    @Html.ValidationSummary(true)
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.Id)
+
+    @Html.LabelFor(model => model.FirstName, new { @class = "control-label" })
+    @Html.TextBoxFor(model => model.FirstName, new { @class = "span11", placeholder = "First Name" })
+
+    @Html.LabelFor(model => model.LastName, new { @class = "control-label" })
+    @Html.TextBoxFor(model => model.LastName, new { @class = "span11", placeholder = "Last Name" })
+    
+    @Html.LabelFor(model => model.Email, new { @class = "control-label" })                      
+    @Html.TextBoxFor(model => model.Email, new { @class = "span11", placeholder = "E-Mail" })
+
+    @Html.LabelFor(model => model.Gender, new { @class = "control-label" })                      
+    @Html.DropDownListFor(model => model.Gender, (IEnumerable<SelectListItem>)ViewBag.Gender_List, "Select", htmlAttributes: new { @class = "span11" })
+
+</form>

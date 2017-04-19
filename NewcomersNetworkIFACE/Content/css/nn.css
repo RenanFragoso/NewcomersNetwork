@@ -119,6 +119,22 @@ a:hover {
     padding-left: 5px;
 }
 
+.svc-grp-1, .svc-grp-2, .svc-grp-3, 
+.svc-grp-4, .svc-grp-5, .svc-grp-6 {
+    margin: 0px; 
+    min-height: 200px;
+    padding: 20px;
+}
+
+.svc-grp-6 {
+    background: url('/Content/Images/classifieds.png') no-repeat;
+    background-size: 100% 100%;
+}
+
+svc-grp-cont {
+    color: #fff;
+}
+
 .pre-text {
     background-color: #f8f8f8;
     text-align: center;

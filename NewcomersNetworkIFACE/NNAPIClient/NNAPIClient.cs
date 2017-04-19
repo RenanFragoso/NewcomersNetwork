@@ -37,6 +37,7 @@ namespace NewcomersNetworkIFACE.Client
         public void setToken(string cToken)
         {
             this.cClientToken = cToken;
+            this.oApiClient.DefaultRequestHeaders.Remove("Authorization");
             this.oApiClient.DefaultRequestHeaders.Add("Authorization", "bearer " + this.cClientToken);
         }
 
