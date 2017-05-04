@@ -22,6 +22,7 @@ namespace NewcomersNetworkIFACE.Areas.NNAdmin1.Controllers
         [HttpGet]
         public ActionResult GetGroupIconList()
         {
+            /*
             OptionsLists oList = this.oLists.getSelectList("servicesgroupicon");
             return Json(new
             {
@@ -30,11 +31,22 @@ namespace NewcomersNetworkIFACE.Areas.NNAdmin1.Controllers
                 response = "",
                 odata = oList.oOptions
             }, JsonRequestBehavior.AllowGet);
+            */
+
+            return Json(new
+            {
+                success = false,
+                statuscode = 500,
+                response = "",
+                odata = new {}
+            }, JsonRequestBehavior.AllowGet);
+
         }
 
         [HttpGet]
         public ActionResult GetGroupIcons()
         {
+            /*
             OptionsLists oList = this.oLists.getSelectList("groupicons");
             return Json(new
             {
@@ -43,11 +55,21 @@ namespace NewcomersNetworkIFACE.Areas.NNAdmin1.Controllers
                 response = "",
                 odata = oList.oOptions
             }, JsonRequestBehavior.AllowGet);
+            */
+            return Json(new
+            {
+                success = false,
+                statuscode = 500,
+                response = "",
+                odata = new { }
+            }, JsonRequestBehavior.AllowGet);
+
         }
 
         [HttpGet]
         public ActionResult GetGroupColors()
         {
+            /*
             OptionsLists oList = this.oLists.getSelectList("groupcolors");
             return Json(new
             {
@@ -56,6 +78,16 @@ namespace NewcomersNetworkIFACE.Areas.NNAdmin1.Controllers
                 response = "",
                 odata = oList.oOptions
             }, JsonRequestBehavior.AllowGet);
+            */
+
+            return Json(new
+            {
+                success = false,
+                statuscode = 500,
+                response = "",
+                odata = new { }
+            }, JsonRequestBehavior.AllowGet);
+            
         }
         #endregion
 

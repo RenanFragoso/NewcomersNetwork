@@ -9,6 +9,7 @@ using Newtonsoft.Json;
 using System.Configuration;
 using System.Threading.Tasks;
 using System.Text;
+using System.ComponentModel.DataAnnotations;
 
 namespace NewcomersNetworkIFACE.Models
 {
@@ -18,7 +19,9 @@ namespace NewcomersNetworkIFACE.Models
         protected SignIn oSignIn { get; set; } = new SignIn();
         public string cUserToken { get; set; } = "";
         protected UserToken oUserToken { get; set; }
-        protected User oUserDetails { get; set; } = new User();
+        public User oUserDetails { get; set; } = new User();
+
+        public UserDetail oEmptyDetail = new UserDetail();
 
         public UserAPI()
         {
@@ -72,6 +75,12 @@ namespace NewcomersNetworkIFACE.Models
             return false;
         }
 
+        public HttpResponseMessage UpdateUserDetails(UserDetail oDetails)
+        {
+            HttpResponseMessage oResponse = this.oNNAPICLient.Put<UserDetail>("/Users/Details",oDetails);
+            return oResponse;
+        }
+
         public void LogOut()
         {
             //Call Logout API
@@ -101,11 +110,6 @@ namespace NewcomersNetworkIFACE.Models
             }
 
             return false;
-        }
-
-        public UserDetails getDetails()
-        {
-            return this.oUserDetails.oDetails;
         }
 
         public void setToken(string cToken)
@@ -186,6 +190,73 @@ namespace NewcomersNetworkIFACE.Models
         public string token_type { get; set; } = "";
         public string expires_in { get; set; } = "";
         public string userName { get; set; } = "";
+    }
+
+    public class UserDetail : NNInterfaceModel
+    {
+
+        [Key]
+        [ScaffoldColumn(false)]
+        public string Id { get; set; } = "";
+
+        [Display(Name = "First Name")]
+        [UIHint("First Name")]
+        [Required(ErrorMessage = "First Name is required")]
+        public string FirstName { get; set; } = "";
+
+        [Display(Name = "Last Name")]
+        [UIHint("Last Name")]
+        [Required(ErrorMessage = "Last Name is required")]
+        public string LastName { get; set; } = "";
+
+        [Display(Name = "E-Mail")]
+        [UIHint("_Email")]
+        [Required(ErrorMessage = "E-Mail is required")]
+        public string Email { get; set; } = "";
+
+        [Display(Name = "Title")]
+        [UIHint("Title")]
+        public string Title { get; set; } = "";
+
+        [Display(Name = "Gender")]
+        [UIHint("Gender")]
+        public string Gender { get; set; } = "";
+
+        [Display(Name = "Marital Status")]
+        [UIHint("Marital Status")]
+        public string MaritalStatus { get; set; } = "";
+
+        [Display(Name = "Age Range")]
+        [UIHint("Age Range")]
+        public string AgeRange { get; set; } = "";
+
+        [Display(Name = "Education")]
+        [UIHint("Education")]
+        public string Education { get; set; } = "";
+
+        [Display(Name = "Nearest Intersection")]
+        [UIHint("Nearest Intersection")]
+        public string NearestIntersection { get; set; } = "";
+
+        [Display(Name = "Postal Code")]
+        [UIHint("Postal Code")]
+        public string PostalCode { get; set; } = "";
+
+        [Display(Name = "I do authorize Newcomers Network to send me e-mails.")]
+        [UIHint("Do you consent further e-mail contacts?")]
+        public bool ConsentToContact { get; set; } = false;
+
+        [Display(Name = "Status")]
+        [UIHint("Status")]
+        public string Status { get; set; } = "";
+
+        [Display(Name = "I am a Newcomer")]
+        [UIHint("Are you a Newcomer?")]
+        public bool IsImmigrant { get; set; } = false;
+        public string Picture { get; set; } = "";
+
+        public List<UsersRoles> oUserRoles { get; set; } = new List<UsersRoles>();
+
     }
 
 

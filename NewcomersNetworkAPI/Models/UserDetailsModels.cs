@@ -11,7 +11,6 @@ namespace NewcomersNetworkAPI.Models
     public class UserDetails : NNAPIModel
     {
         [Key]
-        [ScaffoldColumn(false)]
         public string Id { get; set; } = "";
 
         [Display(Name = "First Name")]
@@ -27,6 +26,10 @@ namespace NewcomersNetworkAPI.Models
         [Display(Name = "E-Mail")]
         [UIHint("_Email")]
         public string Email { get; set; } = "";
+
+        [Display(Name = "Title")]
+        [UIHint("Title")]
+        public string Title { get; set; } = "";
 
         [Display(Name = "Gender")]
         [UIHint("Gender")]
@@ -52,8 +55,8 @@ namespace NewcomersNetworkAPI.Models
         [UIHint("Postal Code")]
         public string PostalCode { get; set; } = "";
 
-        [Display(Name = "Consent to contact?")]
-        [UIHint("Consent to contact?")]
+        [Display(Name = "I do authorize Newcomers Network to send me e-mails.")]
+        [UIHint("Do you consent further e-mail contacts?")]
         public bool ConsentToContact { get; set; } = false;
 
         [Display(Name = "Create Date")]
@@ -68,8 +71,8 @@ namespace NewcomersNetworkAPI.Models
         [UIHint("_Status")]
         public string Status { get; set; } = "";
 
-        [Display(Name = "Is Immigrant?")]
-        [UIHint("_IsImmigrant")]
+        [Display(Name = "I Am a Newcomer")]
+        [UIHint("Are you a newcomer?")]
         public bool IsImmigrant { get; set; } = false;
         public string Picture { get; set; } = "";
 
@@ -143,7 +146,9 @@ namespace NewcomersNetworkAPI.Models
                 return;
             }
 
-            this.Picture = this.AdjustImageFile("users", this.Id);
+            ImageControl oImgCtrl = new ImageControl();
+            //this.Picture = this.AdjustImageFile("users", this.Id);
+            this.Picture = oImgCtrl.RetrieveImage("users", this.Id);
             this.Validate();
             
         }
@@ -175,6 +180,7 @@ namespace NewcomersNetworkAPI.Models
             infoParameters.Add("cFirstName", this.FirstName);
             infoParameters.Add("cLastName", this.LastName);
             infoParameters.Add("cEmail", this.Email);
+            infoParameters.Add("cTitle", this.Title);
             infoParameters.Add("cGender", this.Gender);
             infoParameters.Add("cMaritalStatus", this.MaritalStatus);
             infoParameters.Add("cAgeRange", this.AgeRange);
@@ -206,6 +212,7 @@ namespace NewcomersNetworkAPI.Models
             infoParameters.Add("cFirstName", this.FirstName);
             infoParameters.Add("cLastName", this.LastName);
             infoParameters.Add("cEmail", this.Email);
+            infoParameters.Add("cTitle", this.Title);
             infoParameters.Add("cGender", this.Gender);
             infoParameters.Add("cMaritalStatus", this.MaritalStatus);
             infoParameters.Add("cAgeRange", this.AgeRange);
@@ -214,19 +221,53 @@ namespace NewcomersNetworkAPI.Models
             infoParameters.Add("cPostalCode", this.PostalCode);
             infoParameters.Add("bConsentToContact", this.ConsentToContact);
             infoParameters.Add("dModify", dDateNow);
-            infoParameters.Add("cStatus", this.Status);
             infoParameters.Add("bIsImmigrant", this.IsImmigrant);
 
-            DataTable oUserData = DBConn.ExecuteCommand("sp_UserDetails_Update", infoParameters).Tables[0];
-
-            if (oUserData.HasErrors)
+            try
             {
-                this.sMsgError.Add(oUserData.GetErrors().ToString());
+                DataTable oUserData = DBConn.ExecuteCommand("sp_UserDetails_Update", infoParameters).Tables[0];
+                if (oUserData.HasErrors)
+                {
+                    this.sMsgError.Add(oUserData.GetErrors().ToString());
+                    return false;
+                }
+
+                return true;
+            }
+            catch (Exception error)
+            {
+                this.sMsgError.Add(error.Message);
                 return false;
             }
 
-            return true;
         }
         
+        public string getFullName()
+        {
+            return this.FirstName + " " + this.LastName;
+        }
+
     }
+
+    public class UserSimple
+    {
+        public string cName { get; set; } = "";
+        public string cTitle { get; set; } = "";
+
+        public UserSimple()
+        {
+        }
+
+        public UserSimple(string cUserId)
+        {
+            UserDetails oDetails = new UserDetails(cUserId);
+            if (oDetails.isValid)
+            {
+                this.cName = oDetails.getFullName();
+                this.cTitle = oDetails.Title;
+            }
+        }
+    }
+
+
 }

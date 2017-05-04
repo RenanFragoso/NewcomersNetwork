@@ -3,28 +3,45 @@
     ViewBag.Title = "Classifieds";
 }
 
-<!-- Page Title ============================================= -->
-<section id="page-title" style="background-color: #b6d554; color: #333 !important">
+@section CSSSection {
+    <link rel="stylesheet" href="~/Content/NNAdmin/css/jquery-confirm.css" />    
+}
 
-    <div class="container clearfix">
-        <h1 style="color: inherit !important">Classifieds</h1>
-        Newcomers Network Classifieds
-        <ol class="breadcrumb" style="color: inherit !important">
-            <li><a href="/">Newcomers Network</a></li>
-            <li>Classifieds</li>
-        </ol>
+<section id="content">
+    <img src="~/Content/Images/slider/Classifieds_JustShare.jpg" />
+    
+    <div style="background-color: #ba0f6b; color: #fff; min-height: 150px;" class="col-lg-12">
+
+        <div class="row">
+            <div class="col-lg-12" style="margin-top: 20px; margin-bottom: 20px;  text-align: center">
+                <span style="display: block; margin-top: 20px; font-size: 2em; font-weight: bold;">Welcome to JustShare. Please, let us know what are you looking for</span>
+            </div>
+        </div>
+
     </div>
-
-</section><!-- #page-title end -->
+</section>
 
 <!-- Content ============================================= -->
-<section id="content">
+<section id="content" style="background-color: #efefef">
 
     <div class="content-wrap">
 
         <div class="container fluid clearfix">
 
+            <div class="row">
+                
+                <div class="btn col-lg-3 col-lg-offset-3 btnSupport nn-style-btn-2" style="background-color: #fec33e; margin-right: 20px; margin-bottom: 20px; padding: 20px" onclick="selectNeedSupport()">
+                    <span style="font-size: 2em; font-weight: bold"> I Need Support</span>
+                </div>
+                
+                <div class="btn col-lg-3 btnSupport nn-style-btn-2" style="background-color: #b6d554; padding: 20px" onclick="selectSupport()">
+                    <span style="font-size: 2em; font-weight: bold"> I Want To Support</span>
+                </div>
+            
+            </div>
+
             <!-- Sidebar ============================================= -->
+            <!--
             <div class="sidebar nobottommargin">
                 <div class="sidebar-widgets-wrap">
                     <form name="ClsFilters" id="ClsFilters">
@@ -34,7 +51,7 @@
                             <li>
                                 <select name="Type" style="width: 100%">
                                     <option value=""></option>
-                                    <option value="H">Help</option>
+                                    <option value="S">Support</option>
                                     <option value="N">Needs</option>
                                 </select>
                             </li>
@@ -69,86 +86,228 @@
                     </div>
 
                 </div>
-            </div><!-- .sidebar end -->
-            
-            <!-- Post Content ============================================= -->
-            <div class="postcontent nobottommargin col_last">
+            </div>
+            -->
+            <!-- .sidebar end -->
 
-                <!-- Shop ============================================= -->
+            <!-- Classifieds ============================================= -->
+            <div id="ClsWrapper" class="col-lg-12 hidden" style="margin: 20px 0 20px 0">
                 <div id="Classifieds" class="shop product-1 clearfix">
-                   
-                </div><!-- #shop end -->
-            </div><!-- .postcontent end -->
+                </div>
+                <br />
+                <br />
+                <a onclick="addNeed()"><div class="btn tpc-red nn-style-btn-2 hidden btnAddNeed" style="color: #fff; font-size: 1.5em; font-weight: bold; padding: 20px">Add Your Need</div></a>
+                <a onclick="addSupport()"><div class="btn tpc-blue nn-style-btn-2 hidden btnAddSupport" style="color: #fff; font-size: 1.5em; font-weight: bold; padding: 20px">Add Your Support</div></a>
 
+</div>
+            <!-- End Classifieds ======================================== -->
         </div>
 
     </div>
 
 </section><!-- #content end -->
 
+<div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-body">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="loginModalLabel">Login/Sign-In to continue</h4>
+                </div>
+                <div class="modal-body">
+
+                    <div class="row">
+                        <span style="text-align: center; font-size: 2em; font-weight: bold; margin-left: 40px">To use this Newcomers Network service, please: </span>
+                    </div>
+                    <div class="row">
+                        <div style="margin: 40px">
+                            <a href="/UserProfile/Login"><div class="btn tpc-red nn-style-btn-2 btnAddSupport" style="color: #fff; font-size: 1.5em; font-weight: bold; padding: 20px">Login</div></a>
+                            <span style="display: inline-block; margin: 20px; 0 20px 0; font-size: 2em; font-weight: bold"> OR </span>
+                            <a href="/UserProfile/SignIn"><div class="btn tpc-blue nn-style-btn-2 btnAddSupport" style="color: #fff; font-size: 1.5em; font-weight: bold; padding: 20px">Sign-In</div></a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 @section JSSection {
+    
     <script src="~/Content/NNAdmin/js/moment.js"></script>
+    <script src="~/Content/NNAdmin/js/jquery-confirm.js"></script>
     <script src="~/Content/js/NNClassifiedRender.js"></script>
-}
+    <script type="text/javascript">
 
-<script type="text/javascript">
-    @section DocReadySection {
-        $("#Classifieds").NNClassifiedRender({
-            cEndPointURL: '/Classifieds/GetClassifieds',
-            cRequestType: 'POST',
-            cData: 'odata',
-            cTemplate: function (aData) {
-                //var dCreatedDate = moment(parseInt(aData.dCreatedDate.substr(6)));
-                var cRet = "";
-                cRet += '<div class="product clearfix">';
-                cRet += '   <div class="classified-image" style="display: inline-block">';
-                cRet += '       <a href="#"><img src="' + aData.Image + '" alt="" class="thumbnail responsive" style="width: 100px; height: 100px" ></a>';
-                cRet += '   </div>';
-                cRet += '   <div class="product-desc" style="display: inline-block">';
-                cRet += '       <div class="product-title"><h3><a href="#">' + aData.Title + '</a></h3></div>';
-                cRet += '       <p>' + aData.Text + '</p>';
-                cRet += '   </div>';
-                cRet += '</div>';
-                return cRet;
-            },
-            fAfterRender: function (oElement, aData) {
-                console.log(oElement);
-                var cPagination = "";
-                cPagination += '<ul class="pagination">';
-                cPagination += '    <li><a href="#">«</a></li>';
-                cPagination += '    <li><a href="#">1</a></li>';
-                cPagination += '    <li><a href="#">2</a></li>';
-                cPagination += '    <li><a href="#">3</a></li>';
-                cPagination += '    <li><a href="#">4</a></li>';
-                cPagination += '    <li><a href="#">5</a></li>';
-                cPagination += '    <li><a href="#">»</a></li>';
-                cPagination += '</ul>';
-                oElement.append(cPagination);
-            }
-        });
-    }
-
-    function ApplyFilter() {
         var oFilter = {
             cType: "",
             aCategory: [],
             cWord: ""
         };
-        var aForm = $("#ClsFilters").serializeArray();
-        for (var nI = 0; nI < aForm.length; nI++) {
-            switch (aForm[nI].name) {
-                case "Type":
-                    oFilter.cType = aForm[nI].value;
-                    break;
-                case "Word":
-                    oFilter.cWord = aForm[nI].value;
-                    break;
-                case "Category":
-                    oFilter.aCategory.push( aForm[nI].value );
-                    break;
+
+        var oUserLogged;
+
+        function selectSupport() {
+            //Sets the filter to Needs Classifieds
+            oFilter.cType = "N";
+            $("#Classifieds").nnClassifiedRender().ApplyFilter(oFilter).getPage(1);
+
+            //Hide/Show buttons
+            $(".btnSupport").addClass("hidden");
+            $(".btnAddSupport").removeClass("hidden");
+
+            //Show the Classifieds
+            $("#ClsWrapper").removeClass("hidden");
+
+        }
+
+        function selectNeedSupport() {
+            //Sets the filter to Needs Classifieds
+            oFilter.cType = "S";
+            $("#Classifieds").nnClassifiedRender().ApplyFilter(oFilter).getPage(1);
+
+            //Hide/Show buttons
+            $(".btnSupport").addClass("hidden");
+            $(".btnAddNeed").removeClass("hidden");
+
+            //Show the Classifieds
+            $("#ClsWrapper").removeClass("hidden");
+
+        }
+
+        function getPage(nPage) {
+            if (nPage > 0) {
+                $("#Classifieds").nnClassifiedRender().getPage(nPage);
             }
         }
-        $("#Classifieds").nnClassifiedRender().ApplyFilter(oFilter).getPage(1);
-    }
+
+        function selNeed() {
+            if (!oUserLogged) {
+                //Show Login Modal
+                showLoginModal();
+            }
+        }
+
+        function selSupport() {
+            if (!oUserLogged) {
+                //Show Login Modal
+                showLoginModal();
+            }
+        }
+
+        function addNeed() {
+            if (!oUserLogged) {
+                //Show Login Modal
+                showLoginModal();
+            }
+        }
+
+        function addSupport() {
+            if (!oUserLogged) {
+                //Show Login Modal
+                showLoginModal();
+            }
+        }
+
+        function showLoginModal() {
+            $("#loginModal").modal();
+            /*
+            $.confirm({
+                title: "Login/Register To Continue",
+                useBootstrap: true,
+                columnClass: 'xl',
+                //boxWidth: '60%',
+                content: () => {
+                    var cContent = "";
+                    cContent += '   <div>To use this service, please: </div>';
+                    cContent += '   <div>';
+                    cContent += '       <a href="/UserProfile/Login"><div class="btn tpc-red nn-style-btn-2 btnAddSupport" style="color: #fff; font-size: 1.5em; font-weight: bold; padding: 20px">Login</div></a>';
+                    cContent += '       <a href="/UserProfile/SignIn"><div class="btn tpc-blue nn-style-btn-2 btnAddSupport" style="color: #fff; font-size: 1.5em; font-weight: bold; padding: 20px">Sign In</div></a>';
+                    cContent += '   </div>';
+                    return cContent;
+                },
+                backgroundDismiss: true,
+                buttons: {
+                    cancel: {
+                        btnClass: 'btn-danger',
+                        keys: ['esc'],
+                        action: function () { }
+                    }
+                }
+            });
+            */
+        }
+
+    </script>
+
+
+}
+
+<script type="text/javascript">
     
+    @section DocReadySection {
+
+        //oUserLogged = {};
+
+        $("#Classifieds").NNClassifiedRender({
+            cEndPointURL: '/Classifieds/GetClassifieds',
+            cRequestType: 'POST',
+            cData: 'odata',
+            cTemplate: function (aData) {
+
+                var dCreatedDate = moment(parseInt(aData.CreateDate.substr(6)));
+                var cRet = "";
+                cRet += '   <div style="background-color: #fff; padding: 15px; border: 1px solid #dedede;">';
+                cRet += '       <a href="/Classifieds/Details/' + btoa(aData.Id) + '">';
+                cRet += '           <div class="classified-image" style="display: inline-block; float: left; margin-right: 15px">';
+                cRet += '               <img src="' + aData.Image + '" alt="" class="thumbnail responsive nn-avatar" style="width: 100px; height: 100px" >';
+                cRet += '           </div>';
+                cRet += '       </a>';
+                cRet += '       <a href="/Classifieds/Details/' + btoa(aData.Id) + '">';
+                cRet += '           <div class="product-desc" style="display: inline-block" >';
+                cRet += '               <div class="product-title" style="display: inline-block;"><h3>' + aData.Title + '</h3> </div>';
+                cRet += '               <span style="display: block; font-size: 0.9em">' + dCreatedDate.format("MM/DD/YYYY") + '</span>';
+                cRet += '               <p>' + aData.Text + '</p>';
+                cRet += '           </div>';
+                cRet += '       </a>';
+                cRet += '       <div style="position: relative; float: right; text-align: right; display: block">';
+                cRet += '           <span class="label" style="background-color: ' + aData.oCategory.GroupColor + '">' + aData.oCategory.GroupName + '</span>';
+                if (aData.Type == "S") {
+                    cRet += '           <span class="label tpc-blue">Support</span><br />';
+                }
+                else {
+                    cRet += '           <span class="label tpc-red">Need</span><br />';
+                }
+                if (aData.Type == "S") {
+                    cRet += '           <div class="btn tpc-gold nn-style-btn" style="font-size: 1.2em; color: #000; font-weight: bold; margin-top: 50px" onclick="selSupport(' + "'" + btoa(aData.Id) + "'" + ')">I Need This Help</div>';
+                } else {
+                    cRet += '           <div class="btn tpc-lime nn-style-btn" style="font-size: 1.2em; color: #000; font-weight: bold; margin-top: 50px" onclick="selNeed(' + "'" + btoa(aData.Id) + "'" + ')">I Can Help</div>';
+                }
+                cRet += '       </div>';
+                cRet += '   </div>';
+                cRet += '</a>';
+                return cRet;
+            },
+            fAfterRender: function (oElement, aData) {
+                console.log(oElement);
+                var cPagination = "";
+                cPagination += '<div style="float: right" >';
+                cPagination += '    <ul class="pagination">';
+                cPagination += '        <li><a href="#">«</a></li>';
+                cPagination += '        <li><a href="#">1</a></li>';
+                cPagination += '        <li><a href="#">2</a></li>';
+                cPagination += '        <li><a href="#">3</a></li>';
+                cPagination += '        <li><a href="#">4</a></li>';
+                cPagination += '        <li><a href="#">5</a></li>';
+                cPagination += '        <li><a href="#">»</a></li>';
+                cPagination += '    </ul>';
+                cPagination += '</div>';
+                oElement.append(cPagination);
+            }
+        });
+
+    }
+
 </script>

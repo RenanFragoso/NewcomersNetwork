@@ -11,12 +11,14 @@ using NewcomersNetworkIFACE.Client;
 using NewcomersNetworkAPI.Models;
 using NewcomersNetworkIFACE.Util;
 using System.Configuration;
+using System.Net.Http;
+using System.IO;
 
 namespace NewcomersNetworkIFACE.Controllers
 {
     public class UserProfileController : NNAPIController
     {
-        protected UserAPI oUserAPI = new UserAPI();
+        public UserAPI oUserAPI = new UserAPI();
 
         #region VIEWS
 
@@ -36,7 +38,7 @@ namespace NewcomersNetworkIFACE.Controllers
 
         public ActionResult SignIn()
         {
-            return View();
+            return View(this.oUserAPI);
         }
 
         public ActionResult LogOut()
@@ -79,16 +81,50 @@ namespace NewcomersNetworkIFACE.Controllers
             
             if(oSessionUsr != null)
             {
-                //Get user data
                 this.oUserAPI.setToken(Session["UserToken"].ToString());
+
+                //Get the "user" group Select Lists
+                oUserAPI.loadListsGroup("user");
+                
+                //Get user data
                 if (this.oUserAPI.getUserData(oSessionUsr))
                 {
-                    return View(this.oUserAPI.getDetails());
+                    string NNAF_Token = "";
+                    string NNAF_CookieToken = "";
+                    AntiForgery.GetTokens(null, out NNAF_CookieToken, out NNAF_Token);
+                    ViewBag.NNAF_Token = NNAF_Token;
+                    Response.Cookies[AntiForgeryConfig.CookieName].Value = NNAF_CookieToken;
+                    return View(this.oUserAPI);
                 }
             }
             return RedirectToAction("Index", "Home");
         }
+        
+        [NNLoginPersistence]
+        [NNAuthorize]
+        public ActionResult Passwd()
+        {
+            SessionUser oSessionUsr;
+            base.VerifyCredential();
 
+            oSessionUsr = (SessionUser)Session["SessionUser"];
+
+            if (oSessionUsr != null)
+            {
+                this.oUserAPI.setToken(Session["UserToken"].ToString());
+
+                //Get the "user" group Select Lists
+                oUserAPI.loadListsGroup("user");
+
+                //Get user data
+                if (this.oUserAPI.getUserData(oSessionUsr))
+                {
+                    return View(this.oUserAPI);
+                }
+            }
+            return RedirectToAction("Index", "Home");
+        }
+        
         #endregion
 
         #region METHODS
@@ -175,11 +211,103 @@ namespace NewcomersNetworkIFACE.Controllers
         }
 
         [HttpPost]
-        [ValidateJsonAntiForgeryToken]
+        [NNLoginPersistence]
         [NNAuthorize]
-        public ActionResult EditProfile(UserDetails oDetail)
+        [ValidateJsonAntiForgeryToken]
+        public async Task<ActionResult> UpdateUserDetail(UserDetail oUserData)
         {
-            return RedirectToAction("Index", "UserProfile");
+            HttpResponseMessage oResponse;
+            this.oUserAPI.setToken(Session["UserToken"].ToString());
+
+            if (ModelState.IsValid)
+            {
+
+                oResponse = this.oUserAPI.UpdateUserDetails(oUserData);
+
+                if (oResponse.IsSuccessStatusCode)
+                {
+                    TempData["StatusMessage"] = new
+                    {
+                        success = true,
+                        statuscode = 200,
+                        response = new { Message = "Details updated succefully." },
+                        odata = ""
+                    };
+                    return Json(new
+                    {
+                        success = true,
+                        statuscode = 200,
+                        response = new { Message = "Details updated succefully." },
+                        odata = new { }
+                    }, JsonRequestBehavior.AllowGet);
+
+                }
+
+                return Json(new
+                {
+                    success = oResponse.IsSuccessStatusCode,
+                    statuscode = oResponse.StatusCode,
+                    response = oResponse,
+                    odata = new { }
+                }, JsonRequestBehavior.AllowGet);
+
+            }
+
+            return Json(new
+            {
+                success = false,
+                statuscode = 401,
+                response = new { Message = "Bad Request." },
+                odata = new { }
+            }, JsonRequestBehavior.AllowGet);
+
+        }
+
+        [HttpPost]
+        [NNLoginPersistence]
+        [NNAuthorize]
+        //[ValidateJsonAntiForgeryToken]
+        public async Task<ActionResult> UpdateProfileImage(HttpPostedFileBase oImage, FormCollection oParams)
+        {
+
+            HttpResponseMessage oResponse;
+            ImageFile oImageFile = new ImageFile();
+
+            oImageFile.cContainer = oParams.GetValue("cContainer").AttemptedValue;
+            oImageFile.cFileName = oParams.GetValue("cFileName").AttemptedValue; 
+            oImageFile.cContentType = oParams.GetValue("cContentType").AttemptedValue;
+
+            if (oImage != null)
+            {
+                byte[] oRead = new byte[oImage.ContentLength];
+                int nRead = await oImage.InputStream.ReadAsync(oRead, 0, Request.Files[0].ContentLength);
+                oImageFile.setFileData(oRead);
+            }
+
+            /*
+            oImageFile.cContainer = Request.Form.GetValues("cContainer").GetValue(0).ToString();
+            oImageFile.cFileName = Request.Form.GetValues("cFileName").GetValue(0).ToString();
+            oImageFile.cContentType = Request.Form.GetValues("cContentType").GetValue(0).ToString();
+
+            if(Request.Files.Count > 0)
+            {
+                byte[] oRead = new byte[Request.Files[0].ContentLength];
+                int nRead = await Request.InputStream.ReadAsync(oRead, 0, Request.Files[0].ContentLength);
+                oImageFile.setFileData(oRead);
+            }
+            */
+
+            //oResponse = oNNAPIClient.Put<ImageFile>("/Image", oImageFile);
+            oResponse = await oNNAPIClient.PutImage(oImageFile);
+
+            return Json(new
+            {
+                success = oResponse.IsSuccessStatusCode,
+                statuscode = oResponse.StatusCode,
+                response = oResponse,
+                odata = new { }
+            }, JsonRequestBehavior.AllowGet);
+
         }
 
         #endregion

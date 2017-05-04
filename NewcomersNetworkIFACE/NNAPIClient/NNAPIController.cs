@@ -16,14 +16,6 @@ namespace NewcomersNetworkIFACE.Client
             this.oNNAPIClient.setToken(cToken);
         }
 
-        public virtual void loadLists(OptionsLists oOptionLists)
-        {
-            foreach(OptionList oList in oOptionLists.oOptions)
-            {
-                ViewBag.Add(oList.cListName + "_List", oList);
-            }
-        }
-
         protected virtual void VerifyCredential()
         {
             ViewBag.SessionUser = Session["SessionUser"];

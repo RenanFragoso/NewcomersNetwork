@@ -10,7 +10,7 @@ namespace NewcomersNetworkAPI.Controllers
     {
         public ActionResult Index()
         {
-            ViewBag.Title = "Home Page";
+            ViewBag.Title = "Newcomers Network API";
 
             return View();
         }

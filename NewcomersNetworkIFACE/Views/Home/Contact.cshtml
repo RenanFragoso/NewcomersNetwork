@@ -1,17 +1,205 @@
 ﻿@{
     ViewBag.Title = "Contact";
 }
-<h2>@ViewBag.Title.</h2>
-<h3>@ViewBag.Message</h3>
 
-<address>
-    One Microsoft Way<br />
-    Redmond, WA 98052-6399<br />
-    <abbr title="Phone">P:</abbr>
-    425.555.0100
-</address>
+<!-- Page Title
+============================================= -->
+<section id="page-title" style="background-color: #b6d554; color: #000 !important">
 
-<address>
-    <strong>Support:</strong>   <a href="mailto:Support@example.com">Support@example.com</a><br />
-    <strong>Marketing:</strong> <a href="mailto:Marketing@example.com">Marketing@example.com</a>
-</address>
+    <div class="container clearfix">
+        <h1>Contact</h1>
+        <span color: #000 !important">Get in Touch with Us</span>
+        <ol class="breadcrumb">
+            <li><a href="#">Home</a></li>
+            <li>Contact</li>
+        </ol>
+    </div>
+
+</section><!-- #page-title end -->
+<!-- Google Map
+============================================= -->
+<section id="google-map" class="gmap"></section>
+
+<!-- Content
+============================================= -->
+<section id="content">
+
+    <div class="content-wrap">
+
+        <div class="container clearfix">
+
+            <!-- Postcontent
+            ============================================= -->
+            <div class="postcontent nobottommargin">
+
+                <h3>Send us an Email</h3>
+
+                <div class="contact-widget">
+
+                    <div class="contact-form-result"></div>
+
+                    <form class="nobottommargin" id="template-contactform" name="template-contactform" action="include/sendemail-alt-message.php" method="post">
+
+                        <div class="form-process"></div>
+
+                        <div class="col_one_third">
+                            <label for="template-contactform-name">Name <small>*</small></label>
+                            <input type="text" id="template-contactform-name" name="template-contactform-name" value="" class="sm-form-control required" />
+                        </div>
+
+                        <div class="col_one_third">
+                            <label for="template-contactform-email">Email <small>*</small></label>
+                            <input type="email" id="template-contactform-email" name="template-contactform-email" value="" class="required email sm-form-control" />
+                        </div>
+
+                        <div class="col_one_third col_last">
+                            <label for="template-contactform-phone">Phone</label>
+                            <input type="text" id="template-contactform-phone" name="template-contactform-phone" value="" class="sm-form-control" />
+                        </div>
+
+                        <div class="clear"></div>
+
+                        <div class="col_full">
+                            <label for="template-contactform-subject">Subject <small>*</small></label>
+                            <input type="text" id="template-contactform-subject" name="template-contactform-subject" value="" class="required sm-form-control" />
+                        </div>
+
+                        <div class="clear"></div>
+
+                        <div class="col_full">
+                            <label for="template-contactform-message">Message <small>*</small></label>
+                            <textarea class="required sm-form-control" id="template-contactform-message" name="template-contactform-message" rows="6" cols="30"></textarea>
+                        </div>
+
+                        <div class="col_full hidden">
+                            <input type="text" id="template-contactform-botcheck" name="template-contactform-botcheck" value="" class="sm-form-control" />
+                        </div>
+
+                        <div class="col_full">
+                            <div class="g-recaptcha" data-sitekey=@Html.Raw("\"")@((string)System.Configuration.ConfigurationManager.AppSettings["reCAPTCHASiteKey"])@Html.Raw("\"")></div>
+                        </div>
+
+                        <div class="col_full">
+                            <button class="button button-3d nomargin" type="submit" id="template-contactform-submit" name="template-contactform-submit" value="submit">Send Message</button>
+                        </div>
+
+                    </form>
+
+                </div>
+
+            </div><!-- .postcontent end -->
+            <!-- Sidebar
+            ============================================= -->
+            <div class="sidebar col_last nobottommargin">
+
+                <address>
+                    <span style="color: #ba0f6b;font-weight: bold">The Peoples Church</span><br>
+                    374 Sheppard Avenue East<br>
+                    Toronto, Ontario M2N 3B6<br>
+                </address>
+                
+                <abbr title="Phone Number"><strong>Phone:</strong></abbr> (416) 222 3341<br />
+                <abbr title="Fax Number"><strong>Fax:</strong></abbr> (416) 222 3344<br />
+                <br />
+                
+                <address>
+                    <span style="color: #ba0f6b;font-weight: bold">Mailing Address</span><br />
+                    The Peoples Church<br />
+                    374 Sheppard Avenue East<br />
+                    Toronto, Ontario<br />
+                    Canada M2N 3B6<br />
+                </address>
+
+                <address>
+                    <span style="color: #ba0f6b;font-weight: bold">Welcome Centre Hours</span><br />
+                    Monday, Tuesday & Thursday: 8:00 AM – 7:30 PM<br />
+                    Wednesday & Friday: 8:00 AM – 9:30 PM<br />
+                    Saturday: 8:30 AM – 2:00 PM<br />
+                    Sunday (Connection Centre): 9:00 AM – 4:00 PM<br />
+                </address>
+
+                <address>
+                    <span style="color: #ba0f6b;font-weight: bold">Business Office Hours</span><br />
+                    Monday – Friday: 8:30AM – 4:30PM<br />
+                    Saturday: Closed<br />
+                    Sunday: Closed<br />
+                </address>
+                <!--
+                <div class="widget noborder notoppadding">
+
+                    <div class="fslider customjs testimonial twitter-scroll twitter-feed" data-username="envato" data-count="3" data-animation="slide" data-arrows="false">
+                        <i class="i-plain i-small color icon-twitter nobottommargin" style="margin-right: 15px;"></i>
+                        <div class="flexslider" style="width: auto;">
+                            <div class="slider-wrap">
+                                <div class="slide"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                -->
+                <div class="widget noborder notoppadding">
+
+                    <a href="https://www.facebook.com/NewcomersNetworkTPC/" target="_blank" class="social-icon si-small si-dark si-facebook">
+                        <i class="icon-facebook"></i>
+                        <i class="icon-facebook"></i>
+                    </a>
+
+                    <a href="https://twitter.com/NewcomersTO" target="_blank" class="social-icon si-small si-dark si-twitter">
+                        <i class="icon-twitter"></i>
+                        <i class="icon-twitter"></i>
+                    </a>
+
+                    <a href="https://vimeo.com/thepeopleschurchtoronto" target="_blank" class="social-icon si-small si-dark si-vimeo">
+                        <i class="icon-vimeo"></i>
+                        <i class="icon-vimeo"></i>
+                    </a>
+
+                </div>
+
+            </div><!-- .sidebar end -->
+
+        </div>
+
+    </div>
+
+</section><!-- #content end -->
+
+@section JSSection {
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <script type="text/javascript" src="https://maps.google.com/maps/api/js?key=AIzaSyAVLKAGG5m2bxDbDFnYFUomfkbPOIjXA-E"></script>
+    <script type="text/javascript" src="~/Content/js/jquery.gmap.js"></script>
+    <script type="text/javascript">
+
+        $('#google-map').gMap({
+                address: '374 Sheppard Avenue East, Toronto, Canada',
+			    maptype: 'ROADMAP',
+			    zoom: 14,
+			    markers: [
+				    {
+				        address: "374 Sheppard Avenue East, Toronto, Canada",
+					    html: '',
+					    icon: {
+						    image: "/Content/images/icons/map-icon-red.png",
+						    iconsize: [32, 39],
+						    iconanchor: [13,39]
+					    }
+				    }
+			    ],
+			    doubleclickzoom: false,
+			    controls: {
+				    panControl: true,
+				    zoomControl: true,
+				    mapTypeControl: true,
+				    scaleControl: false,
+				    streetViewControl: false,
+				    overviewMapControl: false
+			    }
+
+        });
+    </script>
+}
+
+@section DocReadySection {
+
+}

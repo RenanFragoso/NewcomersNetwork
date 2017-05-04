@@ -1,25 +1,253 @@
-﻿@model NewcomersNetworkAPI.Models.UserDetails
+﻿@model NewcomersNetworkIFACE.Models.UserAPI
 @{ 
     Layout = "~/Views/Shared/_Layout.cshtml";
     ViewBag.Title = "Edit Profile";
 }
 
-<form>
-    
-    @Html.ValidationSummary(true)
-    @Html.AntiForgeryToken()
-    @Html.HiddenFor(model => model.Id)
+@section CSSSection {
+    <link rel="stylesheet" href="~/Content/css/components/radio-checkbox.css" />
+}
 
-    @Html.LabelFor(model => model.FirstName, new { @class = "control-label" })
-    @Html.TextBoxFor(model => model.FirstName, new { @class = "span11", placeholder = "First Name" })
+<!-- Page Title
+============================================= -->
+<section id="page-title" style="background-color: #ba0f6b; color: #fff !important">
 
-    @Html.LabelFor(model => model.LastName, new { @class = "control-label" })
-    @Html.TextBoxFor(model => model.LastName, new { @class = "span11", placeholder = "Last Name" })
-    
-    @Html.LabelFor(model => model.Email, new { @class = "control-label" })                      
-    @Html.TextBoxFor(model => model.Email, new { @class = "span11", placeholder = "E-Mail" })
+    <div class="container clearfix">
+        <h1 style="color: #fff !important">User Details</h1>
+        <span style="color: #fff !important">Update Details</span>
+        <ol class="breadcrumb">
+            <li><a href="/UserProfile">UserProfile</a></li>
+            <li>Edit</li>
+        </ol>
+    </div>
 
-    @Html.LabelFor(model => model.Gender, new { @class = "control-label" })                      
-    @Html.DropDownListFor(model => model.Gender, (IEnumerable<SelectListItem>)ViewBag.Gender_List, "Select", htmlAttributes: new { @class = "span11" })
+</section><!-- #page-title end -->
 
-</form>
+<div class="container">
+
+    <div class="row">
+
+            <div class="col-lg-2 col-sm-12">
+
+                <form name="usrImgUpdate" id="usrImgUpdate" action="/UserProfile/UpdateProfileImage" method="post" enctype="multipart/form-data">
+
+                <div class="col_full img-usr-edt">
+                    <!-- <img src="@(ViewBag.SessionUser.Picture)" class="alignleft img-usrprofile img-thumbnail notopmargin nobottommargin" alt="Avatar" style="max-width: 84px;"> -->
+                    <div class="alignleft img-usrprofile img-thumbnail notopmargin nobottommargin avatar-edt" style="max-width: 84px;max-height: 84px" onclick="changeAvatar()">
+                        <canvas id="avatar" alt="Avatar" style="border-bottom-right-radius: 20px;border-top-left-radius: 20px; min-width: 75px; min-height: 75px; max-height: 75px; max-width: 75px;"></canvas>
+                    </div>
+                    <div class="avatar-change" onclick="changeAvatar()">Change</div>
+                    <input type="file" id="avatarFile" class="hidden" />
+                </div>
+
+                </form>
+
+            </div>
+
+            <form name="usrDetUpdate" id="usrDetUpdate">
+
+            <div class="col-lg-6 col-sm-12">
+                                
+                <div class="col_full">
+                    @Html.HiddenFor(model => model.oUserDetails.oDetails.Id)
+                </div>
+                <div class="col_full">
+                    @Html.LabelFor(model => model.oUserDetails.oDetails.FirstName)
+                    @Html.TextBoxFor(model => model.oUserDetails.oDetails.FirstName, new { @class = "sm-form-control", placeholder = "First Name" })
+                </div>
+                <div class="col_full">
+                    @Html.LabelFor(model => model.oUserDetails.oDetails.LastName)
+                    @Html.TextBoxFor(model => model.oUserDetails.oDetails.LastName, new { @class = "sm-form-control", placeholder = "Last Name" })
+                </div>
+                <div class="col_full">
+                    @Html.LabelFor(model => model.oUserDetails.oDetails.Email)
+                    @Html.TextBoxFor(model => model.oUserDetails.oDetails.Email, new { @class = "sm-form-control", placeholder = "E-Mail" })
+                </div>
+                <div class="col_full">
+                    @Html.LabelFor(model => model.oUserDetails.oDetails.Gender)
+                    @Html.DropDownListFor(model => model.oUserDetails.oDetails.Gender, (IEnumerable<SelectListItem>)Model.getSelectList("gender"), "Select", htmlAttributes: new { @class = "sm-form-control" })
+                </div>
+                <div class="col_full">
+                    @Html.LabelFor(model => model.oUserDetails.oDetails.MaritalStatus)
+                    @Html.DropDownListFor(model => model.oUserDetails.oDetails.MaritalStatus, (IEnumerable<SelectListItem>)Model.getSelectList("maritalstatus"), "Select", htmlAttributes: new { @class = "sm-form-control" })
+                </div>
+                <div class="col_full">
+                    @Html.LabelFor(model => model.oUserDetails.oDetails.AgeRange)
+                    @Html.DropDownListFor(model => model.oUserDetails.oDetails.AgeRange, (IEnumerable<SelectListItem>)Model.getSelectList("agerange"), "Select", htmlAttributes: new { @class = "sm-form-control" })
+                </div>
+                <div class="col_full">
+                    @Html.LabelFor(model => model.oUserDetails.oDetails.Education)
+                    @Html.DropDownListFor(model => model.oUserDetails.oDetails.Education, (IEnumerable<SelectListItem>)Model.getSelectList("education"), "Select", htmlAttributes: new { @class = "sm-form-control" })
+                </div>
+                <div class="col_full">
+                    @Html.LabelFor(model => model.oUserDetails.oDetails.NearestIntersection)
+                    @Html.TextBoxFor(model => model.oUserDetails.oDetails.NearestIntersection, new { @class = "sm-form-control", placeholder = "Nearest Intersection" })
+                </div>
+                <div class="col_full">
+                    @Html.LabelFor(model => model.oUserDetails.oDetails.PostalCode)
+                    @Html.TextBoxFor(model => model.oUserDetails.oDetails.PostalCode, new { @class = "sm-form-control", placeholder = "Postal Code" })
+                </div>
+                <div class="col_full">
+                    @*
+                    @Html.CheckBoxFor(model => model.oUserDetails.oDetails.ConsentToContact, new { @class = "checkbox-style" })
+                    @Html.LabelFor(model => model.oUserDetails.oDetails.ConsentToContact, new { @class = "checkbox-style-3-label" })
+                    *@
+                    <span id="oUserDetails_oDetails_ConsentToContact" name="oUserDetails.oDetails.ConsentToContact" class="btn-sm tpc-red nncheck" data-checked=@(Model.oUserDetails.oDetails.ConsentToContact) style="color: #fff;"><i class="icon icon-ok"></i></span>
+                    @Html.LabelFor(model => model.oUserDetails.oDetails.ConsentToContact)
+                </div>
+                <div class="col_full">
+                    @*
+                    @Html.CheckBoxFor(model => model.oUserDetails.oDetails.IsImmigrant, new { @class = "checkbox-style" })
+                    @Html.LabelFor(model => model.oUserDetails.oDetails.IsImmigrant, new { @class = "checkbox-style-3-label" })
+                    <label for="checkbox-10" class="checkbox-style-3-label">Test</label>
+                    <input id="oUserDetails_oDetails_IsImmigrant" name="oUserDetails.oDetails.IsImmigrant" type="checkbox" @((Model.oUserDetails.oDetails.IsImmigrant) ? "checked" : "")>
+                    *@
+                    <span id="oUserDetails_oDetails_IsImmigrant" name="oUserDetails.oDetails.IsImmigrant" class="btn-sm tpc-red nncheck" data-checked=@(Model.oUserDetails.oDetails.IsImmigrant) style="color: #fff"><i class="icon icon-ok"></i></span>
+                    @Html.LabelFor(model => model.oUserDetails.oDetails.IsImmigrant)
+                </div>
+
+                <div class="col_full">
+                    <input type="submit" class="btn tpc-blue nn-style-btn" style="color: #fff;font-size: 1.2em" value="Update Profile"/>
+                </div>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+@section JSSection {
+    <script src="~/Content/js/NNSendAjax.js"></script>
+    <script src="~/Content/js/NNHelpers.js"></script>
+    <script src="~/Content/js/components/bs-switches.js"></script>
+    <script type="text/javascript">
+
+        var cAntiForgeryToken = "@(ViewBag.NNAF_Token)";
+        var avatarImage = new window.Image();
+        var oAvatarFile = $("#avatarFile")[0];
+        var oAvatarImageFile = new FileReader();
+        var oAvatarImageSend = new FileReader();
+
+        var oDetailModel = @Html.Raw(Json.Encode(Model.oEmptyDetail));
+
+        oAvatarImageFile.onload = (e) => {
+            avatarImage.src = e.target.result;
+        }
+
+        function drawAvatar(oImg) {
+            var oCanvas = $("#avatar")[0];
+            var oContext = oCanvas.getContext('2d');
+            oContext.clearRect(0, 0, oCanvas.width, oCanvas.height);
+            oContext.drawImage(oImg, 0, 0, oImg.width, oImg.height, 0, 0, oCanvas.width, oCanvas.height);
+        }
+
+        function changeAvatar() {
+            $("#avatarFile").click();
+        }
+
+        function userDetailsUpdate() {
+            if (oAvatarImageFile.readyState > 0 && oAvatarImageFile.result != undefined) {
+                userImageUpdate();
+            }
+            userDataUpdate();
+        }
+
+        function userImageUpdate() {
+
+            var formData = new FormData();
+            var blobImg = new Blob([oAvatarImageSend.result]);
+            var oFile = oAvatarFile.files[0];
+
+            formData.append('cContainer','users');
+            formData.append('cFileName',"@(Model.oUserDetails.Id)");
+            formData.append('nFileSize', oFile.size);
+            formData.append('cContentType', oFile.type);
+            formData.append('oImage', oFile);
+
+            $.ajax({
+                type: 'POST',
+                url: '/UserProfile/UpdateProfileImage',
+                data: formData,
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function (data) {
+                    console.log(data);
+                }
+            });
+
+        }
+
+        function userDataUpdate() {
+
+            oDetailModel.Id = $("#oUserDetails_oDetails_Id").val();
+            oDetailModel.FirstName = $("#oUserDetails_oDetails_FirstName").val();
+            oDetailModel.LastName = $("#oUserDetails_oDetails_LastName").val();
+            oDetailModel.Email = $("#oUserDetails_oDetails_Email").val();
+            oDetailModel.Gender = $("#oUserDetails_oDetails_Gender").val();
+            oDetailModel.MaritalStatus = $("#oUserDetails_oDetails_MaritalStatus").val();
+            oDetailModel.AgeRange = $("#oUserDetails_oDetails_AgeRange").val();
+            oDetailModel.Education = $("#oUserDetails_oDetails_Education").val();
+            oDetailModel.NearestIntersection = $("#oUserDetails_oDetails_NearestIntersection").val();
+            oDetailModel.PostalCode = $("#oUserDetails_oDetails_PostalCode").val();
+            //oDetailModel.ConsentToContact = $("#oUserDetails_oDetails_ConsentToContact").val();
+            //oDetailModel.IsImmigrant = $("#oUserDetails_oDetails_IsImmigrant").val();
+            oDetailModel.ConsentToContact = $("#oUserDetails_oDetails_ConsentToContact").data("checked");
+            oDetailModel.IsImmigrant = $("#oUserDetails_oDetails_IsImmigrant").data("checked");
+
+            console.log(oDetailModel);
+
+            NN_SendAjax(    "POST",
+                            "/UserProfile/UpdateUserDetail",
+                            oDetailModel,
+                            [],
+                            function (response) {   //Success
+                                if(response.success){
+                                    window.location.href = "/UserProfile";
+                                }
+                                else {
+                                    toastr.error(response.response.Message);
+                                    console.log(response.response.Message);
+                                }
+                            },
+                            function (error) {   //Error
+                                toastr.error(error);
+                            },
+                            true);
+        }
+
+    </script>
+}
+
+<script>
+@section DocReadySection {
+
+    avatarImage.setAttribute("id","avatarImg");
+
+    avatarImage.addEventListener("load", () => {
+        drawAvatar(avatarImage);
+    });
+
+    oAvatarFile.addEventListener("change", () => {
+
+        if(oAvatarFile.files[0]){
+            oAvatarImageFile.readAsDataURL(oAvatarFile.files[0]);
+           // oAvatarImageSend.readAsBinaryString(oAvatarFile.files[0]);
+        }
+
+    });
+
+    $("#usrDetUpdate").on("submit", (event) => {
+        event.preventDefault();
+        userDetailsUpdate();
+        return false;
+    });
+
+    avatarImage.setAttribute("src", "@(ViewBag.SessionUser.Picture)");
+
+    NNcheckboxInit();
+}
+</script>
+

@@ -34,14 +34,11 @@
         init: function () {
             this.resetContents();
             $("#clsspin").hide();
-            this.getPage(1);
         },
         getClassifieds: function () {
 
             var $this = this;
-
             this.resetContents();
-            console.log($this.options.oFilter);
 
             $.ajax({
                 url: $this.options.cEndPointURL,

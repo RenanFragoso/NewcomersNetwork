@@ -1,47 +1,95 @@
-﻿@{
+﻿@model NewcomersNetworkIFACE.Models.UserAPI
+@{
     Layout = "~/Views/Shared/_Layout.cshtml";
-    ViewBag.Title = "Profile";
+    ViewBag.Title = "Sign In";
 }
 
-<section id="content">
-    <div class="content-wrap">
+<div class="container">
 
-        <div class="acc_content clearfix divcenter" style="max-width: 400px; background-color: #fff; padding: 40px; border: 0px">
+    <div class="row">
 
-            <form id="login-form" name="login-form" class="nobottommargin" action="#" method="post">
-                <div><h3><i class="icon-user4" style="margin-right: 15px"></i>Register for an Account</h3></div>
+        <form>
 
-                <div class="col_full">
-                    <label for="register-form-email">Email Address:</label>
-                    <input type="text" id="register-form-email" name="register-form-email" value="" class="form-control" />
-                </div>
+            <div class="col-lg-6 col-sm-12">
+
+                @Html.ValidationSummary(true)
 
                 <div class="col_full">
-                    <label for="register-form-name">First Name:</label>
-                    <input type="text" id="register-form-firstname" name="register-form-firstname" value="" class="form-control" />
-                </div>
-
-
-                <div class="col_full">
-                    <label for="register-form-username">Last Name:</label>
-                    <input type="text" id="register-form-lastname" name="register-form-lastname" value="" class="form-control" />
+                    @Html.AntiForgeryToken()
+                    @Html.HiddenFor(model => model.oUserDetails.oDetails.Id)
                 </div>
 
                 <div class="col_full">
-                    <label for="register-form-password">Choose Password:</label>
-                    <input type="password" id="register-form-password" name="register-form-password" value="" class="form-control" />
+                    @Html.LabelFor(model => model.oUserDetails.UserName)
+                    @Html.TextBoxFor(model => model.oUserDetails.UserName, new { @class = "sm-form-control", placeholder = "Choose an Username" })
                 </div>
 
                 <div class="col_full">
-                    <label for="register-form-repassword">Re-enter Password:</label>
-                    <input type="password" id="register-form-repassword" name="register-form-repassword" value="" class="form-control" />
+                    @Html.LabelFor(model => model.oUserDetails.Password)
+                    @Html.PasswordFor(model => model.oUserDetails.Password, new { @class = "sm-form-control", placeholder = "Choose a Password" })
                 </div>
 
-                <div class="col_full nobottommargin">
-                    <button class="button button-3d button-black nomargin" id="register-form-submit" name="register-form-submit" value="register">Register Now</button>
+                <div class="col_full">
+                    <label>Confirm Password</label>
+                    <input type="password" name="confirmPasswd" class="sm-form-control" placeholder="Confirm Password" />
                 </div>
-            </form>
-        </div>
+
+                <div class="col_full">
+                    @Html.LabelFor(model => model.oUserDetails.oDetails.FirstName)
+                    @Html.TextBoxFor(model => model.oUserDetails.oDetails.FirstName, new { @class = "sm-form-control", placeholder = "First Name" })
+                </div>
+                <div class="col_full">
+                    @Html.LabelFor(model => model.oUserDetails.oDetails.LastName)
+                    @Html.TextBoxFor(model => model.oUserDetails.oDetails.LastName, new { @class = "sm-form-control", placeholder = "Last Name" })
+                </div>
+                <div class="col_full">
+                    @Html.LabelFor(model => model.oUserDetails.oDetails.Email)
+                    @Html.TextBoxFor(model => model.oUserDetails.oDetails.Email, new { @class = "sm-form-control", placeholder = "E-Mail" })
+                </div>
+
+
+                <div class="col_full">
+                    @Html.HiddenFor(model => model.oUserDetails.oDetails.ConsentToContact)
+                    <span class="btn-sm tpc-red nncheck" data-checked="" data-name="oUserDetails.oDetails.ConsentToContact" style="color: #fff;"><i class="icon icon-ok"></i></span>
+                    @Html.LabelFor(model => model.oUserDetails.oDetails.ConsentToContact)
+                </div>
+                <div class="col_full">
+                    @*
+                    @Html.CheckBoxFor(model => model.oUserDetails.oDetails.IsImmigrant, new { @class = "checkbox-style" })
+                    @Html.LabelFor(model => model.oUserDetails.oDetails.IsImmigrant, new { @class = "checkbox-style-3-label" })
+                    *@
+                    @Html.HiddenFor(model => model.oUserDetails.oDetails.IsImmigrant)
+                    <span class="btn-sm tpc-red nncheck" data-checked="" data-name="oUserDetails.oDetails.IsImmigrant" style="color: #fff;"><i class="icon icon-ok"></i></span>
+                    @Html.LabelFor(model => model.oUserDetails.oDetails.IsImmigrant)
+
+                </div>
+
+
+
+                <div class="col_full">
+                    <div class="g-recaptcha" data-sitekey=@Html.Raw("\"")@((string)System.Configuration.ConfigurationManager.AppSettings["reCAPTCHASiteKey"])@Html.Raw("\"")></div>
+                </div>
+                
+
+                <div class="col_full">
+                    <input type="button" class="btn nn-style-btn tpc-blue" style="color: #fff;font-size: 1.2em" value="Register" />
+                </div>
+
+
+            </div>
+
+        </form>
 
     </div>
-</section>
+
+</div>
+
+@section JSSection {
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <script src="~/Content/js/NNHelpers.js"></script>
+}
+<script>
+@section DocReadySection {
+    NNcheckboxInit();
+}
+</script>

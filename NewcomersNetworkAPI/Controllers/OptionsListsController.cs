@@ -33,18 +33,14 @@ namespace NewcomersNetworkAPI.Controllers
             return BadRequest(string.Join(",", oOptions.sMsgError.ToArray()));
         }
         
-        /*
+        
         [Route("Group/{cGroupName}")]
         [HttpGet]
         public IHttpActionResult GetListGroup(string cGroupName)
         {
-            OptionsLists oOptions = new OptionsLists(cGroupName);
-            if (oOptions.isValid)
-            {
-                return Ok(oOptions);
-            }
-            return BadRequest(string.Join(",", oOptions.sMsgError.ToArray()));
+            OptionsLists oOptions = new OptionsLists();
+            oOptions.LoadListGroup(cGroupName);
+            return Ok(oOptions);
         }
-        */
     }
 }

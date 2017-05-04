@@ -176,4 +176,30 @@ namespace NewcomersNetworkAPI.Models
         }
 
     }
+
+    public class SvcGrpSimple
+    {
+        public string GroupName { get; set; } = "";
+        public string GroupDescription { get; set; } = "";
+        public string GroupColor { get; set; } = "";
+        public string GroupIcon { get; set; } = "";
+
+        public SvcGrpSimple()
+        {
+        }
+
+        public SvcGrpSimple(string cGroupId)
+        {
+            ServiceGroup oGroup = new ServiceGroup(cGroupId);
+            if (oGroup.isValid)
+            {
+                this.GroupName = oGroup.GroupName;
+                this.GroupDescription = oGroup.GroupDescription;
+                this.GroupColor = oGroup.GroupColor;
+                this.GroupIcon = oGroup.GroupIcon;
+            }
+        }
+
+    }
+
 }

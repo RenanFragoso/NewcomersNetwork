@@ -9,6 +9,7 @@ using NewcomersNetworkIFACE.Filters;
 
 namespace NewcomersNetworkIFACE.Areas.NNAdmin1.Controllers
 {
+    [NNLoginPersistence]
     [NNAuthorize(NNRoles.Administrator, NNRoles.Assistant)]
     public class DashboardController : Controller
     {

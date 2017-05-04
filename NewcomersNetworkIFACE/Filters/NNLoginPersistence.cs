@@ -17,7 +17,8 @@ namespace NewcomersNetworkIFACE.Filters
     {
         /// <summary>  
         /// Permissive Filter responsible for getting the token/user information
-        /// when "Stay Connected" available. This filter doesn't block anything.
+        /// when "Stay Connected" available. 
+        /// This filter doesn't block anything.
         /// </summary>
         protected override bool AuthorizeCore(HttpContextBase httpContext)
         {
@@ -44,16 +45,23 @@ namespace NewcomersNetworkIFACE.Filters
                         oCookie = httpContext.Request.Cookies["RememberUser"];
                         if(oCookie != null)
                         {
-                            string cUser = oCrypt.Decrypt(oCookie.Value);
-                            if (cUser != null)
+                            try
                             {
-                                oUser = oClient.Get<User>("/Users/GetDetails/" + Convert.ToBase64String(Encoding.Unicode.GetBytes(cUser)));
-                                if (oUser != null)
+                                string cUser = oCrypt.Decrypt(oCookie.Value);
+                                if (cUser != null)
                                 {
-                                    oSessionUser = new SessionUser(oUser);
-                                    httpContext.Session["SessionUser"] = oSessionUser;
-                                    httpContext.Session["UserToken"] = cUserToken;
+                                    oUser = oClient.Get<User>("/Users/GetDetails/" + Convert.ToBase64String(Encoding.Unicode.GetBytes(cUser)));
+                                    if (oUser != null)
+                                    {
+                                        oSessionUser = new SessionUser(oUser);
+                                        httpContext.Session["SessionUser"] = oSessionUser;
+                                        httpContext.Session["UserToken"] = cUserToken;
+                                    }
                                 }
+                            }
+                            catch (Exception error)
+                            {
+                                return false;
                             }
                         }
                     }

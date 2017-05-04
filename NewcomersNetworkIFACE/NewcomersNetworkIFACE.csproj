@@ -263,6 +263,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Startup.cs" />
+    <Compile Include="Util\Captcha.cs" />
     <Compile Include="Util\CommonStrings.cs" />
     <Compile Include="Util\NNCrypt.cs" />
   </ItemGroup>
@@ -417,6 +418,20 @@
     <Content Include="Content\components\visit.min.js" />
     <Content Include="Areas\NNAdmin1\Views\Services\ScheduleView.cshtml" />
     <Content Include="Areas\NNAdmin1\Views\Settings\Index.cshtml" />
+    <Content Include="Content\css\components\bs-datatable.css" />
+    <Content Include="Content\css\components\bs-editable.css" />
+    <Content Include="Content\css\components\bs-filestyle.css" />
+    <Content Include="Content\css\components\bs-rating.css" />
+    <Content Include="Content\css\components\bs-select.css" />
+    <Content Include="Content\css\components\bs-switches.css" />
+    <Content Include="Content\css\components\dark-components.css" />
+    <Content Include="Content\css\components\daterangepicker.css" />
+    <Content Include="Content\css\components\ion.rangeslider.css" />
+    <Content Include="Content\css\components\pricing-table.css" />
+    <Content Include="Content\css\components\radio-checkbox.css" />
+    <Content Include="Content\css\components\rangeslider\sprite-skin-nice.png" />
+    <Content Include="Content\css\components\select-boxes.css" />
+    <Content Include="Content\css\components\timepicker.css" />
     <Content Include="Content\css\dark.css" />
     <Content Include="Content\css\font-icons.css" />
     <Content Include="Content\css\fonts\font-icons-snapchat.svg" />
@@ -424,7 +439,34 @@
     <Content Include="Content\css\fonts\lined-icons.svg" />
     <Content Include="Content\css\fonts\Simple-Line-Icons.dev.svg" />
     <Content Include="Content\css\fonts\Simple-Line-Icons.svg" />
+    <Content Include="Content\css\images\blank.svg" />
+    <Content Include="Content\css\images\camera_skins.png" />
+    <Content Include="Content\css\images\footer-bg.jpg" />
+    <Content Include="Content\css\images\footer-logo%402x.png" />
+    <Content Include="Content\css\images\footer-logo.png" />
+    <Content Include="Content\css\images\footer-widget-logo%402x.png" />
+    <Content Include="Content\css\images\footer-widget-logo.png" />
+    <Content Include="Content\css\images\grid.png" />
+    <Content Include="Content\css\images\logo%402x.png" />
+    <Content Include="Content\css\images\logo-dark%402x.png" />
+    <Content Include="Content\css\images\logo-dark.png" />
+    <Content Include="Content\css\images\logo-resto%402x.png" />
+    <Content Include="Content\css\images\logo-resto-dark%402x.png" />
+    <Content Include="Content\css\images\logo-resto-dark.png" />
+    <Content Include="Content\css\images\logo-resto.png" />
+    <Content Include="Content\css\images\logo-side%402x.png" />
+    <Content Include="Content\css\images\logo-side-dark%402x.png" />
+    <Content Include="Content\css\images\logo-side-dark.png" />
+    <Content Include="Content\css\images\logo-side.png" />
+    <Content Include="Content\css\images\logo.png" />
+    <Content Include="Content\css\images\mac.png" />
+    <Content Include="Content\css\images\pattern.png" />
     <Content Include="Content\css\images\pattern2.png" />
+    <Content Include="Content\css\images\preloader%402x.gif" />
+    <Content Include="Content\css\images\preloader-dark%402x.gif" />
+    <Content Include="Content\css\images\preloader-dark.gif" />
+    <Content Include="Content\css\images\preloader.gif" />
+    <Content Include="Content\css\images\world-map.png" />
     <Content Include="Content\css\magnific-popup.css" />
     <Content Include="Content\css\swiper.css" />
     <Content Include="Content\font-awesome\css\font-awesome.css" />
@@ -438,6 +480,50 @@
     <Content Include="Content\Images\gritter.png" />
     <Content Include="Content\Images\home-missionstatement.png" />
     <Content Include="Content\Images\hue.png" />
+    <Content Include="Content\Images\icons\avatar.jpg" />
+    <Content Include="Content\Images\icons\close.png" />
+    <Content Include="Content\Images\icons\dotted.png" />
+    <Content Include="Content\Images\icons\features\flag.png" />
+    <Content Include="Content\Images\icons\features\map.png" />
+    <Content Include="Content\Images\icons\features\performance.png" />
+    <Content Include="Content\Images\icons\features\responsive.png" />
+    <Content Include="Content\Images\icons\features\retina.png" />
+    <Content Include="Content\Images\icons\features\seo.png" />
+    <Content Include="Content\Images\icons\features\support.png" />
+    <Content Include="Content\Images\icons\features\tick.png" />
+    <Content Include="Content\Images\icons\features\tools.png" />
+    <Content Include="Content\Images\icons\flags\french.png" />
+    <Content Include="Content\Images\icons\flags\german.png" />
+    <Content Include="Content\Images\icons\flags\italian.png" />
+    <Content Include="Content\Images\icons\iconalt.svg" />
+    <Content Include="Content\Images\icons\image.png" />
+    <Content Include="Content\Images\icons\macbook.png" />
+    <Content Include="Content\Images\icons\mainsubmenu.png" />
+    <Content Include="Content\Images\icons\mainsubmenuh.png" />
+    <Content Include="Content\Images\icons\map-icon-red.png" />
+    <Content Include="Content\Images\icons\map-icon.png" />
+    <Content Include="Content\Images\icons\menu-divider.png" />
+    <Content Include="Content\Images\icons\menu-dividerd.png" />
+    <Content Include="Content\Images\icons\play.png" />
+    <Content Include="Content\Images\icons\restaurant\cup-dark.png" />
+    <Content Include="Content\Images\icons\restaurant\cup.png" />
+    <Content Include="Content\Images\icons\restaurant\fork-dark.png" />
+    <Content Include="Content\Images\icons\restaurant\fork.png" />
+    <Content Include="Content\Images\icons\restaurant\glass-dark.png" />
+    <Content Include="Content\Images\icons\restaurant\glass.png" />
+    <Content Include="Content\Images\icons\restaurant\tea-dark.png" />
+    <Content Include="Content\Images\icons\restaurant\tea.png" />
+    <Content Include="Content\Images\icons\submenu-dark.png" />
+    <Content Include="Content\Images\icons\submenu.png" />
+    <Content Include="Content\Images\icons\video-play.png" />
+    <Content Include="Content\Images\icons\widget-comment%402x.png" />
+    <Content Include="Content\Images\icons\widget-comment-dark%402x.png" />
+    <Content Include="Content\Images\icons\widget-comment-dark.png" />
+    <Content Include="Content\Images\icons\widget-comment.png" />
+    <Content Include="Content\Images\icons\widget-link%402x.png" />
+    <Content Include="Content\Images\icons\widget-link-dark%402x.png" />
+    <Content Include="Content\Images\icons\widget-link-dark.png" />
+    <Content Include="Content\Images\icons\widget-link.png" />
     <Content Include="Content\Images\larrow.png" />
     <Content Include="Content\Images\line.png" />
     <Content Include="Content\Images\loading.gif" />
@@ -461,12 +547,16 @@
     <Content Include="Content\Images\NNAdmin1\select2.png" />
     <Content Include="Content\Images\NNAdmin1\spinner.gif" />
     <Content Include="Content\Images\NNAdmin1\sprite.png" />
+    <Content Include="Content\Images\slider\BannerTop_home.jpg" />
+    <Content Include="Content\Images\slider\NNHead1.jpg" />
+    <Content Include="Content\Images\slider\NNHead2.jpg" />
     <Content Include="Content\Images\rarrow.png" />
     <Content Include="Content\Images\saturation.png" />
     <Content Include="Content\Images\select2.png" />
     <Content Include="Content\Images\Settlement.png" />
     <Content Include="Content\Images\slider\1.jpg" />
     <Content Include="Content\Images\slider\3.jpg" />
+    <Content Include="Content\Images\slider\Classifieds_JustShare.jpg" />
     <Content Include="Content\Images\sort_asc.png" />
     <Content Include="Content\Images\sort_asc_disabled.png" />
     <Content Include="Content\Images\sort_both.png" />
@@ -499,10 +589,27 @@
     <Content Include="Areas\NNAdmin1\Views\Services\_ServiceGroupsAddForm.cshtml" />
     <Content Include="Content\css\nn.css" />
     <Content Include="Content\js\bootstrap-3.3.6.js" />
+    <Content Include="Content\js\components\bs-datatable.js" />
+    <Content Include="Content\js\components\bs-editable.js" />
+    <Content Include="Content\js\components\bs-filestyle.js" />
+    <Content Include="Content\js\components\bs-select.js" />
+    <Content Include="Content\js\components\bs-switches.js" />
+    <Content Include="Content\js\components\daterangepicker.js" />
+    <Content Include="Content\js\components\moment.js" />
+    <Content Include="Content\js\components\rangeslider.min.js" />
+    <Content Include="Content\js\components\responsive-tabs.js" />
+    <Content Include="Content\js\components\select-boxes.js" />
+    <Content Include="Content\js\components\selectsplitter.js" />
+    <Content Include="Content\js\components\star-rating.js" />
+    <Content Include="Content\js\components\timepicker.js" />
+    <Content Include="Content\js\components\typehead.js" />
     <Content Include="Content\js\functions.js" />
     <Content Include="Content\js\jquery-1.12.4.js" />
+    <Content Include="Content\js\jquery.gmap.js" />
     <Content Include="Content\js\NNClassifiedRender.js" />
     <Content Include="Content\js\NNEventRender.js" />
+    <Content Include="Content\js\NNHelpers.js" />
+    <Content Include="Content\js\NNSendAjax.js" />
     <Content Include="Content\js\plugins.js" />
     <Content Include="Content\NNAdmin\css\bootstrap-editable.css" />
     <Content Include="Content\NNAdmin\css\bootstrap-responsive.css" />
@@ -717,7 +824,10 @@
     <Content Include="Views\Error\402.cshtml" />
     <Content Include="Views\Error\403.cshtml" />
     <Content Include="Views\Classifieds\Index.cshtml" />
+    <None Include="Properties\PublishProfiles\newcomers-network - Web Deploy.pubxml" />
     <None Include="Views\Error\Index.cshtml" />
+    <Content Include="Views\Home\Legal.cshtml" />
+    <Content Include="Views\Home\TermsOfUse.cshtml" />
     <None Include="Views\UserProfile\Edit.cshtml" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -764,6 +874,7 @@
     <Content Include="Views\Shared\_LayoutError.cshtml" />
     <Content Include="Views\Services\Details.cshtml" />
     <Content Include="Views\Services\Index.cshtml" />
+    <Content Include="Views\UserProfile\Passwd.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -789,6 +900,10 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\MultipartDataMediaFormatter\MultipartDataMediaFormatter.csproj">
+      <Project>{1f851995-9c6b-4b34-82af-ac4e075f00c2}</Project>
+      <Name>MultipartDataMediaFormatter</Name>
+    </ProjectReference>
     <ProjectReference Include="..\NewcomersNetworkAPI\NewcomersNetworkAPI.csproj">
       <Project>{31dd89e0-51ed-4ff6-83e9-f05ed796ed6c}</Project>
       <Name>NewcomersNetworkAPI</Name>

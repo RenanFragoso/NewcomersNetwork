@@ -52,6 +52,12 @@ namespace NewcomersNetworkIFACE.Models
         [Display(Name = "Email")]
         [EmailAddress]
         public string Email { get; set; }
+        
+        /*
+        [Required]
+        [Display(Name = "User Name")]
+        public string UserName { get; set; }
+        */
 
         [Required]
         [DataType(DataType.Password)]
@@ -60,6 +66,7 @@ namespace NewcomersNetworkIFACE.Models
 
         [Display(Name = "Remember me?")]
         public bool RememberMe { get; set; }
+
     }
 
     public class RegisterViewModel

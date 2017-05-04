@@ -60,6 +60,7 @@
 
                     <div class="list-group">
                         <a href="/UserProfile/Edit" class="list-group-item clearfix">Edit Profile <i class="icon-edit pull-right"></i></a>
+                        <a href="/UserProfile/Passwd" class="list-group-item clearfix">Change Password <i class="icon-lock pull-right"></i></a>
                         @if(ViewBag.SessionUser != null && (ViewBag.SessionUser.HasRole("Administrator") || ViewBag.SessionUser.HasRole("Assistant")))
                         {
                             <a href="/NNAdmin1/Dashboard" class="list-group-item clearfix">Administration <i class="icon-cog pull-right"></i></a>
@@ -81,11 +82,16 @@
 @section JSSection {
     <script src="~/Content/NNAdmin/js/moment.js"></script>
     <script src="~/Content/js/NNEventRender.js"></script>
+    <script type="text/javascript">
+        var oMessage;
+    </script>
 }
 
 <script type="text/javascript">
 
     @section DocReadySection {
+
+        oMessage = @((TempData["StatusMessage"] != null) ? @Html.Raw(Json.Encode(TempData["StatusMessage"])) : @Html.Raw(Json.Encode(new { })) );
 
         $("#NNEvents").NNEventRender({
             cEndPointURL: '/Events/GetEvents',
@@ -118,6 +124,17 @@
             }
         });
 
+        if(oMessage) {
+            toastr.options.positionClass = 'toast-top-full-width';
+            if(oMessage.response){
+                if(oMessage.success){
+                    toastr.success(oMessage.response.Message);
+                }
+                else {
+                    toastr.error(oMessage.response.Message);
+                }
+            }
+        }
     }
 
 </script>

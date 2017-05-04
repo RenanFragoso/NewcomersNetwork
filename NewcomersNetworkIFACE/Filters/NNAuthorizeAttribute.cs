@@ -48,7 +48,7 @@ namespace NewcomersNetworkIFACE.Filters
                     if (oResponse.IsSuccessStatusCode)
                     {
                         oCrypt = new NNCrypt(ConfigurationManager.AppSettings["CookieKey"], ConfigurationManager.AppSettings["CookieVector"]);
-                        string cUser = oCrypt.Decrypt(cUserToken = httpContext.Request.Cookies["RememberUser"].Value);
+                        string cUser = oCrypt.Decrypt(httpContext.Request.Cookies["RememberUser"].Value);
                         if(cUser != null)
                         {
                             oUser = oClient.Get<User>("/Users/GetDetails/" + Convert.ToBase64String(Encoding.Unicode.GetBytes(cUser)));

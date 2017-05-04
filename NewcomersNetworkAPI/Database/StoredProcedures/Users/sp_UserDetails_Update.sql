@@ -11,7 +11,7 @@
 @cPostalCode nvarchar(7),
 @bConsentToContact bit,
 @bIsImmigrant bit,
-@cStatus char(1),
+@cTitle nvarchar(50)='',
 @dModify datetime
 
 AS
@@ -20,6 +20,7 @@ UPDATE [dbo].[UserDetails]
 SET [FirstName] = @cFirstName, 
 	[LastName] = @cLastName, 
 	[Email] = @cEmail,
+	[Title] = @cTitle,
 	[Gender] = @cGender,
 	[MaritalStatus] = @cMaritalStatus, 
 	[AgeRange] = @cAgeRange, 
@@ -28,6 +29,5 @@ SET [FirstName] = @cFirstName,
 	[PostalCode] = @cPostalCode, 
 	[ConsentToContact] = @bConsentToContact,
 	[IsImmigrant] = @bIsImmigrant,
-	[Status] = @cStatus,
 	[LastModified] = @dModify
 WHERE Id = @cId

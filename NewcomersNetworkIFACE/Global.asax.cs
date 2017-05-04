@@ -9,6 +9,8 @@ using System.Web.Optimization;
 using System.Web.Routing;
 using System.Web.Security;
 using System.Web.SessionState;
+using MultipartDataMediaFormatter;
+using MultipartDataMediaFormatter.Infrastructure;
 
 namespace NewcomersNetworkIFACE
 {
@@ -21,6 +23,7 @@ namespace NewcomersNetworkIFACE
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+            GlobalConfiguration.Configuration.Formatters.Add(new FormMultipartEncodedMediaTypeFormatter(new MultipartFormatterSettings()));
         }
                 
         protected void Application_EndRequest(object Sender,EventArgs evt)

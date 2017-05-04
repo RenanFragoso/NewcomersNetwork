@@ -18,15 +18,17 @@ namespace NewcomersNetworkAPI.Models
 
         public OptionsLists()
         {
-            this.LoadParams();
         }
 
         public OptionsLists(string cListName)
         {
-            this.LoadParams();
-            this.isValid = this.LoadList(cListName);
+            this.LoadList(cListName);
         }
 
+        /// <summary>
+        /// Load all AvailableList using the stored procedure
+        /// (this method shouldn't be used in the Interface, it will raise an error)
+        /// </summary>
         protected void LoadParams()
         {
 
@@ -37,9 +39,16 @@ namespace NewcomersNetworkAPI.Models
             }
         }
 
+        /// <summary>
+        /// Load AvailableList by given list name
+        /// (this method shouldn't be used in the Interface, it will raise an error)
+        /// </summary>
+        /// <param name="cListName"></param>
+        /// <returns></returns>
         public bool LoadList(string cListName)
         {
-            if (cListName != null && cListName.Length > 0)
+            this.LoadParams();
+            if (this.isValid && cListName != null && cListName.Length > 0)
             {
                 AvailabeList oAvailable;
                 //string cSPList;
@@ -62,8 +71,15 @@ namespace NewcomersNetworkAPI.Models
 
         }
 
+        /// <summary>
+        /// Load all Available lists filtered by given group
+        /// (this method shouldn't be used in the Interface, it will raise an error)
+        /// </summary>
+        /// <param name="cGroupName"></param>
+        /// <returns></returns>
         public bool LoadListGroup(string cGroupName)
         {
+            this.LoadParams();
             if (cGroupName != null && cGroupName.Length > 0)
             {
                 //if (this.oAvailabeLists.TryGetValue(out cListName, out cSPList))
@@ -79,6 +95,11 @@ namespace NewcomersNetworkAPI.Models
 
         }
 
+        /// <summary>
+        /// Load all Available lists
+        /// (this method shouldn't be used in the Interface, it will raise an error)
+        /// </summary>
+        /// <returns></returns>
         public bool LoadAll()
         {
             //foreach (KeyValuePair<string, string> entry in this.oAvailabeLists)
@@ -90,22 +111,55 @@ namespace NewcomersNetworkAPI.Models
             return true;
         }
 
+        /// <summary>
+        /// Use this method to get the reference of an already loaded list by it's name
+        /// (this method doesn't load the params, reusable in Interface)
+        /// </summary>
+        /// <param name="cListName"></param>
+        /// <returns></returns>
         public IEnumerable<object> getList(string cListName)
         {
             OptionList oListRet;
             if (cListName != null && cListName.Length > 0)
             {
-                AvailabeList oAvailable;
-                string cSPList;
                 //if (this.oAvailabeLists.TryGetValue(cListName, out cSPList))
-                oAvailable = this.oAvailabeLists.Find(itm => itm.cListName == cListName);
-                if(oAvailable != null)
+                oListRet = this.oOptions.Find(itm => itm.cListName == cListName);
+                if(oListRet == null)
+                {
+                    this.sMsgError.Add("List not found.");
+                    oListRet = new OptionList();
+                }
+            }
+            else
+            {
+                this.sMsgError.Add("Bad parameter.");
+                oListRet = new OptionList();
+            }
+
+            return oListRet.oItens.AsEnumerable();
+        }
+
+        /// <summary>
+        /// Use this method to get the reference of an already loaded list
+        /// (this method doesn't load the params, reusable in Interface)
+        /// </summary>
+        /// <param name="cListName"></param>
+        /// <returns></returns>
+        public IEnumerable<object> getListGroup(string cGroupName)
+        {
+            OptionList oListRet;
+            if (cGroupName != null && cGroupName.Length > 0)
+            {
+                AvailabeList oAvailable;
+                //if (this.oAvailabeLists.TryGetValue(cListName, out cSPList))
+                oAvailable = this.oAvailabeLists.Find(itm => itm.cListGroup == cGroupName);
+                if (oAvailable != null)
                 {
                     oListRet = new OptionList(oAvailable.cListName, oAvailable.cListSP);
                 }
                 else
                 {
-                    this.sMsgError.Add("List not found.");
+                    this.sMsgError.Add("Group not found.");
                     oListRet = new OptionList();
                 }
             }
@@ -117,7 +171,14 @@ namespace NewcomersNetworkAPI.Models
             return oListRet.oItens.AsEnumerable();
         }
 
-        public SelectList getSelectList(string cListName, object selectedValue)
+        /// <summary>
+        /// Return an OptionList in SelectList format
+        /// (this method doesn't load the params, reusable in Interface)
+        /// </summary>
+        /// <param name="cListName"></param>
+        /// <param name="selectedValue"></param>
+        /// <returns></returns>
+        public SelectList getSelectList(string cListName, object selectedValue = null)
         {
             return new SelectList(this.getList(cListName), "id", "text", selectedValue);
         }
@@ -144,6 +205,9 @@ namespace NewcomersNetworkAPI.Models
 
     }
 
+    /// <summary>
+    /// This classs contains the available lists
+    /// </summary>
     public class AvailabeList
     {
         public string cListName { get; set; } = "";

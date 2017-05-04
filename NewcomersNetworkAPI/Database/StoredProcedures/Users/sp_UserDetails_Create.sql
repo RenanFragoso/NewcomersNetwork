@@ -12,11 +12,12 @@
 @bConsentToContact bit,
 @bIsImmigrant bit,
 @cStatus char(1),
+@cTitle nvarchar(50)='',
 @dCreate datetime,
 @dModify datetime
 
 AS
 
 INSERT INTO [dbo].[UserDetails] 
-([Id], [FirstName], [LastName], [Email], [Gender], [MaritalStatus], [AgeRange], [Education], [NearestIntersection], [PostalCode], [ConsentToContact], [IsImmigrant], [Status], [DateCreated], [LastModified])
-VALUES (@cId, @cFirstName, @cLastName, @cEmail, @cGender, @cMaritalStatus, @cAgeRange, @cEducation, @cNearestIntersection, @cPostalCode, @bConsentToContact, @bIsImmigrant, @cStatus, @dCreate, @dModify)
+([Id], [FirstName], [LastName], [Email], [Gender], [MaritalStatus], [AgeRange], [Education], [NearestIntersection], [PostalCode], [ConsentToContact], [IsImmigrant], [Status], [Title], [DateCreated], [LastModified])
+VALUES (@cId, @cFirstName, @cLastName, @cEmail, @cGender, @cMaritalStatus, @cAgeRange, @cEducation, @cNearestIntersection, @cPostalCode, @bConsentToContact, @bIsImmigrant, @cStatus, @cTitle, @dCreate, @dModify)

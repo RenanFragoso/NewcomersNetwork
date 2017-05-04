@@ -83,6 +83,7 @@ namespace NewcomersNetworkAPI.Controllers
 
         [Route("Create")]
         [HttpPost]
+        [Authorize(Roles = "Administrator")]
         public IHttpActionResult AddUser([FromBody]User oUser)       //Insert an User
         {
             if (oUser != null && oUser.Save())
@@ -97,6 +98,7 @@ namespace NewcomersNetworkAPI.Controllers
 
         [Route("Activate/{cUserId}", Name = "ActivateUser")]
         [HttpPost]
+        [Authorize(Roles = "Administrator")]
         public IHttpActionResult ActivateUser(string cUserId)       //Activate an User
         {
             User oUser;
@@ -122,6 +124,7 @@ namespace NewcomersNetworkAPI.Controllers
 
         [Route("Block/{cUserId}", Name = "BlockUser")]
         [HttpPost]
+        [Authorize(Roles = "Administrator")]
         public IHttpActionResult BlockUser(string cUserId)       //Activate an User
         {
             User oUser;
@@ -148,6 +151,7 @@ namespace NewcomersNetworkAPI.Controllers
 
         [Route("Update")]
         [HttpPut]
+        [Authorize]
         public IHttpActionResult UpdateUser([FromBody]User oUser)       //Update an User
         {
             if (oUser != null && oUser.Update())
@@ -163,6 +167,7 @@ namespace NewcomersNetworkAPI.Controllers
 
         [Route("Delete/{cUserId}", Name = "DeleteUser")]
         [HttpDelete]
+        [Authorize(Roles = "Administrator")]
         public IHttpActionResult DeleteUser(string cUserId)       //Delete an User
         {
             User oUser;
@@ -186,10 +191,10 @@ namespace NewcomersNetworkAPI.Controllers
             return BadRequest("Malformed request.");
 
         }
-
-
+        
         [Route("GetBatch", Name = "GetBatch")]
         [HttpPost]
+        [Authorize(Roles = "Administrator")]
         public IHttpActionResult GetBatch([FromBody] List<string> oUserIds)
         {
 
@@ -217,6 +222,23 @@ namespace NewcomersNetworkAPI.Controllers
 
             return BadRequest("Malformed request.");
         }
+
+        [Route("Details")]
+        [HttpPut]
+        [Authorize]
+        public IHttpActionResult UpdateDetails([FromBody] UserDetails oDetails)
+        {
+            if (oDetails != null)
+            {
+                if (oDetails.Update())
+                {
+                    return Ok();
+                }
+            }
+
+            return BadRequest("Malformed request.");
+        }
+
 
 
     }

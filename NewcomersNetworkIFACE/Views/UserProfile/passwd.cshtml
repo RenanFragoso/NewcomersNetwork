@@ -1,0 +1,45 @@
+﻿@model NewcomersNetworkIFACE.Models.UserAPI
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Change Password";
+}
+
+<div class="container">
+
+    <div class="row">
+
+        <form>
+            <div class="col-lg-5 col-sm-12">
+
+                @Html.ValidationSummary(true)
+
+                <div class="col_full">
+                    @Html.AntiForgeryToken()
+                    @Html.HiddenFor(model => model.oUserDetails.UserName)
+                </div>
+                <div class="col_full">
+                    @Html.LabelFor(model => model.oUserDetails.Password)
+                    @Html.PasswordFor(model => model.oUserDetails.Password, new { @class = "sm-form-control", placeholder = "Current Password" })
+                </div>
+                <div class="col_full">
+                    <label>New Password</label>
+                    <input type="password" name="newPasswd" class="sm-form-control" placeholder="New Password" />
+                </div>
+                <div class="col_full">
+                    <label>Confirm Password</label>
+                    <input type="password" name="confirmPasswd" class="sm-form-control" placeholder="Confirm Password" />
+                </div>
+
+                <div class="col_full">
+                    <input type="button" class="btn btn-primary" value="Update Password" />
+                </div>
+
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+

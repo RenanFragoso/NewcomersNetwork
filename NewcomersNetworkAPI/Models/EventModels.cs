@@ -113,8 +113,12 @@ namespace NewcomersNetworkAPI.Models
             }
 
             this.Validate();
-            this.Image = this.AdjustImageFile("events", this.Image);
-            this.HeadImg = this.AdjustImageFile("events", this.HeadImg);
+            ImageControl oImgCtrl = new ImageControl();
+
+            //this.Image = this.AdjustImageFile("events", this.Image);
+            //this.HeadImg = this.AdjustImageFile("events", this.HeadImg);
+            this.Image = oImgCtrl.RetrieveImage("events", this.Image);
+            this.HeadImg = oImgCtrl.RetrieveImage("events", this.HeadImg);
         }
 
         public override bool Validate()

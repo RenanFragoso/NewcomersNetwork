@@ -16,24 +16,24 @@ namespace NewcomersNetworkAPI.Models
     {
         [Key]
         [ScaffoldColumn(false)]
-        public string Id { get; set; }
+        public string Id { get; set; } = "";
 
         [Display(Name = "E-Mail")]
-        [UIHint("_Email")]
-        [Required(ErrorMessage ="E-mail is required")]
+        [UIHint("E-mail")]
+        [Required(ErrorMessage = "E-mail is required")]
         [RegularExpression(@"^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}" +
                    @"\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\" +
                    @".)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$",
                    ErrorMessage = "Please, enter a valid E-Mail.")]
-        public string Email { get; set; }
+        public string Email { get; set; } = "";
 
-        [Display(Name = "Name")]
-        [UIHint("_Name")]
-        public string UserName { get; set; }
+        [Display(Name = "User Name")]
+        [UIHint("User Name")]
+        public string UserName { get; set; } = "";
 
         [Display(Name = "Password")]
-        [UIHint("_Password")]
-        public string Password { get; set; }
+        [UIHint("Password")]
+        public string Password { get; set; } = "";
 
         public UserDetails oDetails { get; set; } = new UserDetails();
 

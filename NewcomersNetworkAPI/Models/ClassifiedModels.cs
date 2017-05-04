@@ -28,6 +28,9 @@ namespace NewcomersNetworkAPI.Models
         public DateTime CreateDate { get; set; } = DateTime.Now;
         public DateTime AlterDate { get; set; } = DateTime.Now;
 
+        public SvcGrpSimple oCategory { get; set; }
+        public UserSimple oAuthor { get; set; }
+
         //public Byte[] ImageData { get; set; } = new Byte[0];
         //HttpPostedFileBase ImageData { get; set; }
         public string ImageData { get; set; } = "";
@@ -52,6 +55,8 @@ namespace NewcomersNetworkAPI.Models
 
         public override void MapFromTableRow(DataRow row)
         {
+            ImageControl oImgCtrl = new ImageControl();
+
             try
             {
                 this.Id = row["Id"].ToString();
@@ -75,7 +80,7 @@ namespace NewcomersNetworkAPI.Models
             }
 
             this.Validate();
-            this.Image = base.AdjustImageFile("classifieds", this.Image);
+            this.Image = oImgCtrl.RetrieveImage("classifieds", this.Image); //base.AdjustImageFile("classifieds", this.Image);
         }
 
         public override bool Validate()
@@ -94,10 +99,11 @@ namespace NewcomersNetworkAPI.Models
 
         public override bool Save()
         {
+            ImageControl oImgCtrl = new ImageControl();
             DateTime dNow = DateTime.Now;
             DataTable oClassDB;
             Dictionary<string, object> infoParameters = new Dictionary<string, object>();
-
+            
             infoParameters.Add("cTitle", this.Title);
             infoParameters.Add("cText", this.Text);
             infoParameters.Add("cCreatedBy", this.CreatedBy);
@@ -115,7 +121,7 @@ namespace NewcomersNetworkAPI.Models
                     this.Id = oClassDB.Rows[0]["LAST_CLASSIFIED"].ToString();
                     this.AlterDate = dNow;
                     this.CreateDate = dNow;
-                    this.Image = base.AdjustImageFile("classifieds", this.Image);
+                    this.Image = oImgCtrl.RetrieveImage("classifieds", this.Image); //base.AdjustImageFile("classifieds", this.Image);
                     return true;
                 }
                 else
@@ -141,6 +147,8 @@ namespace NewcomersNetworkAPI.Models
             string cRegexp = @"\/(.*)";
             string contentType = "image/";
             Match oMatch;
+            ImageControl oImgCtrl = new ImageControl();
+            ImageFile oImage;
 
             if (this.ImageData != null && this.ImageData.Length > 0)
             {
@@ -153,7 +161,10 @@ namespace NewcomersNetworkAPI.Models
                         oMatch = Regex.Match(this.ImageData.Substring(0,nIndex),cRegexp);
                         oImageBytes = Convert.FromBase64String(this.ImageData.Substring(nIndex + 8));
                         contentType += oMatch.Value.ToString().Replace("/", "").Replace(";", "");
-                        base.UploadImage("classifieds",this.Id, oImageBytes, contentType);
+
+                        //oImgCtrl = new ImageControl();
+                        //oImgCtrl.UploadImage("classifieds",this.Id, oImageBytes, contentType);
+
                         infoParameters.Add("cImage", this.Id);
                     }
                     catch (Exception e)
@@ -187,7 +198,8 @@ namespace NewcomersNetworkAPI.Models
                     if (!oClassDB.HasErrors)
                     {
                         this.AlterDate = dNow;
-                        this.Image = this.AdjustImageFile("classifieds", this.Image);
+                        //this.Image = this.AdjustImageFile("classifieds", this.Image);
+                        this.Image = oImgCtrl.RetrieveImage("classifieds", this.Image);
                         return true;
                     }
                     else

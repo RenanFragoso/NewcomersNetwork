@@ -17,6 +17,8 @@
     
     <link href="https://fonts.googleapis.com/css?family=Quicksand" rel="stylesheet">          
     
+    @RenderSection("CSSSection", required: false)
+
     <!--[if lt IE 9]>
         <script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
     <![endif]-->
@@ -69,11 +71,11 @@
                     <nav id="primary-menu">
                         <ul>
                             <li>
-                                <a href="/FindUs"><div>Find Us</div></a>
+                                <a href="/Home/Contact"><div><i class="icon icon-map-marker" style="color: #ff6a00"></i>Find Us</div></a>
                             </li>
 
                             <li>
-                                <a href="/Calendar"><div>Events Schdule</div></a>
+                                <a href="/Events"><div>Events Schedule</div></a>
                             </li>
 
                             <li>
@@ -113,17 +115,17 @@
                             <div class="col_full left">
 
                                 <div class="fleft clearfix">
-                                    <a href="#" class="social-icon si-small si-borderless nobottommargin si-facebook">
+                                    <a href="https://www.facebook.com/NewcomersNetworkTPC/" target="_blank" class="social-icon si-small si-borderless nobottommargin si-facebook">
                                         <i class="icon-facebook"></i>
                                         <i class="icon-facebook"></i>
                                     </a>
-                                    <a href="#" class="social-icon si-small si-borderless nobottommargin si-twitter">
+                                    <a href="https://twitter.com/NewcomersTO" target="_blank" class="social-icon si-small si-borderless nobottommargin si-twitter">
                                         <i class="icon-twitter"></i>
                                         <i class="icon-twitter"></i>
                                     </a>
-                                    <a href="#" class="social-icon si-small si-borderless nobottommargin si-gplus">
-                                        <i class="icon-gplus"></i>
-                                        <i class="icon-gplus"></i>
+                                    <a href="https://vimeo.com/thepeopleschurchtoronto" target="_blank" class="social-icon si-small si-borderless nobottommargin si-vimeo">
+                                        <i class="icon-vimeo"></i>
+                                        <i class="icon-vimeo"></i>
                                     </a>
                                 </div>
 
@@ -135,7 +137,7 @@
                         </div>
 
                         <div class="col-lg-4">
-                            <a href="#"><i class="icon icon-map-marker" style="color: #ff6a00"></i> Find Us</a>
+                            <a href="/Home/Contact"><i class="icon icon-map-marker" style="color: #ff6a00"></i> Find Us</a>
                         </div>
                         
                     </div>
@@ -166,8 +168,8 @@
 
                         <div class="col-lg-4">
                             <dl>
-                                <dd><a href="#">About Us</a></dd>
-                                <dd><a href="#">Volunterr Opportunities</a></dd>
+                                <dd><a href="/Home/About">About Us</a></dd>
+                                <dd><a href="#">Volunteer Opportunities</a></dd>
                                 <dd><a href="#">Our Policies</a></dd>
                                 <dd><a href="#">Our Partners</a></dd>
                             </dl>
@@ -175,14 +177,14 @@
 
                         <div class="col-lg-4">
                             <dl>
-                                <dd><a href="#">Contact Us</a></dd>
-                                <dd><a href="#">Terms of Use</a></dd>
-                                <dd><a href="#">Legal/Privacy</a></dd>
+                                <dd><a href="/Home/Contact">Contact Us</a></dd>
+                                <dd><a href="/Home/TermsOfUse">Terms of Use</a></dd>
+                                <dd><a href="/Home/Legal">Legal/Privacy</a></dd>
                             </dl>
                         </div>
 
                         <div class="col-lg-4">
-                            <img src="~/Content/Images/tpc-logo-transparent.png" alt="" class="footer-logo">
+                            <a href="https://thepeopleschurch.ca/"><img src="~/Content/Images/tpc-logo-transparent.png" alt="" class="footer-logo"></a>
                         </div>
 
                     </div>

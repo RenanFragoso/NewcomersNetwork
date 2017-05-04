@@ -13,12 +13,12 @@
 
             <form id="login-form" name="login-form" class="nobottommargin" action="/UserProfile/Authenticate" method="post">
                 @Html.AntiForgeryToken()
-                <div><h3><i class="icon-lock3" style="margin-right: 15px"></i>Login to your Account</h3></div>
+                <div><h3 class="tpc-blue-txt"><i class="icon-lock3" style="margin-right: 15px"></i>Login to your Account</h3></div>
                 @Html.HiddenFor(model => model.ReturnUrl)
 
                 <div class="col_full">
                     @Html.LabelFor(model => model.UserName)
-                    @Html.TextBoxFor(model => model.UserName, new { @class = "form-control not-dark", Placeholder = "E-Mail" })
+                    @Html.TextBoxFor(model => model.UserName, new { @class = "form-control not-dark", Placeholder = "User Name" })
                 </div>
 
                 <div class="col_full">
@@ -27,13 +27,14 @@
                 </div>
 
                 <div class="col_full">
-                    @Html.CheckBoxFor(model => model.StayConnected, new { @class = "checkbox-style" })
-                    @Html.LabelFor(model => model.StayConnected, new { @class = "checkbox-style-3-label" })
+                    @Html.HiddenFor(model => model.StayConnected)
+                    <span class="btn-sm tpc-blue nncheck" data-checked=@(Model.StayConnected) data-name="StayConnected" style="color: #fff;"><i class="icon icon-ok"></i></span>
+                    @Html.LabelFor(model => model.StayConnected)
                 </div>
 
                 <div class="col_full nobottommargin">
-                    <button class="button button-3d button-black nomargin" id="login-form-submit" name="login-form-submit" value="login">Login</button>
-                    <a href="/Forgot" class="fright">Forgot Password?</a>
+                    <button class="btn tpc-red nn-style-btn" id="login-form-submit" name="login-form-submit" value="login" style="color: #fff;font-size: 1.2em">Login</button>
+                    <a href="/Forgot" class="fright tpc-red-txt">Forgot Password?</a>
                 </div>
             </form>
 
@@ -44,45 +45,49 @@
 
 @section JSSection {
 
+    <script src="~/Content/js/NNHelpers.js"></script>
     <script type="text/javascript">
 
         var oMessage = {};
 
-        $(document).ready(function () {
-
-            //Sets the security token
-
-            oMessage = JSON.parse('@Html.Raw(Json.Encode((TempData["StatusMessage"] != null ? TempData["StatusMessage"] : "{}" )))');
-
-            if (oMessage.success != undefined) {
-                if (oMessage.success) {
-                    $("#Message").append(
-                        $("<div />")
-                        .attr("id", "SuccessMsg")
-                        .addClass("alert alert-success")
-                        .append(
-                            $("<i />")
-                            .addClass("icon icon-thumbs-up")
-                        ).append(
-                            $("<strong />").append(document.createTextNode(oMessage.response))
-                        )
-                    );
-                }
-                else {
-                    $("#Message").append(
-                        $("<div />")
-                        .attr("id", "ErrorMsg")
-                        .addClass("alert alert-danger stretched")
-                        .append(
-                            $("<i />")
-                            .addClass("icon icon-remove-sign")
-                        ).append(
-                            $("<strong />").append(document.createTextNode(oMessage.response))
-                        )
-                    );
-                }
-            }
-        });
-
-    </script>
+</script>
 }
+
+<script>
+@section DocReadySection {
+
+    oMessage = JSON.parse('@Html.Raw(Json.Encode((TempData["StatusMessage"] != null ? TempData["StatusMessage"] : "{}" )))');
+
+    if (oMessage.success != undefined) {
+        if (oMessage.success) {
+            $("#Message").append(
+                $("<div />")
+                .attr("id", "SuccessMsg")
+                .addClass("alert alert-success")
+                .append(
+                    $("<i />")
+                    .addClass("icon icon-thumbs-up")
+                ).append(
+                    $("<strong />").append(document.createTextNode(oMessage.response))
+                )
+            );
+        }
+        else {
+            $("#Message").append(
+                $("<div />")
+                .attr("id", "ErrorMsg")
+                .addClass("alert alert-danger stretched")
+                .append(
+                    $("<i />")
+                    .addClass("icon icon-remove-sign")
+                ).append(
+                    $("<strong />").append(document.createTextNode(oMessage.response))
+                )
+            );
+        }
+    }
+
+    NNcheckboxInit();
+
+}
+</script>

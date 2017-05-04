@@ -9,8 +9,13 @@ using System.Net.Http.Headers;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using System.Text;
-using NewcomersNetworkIFACE.Models;
 using System.Threading.Tasks;
+using NewcomersNetworkIFACE.Models;
+using NewcomersNetworkAPI.Models;
+using System.IO;
+using MultipartDataMediaFormatter;
+using MultipartDataMediaFormatter.Infrastructure;
+using System.Globalization;
 
 namespace NewcomersNetworkIFACE.Client
 {
@@ -32,6 +37,13 @@ namespace NewcomersNetworkIFACE.Client
                 oApiClient.DefaultRequestHeaders.Add("Authorization", "Bearer " + this.cClientToken);
             }
             */
+        }
+
+        protected void restoreHeaders()
+        {
+            oApiClient.MaxResponseContentBufferSize = 1024000;
+            oApiClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            this.setToken(this.cClientToken);
         }
 
         public void setToken(string cToken)
@@ -127,11 +139,90 @@ namespace NewcomersNetworkIFACE.Client
             formValues.Add(new KeyValuePair<string, string>("password", data.Password));
 
             request.Content = new FormUrlEncodedContent(formValues);
-            //oApiClient.BaseAddress = new Uri(ConfigurationManager.AppSettings["TokenEndPoint"]);
             response = await oApiClient.SendAsync(request);
             
             return response;
         }
 
+        public async Task<HttpResponseMessage> PostImage(ImageFile oFile)
+        {
+            //oApiClient.DefaultRequestHeaders.Accept.Clear();
+
+            HttpResponseMessage response;
+            /*
+            var formValues = new List<KeyValuePair<string, string>>();
+            formValues.Add(new KeyValuePair<string, string>("grant_type", "password"));
+            formValues.Add(new KeyValuePair<string, string>("username", data.UserName));
+            formValues.Add(new KeyValuePair<string, string>("password", data.Password));
+            */
+            //request.Content = new FormUrlEncodedContent(formValues);
+            HttpContent cContainer = new StringContent(oFile.cContainer);
+            HttpContent cFileName = new StringContent(oFile.cFileName);
+            HttpContent cContentType = new StringContent(oFile.cContentType);
+            HttpContent nFileSize = new StringContent(oFile.nFileSize.ToString());
+            HttpContent aFileData = new ByteArrayContent(oFile.aFileData);
+
+            MultipartFormDataContent oFormData = new MultipartFormDataContent();
+            oFormData.Add(cContainer);
+            oFormData.Add(cFileName);
+            oFormData.Add(cContentType);
+            oFormData.Add(nFileSize);
+            oFormData.Add(aFileData);
+            
+            response = await oApiClient.PutAsync(this.cNNAPIAddress + "/Image", oFormData);
+
+            return response;
+        }
+
+        public async Task<HttpResponseMessage> PutImage(ImageFile oImage) {
+
+            HttpResponseMessage oResponse;
+            /*
+            HttpContent cContainer = new StringContent(oImage.cContainer);
+            HttpContent cFileName = new StringContent(oImage.cFileName);
+            HttpContent cContentType = new StringContent(oImage.cContentType);
+            HttpContent aFileData = new ByteArrayContent(oImage.aFileData);
+            
+            MultipartFormDataContent oFormData = new MultipartFormDataContent();
+            oFormData.Add(cContainer, "cContainer");
+            oFormData.Add(cFileName, "cFileName");
+            oFormData.Add(cContentType, "cContentType");
+            oFormData.Add(aFileData, "aFileData");
+            */
+            HttpClient oImgApiClient = new HttpClient();
+            //oImgApiClient.DefaultRequestHeaders.Add("Content-Type", "multipart/form-data");
+            //oImgApiClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("multipart/form-data"));
+
+            //HttpRequestMessage oReq = new HttpRequestMessage(HttpMethod.Post, this.cNNAPIAddress + "/Image");
+            //oReq.Content = oFormData;
+            //oReq.Content.Headers.ContentType = new MediaTypeWithQualityHeaderValue("multipart/form-data");
+
+            var mediaTypeFormatter = new FormMultipartEncodedMediaTypeFormatter(new MultipartFormatterSettings()
+            {
+                SerializeByteArrayAsHttpFile = true,
+                CultureInfo = CultureInfo.GetCultureInfo("en-US"),
+                ValidateNonNullableMissedProperty = true
+            });
+
+            testSend oTest = new testSend();
+
+            //oResponse = await oImgApiClient.PutAsync(this.cNNAPIAddress + "/Image", oFormData);
+            oResponse = await oImgApiClient.PutAsync(this.cNNAPIAddress + "/Image", oTest, mediaTypeFormatter);
+            //oResponse = await oImgApiClient.SendAsync(oReq);
+
+            //this.restoreHeaders();
+            return oResponse;
+        }
+
     }
+
+
+    public class testSend
+    {
+        public string test1 = "LOL TEST 1";
+        public string test2 = "LOL TEST 2";
+    }
+    
+
+
 }

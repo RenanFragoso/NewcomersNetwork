@@ -3,14 +3,37 @@
     ViewBag.Title = "Home";
 }
 
-<section id="slider" class="slider-parallax swiper_wrapper clearfix" style="height: 960px;">
+<!-- <section id="slider" class="slider-parallax swiper_wrapper clearfix" style="height: 960px;"> -->
+<section id="slider" class="slider-parallax swiper_wrapper clearfix" style="height: 500px;">
+<!-- <section id="slider" class="swiper_wrapper clearfix" style="height: 500px;"> -->
 
-    <div class="slider-parallax-inner">
+    <!-- <div class="slider-parallax-inner"> -->
 
         <div class="swiper-container swiper-parent">
             <div class="swiper-wrapper">
 
-                <div class="swiper-slide dark" style="background-image: url('/Content/Images/slider/1.jpg');">
+
+                <div class="swiper-slide dark" style="background-image: url('/Content/Images/slider/BannerTop_home.jpg');">
+                    <div class="container clearfix">
+                        <div class="slider-caption slider-caption-center" style="min-width: 100%; top: 40px !important">
+                            <h3 data-caption-animate="fadeInUp">Compassion | Connection | Community</h3>
+                            <h2 data-caption-animate="fadeInUp" data-caption-delay="200">A vibrant community for<br />newcomers to Canada.</h2>
+                        </div>
+                    </div>
+                </div>
+
+                <!--
+                    <div class="swiper-slide" style="background-image: url('/Content/Images/slider/3.jpg'); background-position: center top;">
+                        <div class="container clearfix">
+                            <div class="slider-caption">
+                                <h2 data-caption-animate="fadeInUp">Great Events</h2>
+                                <p data-caption-animate="fadeInUp" data-caption-delay="200">Stay tuned on our events.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="swiper-slide dark" style="background-image: url('/Content/Images/slider/Classifieds_JustShare.jpg');">
                     <div class="container clearfix">
                         <div class="slider-caption slider-caption-left">
                             <h2 data-caption-animate="fadeInUp">New to Canada?</h2>
@@ -18,50 +41,24 @@
                         </div>
                     </div>
                 </div>
-                <!--
-                <div class="swiper-slide dark">
-                    <div class="container clearfix">
-                        <div class="slider-caption slider-caption-center">
-                            <h2 data-caption-animate="fadeInUp">Beautifully Flexible</h2>
-                            <p data-caption-animate="fadeInUp" data-caption-delay="200">Looks beautiful &amp; ultra-sharp on Retina Screen Displays. Powerful Layout with Responsive functionality that can be adapted to any screen size.</p>
-                        </div>
-                    </div>
-                    <div class="video-wrap">
-                        <video poster="images/videos/explore.jpg" preload="auto" loop autoplay muted>
-                            <source src='images/videos/explore.mp4' type='video/mp4' />
-                            <source src='images/videos/explore.webm' type='video/webm' />
-                        </video>
-                        <div class="video-overlay" style="background-color: rgba(0,0,0,0.55);"></div>
-                    </div>
-                </div>
                 -->
-                <div class="swiper-slide" style="background-image: url('/Content/Images/slider/3.jpg'); background-position: center top;">
-                    <div class="container clearfix">
-                        <div class="slider-caption">
-                            <h2 data-caption-animate="fadeInUp">Great Events</h2>
-                            <p data-caption-animate="fadeInUp" data-caption-delay="200">Stay tuned on our events.</p>
-                        </div>
-                    </div>
-                </div>
+                <div id="slider-arrow-left"><i class="icon-angle-left"></i></div>
+                <div id="slider-arrow-right"><i class="icon-angle-right"></i></div>
+                <div id="slide-number"><div id="slide-number-current"></div><span>/</span><div id="slide-number-total"></div></div>
             </div>
 
-            <div id="slider-arrow-left"><i class="icon-angle-left"></i></div>
-            <div id="slider-arrow-right"><i class="icon-angle-right"></i></div>
-            <div id="slide-number"><div id="slide-number-current"></div><span>/</span><div id="slide-number-total"></div></div>
+            <a href="#" data-scrollto="#content" data-offset="100" class="dark one-page-arrow">
+                <i class="icon-angle-down infinite animated fadeInDown"></i>
+            </a>
+
         </div>
-
-        <a href="#" data-scrollto="#content" data-offset="100" class="dark one-page-arrow">
-            <i class="icon-angle-down infinite animated fadeInDown"></i>
-        </a>
-
-    </div>
-
+    <!-- </div> -->
 </section>
 
 <section id="content">
 
     <div class="content-wrap">
-        
+
         <div class="promo promo-dark promo-full bottommargin-lg header-stick notopborder" style="padding: 0px !important">
 
             <div class="clearfix">
@@ -69,8 +66,8 @@
                 <div class="col-lg-2 col-md-6 col-sm-6 nobottommargin svc-grp-1" style="background-color: #fec33e">
                     <a href="#">
                         <div class="center svc-grp-cont">
-                            <h3>Immigration &amp; Settlement</h3>
                             <i class="icon icon-home2" style="font-size: 5em; color: #fff "></i>
+                            <h3>Immigration &amp; Settlement</h3>
                         </div>
                     </a>
                 </div>
@@ -78,8 +75,8 @@
                 <div class="col-lg-2 col-md-6 col-sm-6 nobottommargin svc-grp-2" style="background-color: #ba0f6b">
                     <a href="#">
                         <div class="center">
-                            <h3>Employment &amp; Career</h3>
                             <i class="icon icon-suitcase" style="font-size: 5em; color: #fff "></i>
+                            <h3>Employment &amp; Career</h3>
                         </div>
                     </a>
                 </div>
@@ -87,8 +84,8 @@
                 <div class="col-lg-2 col-md-6 col-sm-6 nobottommargin svc-grp-3" style="background-color: #00588d">
                     <a href="#">
                         <div class="center">
-                            <h3>Legal Clinic</h3>
                             <i class="icon icon-legal" style="font-size: 5em; color: #fff "></i>
+                            <h3>Legal Clinic</h3>
                         </div>
                     </a>
                 </div>
@@ -96,8 +93,8 @@
                 <div class="col-lg-2 col-md-6 col-sm-6 nobottommargin svc-grp-4" style="background-color: #ff6a00">
                     <a href="#">
                         <div class="center">
-                            <h3>Language Centre</h3>
                             <i class="icon icon-chat" style="font-size: 5em; color: #fff "></i>
+                            <h3>Language Centre</h3>
                         </div>
                     </a>
                 </div>
@@ -105,80 +102,582 @@
                 <div class="col-lg-2 col-md-6 col-sm-6 nobottommargin svc-grp-5" style="background-color: #b6d554">
                     <a href="#">
                         <div class="center">
-                            <h3>Health &amp; Well-being</h3>
                             <i class="icon icon-heart2" style="font-size: 5em; color: #fff "></i>
+                            <h3>Health &amp; Well-being</h3>
                         </div>
                     </a>
                 </div>
-
-                <div class="col-lg-2 col-md-6 col-sm-6 nobottommargin svc-grp-6" >
-                    <a href="/Classifieds"></a>
-                </div>
-                
-                <!--
-                <div class="col_one_sixth nobottommargin" style="margin: 0px">
-                    <div class="feature-box fbox-center fbox-light fbox-effect nobottomborder" style="border-right: 1px dotted white">
-                        <div class="fbox-icon">
-                            <a href="#"><i class="i-alt noborder icon-shop"></i></a>
-                        </div>
-                        <h3>Immigration &amp; Settlement</h3>
+                <a href="/Classifieds">
+                    <div class="col-lg-2 col-md-6 col-sm-6 nobottommargin svc-grp-6">
+                        JustShare
                     </div>
-                    <div style="position: relative; bottom: 0px; min-height: 20px; border-bottom: 10px solid #fec33e !important"></div>
-                </div>
+                </a>
 
-                <div class="col_one_sixth nobottommargin" style="margin: 0px">
-                    <div class="feature-box fbox-center fbox-light fbox-effect nobottomborder" style="border-right: 1px dotted white">
-                        <div class="fbox-icon">
-                            <a href="#"><i class="i-alt noborder icon-wallet"></i></a>
-                        </div>
-                        <h3>Employment &amp; Career</h3>
-                    </div>
-                    <div style="position: relative; bottom: 0px; min-height: 20px; border-bottom: 10px solid #ba0f6b !important"></div>
-                </div>
-
-                <div class="col_one_sixth nobottommargin" style="margin: 0px">
-                    <div class="feature-box fbox-center fbox-light fbox-effect nobottomborder" style="border-right: 1px dotted white">
-                        <div class="fbox-icon">
-                            <a href="#"><i class="i-alt noborder icon-shop"></i></a>
-                        </div>
-                        <h3>Legal Clinic</h3>
-                    </div>
-                    <div style="position: relative; bottom: 0px; min-height: 20px; border-bottom: 10px solid #00588d !important"></div>
-                </div>
-
-                <div class="col_one_sixth nobottommargin" style="margin: 0px">
-                    <div class="feature-box fbox-center fbox-light fbox-effect nobottomborder" style="border-right: 1px dotted white">
-                        <div class="fbox-icon">
-                            <a href="#"><i class="i-alt noborder icon-wallet"></i></a>
-                        </div>
-                        <h3>Language Centre</h3>
-                    </div>
-                    <div style="position: relative; bottom: 0px; min-height: 20px; border-bottom: 10px solid #ff6a00 !important"></div>
-                </div>
-
-                <div class="col_one_sixth nobottommargin" style="margin: 0px">
-                    <div class="feature-box fbox-center fbox-light fbox-effect nobottomborder" style="border-right: 1px dotted white">
-                        <div class="fbox-icon">
-                            <a href="#"><i class="i-alt noborder icon-wallet"></i></a>
-                        </div>
-                        <h3>Health &amp; Well-being</h3>
-                    </div>
-                    <div style="position: relative; bottom: 0px; min-height: 20px; border-bottom: 10px solid #b6d554 !important"></div>
-                </div>
-
-                <div class="col_one_sixth nobottommargin" style="margin-right: 0px !important">
-                    <a href="/Classifieds"><img src="~/Content/Images/classifieds.png" alt="Classifieds"></a>
-                </div>
-                -->
-                <!--
-                <h3>Call us today at <span>+91.22.57412541</span> or Email us at <span>support@canvas.com</span></h3>
-                <span>We strive to provide Our Customers with Top Notch Support to make their Theme Experience Wonderful</span>
-                <a href="#" class="button button-dark button-xlarge button-rounded">Start Browsing</a>
-                -->
             </div>
 
         </div>
 
     </div>
 
+</section>
+
+<section id="content" class="yellow-msg" style="background-color: #fec33e">
+    <div class="col-lg-offset-3 col-lg-6" style="text-align: center; padding-top: 80px; padding-bottom: 80px; font-weight: bold">
+        <span class="nn-message" style="font-size: 32px">Our desire is to offer compassion, connection and community to jump-start your transition.</span>
+    </div>
+</section>
+
+<section id="content" style="background-color: #fff; padding: 20px">
+
+    <div class="row">
+        <div class="span12 col-lg-12">
+            <div class="contents">
+
+                <div id="oc-services" class="owl-carousel carousel-widget" data-margin="20" data-items-xs="1" data-items-sm="2" data-items-lg="4">
+
+                    <div class="oc-item">
+                        <div class="service-item">
+                            <img class="img-responsive svc-itm-img" src="~/Content/Images/square-image.png" />
+                            <div style="position: absolute; bottom: 0px; top: auto; background-color: #6d6e6b; opacity: 0.75; width: 100%; padding: 10px 20px 20px 20px">
+                                <span class="svc-itm-title" style="font-weight: bold;color: #fec33e; font-size: 1.5em">ESL CLass</span>
+                                <span class="svc-itm-desc" style="color: #fff">English as a Second Language</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="oc-item">
+                        <div class="service-item">
+                            <img class="img-responsive svc-itm-img" src="~/Content/Images/square-image.png" />
+                            <div style="position: absolute; bottom: 0px; top: auto; background-color: #6d6e6b; opacity: 0.75; width: 100%; padding: 10px 20px 20px 20px">
+                                <span class="svc-itm-title" style="font-weight: bold;color: #fec33e; font-size: 1.5em">Newcomers Fellowship</span>
+                                <span class="svc-itm-desc" style="color: #fff">Group reflections on the migration Journey</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="oc-item">
+                        <div class="service-item">
+                            <img class="img-responsive svc-itm-img" src="~/Content/Images/square-image.png" />
+                            <div style="position: absolute; bottom: 0px; top: auto; background-color: #6d6e6b; opacity: 0.75; width: 100%; padding: 10px 20px 20px 20px">
+                                <span class="svc-itm-title" style="font-weight: bold;color: #fec33e; font-size: 1.5em">ESL CLass</span>
+                                <span class="svc-itm-desc" style="color: #fff">English as a Second Language</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="oc-item">
+                        <div class="service-item">
+                            <img class="img-responsive svc-itm-img" src="~/Content/Images/square-image.png" />
+                            <div style="position: absolute; bottom: 0px; top: auto; background-color: #6d6e6b; opacity: 0.75; width: 100%; padding: 10px 20px 20px 20px">
+                                <span class="svc-itm-title" style="font-weight: bold;color: #fec33e; font-size: 1.5em">Newcomers Fellowship</span>
+                                <span class="svc-itm-desc" style="color: #fff">Group reflections on the migration Journey</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="oc-item">
+                        <div class="service-item">
+                            <img class="img-responsive svc-itm-img" src="~/Content/Images/square-image.png" />
+                            <div style="position: absolute; bottom: 0px; top: auto; background-color: #6d6e6b; opacity: 0.75; width: 100%; padding: 10px 20px 20px 20px">
+                                <span class="svc-itm-title" style="font-weight: bold;color: #fec33e; font-size: 1.5em">ESL CLass</span>
+                                <span class="svc-itm-desc" style="color: #fff">English as a Second Language</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="oc-item">
+                        <div class="service-item">
+                            <img class="img-responsive svc-itm-img" src="~/Content/Images/square-image.png" />
+                            <div style="position: absolute; bottom: 0px; top: auto; background-color: #6d6e6b; opacity: 0.75; width: 100%; padding: 10px 20px 20px 20px">
+                                <span class="svc-itm-title" style="font-weight: bold;color: #fec33e; font-size: 1.5em">Newcomers Fellowship</span>
+                                <span class="svc-itm-desc" style="color: #fff">Group reflections on the migration Journey</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+<!--
+<section id="content">
+    <div class="content-wrap">
+        <div class="container clearfix">
+
+            <div class="row">
+
+                <div class="col-lg-5 col-lg-offset-1" style="margin-bottom: 20px;" >
+
+                    <div class="row">
+                        <div class="service-item">
+                            <img class="img-responsive svc-itm-img" src="~/Content/Images/square-image.png" />
+                            <span class="svc-itm-title" style="font-weight: bold">ESL CLass</span>
+                            <span class="svc-itm-desc">English as a Second Language</span>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="service-item">
+                            <img class="img-responsive svc-itm-img" src="~/Content/Images/square-image.png" />
+                            <span class="svc-itm-title" style="font-weight: bold">Newcomers Fellowship</span>
+                            <span class="svc-itm-desc">Group reflections on the migration Journey</span>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="col-lg-5 col-lg-offset-1" style="background-color: #efefef; padding: 0px">
+
+                    <a href="/Classifieds">
+                        <div style="background-color: #6d6e6b; min-height: 100px; text-align: center; color: #fff; line-height: 100px; font-size: 36px; font-weight:bold">
+                            JustShare
+                        </div>
+                    </a>
+
+                    <div style="margin: 10px 20px 10px 20px;">
+                        <h3 style="color: #ba0f6b;font-size: 3em; margin-bottom: 10px">Settlement Items </h3>
+
+                        <a href="#">
+                            <div style="margin-bottom: 20px;">
+                                <img src="~/Content/Images/square-image.png" style="width: 50px; height: 50px; display: inline-block; float: left; margin-right: 10px"/>
+                                <span style="display: block;font-weight: bold">01 Bed + Matress</span>
+                                <span>Sheppard x Victoria Park</span>
+                            </div>
+                        </a>
+                        <a href="#">
+                            <div style="margin-bottom: 20px;">
+                                <img src="~/Content/Images/square-image.png" style="width: 50px; height: 50px; display: inline-block; float: left; margin-right: 10px" />
+                                <span style="display: block;font-weight: bold">02 Suitcases</span>
+                                <span>Lakeshore</span>
+                            </div>
+                        </a>
+                        <a href="#">
+                            <div style="margin-bottom: 20px;">
+                                <img src="~/Content/Images/square-image.png" style="width: 50px; height: 50px; display: inline-block; float: left; margin-right: 10px" />
+                                <span style="display: block;font-weight: bold">01 Winter Jacket</span>
+                                <span>Flemingdon Park</span>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div style="margin: 10px 20px 10px 20px;">
+                        <h3 style="color: #ba0f6b;font-size: 3em; margin-bottom: 10px">Housing Opportunities</h3>
+                        <a href="#">
+                            <div style="margin-bottom: 20px;">
+                                <img src="~/Content/Images/square-image.png" style="width: 50px; height: 50px; display: inline-block; float: left; margin-right: 10px" />
+                                <span style="display: block;font-weight: bold">Bachelor</span>
+                                <span>North York, TO</span>
+                            </div>
+                        </a>
+                        <a href="#">
+                            <div style="margin-bottom: 20px;">
+                                <img src="~/Content/Images/square-image.png" style="width: 50px; height: 50px; display: inline-block; float: left; margin-right: 10px" />
+                                <span style="display: block;font-weight: bold">Bachelor</span>
+                                <span>North York, TO</span>
+                            </div>
+                        </a>
+                        <a href="#">
+                            <div style="margin-bottom: 20px;">
+                                <img src="~/Content/Images/square-image.png" style="width: 50px; height: 50px; display: inline-block; float: left; margin-right: 10px" />
+                                <span style="display: block;font-weight: bold">Bachelor</span>
+                                <span>North York, TO</span>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div style="margin: 10px 20px 10px 20px;">
+                        <h3 style="color: #ba0f6b;font-size: 3em; margin-bottom: 10px">Job Offers</h3>
+                        <a href="#">
+                            <div style="margin-bottom: 20px;">
+                                <span style="display: block;font-weight: bold">Hostess / Bar Runner</span>
+                                <span>North York, TO</span>
+                            </div>
+                        </a>
+                        <a href="#">
+                            <div style="margin-bottom: 20px;">
+                                <span style="display: block;font-weight: bold">Violin Player</span>
+                                <span>Mississauga</span>
+                            </div>
+                        </a>
+                        <a href="#">
+                            <div style="margin-bottom: 20px;">
+                                <span style="display: block;font-weight: bold">Korean Tradutor</span>
+                                <span>North York, TO</span>
+                            </div>
+                        </a>
+                    </div>
+                    <div style="padding: 20px 40px 20px 40px; margin-bottom: 20px">
+                        <a href="/Classifieds" class="btn" style="background-color: #ba0f6b; text-align: center; color: #fff; width: 100%">More</a>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+-->
+
+<!-- JUSTSHARE SECTION-->
+<section id="content" class="yellow-msg" style="background-color: #6d6e6b">
+    <div class="col-lg-offset-3 col-lg-6" style="text-align: center; padding-top: 80px; padding-bottom: 80px;">
+        <span class="nn-message" style="font-size: 32px;font-weight: bold;color: #fff">JustShare</span>
+    </div>
+</section>
+
+<section id="content" style="background-color: #efefef; padding: 20px">
+
+            <div class="container">
+
+                <div class="col-lg-6 col-sm-12">
+
+                    <div>
+                        <h3 style="color: #00588d;font-size: 3em; margin-bottom: 10px">Settlement Items </h3>
+                        <a href="#">
+                            <div style="margin-bottom: 20px;">
+                                <img src="~/Content/Images/square-image.png" style="width: 50px; height: 50px; display: inline-block; float: left; margin-right: 10px" />
+                                <span style="display: block;font-weight: bold">01 Bed + Matress</span>
+                                <span>Sheppard x Victoria Park</span>
+                            </div>
+                        </a>
+                        <a href="#">
+                            <div style="margin-bottom: 20px;">
+                                <img src="~/Content/Images/square-image.png" style="width: 50px; height: 50px; display: inline-block; float: left; margin-right: 10px" />
+                                <span style="display: block;font-weight: bold">02 Suitcases</span>
+                                <span>Lakeshore</span>
+                            </div>
+                        </a>
+                        <a href="#">
+                            <div style="margin-bottom: 20px;">
+                                <img src="~/Content/Images/square-image.png" style="width: 50px; height: 50px; display: inline-block; float: left; margin-right: 10px" />
+                                <span style="display: block;font-weight: bold">01 Winter Jacket</span>
+                                <span>Flemingdon Park</span>
+                            </div>
+                        </a>
+                    </div>
+                    
+                </div>
+                    
+                <div class="col-lg-6 col-sm-12">
+
+                    <div>
+                        <h3 style="color: #00588d;font-size: 3em; margin-bottom: 10px">Housing Opportunities</h3>
+                        <a href="#">
+                            <div style="margin-bottom: 20px;">
+                                <img src="~/Content/Images/square-image.png" style="width: 50px; height: 50px; display: inline-block; float: left; margin-right: 10px" />
+                                <span style="display: block;font-weight: bold">Bachelor</span>
+                                <span>North York, TO</span>
+                            </div>
+                        </a>
+                        <a href="#">
+                            <div style="margin-bottom: 20px;">
+                                <img src="~/Content/Images/square-image.png" style="width: 50px; height: 50px; display: inline-block; float: left; margin-right: 10px" />
+                                <span style="display: block;font-weight: bold">Bachelor</span>
+                                <span>North York, TO</span>
+                            </div>
+                        </a>
+                        <a href="#">
+                            <div style="margin-bottom: 20px;">
+                                <img src="~/Content/Images/square-image.png" style="width: 50px; height: 50px; display: inline-block; float: left; margin-right: 10px" />
+                                <span style="display: block;font-weight: bold">Bachelor</span>
+                                <span>North York, TO</span>
+                            </div>
+                        </a>
+                    </div>
+
+                </div>
+
+
+                <div class="col-lg-6 col-sm-12">
+
+                    <div>
+                        <h3 style="color: #00588d;font-size: 3em; margin-bottom: 10px">Job Offers</h3>
+                        <a href="#">
+                            <div style="margin-bottom: 20px;">
+                                <span style="display: block;font-weight: bold">Hostess / Bar Runner</span>
+                                <span>North York, TO</span>
+                            </div>
+                        </a>
+                        <a href="#">
+                            <div style="margin-bottom: 20px;">
+                                <span style="display: block;font-weight: bold">Violin Player</span>
+                                <span>Mississauga</span>
+                            </div>
+                        </a>
+                        <a href="#">
+                            <div style="margin-bottom: 20px;">
+                                <span style="display: block;font-weight: bold">Korean Tradutor</span>
+                                <span>North York, TO</span>
+                            </div>
+                        </a>
+                    </div>
+
+                </div>
+
+                <div class="col-lg-4 col-lg-offset-4">
+                    <div style="padding: 20px 20px 20px 0px; margin-bottom: 20px">
+                        <a href="/Classifieds" class="btn" style="background-color: #00588d; text-align: center; color: #fff; width: 100%; font-size: 2em">More</a>
+                    </div>
+                </div>
+
+            </div>
+</section>
+
+<section id="content" class="yellow-msg" style="background-color: #ba0f6b">
+    <div class="col-lg-offset-3 col-lg-6" style="text-align: center; padding-top: 80px; padding-bottom: 80px;">
+        <span class="nn-message" style="font-size: 32px;font-weight: bold;color: #fff">Stay Tuned to the Newcomers Network </span><span style="font-size: 32px;font-weight: bold;color: #fff;background-color: #6d6e6b;">special events</span>
+    </div>
+</section>
+
+<section id="content" style="background-color: #fff; padding: 20px">
+
+    <div class="row">
+        <div class="span12 col-lg-12">
+            <div class="contents">
+
+                <div id="oc-events" class="owl-carousel carousel-widget" data-margin="20" data-items-xs="1" data-items-sm="2" data-items-lg="4">
+
+                    <div class="oc-item">
+                        <div class="service-item">
+                            <img class="img-responsive svc-itm-img" src="~/Content/Images/square-image.png" />
+                            <div style="position: absolute; bottom: 0px; top: auto; background-color: #6d6e6b; opacity: 0.75; width: 100%; padding: 10px 20px 20px 20px">
+                                <span class="svc-itm-title" style="font-weight: bold;color: #b6d554; font-size: 1.5em">Special Event 1</span>
+                                <span class="svc-itm-desc" style="color: #fff">Special Event 1 Description</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="oc-item">
+                        <div class="service-item">
+                            <img class="img-responsive svc-itm-img" src="~/Content/Images/square-image.png" />
+                            <div style="position: absolute; bottom: 0px; top: auto; background-color: #6d6e6b; opacity: 0.75; width: 100%; padding: 10px 20px 20px 20px">
+                                <span class="svc-itm-title" style="font-weight: bold;color: #b6d554; font-size: 1.5em">Special Event 2</span>
+                                <span class="svc-itm-desc" style="color: #fff">Special Event 2 Description</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="oc-item">
+                        <div class="service-item">
+                            <img class="img-responsive svc-itm-img" src="~/Content/Images/square-image.png" />
+                            <div style="position: absolute; bottom: 0px; top: auto; background-color: #6d6e6b; opacity: 0.75; width: 100%; padding: 10px 20px 20px 20px">
+                                <span class="svc-itm-title" style="font-weight: bold;color: #b6d554; font-size: 1.5em">Special Event 3</span>
+                                <span class="svc-itm-desc" style="color: #fff">Special Event 3 Description</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="oc-item">
+                        <div class="service-item">
+                            <img class="img-responsive svc-itm-img" src="~/Content/Images/square-image.png" />
+                            <div style="position: absolute; bottom: 0px; top: auto; background-color: #6d6e6b; opacity: 0.75; width: 100%; padding: 10px 20px 20px 20px">
+                                <span class="svc-itm-title" style="font-weight: bold;color: #b6d554; font-size: 1.5em">Special Event 4</span>
+                                <span class="svc-itm-desc" style="color: #fff">Special Event 4 Description</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="oc-item">
+                        <div class="service-item">
+                            <img class="img-responsive svc-itm-img" src="~/Content/Images/square-image.png" />
+                            <div style="position: absolute; bottom: 0px; top: auto; background-color: #6d6e6b; opacity: 0.75; width: 100%; padding: 10px 20px 20px 20px">
+                                <span class="svc-itm-title" style="font-weight: bold;color: #b6d554; font-size: 1.5em">Special Event 5</span>
+                                <span class="svc-itm-desc" style="color: #fff">Special Event 5 Description</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="oc-item">
+                        <div class="service-item">
+                            <img class="img-responsive svc-itm-img" src="~/Content/Images/square-image.png" />
+                            <div style="position: absolute; bottom: 0px; top: auto; background-color: #6d6e6b; opacity: 0.75; width: 100%; padding: 10px 20px 20px 20px">
+                                <span class="svc-itm-title" style="font-weight: bold;color: #b6d554; font-size: 1.5em">Special Event 6</span>
+                                <span class="svc-itm-desc" style="color: #fff">Special Event 6 Description</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="oc-item">
+                        <div class="service-item">
+                            <img class="img-responsive svc-itm-img" src="~/Content/Images/square-image.png" />
+                            <div style="position: absolute; bottom: 0px; top: auto; background-color: #6d6e6b; opacity: 0.75; width: 100%; padding: 10px 20px 20px 20px">
+                                <span class="svc-itm-title" style="font-weight: bold;color: #b6d554; font-size: 1.5em">Special Event 7</span>
+                                <span class="svc-itm-desc" style="color: #fff">Special Event 7 Description</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+<section id="content" class="green-msg" style="background-color: #b6d554">
+    <div class="col-lg-offset-3 col-lg-6" style="text-align: center; padding-top: 80px; padding-bottom: 80px; font-weight: bold">
+        <span class="nn-message" style="font-size: 32px">A safe <span style="background-color: #6d6e6b;color: #fff">community</span> for you to engage in.</span>
+    </div>
+</section>
+
+<section id="content" style="background-color: #efefef; padding: 20px">
+
+    <div class="row">
+        <div class="span12 col-lg-12">
+            <div class="contents">
+
+                <div id="oc-testi" class="owl-carousel testimonials-carousel carousel-widget" data-margin="20" data-items-xs="1" data-items-sm="2" data-items-lg="3">
+
+                    <div class="oc-item">
+                        <div class="testimonial">
+                            <div class="testi-image">
+                                <img src="~/Content/Images/square-image.png" alt="Testimonails" class="nn-avatar img-thumbnail">
+                            </div>
+                            <div class="testi-content">
+                                <div class="testi-meta">
+                                    <strong>Pr. Nestor Abdon</strong>
+                                    <span style="color: #ba0f6b">Newcomers Network Pastor and Organizer</span>
+                                </div>
+                                <p>Incidunt deleniti blanditiis quas aperiam recusandae consequatur ullam quibusdam cum libero illo rerum repellendus!</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="oc-item">
+                        <div class="testimonial">
+                            <div class="testi-image">
+                                <img src="~/Content/Images/square-image.png" alt="Testimonails" class="nn-avatar img-thumbnail">
+                            </div>
+                            <div class="testi-content">
+                                <div class="testi-meta">
+                                    Muhamed Ahmed
+                                    <span style="color: #ba0f6b">Sirian Refugee</span>
+                                </div>
+                                <p>Natus voluptatum enim quod necessitatibus quis expedita harum provident eos obcaecati id culpa corporis molestias.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="oc-item">
+                        <div class="testimonial">
+                            <div class="testi-image">
+                                <img src="~/Content/Images/square-image.png" alt="Testimonails" class="nn-avatar img-thumbnail">
+                            </div>
+                            <div class="testi-content">
+                                <div class="testi-meta">
+                                    Dr. Norman Last Name
+                                    <span style="color: #ba0f6b">Volunteer Doctor</span>
+                                </div>
+                                <p>Fugit officia dolor sed harum excepturi ex iusto magnam asperiores molestiae qui natus obcaecati facere sint amet.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="oc-item">
+                        <div class="testimonial">
+                            <div class="testi-image">
+                                <img src="~/Content/Images/square-image.png" alt="Testimonails" class="nn-avatar img-thumbnail">
+                            </div>
+                            <div class="testi-content">
+                                <div class="testi-meta">
+                                    User Name
+                                    <span style="color: #ba0f6b">User Title</span>
+                                </div>
+                                <p>Similique fugit repellendus expedita excepturi iure perferendis provident quia eaque. Repellendus, vero numquam?</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="oc-item">
+                        <div class="testimonial">
+                            <div class="testi-image">
+                                <img src="~/Content/Images/square-image.png" alt="Testimonails" class="nn-avatar img-thumbnail">
+                            </div>
+                            <div class="testi-content">
+                                <div class="testi-meta">
+                                    User Name
+                                    <span style="color: #ba0f6b">User Title</span>
+                                </div>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minus, perspiciatis illum totam dolore deleniti labore.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!--
+
+                <div class="col-lg-4 span4">
+                    <div class="testimonial">
+                        <img class="avatar img-circle img-responsive" src="~/Content/Images/square-image.png" />
+                        <p class="name">Pr. Nestor Abdon</p>
+                        <p class="position">Newcomers Network Pastor and Organizer</p>
+                        <p class="test-text">Integer elementum massa at nulla placerat varius. Suspendissevitae metus faucib</p>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 span4">
+                    <div class="testimonial">
+                        <img class="avatar img-circle img-responsive" src="~/Content/Images/square-image.png" />
+                        <p class="name">Muhamed Ahmed(*)</p>
+                        <p class="position">Sirian Refugee</p>
+                        <p class="test-text">Integer elementum massa at nulla placerat varius. Suspendissevitae metus faucib</p>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 span4">
+                    <div class="testimonial">
+                        <img class="avatar img-circle img-responsive" src="~/Content/Images/square-image.png" />
+                        <p class="name">Dr. Norman Last Name(*)</p>
+                        <p class="position">Volunteer Doctor</p>
+                        <p class="test-text">Integer elementum massa at nulla placerat varius. Suspendissevitae metus faucib</p>
+                    </div>
+                </div>
+                -->
+
+            </div>
+        </div>
+    </div>
+
+</section>
+
+<section id="content">
+    <div class="content-wrap">
+        <div class="container clearfix">
+
+            <div class="row">
+                <div class="col-lg-offset-3 col-lg-6" style="text-align: center; font-weight: bold; margin-bottom: 20px;">
+                    <span class="nn-message" style="font-size: 32px">Follow us on </span><span style="font-size: 32px; background-color: #6d6e6b;color: #fff">social media </span>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-5" style="background-color: #efefef; padding: 10px; margin-bottom: 20px">
+                    <a href="https://twitter.com/NewcomersTO" class="social-icon si-colored si-twitter" target="_blank">
+                        <i class="icon-twitter"></i>
+                        <i class="icon-twitter"></i>
+                    </a>
+                    <a href="https://twitter.com/NewcomersTO" style="line-height: 40px;font-weight: bold" target="_blank">@@NewcomersTO</a>
+                </div>
+
+                <div class="col-lg-offset-1 col-lg-5" style="background-color: #efefef; padding: 10px">
+                    <a href="https://www.facebook.com/NewcomersNetworkTPC/" class="social-icon si-colored si-facebook" target="_blank">
+                        <i class="icon-facebook"></i>
+                        <i class="icon-facebook"></i>
+                    </a>
+                    <a href="https://www.facebook.com/NewcomersNetworkTPC/" style="line-height: 40px;font-weight: bold" target="_blank">NewcomersNetworkTPC</a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<section id="content" class="blue-msg" style="background-color: #00588d; color: #fff">
+    <div class="col-lg-offset-3 col-lg-6" style="text-align: center; padding-top: 80px; padding-bottom: 80px; font-weight: bold">
+        <span class="nn-message" style="font-size: 32px; display: block">Newcomers Network</span><span class="nn-message" style="font-size: 32px">Compassion. Connection. Community.</span>
+    </div>
 </section>

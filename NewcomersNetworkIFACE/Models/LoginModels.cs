@@ -6,11 +6,15 @@ using System.Web;
 
 namespace NewcomersNetworkIFACE.Models
 {
+
+    /// <summary>
+    /// Login form ViewModel
+    /// </summary>
     public class Login
     {
         [Required]
         [DataType(DataType.EmailAddress)]
-        [Display(Name = "E-Mail")]
+        [Display(Name = "User Name")]
         public string UserName { get; set; } = "";
 
         [Required]
@@ -19,7 +23,7 @@ namespace NewcomersNetworkIFACE.Models
         public string Password { get; set; } = "";
 
         [Display(Name = "Stay Connected")]
-        public bool StayConnected { get; set; } = false;
+        public bool StayConnected { get; set; } = true;
 
         public string ReturnUrl { get; protected set; } = "";
 

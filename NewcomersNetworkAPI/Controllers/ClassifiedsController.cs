@@ -61,10 +61,10 @@ namespace NewcomersNetworkAPI.Controllers
 
             infoParameters.Add("nPage", oFilter.nPage);
             infoParameters.Add("nPageSize", oFilter.nPageSize);
-            infoParameters.Add("cCategory", oFilter.aCategory);
-            infoParameters.Add("cType", string.Join("|",oFilter.cType));
+            infoParameters.Add("cCategory", string.Join("|",oFilter.aCategory));
+            infoParameters.Add("cType", oFilter.cType);
             infoParameters.Add("cWord", oFilter.cWord);
-            DataTable oClassDB = DBConn.ExecuteCommand("sp_Classifieds_GetFiltered", null).Tables[0];
+            DataTable oClassDB = DBConn.ExecuteCommand("sp_Classifieds_GetFiltered", infoParameters).Tables[0];
 
             if (oClassDB.Rows.Count > 0)
             {
@@ -75,6 +75,8 @@ namespace NewcomersNetworkAPI.Controllers
 
                     if (oClassified.isValid)
                     {
+                        oClassified.oAuthor = new UserSimple(oClassified.CreatedBy);
+                        oClassified.oCategory = new SvcGrpSimple(oClassified.Category);
                         oClassifieds.Add(oClassified);
                     }
                 }
@@ -132,7 +134,7 @@ namespace NewcomersNetworkAPI.Controllers
 
         [Route("Update")]
         [HttpPut]
-        public IHttpActionResult UpdateService([FromBody]Classified oClassified)
+        public IHttpActionResult UpdateClassified([FromBody]Classified oClassified)
         {
 
             if (oClassified != null && oClassified.Update())

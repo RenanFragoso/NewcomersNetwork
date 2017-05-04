@@ -19,16 +19,32 @@ namespace NewcomersNetworkIFACE.Controllers
 
         public ActionResult About()
         {
-            ViewBag.Message = "Your application description page.";
+            ViewBag.Message = "About Newcomers Network page.";
             base.VerifyCredential();
             return View();
         }
 
         public ActionResult Contact()
         {
-            ViewBag.Message = "Your contact page.";
+            ViewBag.Message = "Newcomers Network Contact Page";
             base.VerifyCredential();
             return View();
         }
+
+        public ActionResult Legal()
+        {
+            ViewBag.Message = "Newcomers Network Legal/Privacy";
+            base.VerifyCredential();
+            return View();
+        }
+
+        public ActionResult TermsOfUse()
+        {
+            ViewBag.Message = "Newcomers Network Terms of Use";
+            base.VerifyCredential();
+            return View();
+        }
+
+
     }
 }

@@ -20,6 +20,9 @@ namespace NewcomersNetworkIFACE.Controllers
         public ActionResult Index()
         {
             base.VerifyCredential();
+
+            //Get the "classified" group Select Lists
+            oClassifieds.loadListsGroup("classified");
             return View();
         }
 

@@ -91,7 +91,7 @@
     var oUserData = [{ id: "ce209094-2d37-489d-9eb5-db570b06fab5", text: "Renan Fragoso" }, { id: "c1c78ba8-c367-4862-a881-57e0c2272817", text: "Nestor Abdon" }];
 
     //Classified Types
-    var oTypes = [{ id: 'N', text: "Needs" }, { id: "H", text: "Help" }];
+    var oTypes = [{ id: 'N', text: "Needs" }, { id: "S", text: "Support" }];
 
     //Service Groups as Categories
     var oGroupList = [];
@@ -223,7 +223,7 @@
                             cinternal += '                      <div class="span6">';
                             cinternal += '                          <ul class="nn-di-ul">';
                             cinternal += '                              <li class="nn-di-li"><span>Category:</span> <a id="Category' + nDataIndex + '" data-value="' + data.Category + '" data-type="select2">' + RenderCategory(data.Category) + '</a></li>';
-                            cinternal += '                              <li class="nn-di-li"><span>Type:</span> <a id="Type' + nDataIndex + '" data-value="' + data.Type + '" data-type="select2">' + (data.Type == "N" ? "Need" : "Help") + '</a></li>';
+                            cinternal += '                              <li class="nn-di-li"><span>Type:</span> <a id="Type' + nDataIndex + '" data-value="' + data.Type + '" data-type="select2">' + (data.Type == "N" ? "Need" : "Support") + '</a></li>';
                             cinternal += '                              <li class="nn-di-li"><span>Status:</span>';
                             if (data.Status === "P") {
                                 cinternal += '                                  <span class="nn-blocked">Pending Approval</span>';

@@ -272,6 +272,7 @@
     <Compile Include="Controllers\EventDetailsController.cs" />
     <Compile Include="Controllers\EventsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ImageServiceController.cs" />
     <Compile Include="Controllers\NNAuthController.cs" />
     <Compile Include="Controllers\OptionsListsController.cs" />
     <Compile Include="Controllers\CalendarController.cs" />
@@ -289,6 +290,8 @@
     <Compile Include="Models\ClassifiedEventsModels.cs" />
     <Compile Include="Models\ClassifiedModels.cs" />
     <Compile Include="Models\EventRegistrationModels.cs" />
+    <Compile Include="Models\ImageControlModels.cs" />
+    <Compile Include="Models\ImageFileModels.cs" />
     <Compile Include="Models\NNClassifiedsFilterModels.cs" />
     <Compile Include="Models\OptionList.cs" />
     <Compile Include="Models\OptionsLists.cs" />
@@ -420,6 +423,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="Properties\PublishProfiles\IIS - Local.pubxml" />
+    <None Include="Properties\PublishProfiles\nnapi - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -461,6 +465,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Controllers\NNAdmin\" />
     <Folder Include="Database\Functions\" />
     <Folder Include="Database\StoredProcedures\Mentorship\" />
     <Folder Include="Database\StoredProcedures\Reports\" />
@@ -482,6 +487,12 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MultipartDataMediaFormatter\MultipartDataMediaFormatter.csproj">
+      <Project>{1f851995-9c6b-4b34-82af-ac4e075f00c2}</Project>
+      <Name>MultipartDataMediaFormatter</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
