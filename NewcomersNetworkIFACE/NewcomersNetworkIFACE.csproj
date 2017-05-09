@@ -227,7 +227,6 @@
     <Compile Include="Filters\ValidateJsonAntiForgeryTokenAttribute.cs" />
     <Compile Include="Filters\NNAuthorizeAttribute.cs" />
     <Compile Include="Models\LoginModels.cs" />
-    <Compile Include="Models\SignInModels.cs" />
     <Compile Include="Models\UserAPIModels.cs" />
     <Compile Include="NNAPIClient\NNInterfaceModel.cs" />
     <Compile Include="Areas\NNAdmin1\Models\EventsModels.cs" />

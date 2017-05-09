@@ -6,7 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 
-namespace NewcomersNetwork.Web.Common
+namespace NewcomersNetworkIFACE.Util
 {
     public static class Captcha
     {

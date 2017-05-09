@@ -16,10 +16,10 @@ namespace NewcomersNetworkIFACE.Models
     public class UserAPI : NNInterfaceModel
     {
         protected Login oLogin { get; set; } = new Login();
-        protected SignIn oSignIn { get; set; } = new SignIn();
+        public UserDetail oSignIn { get; set; } = new UserDetail();
         public string cUserToken { get; set; } = "";
         protected UserToken oUserToken { get; set; }
-        public User oUserDetails { get; set; } = new User();
+        public User oUser { get; set; } = new User();
 
         public UserDetail oEmptyDetail = new UserDetail();
 
@@ -35,12 +35,26 @@ namespace NewcomersNetworkIFACE.Models
             }
         }
 
-        public void setSignIn(SignIn oSignIn)
+        public void setFromDetail(UserDetail oDetail)
         {
-            if (oSignIn.isValid)
-            {
-                this.oLogin = oLogin;
-            }
+            //User Values
+            this.oUser.UserName = oDetail.UserName;
+            this.oUser.Email = oDetail.Email;
+            this.oUser.Password = oDetail.Password;
+
+            //User Details Values
+            this.oUser.oDetails.FirstName = oDetail.FirstName;
+            this.oUser.oDetails.LastName = oDetail.LastName;
+            this.oUser.oDetails.Email = oDetail.Email;
+            this.oUser.oDetails.Title = oDetail.Title;
+            this.oUser.oDetails.Gender = oDetail.Gender;
+            this.oUser.oDetails.MaritalStatus = oDetail.MaritalStatus;
+            this.oUser.oDetails.AgeRange = oDetail.AgeRange;
+            this.oUser.oDetails.Education = oDetail.Education;
+            this.oUser.oDetails.NearestIntersection = oDetail.NearestIntersection;
+            this.oUser.oDetails.PostalCode = oDetail.PostalCode;
+            this.oUser.oDetails.ConsentToContact = oDetail.ConsentToContact;
+            this.oUser.oDetails.IsImmigrant = oDetail.IsImmigrant;
         }
 
         public async Task<bool> Authenticate()
@@ -57,8 +71,9 @@ namespace NewcomersNetworkIFACE.Models
                 this.cUserToken = oUserToken.access_token;
                 this.oNNAPICLient.setToken(this.cUserToken);
 
-                this.oUserDetails = oNNAPICLient.Get<User>("/Users/GetDetails/" + Convert.ToBase64String(Encoding.Unicode.GetBytes(this.oUserToken.userName)));
-                if(this.oUserDetails != null && this.oUserDetails.Email == this.oUserToken.userName)
+                this.oUser = oNNAPICLient.Get<User>("/Users/GetDetails/" + Convert.ToBase64String(Encoding.Unicode.GetBytes(this.oUserToken.userName)));
+                //if(this.oUser != null && this.oUser.Email == this.oUserToken.userName)
+                if (this.oUser != null && this.oUser.UserName == this.oUserToken.userName)
                 {
                     return true;  
                 }
@@ -66,13 +81,19 @@ namespace NewcomersNetworkIFACE.Models
             return false;
         }
 
-        public bool Register()
+        public HttpResponseMessage Register()
         {
             //Register User into API (POST NEW USER TO API)
             //Create Session
             //Get Token -> Session
             //Redirect to Profile Page
-            return false;
+
+            HttpResponseMessage oResponse;
+            oResponse = this.oNNAPICLient.Post<User>("/Account/Register",this.oUser);
+
+            //HttpResponseMessage oResponse = new HttpResponseMessage();
+            //oResponse.StatusCode = System.Net.HttpStatusCode.Created;
+            return oResponse;
         }
 
         public HttpResponseMessage UpdateUserDetails(UserDetail oDetails)
@@ -92,9 +113,9 @@ namespace NewcomersNetworkIFACE.Models
         public SessionUser getSessionUser()
         {
             SessionUser oSessionUser;
-            if(this.oUserDetails != null)
+            if(this.oUser != null)
             {
-                oSessionUser = new SessionUser(this.oUserDetails);
+                oSessionUser = new SessionUser(this.oUser);
                 return oSessionUser;
             }
 
@@ -103,8 +124,8 @@ namespace NewcomersNetworkIFACE.Models
         
         public bool getUserData(SessionUser oSessionUsr)
         {
-            this.oUserDetails = oNNAPICLient.Get<User>("/Users/GetDetails/" + Convert.ToBase64String(Encoding.Unicode.GetBytes(oSessionUsr.EMail)));
-            if (this.oUserDetails != null)
+            this.oUser = oNNAPICLient.Get<User>("/Users/GetDetails/" + Convert.ToBase64String(Encoding.Unicode.GetBytes(oSessionUsr.EMail)));
+            if (this.oUser != null)
             {
                 return true;
             }
@@ -195,9 +216,26 @@ namespace NewcomersNetworkIFACE.Models
     public class UserDetail : NNInterfaceModel
     {
 
-        [Key]
-        [ScaffoldColumn(false)]
-        public string Id { get; set; } = "";
+        public string Id { get; set; } = "NULLID";
+
+        [Display(Name = "User Name")]
+        [UIHint("First Name")]
+        [Required(ErrorMessage = "Username is required")]
+        public string UserName { get; set; } = "";
+
+        [Display(Name = "Password")]
+        [UIHint("Password")]
+        [DataType(DataType.Password)]
+        [Required(ErrorMessage = "Password is required")]
+        [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{6,}$", ErrorMessage = "Password must be at least 6 characters long, have at least 1 Uppercase, 1 Lowercase and 1 digit (0-9).")]
+        public string Password { get; set; } = "";
+
+        [Display(Name = "Confirm Password")]
+        [UIHint("Confirm Password")]
+        [DataType(DataType.Password)]
+        [Required(ErrorMessage = "Confirm Password is required")]
+        [Compare("Password", ErrorMessage = "The Password and Confirmation Password does not match.")]
+        public string ConfirmPassword { get; set; } = "";
 
         [Display(Name = "First Name")]
         [UIHint("First Name")]
@@ -211,6 +249,7 @@ namespace NewcomersNetworkIFACE.Models
 
         [Display(Name = "E-Mail")]
         [UIHint("_Email")]
+        [EmailAddress]
         [Required(ErrorMessage = "E-Mail is required")]
         public string Email { get; set; } = "";
 
@@ -244,7 +283,7 @@ namespace NewcomersNetworkIFACE.Models
 
         [Display(Name = "I do authorize Newcomers Network to send me e-mails.")]
         [UIHint("Do you consent further e-mail contacts?")]
-        public bool ConsentToContact { get; set; } = false;
+        public bool ConsentToContact { get; set; } = true;
 
         [Display(Name = "Status")]
         [UIHint("Status")]
@@ -252,7 +291,13 @@ namespace NewcomersNetworkIFACE.Models
 
         [Display(Name = "I am a Newcomer")]
         [UIHint("Are you a Newcomer?")]
-        public bool IsImmigrant { get; set; } = false;
+        public bool IsImmigrant { get; set; } = true;
+
+        [Display(Name = "I accept the Newcomers Network Therms of Use.")]
+        [UIHint("Newcomers Network Therms of Use")]
+        [Required(ErrorMessage = "Please, read and accept the Newcomers Network Terms of Use to continue.")]
+        public bool NNThermsOfUse { get; set; } = false;
+
         public string Picture { get; set; } = "";
 
         public List<UsersRoles> oUserRoles { get; set; } = new List<UsersRoles>();

@@ -76,7 +76,7 @@ namespace NewcomersNetworkAPI.Controllers
                     if (oClassified.isValid)
                     {
                         oClassified.oAuthor = new UserSimple(oClassified.CreatedBy);
-                        oClassified.oCategory = new SvcGrpSimple(oClassified.Category);
+                        oClassified.oCategory = new ClsGrpSimple(oClassified.Category);
                         oClassifieds.Add(oClassified);
                     }
                 }

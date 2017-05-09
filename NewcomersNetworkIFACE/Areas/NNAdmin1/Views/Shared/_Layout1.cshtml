@@ -66,6 +66,7 @@
             <li id="classifiedsmnu" class="submenu">
                <a href="@Url.Action("", "Classifieds", new { Area = "NNAdmin1" })"><i class="icon icon-list-ul"></i> <span>Classifieds</span></a>
                 <ul>
+                    <li id="classgroupsmnu" class="menuitem"><a href="@Url.Action("Groups", "Classifieds", new { Area = "NNAdmin1" })"><i class="icon icon-list-ul"></i> <span>Classifieds Groups</span></a></li>
                     <li id="needspendmnu" class="menuitem"><a href="@Url.Action("NeedsPending", "Classifieds", new { Area = "NNAdmin1" })"><i class="icon icon-list-ul"></i> <span>Needs Pending</span><span id="ClsNPending" class="label label-important">1</span></a></li>
                     <li id="helppendmnu" class="menuitem"><a href="@Url.Action("HelpPending", "Classifieds", new { Area = "NNAdmin1" })"><i class="icon icon-list-ul"></i> <span>Help Pending</span><span id="ClsHPending" class="label label-important"></span></a></li>
                     <li id="clsreportmnu" class="menuitem"><a href="@Url.Action("Reported", "Classifieds", new { Area = "NNAdmin1" })"><i class="icon icon-list-ul"></i> <span>Reported</span><span id="ClsReport" class="label label-important"></span></a></li>

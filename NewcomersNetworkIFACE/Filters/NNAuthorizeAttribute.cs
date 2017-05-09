@@ -47,9 +47,11 @@ namespace NewcomersNetworkIFACE.Filters
                     oResponse = oClient.Post<string>("/NNAuth/TokenProbe", cUserToken);
                     if (oResponse.IsSuccessStatusCode)
                     {
+                        string cSalt = ConfigurationManager.AppSettings["CryptoSalt"];
                         oCrypt = new NNCrypt(ConfigurationManager.AppSettings["CookieKey"], ConfigurationManager.AppSettings["CookieVector"]);
                         string cUser = oCrypt.Decrypt(httpContext.Request.Cookies["RememberUser"].Value);
-                        if(cUser != null)
+                        cUser = cUser.Substring(cSalt.Length);
+                        if (cUser != null)
                         {
                             oUser = oClient.Get<User>("/Users/GetDetails/" + Convert.ToBase64String(Encoding.Unicode.GetBytes(cUser)));
                             if (oUser != null)

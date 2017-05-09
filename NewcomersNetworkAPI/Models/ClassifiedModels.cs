@@ -28,7 +28,7 @@ namespace NewcomersNetworkAPI.Models
         public DateTime CreateDate { get; set; } = DateTime.Now;
         public DateTime AlterDate { get; set; } = DateTime.Now;
 
-        public SvcGrpSimple oCategory { get; set; }
+        public ClsGrpSimple oCategory { get; set; }
         public UserSimple oAuthor { get; set; }
 
         //public Byte[] ImageData { get; set; } = new Byte[0];

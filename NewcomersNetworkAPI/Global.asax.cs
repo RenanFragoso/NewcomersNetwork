@@ -6,6 +6,7 @@ using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using NewcomersNetworkAPI.Providers;
 using MultipartDataMediaFormatter;
 using MultipartDataMediaFormatter.Infrastructure;
 
@@ -27,6 +28,8 @@ namespace NewcomersNetworkAPI
             //Blob storage Setup
             NNAPIBlobServices.SetConfiguration();
 
+            //Email Sender Initialization
+            NNSMTPSender.Init();
 
         }
     }

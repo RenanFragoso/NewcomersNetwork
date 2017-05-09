@@ -15,26 +15,10 @@ namespace NewcomersNetworkAPI.Models
     public class User : NNAPIModel
     {
         [Key]
-        [ScaffoldColumn(false)]
         public string Id { get; set; } = "";
-
-        [Display(Name = "E-Mail")]
-        [UIHint("E-mail")]
-        [Required(ErrorMessage = "E-mail is required")]
-        [RegularExpression(@"^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}" +
-                   @"\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\" +
-                   @".)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$",
-                   ErrorMessage = "Please, enter a valid E-Mail.")]
         public string Email { get; set; } = "";
-
-        [Display(Name = "User Name")]
-        [UIHint("User Name")]
         public string UserName { get; set; } = "";
-
-        [Display(Name = "Password")]
-        [UIHint("Password")]
         public string Password { get; set; } = "";
-
         public UserDetails oDetails { get; set; } = new UserDetails();
 
         public User()
@@ -119,7 +103,8 @@ namespace NewcomersNetworkAPI.Models
 
             /* Create OWIN user */
             UserManager<IdentityUser> oUsrManager = new UserManager<IdentityUser>(new UserStore<IdentityUser>());
-            IdentityUser oUserOWin = new IdentityUser() { UserName = this.Email, Email = this.Email };
+            //IdentityUser oUserOWin = new IdentityUser() { UserName = this.Email, Email = this.Email };
+            IdentityUser oUserOWin = new IdentityUser() { UserName = this.UserName, Email = this.Email };
             IdentityResult result = oUsrManager.Create(oUserOWin, this.Password);
 
             // Save the user details if exists
@@ -128,6 +113,7 @@ namespace NewcomersNetworkAPI.Models
                 if (this.oDetails != null)
                 {
                     this.Id = oUserOWin.Id;
+
                     this.oDetails.Id = this.Id;
                     this.oDetails.Email = this.Email;
                     this.oDetails.Save();

@@ -13,6 +13,7 @@ using NewcomersNetworkIFACE.Util;
 using System.Configuration;
 using System.Net.Http;
 using System.IO;
+using System.Net;
 
 namespace NewcomersNetworkIFACE.Controllers
 {
@@ -36,9 +37,10 @@ namespace NewcomersNetworkIFACE.Controllers
             return View(oLogin);
         }
 
+        [HttpGet]
         public ActionResult SignIn()
         {
-            return View(this.oUserAPI);
+            return View(this.oUserAPI.oSignIn);
         }
 
         public ActionResult LogOut()
@@ -124,7 +126,20 @@ namespace NewcomersNetworkIFACE.Controllers
             }
             return RedirectToAction("Index", "Home");
         }
-        
+
+        [HttpGet]
+        public ActionResult ConfirmLogin(string confirmData)
+        {
+            return Redirect("/UserProfile/Login");
+        }
+
+        /*
+        [HttpPost]
+        public ActionResult ConfirmLogin(string confirmData)
+        {
+            return Redirect("/UserProfile/Login");
+        }
+        */
         #endregion
 
         #region METHODS
@@ -155,6 +170,7 @@ namespace NewcomersNetworkIFACE.Controllers
                         //Store token/user cookie
                         if (oLogin.StayConnected)
                         {
+                            string cSalt = ConfigurationManager.AppSettings["CryptoSalt"];
                             oCrypt = new NNCrypt(ConfigurationManager.AppSettings["CookieKey"], ConfigurationManager.AppSettings["CookieVector"]);
                             HttpCookie cookieTkn = new HttpCookie("RememberToken");
                             HttpCookie cookieUsr = new HttpCookie("RememberUser");
@@ -167,8 +183,8 @@ namespace NewcomersNetworkIFACE.Controllers
 
                             //Sets the value
                             cookieTkn.Value = this.oUserAPI.cUserToken;
-                            cookieUsr.Value = oCrypt.Encrypt(oSessionUser.EMail);
-                            
+                            cookieUsr.Value = oCrypt.Encrypt(cSalt + oSessionUser.EMail);
+
                             //Writes the cookie
                             Response.Cookies.Add(cookieTkn);
                             Response.Cookies.Add(cookieUsr);
@@ -211,6 +227,40 @@ namespace NewcomersNetworkIFACE.Controllers
         }
 
         [HttpPost]
+        [ValidateJsonAntiForgeryToken]
+        public ActionResult SignIn(UserDetail oUserData)
+        {
+            if (ModelState.IsValid)
+            {
+                string cCaptcha = Request["g-recaptcha-response"];
+                bool bCaptcha = Captcha.VerifyResponse(cCaptcha);
+
+                if (bCaptcha)
+                {
+                    HttpResponseMessage oResponse;
+                    this.oUserAPI.setFromDetail(oUserData);
+                    oResponse = this.oUserAPI.Register();
+
+                    if (oResponse.IsSuccessStatusCode)
+                    {
+                        TempData["ConfirmData"] = oUserData;
+                        //return Redirect("/UserProfile/WaitConfirm");
+                        return new HttpStatusCodeResult(HttpStatusCode.Created, "User Created.");
+                    }
+                    else
+                    {
+                        return View(oUserData);
+                    }
+
+                }
+                ModelState.AddModelError(string.Empty, "Invalid Captcha.");
+                return View(oUserData);
+            }
+
+            return View(oUserData);
+        }
+
+        [HttpPost]
         [NNLoginPersistence]
         [NNAuthorize]
         [ValidateJsonAntiForgeryToken]
@@ -221,7 +271,6 @@ namespace NewcomersNetworkIFACE.Controllers
 
             if (ModelState.IsValid)
             {
-
                 oResponse = this.oUserAPI.UpdateUserDetails(oUserData);
 
                 if (oResponse.IsSuccessStatusCode)

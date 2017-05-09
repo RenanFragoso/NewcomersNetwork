@@ -1,4 +1,4 @@
-﻿@model NewcomersNetworkIFACE.Models.UserAPI
+﻿@model NewcomersNetworkIFACE.Models.UserDetail
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
     ViewBag.Title = "Sign In";
@@ -8,7 +8,7 @@
 
     <div class="row">
 
-        <form>
+        <form name="NNSignIn" method="post" action="/UserProfile/SignIn">
 
             <div class="col-lg-6 col-sm-12">
 
@@ -16,65 +16,68 @@
 
                 <div class="col_full">
                     @Html.AntiForgeryToken()
-                    @Html.HiddenFor(model => model.oUserDetails.oDetails.Id)
+                    @Html.HiddenFor(model => model.Id)
                 </div>
 
                 <div class="col_full">
-                    @Html.LabelFor(model => model.oUserDetails.UserName)
-                    @Html.TextBoxFor(model => model.oUserDetails.UserName, new { @class = "sm-form-control", placeholder = "Choose an Username" })
+                    @Html.LabelFor(model => model.UserName)
+                    @Html.TextBoxFor(model => model.UserName, new { @class = "sm-form-control", placeholder = "Choose an Username" })
+                    @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
                 </div>
 
                 <div class="col_full">
-                    @Html.LabelFor(model => model.oUserDetails.Password)
-                    @Html.PasswordFor(model => model.oUserDetails.Password, new { @class = "sm-form-control", placeholder = "Choose a Password" })
+                    @Html.LabelFor(model => model.Password)
+                    @Html.PasswordFor(model => model.Password, new { @class = "sm-form-control", placeholder = "Choose a Password" })
+                    @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
                 </div>
 
                 <div class="col_full">
-                    <label>Confirm Password</label>
-                    <input type="password" name="confirmPasswd" class="sm-form-control" placeholder="Confirm Password" />
+                    @Html.LabelFor(model => model.ConfirmPassword)
+                    @Html.PasswordFor(model => model.ConfirmPassword, new { @class = "sm-form-control", placeholder = "Confirm Password" })
+                    @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger" })
                 </div>
 
                 <div class="col_full">
-                    @Html.LabelFor(model => model.oUserDetails.oDetails.FirstName)
-                    @Html.TextBoxFor(model => model.oUserDetails.oDetails.FirstName, new { @class = "sm-form-control", placeholder = "First Name" })
+                    @Html.LabelFor(model => model.FirstName)
+                    @Html.TextBoxFor(model => model.FirstName, new { @class = "sm-form-control", placeholder = "First Name" })
+                    @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
                 </div>
                 <div class="col_full">
-                    @Html.LabelFor(model => model.oUserDetails.oDetails.LastName)
-                    @Html.TextBoxFor(model => model.oUserDetails.oDetails.LastName, new { @class = "sm-form-control", placeholder = "Last Name" })
+                    @Html.LabelFor(model => model.LastName)
+                    @Html.TextBoxFor(model => model.LastName, new { @class = "sm-form-control", placeholder = "Last Name" })
                 </div>
                 <div class="col_full">
-                    @Html.LabelFor(model => model.oUserDetails.oDetails.Email)
-                    @Html.TextBoxFor(model => model.oUserDetails.oDetails.Email, new { @class = "sm-form-control", placeholder = "E-Mail" })
+                    @Html.LabelFor(model => model.Email)
+                    @Html.TextBoxFor(model => model.Email, new { @class = "sm-form-control", placeholder = "E-Mail" })
+                    @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
                 </div>
 
 
                 <div class="col_full">
-                    @Html.HiddenFor(model => model.oUserDetails.oDetails.ConsentToContact)
-                    <span class="btn-sm tpc-red nncheck" data-checked="" data-name="oUserDetails.oDetails.ConsentToContact" style="color: #fff;"><i class="icon icon-ok"></i></span>
-                    @Html.LabelFor(model => model.oUserDetails.oDetails.ConsentToContact)
+                    @Html.HiddenFor(model => model.ConsentToContact)
+                    <span class="btn-sm tpc-red nncheck" data-checked="" data-name="ConsentToContact" style="color: #fff;"><i class="icon icon-ok"></i></span>
+                    @Html.LabelFor(model => model.ConsentToContact)
                 </div>
                 <div class="col_full">
-                    @*
-                    @Html.CheckBoxFor(model => model.oUserDetails.oDetails.IsImmigrant, new { @class = "checkbox-style" })
-                    @Html.LabelFor(model => model.oUserDetails.oDetails.IsImmigrant, new { @class = "checkbox-style-3-label" })
-                    *@
-                    @Html.HiddenFor(model => model.oUserDetails.oDetails.IsImmigrant)
-                    <span class="btn-sm tpc-red nncheck" data-checked="" data-name="oUserDetails.oDetails.IsImmigrant" style="color: #fff;"><i class="icon icon-ok"></i></span>
-                    @Html.LabelFor(model => model.oUserDetails.oDetails.IsImmigrant)
+                    @Html.HiddenFor(model => model.IsImmigrant)
+                    <span class="btn-sm tpc-red nncheck" data-checked="" data-name="IsImmigrant" style="color: #fff;"><i class="icon icon-ok"></i></span>
+                    @Html.LabelFor(model => model.IsImmigrant)
 
                 </div>
-
-
+                <div class="col_full">
+                    @Html.HiddenFor(model => model.NNThermsOfUse)
+                    <span class="btn-sm tpc-red nncheck" data-checked="" data-name="NNThermsOfUse" data-override="showTerms" style="color: #fff;"><i class="icon icon-ok"></i></span>
+                    @Html.LabelFor(model => model.NNThermsOfUse)
+                    @Html.ValidationMessageFor(model => model.NNThermsOfUse, "", new { @class = "text-danger" })
+                </div>
 
                 <div class="col_full">
                     <div class="g-recaptcha" data-sitekey=@Html.Raw("\"")@((string)System.Configuration.ConfigurationManager.AppSettings["reCAPTCHASiteKey"])@Html.Raw("\"")></div>
                 </div>
-                
 
                 <div class="col_full">
-                    <input type="button" class="btn nn-style-btn tpc-blue" style="color: #fff;font-size: 1.2em" value="Register" />
+                    <input type="submit" id="RegisterBtn" class="btn nn-style-btn tpc-blue disabled" style="color: #fff;font-size: 1.5em;font-weight: bold" value="Register" />
                 </div>
-
 
             </div>
 
@@ -84,12 +87,150 @@
 
 </div>
 
+
+<div class="modal fade" id="termsOfUse" tabindex="-1" role="dialog" aria-labelledby="termsOfUseLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-body">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="termsOfUseLabel">Newcomers Network Terms of Use</h4>
+                </div>
+                <div class="modal-body">
+
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <p>
+                                The Newcomers Network website (“The Website”) is created and administered by volunteers of the Newcomers Network which operates under the Peoples Church Inc (“TPC”).
+                            </p>
+                            <p>
+                                TPC Newcomers Network makes available a classifieds section on The Website for use by newcomers and volunteers (“Users”). The classified section is meant to help
+                                newcomers to connect with individuals who may wish to provide help in settlement, employment and housing. It is not intended as a forum for commercial purposes.
+                            </p>
+                            <p>
+                                The content in the classifieds section is provided on an "as is, where is" posted basis by users. TPC Newcomers Network, its employees and administration
+                                volunteers do not screen classifieds posted on The Website, and further provide no endorsement or representation of any kind regarding the goods or services offered
+                                and obtained through The Website. Each user of The Website is responsible for verifying any goods and services offered before agreeing to use them.
+                            </p>
+                            <p>
+                                By using The Website <strong>JustShare</strong> section, you accept any risk or injury or loss of any kind relating to or arising out of your use in the <strong>JustShare</strong> section.
+                                You agree to release TPC Newcomers Network, its staff and volunteers from liability of any kind relating to or arising out of the use of the information,
+                                goods and services offered through the <strong>JustShare</strong> section.
+                            </p>
+                            <p>
+                            </p>
+                            <ul style="margin-left: 20px">
+                                <li>post content or items in an inappropriate category</li>
+                                <li>post multiple classified ads for the same item in the same category</li>
+                                <li>post classifieds for commercial purposes</li>
+                                <li>post classifieds containing information that is false, inaccurate, misleading, defamatory, libelous or invasive of a person's privacy</li>
+                                <li>post material that is abusive, vulgar, hateful, harassing, obscene, threatening, or otherwise in violation of any law.</li>
+                            </ul>
+
+                            TPC Newcomers Network reserves the right to delete or alter any classifieds. TPC Newcomers Network ministry works with local and national law enforcement
+                            agencies to identify and prosecute perpetrators of illegal activity on The Website. TPC Newcomers Network reserves the right to reveal your information in the event of a complaint or legal action arising from any classified posted by you.
+
+                            <p></p>
+                            <p>
+                                <strong>Personal Information and Privacy</strong>
+                                Except where otherwise stated in the Agreement, TPC will not disclose any personal information to third parties without your explicit consent.
+                            </p>
+                            <p>
+                                By navigating The Website, you agree that TPC may collect personal information through your interaction on the Website, including but not limited to:
+                            </p>
+
+                            <ul style="margin-left: 20px">
+                                <li>account and volunteer information, including email address and physical contact information;</li>
+                                <li>classified postings through the Website, and correspondence sent to the Newcomers Network staff and volunteers;</li>
+                                <li>
+                                    other information from your interaction with the Website, including but not limited to: computer and connection information, statistics on page views,
+                                    traffic to and from the Website, IP address, and cookies.
+                                </li>
+                            </ul>
+
+                            <p></p>
+                            <p>
+                                You further agree that TPC may disclose personal information as necessary without your consent in order to:
+                            </p>
+
+                            <ul style="margin-left: 20px">
+                                <li>respond to legal requirements;</li>
+                                <li>enforce the policies of TPC;</li>
+                                <li>respond to claims that a listing or other content violates the rights of others, or;</li>
+                                <li>protect anyone's rights, property, or safety.</li>
+                                <li>
+                                    Such information will be disclosed in accordance with applicable laws and regulations.
+                                </li>
+                            </ul>
+                            <p></p>
+                            <p>
+                                TPC may use cookies to better understand how The Website is used and to improve the performance of the Website for our users. TPC does not use cookies to
+                                collect personal information about our Users, and we do not sell information about our traffic patterns to third parties.
+                            </p>
+                            <p>
+                                <strong>Human Rights and&nbsp;Equity</strong>
+                                TPC’s policy prohibits discrimination and harassment based on all grounds identified by the <a href="http://www.ohrc.on.ca/">ontario human rights code</a>: sex, sexual orientation, race, colour,
+                                ancestry, place of origin, ethnic origin, citizenship, creed (faith), age, marital status, family status and same-sex partnerships, and receipt of public assistance.
+                                content that is found to be in violation of these policies will be immediately deleted from the website.
+                            </p>
+                            <p>
+                                <strong>Changes to the Agreement</strong>
+                                The TPC reserves the right to revise The Agreement at any time in the future without notice. Revisions to The Agreement will be posted on The Website. By using
+                                The Website, Users accept to adhere to any revisions made to The Agreement at any point in the future. Users are responsible for familiarizing themselves with the
+                                terms of The Agreement and conducting themselves accordingly.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <input type="button" class="btn tpc-blue nn-style-btn" style="color: #fff;font-size: 1.2em" value="Accept"/>
+                            <input type="button" class="btn tpc-red nn-style-btn" style="color: #fff;font-size: 1.2em" value="I Do Not Accept" />
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 @section JSSection {
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <script src="~/Content/js/jquery.validate.min.js"></script>
     <script src="~/Content/js/NNHelpers.js"></script>
+    <script type="text/javascript">
+        function showTerms(bValue) {
+            console.log(event);
+            event.preventDefault();
+            event.stopPropagation();
+            $("#termsOfUse").modal();
+            return false;
+        }
+    </script>
+
 }
 <script>
 @section DocReadySection {
     NNcheckboxInit();
+
+    $(document).on("NNThermsOfUseChange", showTerms);
+
+
+    /*
+    $("#RegisterBtn").on("click", () => {
+        $('[name="NNSignIn"]').valid();
+    });
+    */
+    /*
+    $("#NNThermsOfUse").on("change", () => {
+        console.log($("#NNThermsOfUse").val());
+        if ($("#NNThermsOfUse").val()) {
+            $("#RegisterBtn").removeClass("disabled");
+        } else {
+            $("#RegisterBtn").addClass("disabled");
+        }
+    });
+    */
 }
 </script>

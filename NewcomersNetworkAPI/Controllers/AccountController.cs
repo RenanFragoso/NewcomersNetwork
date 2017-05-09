@@ -16,6 +16,8 @@ using Microsoft.Owin.Security.OAuth;
 using NewcomersNetworkAPI.Models;
 using NewcomersNetworkAPI.Providers;
 using NewcomersNetworkAPI.Results;
+using System.Configuration;
+using System.Text;
 
 namespace NewcomersNetworkAPI.Controllers
 {
@@ -52,6 +54,7 @@ namespace NewcomersNetworkAPI.Controllers
         public ISecureDataFormat<AuthenticationTicket> AccessTokenFormat { get; private set; }
 
         // GET api/Account/UserInfo
+        /* Disabled - Renan
         [HostAuthentication(DefaultAuthenticationTypes.ExternalBearer)]
         [Route("UserInfo")]
         public UserInfoViewModel GetUserInfo()
@@ -65,6 +68,7 @@ namespace NewcomersNetworkAPI.Controllers
                 LoginProvider = externalLogin != null ? externalLogin.LoginProvider : null
             };
         }
+        */
 
         // POST api/Account/Logout
         [Route("Logout")]
@@ -75,6 +79,7 @@ namespace NewcomersNetworkAPI.Controllers
         }
 
         // GET api/Account/ManageInfo?returnUrl=%2F&generateState=true
+        /* Disabled - Renan
         [Route("ManageInfo")]
         public async Task<ManageInfoViewModel> GetManageInfo(string returnUrl, bool generateState = false)
         {
@@ -113,6 +118,7 @@ namespace NewcomersNetworkAPI.Controllers
                 ExternalLoginProviders = GetExternalLogins(returnUrl, generateState)
             };
         }
+        */
 
         // POST api/Account/ChangePassword
         [Route("ChangePassword")]
@@ -123,8 +129,7 @@ namespace NewcomersNetworkAPI.Controllers
                 return BadRequest(ModelState);
             }
 
-            IdentityResult result = await UserManager.ChangePasswordAsync(User.Identity.GetUserId(), model.OldPassword,
-                model.NewPassword);
+            IdentityResult result = await UserManager.ChangePasswordAsync(User.Identity.GetUserId(), model.OldPassword, model.NewPassword);
             
             if (!result.Succeeded)
             {
@@ -135,6 +140,7 @@ namespace NewcomersNetworkAPI.Controllers
         }
 
         // POST api/Account/SetPassword
+        /* Unnecessary method - Renan
         [Route("SetPassword")]
         public async Task<IHttpActionResult> SetPassword(SetPasswordBindingModel model)
         {
@@ -152,8 +158,10 @@ namespace NewcomersNetworkAPI.Controllers
 
             return Ok();
         }
+        */
 
         // POST api/Account/AddExternalLogin
+        /* Disabled for while - Renan 
         [Route("AddExternalLogin")]
         public async Task<IHttpActionResult> AddExternalLogin(AddExternalLoginBindingModel model)
         {
@@ -190,8 +198,10 @@ namespace NewcomersNetworkAPI.Controllers
 
             return Ok();
         }
+        */
 
         // POST api/Account/RemoveLogin
+        /* Removed - Renan 
         [Route("RemoveLogin")]
         public async Task<IHttpActionResult> RemoveLogin(RemoveLoginBindingModel model)
         {
@@ -219,8 +229,10 @@ namespace NewcomersNetworkAPI.Controllers
 
             return Ok();
         }
+        */
 
         // GET api/Account/ExternalLogin
+        /* Disabled for while - Renan
         [OverrideAuthentication]
         [HostAuthentication(DefaultAuthenticationTypes.ExternalCookie)]
         [AllowAnonymous]
@@ -276,8 +288,10 @@ namespace NewcomersNetworkAPI.Controllers
 
             return Ok();
         }
+        */
 
         // GET api/Account/ExternalLogins?returnUrl=%2F&generateState=true
+        /* Disabled for while - Renan
         [AllowAnonymous]
         [Route("ExternalLogins")]
         public IEnumerable<ExternalLoginViewModel> GetExternalLogins(string returnUrl, bool generateState = false)
@@ -317,30 +331,128 @@ namespace NewcomersNetworkAPI.Controllers
 
             return logins;
         }
+        */
 
         // POST api/Account/Register
         [AllowAnonymous]
         [Route("Register")]
-        public async Task<IHttpActionResult> Register(RegisterBindingModel model)
+        //public async Task<IHttpActionResult> Register(RegisterBindingModel model)
+        public async Task<IHttpActionResult> Register(User oUser)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var user = new ApplicationUser() { UserName = model.Email, Email = model.Email };
+            //var user = new ApplicationUser() { UserName = model.Email, Email = model.Email };
+            //Changing the concept to use Username instead Email to login.
+            var user = new ApplicationUser() { UserName = oUser.UserName, Email = oUser.oDetails.Email };
 
-            IdentityResult result = await UserManager.CreateAsync(user, model.Password);
+            //IdentityResult result = await UserManager.CreateAsync(user, model.Password);
+            IdentityResult result = await UserManager.CreateAsync(user, oUser.Password);
 
             if (!result.Succeeded)
             {
                 return GetErrorResult(result);
             }
 
+            //Adding the user details to the database
+            oUser.oDetails.Id = user.Id;
+            oUser.oDetails.Status = "C"; // Waiting Confirmation
+            oUser.oDetails.Save();
+
+            //Sending Confirmation E-Mail
+            string cMailBody = "";
+            cMailBody += "<table width='100%' cellpadding='0' cellspacing='0' border='0' style='border-collapse:collapse;line-height:24px;margin:0;padding:0;width:100%;font-size:17px;color:#373737;background:#f9f9f9'>";
+            cMailBody += "    <tbody>";
+            cMailBody += "        <tr>";
+            cMailBody += "            <td valign='top' style='border-collapse:collapse'>";
+            cMailBody += "				<table width='100%' cellpadding='0' cellspacing='0' border='0' style='border-collapse:collapse'>";
+            cMailBody += "                    <tbody>";
+            cMailBody += "                        <tr>";
+            cMailBody += "                            <td valign='bottom' style='border-collapse:collapse;padding:20px 16px 12px'>";
+            cMailBody += "                                <div style='text-align:center'>";
+            cMailBody += "                                    <a href='http://localhost:59628' style='color:#439fe0;font-weight:bold;text-decoration:none;word-break:break-word' target='_blank'>";
+            cMailBody += "                                    <img src='http://newcomers-network.azurewebsites.net/Content/Images/tpc-logo.png' width='120' height='100' style='outline:none;text-decoration:none;border:none'></a>";
+            cMailBody += "                                </div>";
+            cMailBody += "                            </td>";
+            cMailBody += "                        </tr>";
+            cMailBody += "                    </tbody>";
+            cMailBody += "                </table>";
+            cMailBody += "            </td>";
+            cMailBody += "		</tr>";
+            cMailBody += "        <tr>";
+            cMailBody += "            <td valign='top' style='border-collapse:collapse'>";
+            cMailBody += "			    <table cellpadding='32' cellspacing='0' border='0' align='center' style='border-collapse:collapse;background:white;border-radius:0.5rem;margin-bottom:1rem'>";
+            cMailBody += "                    <tbody>";
+            cMailBody += "                        <tr>";
+            cMailBody += "                            <td width='546' valign='top' style='border-collapse:collapse'>";
+            cMailBody += "                                <div style='max-width:600px;margin:0 auto'>";
+            cMailBody += "                                    <div style='background:white;border-radius:0.5rem;margin-bottom:1rem'>";
+
+
+            cMailBody += "                                        <h2 style='color:#ba0f6b;line-height:30px;margin-bottom:12px;margin:0 0 12px'>Thank you for joining for <span class='il'>Newcomers Network</span>. We're happy you're here!</h2>";
+            cMailBody += "                                        <p style='font-size:17px;line-height:24px;margin:0 0 16px'>Confirm your email with the following link</p>";
+            cMailBody += "                                        <table style='border-collapse:separate;width:100%;padding-bottom:2rem'>";
+            cMailBody += "                                          <tbody>";
+            cMailBody += "                                              <tr>";
+            cMailBody += "                                                  <td style='border-collapse:collapse;text-align:center;font-size:48px;line-height:56px'>";
+            cMailBody += "                                                      <a href='http://localhost:59628/UserProfile/ConfirmEmail?data=" + Convert.ToBase64String(Encoding.Unicode.GetBytes(user.Email + "##" + user.SecurityStamp)) + "' style='text-decoration: none'><div style='background-color:#00588d;text-align:center;font-size:48px;line-height:56px;color: #fff;border-top-left-radius:20px; border-bottom-left-radius:20px;padding: 20px'>Confirm E-Mail</div>";
+            cMailBody += "                                                  </td>";
+            cMailBody += "                                              </tr>";
+            cMailBody += "                                          </tbody>";
+            cMailBody += "                                        </table>";
+            cMailBody += "                                        <p style='font-size:17px;line-height:24px;margin:0 0 16px'>";
+            cMailBody += "                                            If you have any questions, email us at <a href='mailto:newcomersnetworkws@newcomers.network' style='color:#439fe0;font-weight:bold;text-decoration:none;word-break:break-word' target='_blank'>newcomersnetworkws@<span class='il'>newcomers.network</span>.com</a>.";
+            cMailBody += "                                        </p>";
+            cMailBody += "                                        <p style='font-size:17px;line-height:24px;margin:0 0 16px'>";
+            cMailBody += "                                            Blessings,<br>";
+            cMailBody += "                                            The team at <span class='il'>Newcomers Network</span>";
+            cMailBody += "                                        </p>";
+            cMailBody += "                                    </div>";
+            cMailBody += "                                </div>";
+            cMailBody += "                            </td>";
+            cMailBody += "			            </tr>";
+            cMailBody += "                    </tbody>";
+            cMailBody += "                </table>";
+            cMailBody += "            </td>";
+            cMailBody += "		</tr>";
+            cMailBody += "        <tr>";
+            cMailBody += "            <td style='border-collapse:collapse'>";
+            cMailBody += "			    <table width='100%' cellpadding='0' cellspacing='0' border='0' align='center' style='border-collapse:collapse;margin-top:1rem;background:white;color:#989ea6'>";
+            cMailBody += "                    <tbody>";
+            cMailBody += "                        <tr>";
+            cMailBody += "                            <td style='border-collapse:collapse;height:5px;background-color: #ba0f6b'>";
+            cMailBody += "                            </td>";
+            cMailBody += "						</tr>";
+            cMailBody += "                        <tr>";
+            cMailBody += "                            <td valign='top' align='center' style='font-family:'Helvetica Neue',Helvetica,Arial,sans-serif!important;border-collapse:collapse;padding:16px 8px 24px'>";
+            cMailBody += "								<div style='max-width:600px;margin:0 auto'>";
+            cMailBody += "							        <p style='font-size:12px;line-height:20px;margin:0 0 16px;margin-top:16px'>";
+            cMailBody += "									    <a href='https://newcomers.network' style='color:#439fe0;font-weight:bold;text-decoration:none;word-break:break-word' target='_blank'><span class='il'>Newcomers Network</span></a>";
+            cMailBody += "										&nbsp;•&nbsp;";
+            cMailBody += "										<a href='https://newcomers.network/Home/Contact' style='color:#439fe0;font-weight:bold;text-decoration:none;word-break:break-word' target='_blank'>";
+            cMailBody += "    										374 Sheppard Avenue East &nbsp;•&nbsp; Toronto, Ontario &nbsp;•&nbsp; M2N 3B6 &nbsp;•&nbsp; Phone: 416.222.3341";
+            cMailBody += "										</a>";
+            cMailBody += "									</p>";
+            cMailBody += "								</div>";
+            cMailBody += "							</td>";
+            cMailBody += "						</tr>";
+            cMailBody += "                    </tbody>";
+            cMailBody += "                </table>";
+            cMailBody += "            </td>";
+            cMailBody += "		</tr>";
+            cMailBody += "    </tbody>";
+            cMailBody += "</table>";
+
+            NNSMTPSender.Instance.SendMailAsync(cMailBody, "E-Mail Confirmation", oUser.oDetails.Email, "", true);
+            //NNSMTPSender.Instance.SendMail(cMailBody, "E-Mail Confirmation", oUser.oDetails.Email, "", true);
+
             return Ok();
         }
 
         // POST api/Account/RegisterExternal
+        /* Disabled for while - Renan
         [OverrideAuthentication]
         [HostAuthentication(DefaultAuthenticationTypes.ExternalBearer)]
         [Route("RegisterExternal")]
@@ -372,7 +484,7 @@ namespace NewcomersNetworkAPI.Controllers
             }
             return Ok();
         }
-
+        */
         protected override void Dispose(bool disposing)
         {
             if (disposing && _userManager != null)

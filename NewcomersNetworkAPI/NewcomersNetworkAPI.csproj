@@ -289,6 +289,7 @@
     <Compile Include="Models\CalendarApiModels.cs" />
     <Compile Include="Models\ClassifiedEventsModels.cs" />
     <Compile Include="Models\ClassifiedModels.cs" />
+    <Compile Include="Models\ClassifiedsGroupsModels.cs" />
     <Compile Include="Models\EventRegistrationModels.cs" />
     <Compile Include="Models\ImageControlModels.cs" />
     <Compile Include="Models\ImageFileModels.cs" />
@@ -309,6 +310,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\ApplicationOAuthProvider.cs" />
     <Compile Include="Providers\DBConn.cs" />
+    <Compile Include="Providers\NNSMTPSender.cs" />
     <Compile Include="Results\ChallengeResult.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -337,6 +339,8 @@
     <Content Include="Database\StoredProcedures\Choices\sp_GetChoices_Occupation.sql" />
     <Content Include="Database\StoredProcedures\Choices\sp_GetChoices_UsersRoles.sql" />
     <Content Include="Database\StoredProcedures\Choices\sp_GetChoices.sql" />
+    <Content Include="Database\StoredProcedures\Classifieds\sp_ClassifiedsGroups__GetByID.sql" />
+    <Content Include="Database\StoredProcedures\Classifieds\sp_ClassifiedsGroups_GetAll.sql" />
     <Content Include="Database\StoredProcedures\Classifieds\sp_Classifieds_GetFiltered.sql" />
     <Content Include="Database\StoredProcedures\Classifieds\sp_Classifieds_GetAll.sql" />
     <Content Include="Database\StoredProcedures\Classifieds\sp_Classifieds_GetByID.sql" />
@@ -348,6 +352,7 @@
     <Content Include="Database\StoredProcedures\Classifieds\sp_Classifieds_Reject.sql" />
     <Content Include="Database\StoredProcedures\Classifieds\sp_Classifieds_Publish.sql" />
     <Content Include="Database\StoredProcedures\Classifieds\sp_Classifieds_Update.sql" />
+    <Content Include="Database\StoredProcedures\Choices\sp_GetChoices_ClassifiedGroups.sql" />
     <Content Include="Database\StoredProcedures\Events\sp_EventDetail_GetByEvntID.sql" />
     <Content Include="Database\StoredProcedures\Events\sp_EventDetail_Insert.sql" />
     <Content Include="Database\StoredProcedures\Events\sp_EventDetail_Update.sql" />

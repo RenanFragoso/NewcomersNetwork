@@ -47,7 +47,9 @@ namespace NewcomersNetworkIFACE.Filters
                         {
                             try
                             {
+                                string cSalt = ConfigurationManager.AppSettings["CryptoSalt"];
                                 string cUser = oCrypt.Decrypt(oCookie.Value);
+                                cUser = cUser.Substring(cSalt.Length);
                                 if (cUser != null)
                                 {
                                     oUser = oClient.Get<User>("/Users/GetDetails/" + Convert.ToBase64String(Encoding.Unicode.GetBytes(cUser)));
@@ -61,7 +63,8 @@ namespace NewcomersNetworkIFACE.Filters
                             }
                             catch (Exception error)
                             {
-                                return false;
+                                httpContext.Session.Abandon();
+                                return true;
                             }
                         }
                     }

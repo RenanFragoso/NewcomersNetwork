@@ -12,67 +12,20 @@ namespace NewcomersNetworkAPI.Models
     {
         [Key]
         public string Id { get; set; } = "";
-
-        [Display(Name = "First Name")]
-        [UIHint("First Name")]
-        [Required(ErrorMessage = "First Name is required")]
         public string FirstName { get; set; } = "";
-
-        [Display(Name = "Last Name")]
-        [UIHint("Last Name")]
-        [Required(ErrorMessage = "Last Name is required")]
         public string LastName { get; set; } = "";
-
-        [Display(Name = "E-Mail")]
-        [UIHint("_Email")]
         public string Email { get; set; } = "";
-
-        [Display(Name = "Title")]
-        [UIHint("Title")]
         public string Title { get; set; } = "";
-
-        [Display(Name = "Gender")]
-        [UIHint("Gender")]
         public string Gender { get; set; } = "";
-
-        [Display(Name = "Marital Status")]
-        [UIHint("Marital Status")]
         public string MaritalStatus { get; set; } = "";
-
-        [Display(Name = "Age Range")]
-        [UIHint("Age Range")]
         public string AgeRange { get; set; } = "";
-
-        [Display(Name = "Education")]
-        [UIHint("Education")]
         public string Education { get; set; } = "";
-
-        [Display(Name = "Nearest Intersection")]
-        [UIHint("Nearest Intersection")]
         public string NearestIntersection { get; set; } = "";
-
-        [Display(Name = "Postal Code")]
-        [UIHint("Postal Code")]
         public string PostalCode { get; set; } = "";
-
-        [Display(Name = "I do authorize Newcomers Network to send me e-mails.")]
-        [UIHint("Do you consent further e-mail contacts?")]
         public bool ConsentToContact { get; set; } = false;
-
-        [Display(Name = "Create Date")]
-        [UIHint("Create Date")]
         public DateTime DateCreated { get; set; } = DateTime.Now;
-
-        [Display(Name = "Last Modified")]
-        [UIHint("Last Modified")]
         public DateTime LastModified { get; set; } = DateTime.Now;
-
-        [Display(Name = "Status")]
-        [UIHint("_Status")]
         public string Status { get; set; } = "";
-
-        [Display(Name = "I Am a Newcomer")]
-        [UIHint("Are you a newcomer?")]
         public bool IsImmigrant { get; set; } = false;
         public string Picture { get; set; } = "";
 
@@ -267,6 +220,12 @@ namespace NewcomersNetworkAPI.Models
                 this.cTitle = oDetails.Title;
             }
         }
+    }
+
+    public class RegisterDetail : UserDetails
+    {
+        public string UserName { get; set; } = "";
+        public string Password { get; set; } = "";
     }
 
 
