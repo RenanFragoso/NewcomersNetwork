@@ -1,0 +1,270 @@
+﻿'iisexpress.exe' (CLR v4.0.30319: DefaultDomain): Loaded 'C:\Windows\Microsoft.Net\assembly\GAC_32\mscorlib\v4.0_4.0.0.0__b77a5c561934e089\mscorlib.dll'. Cannot find or open the PDB file.
+'iisexpress.exe' (CLR v4.0.30319: DefaultDomain): Loaded 'C:\Windows\Microsoft.Net\assembly\GAC_32\System.Web\v4.0_4.0.0.0__b03f5f7f11d50a3a\System.Web.dll'. Cannot find or open the PDB file.
+'iisexpress.exe' (CLR v4.0.30319: DefaultDomain): Loaded 'C:\Windows\Microsoft.Net\assembly\GAC_MSIL\System\v4.0_4.0.0.0__b77a5c561934e089\System.dll'. Cannot find or open the PDB file.
+'iisexpress.exe' (CLR v4.0.30319: DefaultDomain): Loaded 'C:\Windows\Microsoft.Net\assembly\GAC_MSIL\System.Web.ApplicationServices\v4.0_4.0.0.0__31bf3856ad364e35\System.Web.ApplicationServices.dll'. Cannot find or open the PDB file.
+'iisexpress.exe' (CLR v4.0.30319: DefaultDomain): Loaded 'C:\Windows\Microsoft.Net\assembly\GAC_MSIL\System.Configuration\v4.0_4.0.0.0__b03f5f7f11d50a3a\System.Configuration.dll'. Cannot find or open the PDB file.
+'iisexpress.exe' (CLR v4.0.30319: DefaultDomain): Loaded 'C:\Windows\Microsoft.Net\assembly\GAC_MSIL\System.Core\v4.0_4.0.0.0__b77a5c561934e089\System.Core.dll'. Cannot find or open the PDB file.
+'iisexpress.exe' (CLR v4.0.30319: DefaultDomain): Loaded 'C:\Windows\Microsoft.Net\assembly\GAC_MSIL\System.Xml\v4.0_4.0.0.0__b77a5c561934e089\System.Xml.dll'. Cannot find or open the PDB file.
+'iisexpress.exe' (CLR v4.0.30319: Domain 2): Loaded 'C:\Windows\Microsoft.Net\assembly\GAC_32\mscorlib\v4.0_4.0.0.0__b77a5c561934e089\mscorlib.dll'. Cannot find or open the PDB file.
+'iisexpress.exe' (CLR v4.0.30319: /LM/W3SVC/2/ROOT-1-131408279136160332): Loaded 'C:\Windows\Microsoft.Net\assembly\GAC_32\System.Web\v4.0_4.0.0.0__b03f5f7f11d50a3a\System.Web.dll'. Cannot find or open the PDB file.
+'iisexpress.exe' (CLR v4.0.30319: /LM/W3SVC/2/ROOT-1-131408279136160332): Loaded 'C:\Windows\Microsoft.Net\assembly\GAC_MSIL\System\v4.0_4.0.0.0__b77a5c561934e089\System.dll'. Cannot find or open the PDB file.
+'iisexpress.exe' (CLR v4.0.30319: /LM/W3SVC/2/ROOT-1-131408279136160332): Loaded 'C:\Windows\Microsoft.Net\assembly\GAC_MSIL\System.Web.ApplicationServices\v4.0_4.0.0.0__31bf3856ad364e35\System.Web.ApplicationServices.dll'. Cannot find or open the PDB file.
+'iisexpress.exe' (CLR v4.0.30319: /LM/W3SVC/2/ROOT-1-131408279136160332): Loaded 'C:\Windows\Microsoft.Net\assembly\GAC_MSIL\System.Configuration\v4.0_4.0.0.0__b03f5f7f11d50a3a\System.Configuration.dll'. Cannot find or open the PDB file.
+'iisexpress.exe' (CLR v4.0.30319: /LM/W3SVC/2/ROOT-1-131408279136160332): Loaded 'C:\Windows\Microsoft.Net\assembly\GAC_MSIL\System.Core\v4.0_4.0.0.0__b77a5c561934e089\System.Core.dll'. Cannot find or open the PDB file.
+'iisexpress.exe' (CLR v4.0.30319: /LM/W3SVC/2/ROOT-1-131408279136160332): Loaded 'C:\Windows\Microsoft.Net\assembly\GAC_MSIL\System.Xml\v4.0_4.0.0.0__b77a5c561934e089\System.Xml.dll'. Cannot find or open the PDB file.
+'iisexpress.exe' (CLR v4.0.30319: /LM/W3SVC/2/ROOT-1-131408279136160332): Loaded 'C:\Windows\Microsoft.Net\assembly\GAC_MSIL\Microsoft.Build.Utilities.v4.0\v4.0_4.0.0.0__b03f5f7f11d50a3a\Microsoft.Build.Utilities.v4.0.dll'. Cannot find or open the PDB file.
+'iisexpress.exe' (CLR v4.0.30319: /LM/W3SVC/2/ROOT-1-131408279136160332): Loaded 'C:\Windows\Microsoft.Net\assembly\GAC_MSIL\System.Runtime.Caching\v4.0_4.0.0.0__b03f5f7f11d50a3a\System.Runtime.Caching.dll'. Cannot find or open the PDB file.
+'iisexpress.exe' (CLR v4.0.30319: DefaultDomain): Loaded 'C:\Windows\Microsoft.Net\assembly\GAC_MSIL\System.Runtime.Caching\v4.0_4.0.0.0__b03f5f7f11d50a3a\System.Runtime.Caching.dll'. Cannot find or open the PDB file.
+Exception thrown: 'System.UnauthorizedAccessException' in mscorlib.dll
+'iisexpress.exe' (CLR v4.0.30319: DefaultDomain): Loaded 'C:\Windows\Microsoft.Net\assembly\GAC_MSIL\Microsoft.Build.Utilities.v4.0\v4.0_4.0.0.0__b03f5f7f11d50a3a\Microsoft.Build.Utilities.v4.0.dll'. Cannot find or open the PDB file.
+Exception thrown: 'System.Globalization.CultureNotFoundException' in mscorlib.dll
+Exception thrown: 'System.Globalization.CultureNotFoundException' in mscorlib.dll
+'iisexpress.exe' (CLR v4.0.30319: /LM/W3SVC/2/ROOT-1-131408279136160332): Loaded 'C:\Windows\Microsoft.Net\assembly\GAC_MSIL\Microsoft.JScript\v4.0_10.0.0.0__b03f5f7f11d50a3a\Microsoft.JScript.dll'. Cannot find or open the PDB file.
+'iisexpress.exe' (CLR v4.0.30319: /LM/W3SVC/2/ROOT-1-131408279136160332): Loaded 'C:\Users\UNA\AppData\Local\Temp\Temporary ASP.NET Files\root\6a40f13e\121f1ba5\assembly\dl3\256b3183\00705e68_31a7d001\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll'. Cannot find or open the PDB file.
+'iisexpress.exe' (CLR v4.0.30319: /LM/W3SVC/2/ROOT-1-131408279136160332): Loaded 'C:\Users\UNA\AppData\Local\Temp\Temporary ASP.NET Files\root\6a40f13e\121f1ba5\assembly\dl3\c4d7f1f7\000500d1_b047d001\Microsoft.Owin.Host.SystemWeb.dll'. Cannot find or open the PDB file.
+'iisexpress.exe' (CLR v4.0.30319: /LM/W3SVC/2/ROOT-1-131408279136160332): Loaded 'C:\Windows\Microsoft.Net\assembly\GAC_MSIL\Microsoft.VisualStudio.Web.PageInspector.Loader\v4.0_1.0.0.0__b03f5f7f11d50a3a\Microsoft.VisualStudio.Web.PageInspector.Loader.dll'. Cannot find or open the PDB file.
+'iisexpress.exe' (CLR v4.0.30319: /LM/W3SVC/2/ROOT-1-131408279136160332): Loaded 'C:\Users\UNA\AppData\Local\Temp\Temporary ASP.NET Files\root\6a40f13e\121f1ba5\assembly\dl3\5f36345f\002145bc_d03ad001\System.Web.Mvc.dll'. Cannot find or open the PDB file.
+'iisexpress.exe' (CLR v4.0.30319: /LM/W3SVC/2/ROOT-1-131408279136160332): Loaded 'C:\Users\UNA\AppData\Local\Temp\Temporary ASP.NET Files\root\6a40f13e\121f1ba5\assembly\dl3\17c0946c\00bbf20a_d13ad001\System.Web.WebPages.dll'. Cannot find or open the PDB file.
+'iisexpress.exe' (CLR v4.0.30319: /LM/W3SVC/2/ROOT-1-131408279136160332): Loaded 'C:\Users\UNA\AppData\Local\Temp\Temporary ASP.NET Files\root\6a40f13e\121f1ba5\assembly\dl3\f04942f6\00bbf20a_d13ad001\System.Web.WebPages.Deployment.dll'. Cannot find or open the PDB file.
+'iisexpress.exe' (CLR v4.0.30319: /LM/W3SVC/2/ROOT-1-131408279136160332): Loaded 'C:\Users\UNA\AppData\Local\Temp\Temporary ASP.NET Files\root\6a40f13e\121f1ba5\assembly\dl3\985fb5ed\00bbf20a_d13ad001\System.Web.WebPages.Razor.dll'. Cannot find or open the PDB file.
+'iisexpress.exe' (CLR v4.0.30319: /LM/W3SVC/2/ROOT-1-131408279136160332): Loaded 'C:\Users\UNA\AppData\Local\Temp\Temporary ASP.NET Files\root\6a40f13e\121f1ba5\assembly\dl3\06941a97\00aead1a_5f27cf01\System.Web.Optimization.dll'. Cannot find or open the PDB file.
+'iisexpress.exe' (CLR v4.0.30319: /LM/W3SVC/2/ROOT-1-131408279136160332): Loaded 'C:\Windows\Microsoft.Net\assembly\GAC_MSIL\Microsoft.VisualStudio.Web.PageInspector.Runtime\v4.0_14.0.0.0__b03f5f7f11d50a3a\Microsoft.VisualStudio.Web.PageInspector.Runtime.dll'. Cannot find or open the PDB file.
+'iisexpress.exe' (CLR v4.0.30319: /LM/W3SVC/2/ROOT-1-131408279136160332): Loaded 'C:\Users\UNA\AppData\Local\Temp\Temporary ASP.NET Files\root\6a40f13e\121f1ba5\assembly\dl3\40d57ce3\005b5aa1_8621cd01\Microsoft.Web.Infrastructure.dll'. Cannot find or open the PDB file.
+'iisexpress.exe' (CLR v4.0.30319: /LM/W3SVC/2/ROOT-1-131408279136160332): Loaded 'C:\Users\UNA\AppData\Local\Temp\Temporary ASP.NET Files\root\6a40f13e\121f1ba5\App_global.asax.uken6hdc.dll'. 
+'iisexpress.exe' (CLR v4.0.30319: /LM/W3SVC/2/ROOT-1-131408279136160332): Loaded 'C:\Users\UNA\AppData\Local\Temp\Temporary ASP.NET Files\root\6a40f13e\121f1ba5\assembly\dl3\744aa204\8d3b5e82_1edbd201\NewcomersNetworkAPI.dll'. Symbols loaded.
+'iisexpress.exe' (CLR v4.0.30319: /LM/W3SVC/2/ROOT-1-131408279136160332): Loaded 'C:\Windows\Microsoft.Net\assembly\GAC_MSIL\System.ServiceModel.Activation\v4.0_4.0.0.0__31bf3856ad364e35\System.ServiceModel.Activation.dll'. Cannot find or open the PDB file.
+'iisexpress.exe' (CLR v4.0.30319: /LM/W3SVC/2/ROOT-1-131408279136160332): Loaded 'C:\Windows\Microsoft.Net\assembly\GAC_MSIL\System.Web.Extensions\v4.0_4.0.0.0__31bf3856ad364e35\System.Web.Extensions.dll'. Cannot find or open the PDB file.
+'iisexpress.exe' (CLR v4.0.30319: /LM/W3SVC/2/ROOT-1-131408279136160332): Loaded 'C:\Users\UNA\AppData\Local\Temp\Temporary ASP.NET Files\root\6a40f13e\121f1ba5\assembly\dl3\ba6acdf1\00a5b54a_2bc0d101\Microsoft.AI.Web.dll'. Cannot find or open the PDB file.
+'iisexpress.exe' (CLR v4.0.30319: /LM/W3SVC/2/ROOT-1-131408279136160332): Loaded 'C:\Users\UNA\AppData\Local\Temp\Temporary ASP.NET Files\root\6a40f13e\121f1ba5\assembly\dl3\ca7a5aaa\004870a3_01c0d101\Microsoft.ApplicationInsights.dll'. Cannot find or open the PDB file.
+'iisexpress.exe' (CLR v4.0.30319: /LM/W3SVC/2/ROOT-1-131408279136160332): Loaded 'C:\Windows\Microsoft.Net\assembly\GAC_MSIL\System.Xml.Linq\v4.0_4.0.0.0__b77a5c561934e089\System.Xml.Linq.dll'. Cannot find or open the PDB file.
+'iisexpress.exe' (CLR v4.0.30319: /LM/W3SVC/2/ROOT-1-131408279136160332): Loaded 'C:\Users\UNA\AppData\Local\Temp\Temporary ASP.NET Files\root\6a40f13e\121f1ba5\assembly\dl3\6bb5575d\0010fb3f_2bc0d101\Microsoft.AI.DependencyCollector.dll'. Cannot find or open the PDB file.
+'iisexpress.exe' (CLR v4.0.30319: /LM/W3SVC/2/ROOT-1-131408279136160332): Loaded 'C:\Users\UNA\AppData\Local\Temp\Temporary ASP.NET Files\root\6a40f13e\121f1ba5\assembly\dl3\980738db\00a5b54a_2bc0d101\Microsoft.AI.PerfCounterCollector.dll'. Cannot find or open the PDB file.
+'iisexpress.exe' (CLR v4.0.30319: /LM/W3SVC/2/ROOT-1-131408279136160332): Loaded 'C:\Users\UNA\AppData\Local\Temp\Temporary ASP.NET Files\root\6a40f13e\121f1ba5\assembly\dl3\eb35be61\00a5b54a_2bc0d101\Microsoft.AI.WindowsServer.dll'. Cannot find or open the PDB file.
+'iisexpress.exe' (CLR v4.0.30319: /LM/W3SVC/2/ROOT-1-131408279136160332): Loaded 'C:\Users\UNA\AppData\Local\Temp\Temporary ASP.NET Files\root\6a40f13e\121f1ba5\assembly\dl3\afb98078\001aba0e_02c0d101\Microsoft.AI.ServerTelemetryChannel.dll'. Cannot find or open the PDB file.
+'iisexpress.exe' (CLR v4.0.30319: /LM/W3SVC/2/ROOT-1-131408279136160332): Loaded 'C:\Users\UNA\AppData\Local\Temp\Temporary ASP.NET Files\root\6a40f13e\121f1ba5\assembly\dl3\06b89c89\00af4907_4c31d101\Microsoft.AI.Agent.Intercept.dll'. Cannot find or open the PDB file.
+'iisexpress.exe' (CLR v4.0.30319: /LM/W3SVC/2/ROOT-1-131408279136160332): Loaded 'C:\Windows\Microsoft.Net\assembly\GAC_MSIL\System.Runtime.Serialization\v4.0_4.0.0.0__b77a5c561934e089\System.Runtime.Serialization.dll'. Cannot find or open the PDB file.
+'iisexpress.exe' (CLR v4.0.30319: /LM/W3SVC/2/ROOT-1-131408279136160332): Loaded 'C:\Windows\Microsoft.Net\assembly\GAC_MSIL\SMDiagnostics\v4.0_4.0.0.0__b77a5c561934e089\SMDiagnostics.dll'. Cannot find or open the PDB file.
+'iisexpress.exe' (CLR v4.0.30319: /LM/W3SVC/2/ROOT-1-131408279136160332): Loaded 'C:\Users\UNA\AppData\Local\Temp\Temporary ASP.NET Files\root\6a40f13e\121f1ba5\assembly\dl3\1e1deda9\004bbad1_d03ad001\System.Web.Http.dll'. Cannot find or open the PDB file.
+'iisexpress.exe' (CLR v4.0.30319: /LM/W3SVC/2/ROOT-1-131408279136160332): Loaded 'C:\Users\UNA\AppData\Local\Temp\Temporary ASP.NET Files\root\6a40f13e\121f1ba5\assembly\dl3\0899b0da\00ddb8f0_d03ad001\System.Web.Http.WebHost.dll'. Cannot find or open the PDB file.
+'iisexpress.exe' (CLR v4.0.30319: /LM/W3SVC/2/ROOT-1-131408279136160332): Loaded 'C:\Users\UNA\AppData\Local\Temp\Temporary ASP.NET Files\root\6a40f13e\121f1ba5\assembly\dl3\d67dbcfa\003d93ca_d03ad001\System.Net.Http.Formatting.dll'. Cannot find or open the PDB file.
+'iisexpress.exe' (CLR v4.0.30319: /LM/W3SVC/2/ROOT-1-131408279136160332): Loaded 'C:\Users\UNA\AppData\Local\Temp\Temporary ASP.NET Files\root\6a40f13e\121f1ba5\assembly\dl3\f904e22c\3f3df415_93dad201\MultipartDataMediaFormatter.dll'. Symbols loaded.
+'iisexpress.exe' (CLR v4.0.30319: /LM/W3SVC/2/ROOT-1-131408279136160332): Loaded 'C:\Windows\Microsoft.Net\assembly\GAC_MSIL\System.Net.Http\v4.0_4.0.0.0__b03f5f7f11d50a3a\System.Net.Http.dll'. Cannot find or open the PDB file.
+'iisexpress.exe' (CLR v4.0.30319: /LM/W3SVC/2/ROOT-1-131408279136160332): Loaded 'C:\Users\UNA\AppData\Local\Temp\Temporary ASP.NET Files\root\6a40f13e\121f1ba5\assembly\dl3\b03f4c62\00f24fc6_7bafcf01\Newtonsoft.Json.dll'. Cannot find or open the PDB file.
+'iisexpress.exe' (CLR v4.0.30319: /LM/W3SVC/2/ROOT-1-131408279136160332): Loaded 'C:\Users\UNA\AppData\Local\Temp\Temporary ASP.NET Files\root\6a40f13e\121f1ba5\assembly\dl3\69e3c242\003ad7de_d03ad001\System.Web.Http.Owin.dll'. Cannot find or open the PDB file.
+'iisexpress.exe' (CLR v4.0.30319: /LM/W3SVC/2/ROOT-1-131408279136160332): Loaded 'C:\Users\UNA\AppData\Local\Temp\Temporary ASP.NET Files\root\6a40f13e\121f1ba5\assembly\dl3\7704de33\00e14a2d_526ed001\Microsoft.AspNet.Identity.Core.dll'. Cannot find or open the PDB file.
+Exception thrown: 'System.Web.HttpException' in System.Web.dll
+'iisexpress.exe' (CLR v4.0.30319: /LM/W3SVC/2/ROOT-1-131408279136160332): Loaded 'C:\Users\UNA\AppData\Local\Temp\Temporary ASP.NET Files\root\6a40f13e\121f1ba5\assembly\dl3\447f3676\00ec2f79_a826d101\Microsoft.WindowsAzure.Storage.dll'. Cannot find or open the PDB file.
+Exception thrown: 'System.Web.HttpException' in System.Web.dll
+Exception thrown: 'System.Web.HttpException' in System.Web.dll
+Exception thrown: 'System.Web.HttpException' in System.Web.dll
+Exception thrown: 'System.Web.HttpException' in System.Web.dll
+Exception thrown: 'System.Web.HttpException' in System.Web.dll
+Exception thrown: 'System.Web.HttpException' in System.Web.dll
+Exception thrown: 'System.Web.HttpException' in System.Web.dll
+Exception thrown: 'System.Web.HttpException' in System.Web.dll
+Exception thrown: 'System.Web.HttpException' in System.Web.dll
+Exception thrown: 'System.Web.HttpException' in System.Web.dll
+Exception thrown: 'System.Web.HttpException' in System.Web.dll
+Exception thrown: 'System.Web.HttpException' in System.Web.dll
+Exception thrown: 'System.Web.HttpException' in System.Web.dll
+Exception thrown: 'System.Web.HttpException' in System.Web.dll
+Exception thrown: 'System.Web.HttpException' in System.Web.dll
+Exception thrown: 'System.Web.HttpException' in System.Web.dll
+Exception thrown: 'System.Web.HttpException' in System.Web.dll
+Exception thrown: 'System.Web.HttpException' in System.Web.dll
+Application Insights Telemetry (unconfigured): {"name":"Microsoft.ApplicationInsights.Dev.RemoteDependency","time":"2017-06-01T21:58:34.5413912Z","tags":{"ai.device.roleInstance":"DARKSUN","ai.internal.sdkVersion":"rddf: 2.1.0.363"},"data":{"baseType":"RemoteDependencyData","baseData":{"ver":2,"name":"http://127.0.0.1:10000/devstoreaccount1/events?restype=container","id":"7q+dsVAI2PM=","value":55.553,"resultCode":"200","dependencyKind":1,"success":true,"properties":{"DeveloperMode":"true"}}}}
+Exception thrown: 'System.Web.HttpException' in System.Web.dll
+Exception thrown: 'System.Web.HttpException' in System.Web.dll
+Exception thrown: 'System.Web.HttpException' in System.Web.dll
+Exception thrown: 'System.Web.HttpException' in System.Web.dll
+Exception thrown: 'System.Web.HttpException' in System.Web.dll
+Exception thrown: 'System.Web.HttpException' in System.Web.dll
+Exception thrown: 'System.Web.HttpException' in System.Web.dll
+Exception thrown: 'System.Web.HttpException' in System.Web.dll
+Exception thrown: 'System.Web.HttpException' in System.Web.dll
+Exception thrown: 'System.Web.HttpException' in System.Web.dll
+Exception thrown: 'System.Web.HttpException' in System.Web.dll
+Exception thrown: 'System.Web.HttpException' in System.Web.dll
+Exception thrown: 'System.Web.HttpException' in System.Web.dll
+Exception thrown: 'System.Web.HttpException' in System.Web.dll
+Exception thrown: 'System.Web.HttpException' in System.Web.dll
+Exception thrown: 'System.Web.HttpException' in System.Web.dll
+Exception thrown: 'System.Web.HttpException' in System.Web.dll
+Exception thrown: 'System.Web.HttpException' in System.Web.dll
+Application Insights Telemetry (unconfigured): {"name":"Microsoft.ApplicationInsights.Dev.RemoteDependency","time":"2017-06-01T21:58:34.6457628Z","tags":{"ai.device.roleInstance":"DARKSUN","ai.internal.sdkVersion":"rddf: 2.1.0.363"},"data":{"baseType":"RemoteDependencyData","baseData":{"ver":2,"name":"http://127.0.0.1:10000/devstoreaccount1/classifieds?restype=container","id":"F694rChM1CI=","value":45.2479,"resultCode":"200","dependencyKind":1,"success":true,"properties":{"DeveloperMode":"true"}}}}
+Exception thrown: 'System.Web.HttpException' in System.Web.dll
+Exception thrown: 'System.Web.HttpException' in System.Web.dll
+Exception thrown: 'System.Web.HttpException' in System.Web.dll
+Exception thrown: 'System.Web.HttpException' in System.Web.dll
+Exception thrown: 'System.Web.HttpException' in System.Web.dll
+Exception thrown: 'System.Web.HttpException' in System.Web.dll
+Exception thrown: 'System.Web.HttpException' in System.Web.dll
+Exception thrown: 'System.Web.HttpException' in System.Web.dll
+Exception thrown: 'System.Web.HttpException' in System.Web.dll
+Exception thrown: 'System.Web.HttpException' in System.Web.dll
+Exception thrown: 'System.Web.HttpException' in System.Web.dll
+Exception thrown: 'System.Web.HttpException' in System.Web.dll
+Exception thrown: 'System.Web.HttpException' in System.Web.dll
+Exception thrown: 'System.Web.HttpException' in System.Web.dll
+Exception thrown: 'System.Web.HttpException' in System.Web.dll
+Exception thrown: 'System.Web.HttpException' in System.Web.dll
+Exception thrown: 'System.Web.HttpException' in System.Web.dll
+Exception thrown: 'System.Web.HttpException' in System.Web.dll
+Application Insights Telemetry (unconfigured): {"name":"Microsoft.ApplicationInsights.Dev.RemoteDependency","time":"2017-06-01T21:58:34.7260053Z","tags":{"ai.device.roleInstance":"DARKSUN","ai.internal.sdkVersion":"rddf: 2.1.0.363"},"data":{"baseType":"RemoteDependencyData","baseData":{"ver":2,"name":"http://127.0.0.1:10000/devstoreaccount1/users?restype=container","id":"vasxvPEXEZk=","value":35.0163,"resultCode":"200","dependencyKind":1,"success":true,"properties":{"DeveloperMode":"true"}}}}
+Exception thrown: 'System.Web.HttpException' in System.Web.dll
+Exception thrown: 'System.Web.HttpException' in System.Web.dll
+Exception thrown: 'System.Web.HttpException' in System.Web.dll
+Exception thrown: 'System.Web.HttpException' in System.Web.dll
+Exception thrown: 'System.Web.HttpException' in System.Web.dll
+Exception thrown: 'System.Web.HttpException' in System.Web.dll
+Exception thrown: 'System.Web.HttpException' in System.Web.dll
+Exception thrown: 'System.Web.HttpException' in System.Web.dll
+Exception thrown: 'System.Web.HttpException' in System.Web.dll
+Exception thrown: 'System.Web.HttpException' in System.Web.dll
+Exception thrown: 'System.Web.HttpException' in System.Web.dll
+Exception thrown: 'System.Web.HttpException' in System.Web.dll
+Exception thrown: 'System.Web.HttpException' in System.Web.dll
+Exception thrown: 'System.Web.HttpException' in System.Web.dll
+Exception thrown: 'System.Web.HttpException' in System.Web.dll
+Exception thrown: 'System.Web.HttpException' in System.Web.dll
+Exception thrown: 'System.Web.HttpException' in System.Web.dll
+Exception thrown: 'System.Web.HttpException' in System.Web.dll
+Application Insights Telemetry (unconfigured): {"name":"Microsoft.ApplicationInsights.Dev.RemoteDependency","time":"2017-06-01T21:58:34.7966460Z","tags":{"ai.device.roleInstance":"DARKSUN","ai.internal.sdkVersion":"rddf: 2.1.0.363"},"data":{"baseType":"RemoteDependencyData","baseData":{"ver":2,"name":"http://127.0.0.1:10000/devstoreaccount1/services?restype=container","id":"EjcpKKAPXqk=","value":36.257,"resultCode":"200","dependencyKind":1,"success":true,"properties":{"DeveloperMode":"true"}}}}
+Exception thrown: 'System.Web.HttpException' in System.Web.dll
+Exception thrown: 'System.Web.HttpException' in System.Web.dll
+Exception thrown: 'System.Web.HttpException' in System.Web.dll
+Exception thrown: 'System.Web.HttpException' in System.Web.dll
+Exception thrown: 'System.Web.HttpException' in System.Web.dll
+Exception thrown: 'System.Web.HttpException' in System.Web.dll
+Exception thrown: 'System.Web.HttpException' in System.Web.dll
+Exception thrown: 'System.Web.HttpException' in System.Web.dll
+Exception thrown: 'System.Web.HttpException' in System.Web.dll
+Exception thrown: 'System.Web.HttpException' in System.Web.dll
+Exception thrown: 'System.Web.HttpException' in System.Web.dll
+Exception thrown: 'System.Web.HttpException' in System.Web.dll
+Exception thrown: 'System.Web.HttpException' in System.Web.dll
+Exception thrown: 'System.Web.HttpException' in System.Web.dll
+Exception thrown: 'System.Web.HttpException' in System.Web.dll
+Exception thrown: 'System.Web.HttpException' in System.Web.dll
+Exception thrown: 'System.Web.HttpException' in System.Web.dll
+Exception thrown: 'System.Web.HttpException' in System.Web.dll
+Application Insights Telemetry (unconfigured): {"name":"Microsoft.ApplicationInsights.Dev.RemoteDependency","time":"2017-06-01T21:58:34.8806845Z","tags":{"ai.device.roleInstance":"DARKSUN","ai.internal.sdkVersion":"rddf: 2.1.0.363"},"data":{"baseType":"RemoteDependencyData","baseData":{"ver":2,"name":"http://127.0.0.1:10000/devstoreaccount1/events?restype=container&comp=acl","id":"Jg9jadoN95o=","value":49.7267,"resultCode":"200","dependencyKind":1,"success":true,"properties":{"DeveloperMode":"true"}}}}
+Exception thrown: 'System.Web.HttpException' in System.Web.dll
+Exception thrown: 'System.Web.HttpException' in System.Web.dll
+Exception thrown: 'System.Web.HttpException' in System.Web.dll
+Exception thrown: 'System.Web.HttpException' in System.Web.dll
+Exception thrown: 'System.Web.HttpException' in System.Web.dll
+Exception thrown: 'System.Web.HttpException' in System.Web.dll
+Exception thrown: 'System.Web.HttpException' in System.Web.dll
+Exception thrown: 'System.Web.HttpException' in System.Web.dll
+Exception thrown: 'System.Web.HttpException' in System.Web.dll
+Exception thrown: 'System.Web.HttpException' in System.Web.dll
+Exception thrown: 'System.Web.HttpException' in System.Web.dll
+Exception thrown: 'System.Web.HttpException' in System.Web.dll
+Exception thrown: 'System.Web.HttpException' in System.Web.dll
+Exception thrown: 'System.Web.HttpException' in System.Web.dll
+Exception thrown: 'System.Web.HttpException' in System.Web.dll
+Exception thrown: 'System.Web.HttpException' in System.Web.dll
+Exception thrown: 'System.Web.HttpException' in System.Web.dll
+Exception thrown: 'System.Web.HttpException' in System.Web.dll
+Application Insights Telemetry (unconfigured): {"name":"Microsoft.ApplicationInsights.Dev.RemoteDependency","time":"2017-06-01T21:58:34.9688421Z","tags":{"ai.device.roleInstance":"DARKSUN","ai.internal.sdkVersion":"rddf: 2.1.0.363"},"data":{"baseType":"RemoteDependencyData","baseData":{"ver":2,"name":"http://127.0.0.1:10000/devstoreaccount1/classifieds?restype=container&comp=acl","id":"ClWxqsaiwho=","value":43.821,"resultCode":"200","dependencyKind":1,"success":true,"properties":{"DeveloperMode":"true"}}}}
+Exception thrown: 'System.Web.HttpException' in System.Web.dll
+Exception thrown: 'System.Web.HttpException' in System.Web.dll
+Exception thrown: 'System.Web.HttpException' in System.Web.dll
+Exception thrown: 'System.Web.HttpException' in System.Web.dll
+Exception thrown: 'System.Web.HttpException' in System.Web.dll
+Exception thrown: 'System.Web.HttpException' in System.Web.dll
+Exception thrown: 'System.Web.HttpException' in System.Web.dll
+Exception thrown: 'System.Web.HttpException' in System.Web.dll
+Exception thrown: 'System.Web.HttpException' in System.Web.dll
+Exception thrown: 'System.Web.HttpException' in System.Web.dll
+Exception thrown: 'System.Web.HttpException' in System.Web.dll
+Exception thrown: 'System.Web.HttpException' in System.Web.dll
+Exception thrown: 'System.Web.HttpException' in System.Web.dll
+Exception thrown: 'System.Web.HttpException' in System.Web.dll
+Exception thrown: 'System.Web.HttpException' in System.Web.dll
+Exception thrown: 'System.Web.HttpException' in System.Web.dll
+Exception thrown: 'System.Web.HttpException' in System.Web.dll
+Exception thrown: 'System.Web.HttpException' in System.Web.dll
+Application Insights Telemetry (unconfigured): {"name":"Microsoft.ApplicationInsights.Dev.RemoteDependency","time":"2017-06-01T21:58:35.0506617Z","tags":{"ai.device.roleInstance":"DARKSUN","ai.internal.sdkVersion":"rddf: 2.1.0.363"},"data":{"baseType":"RemoteDependencyData","baseData":{"ver":2,"name":"http://127.0.0.1:10000/devstoreaccount1/users?restype=container&comp=acl","id":"oq+03xSVfQs=","value":43.1521,"resultCode":"200","dependencyKind":1,"success":true,"properties":{"DeveloperMode":"true"}}}}
+Exception thrown: 'System.Web.HttpException' in System.Web.dll
+Exception thrown: 'System.Web.HttpException' in System.Web.dll
+Exception thrown: 'System.Web.HttpException' in System.Web.dll
+Exception thrown: 'System.Web.HttpException' in System.Web.dll
+Exception thrown: 'System.Web.HttpException' in System.Web.dll
+Exception thrown: 'System.Web.HttpException' in System.Web.dll
+Exception thrown: 'System.Web.HttpException' in System.Web.dll
+Exception thrown: 'System.Web.HttpException' in System.Web.dll
+Exception thrown: 'System.Web.HttpException' in System.Web.dll
+Exception thrown: 'System.Web.HttpException' in System.Web.dll
+Exception thrown: 'System.Web.HttpException' in System.Web.dll
+Exception thrown: 'System.Web.HttpException' in System.Web.dll
+Exception thrown: 'System.Web.HttpException' in System.Web.dll
+Exception thrown: 'System.Web.HttpException' in System.Web.dll
+Exception thrown: 'System.Web.HttpException' in System.Web.dll
+Exception thrown: 'System.Web.HttpException' in System.Web.dll
+Exception thrown: 'System.Web.HttpException' in System.Web.dll
+Exception thrown: 'System.Web.HttpException' in System.Web.dll
+Application Insights Telemetry (unconfigured): {"name":"Microsoft.ApplicationInsights.Dev.RemoteDependency","time":"2017-06-01T21:58:35.1306395Z","tags":{"ai.device.roleInstance":"DARKSUN","ai.internal.sdkVersion":"rddf: 2.1.0.363"},"data":{"baseType":"RemoteDependencyData","baseData":{"ver":2,"name":"http://127.0.0.1:10000/devstoreaccount1/services?restype=container&comp=acl","id":"4QLm7ZS5B1I=","value":40.5686,"resultCode":"200","dependencyKind":1,"success":true,"properties":{"DeveloperMode":"true"}}}}
+'iisexpress.exe' (CLR v4.0.30319: /LM/W3SVC/2/ROOT-1-131408279136160332): Loaded 'C:\Windows\Microsoft.Net\assembly\GAC_MSIL\System.ServiceModel.Internals\v4.0_4.0.0.0__31bf3856ad364e35\System.ServiceModel.Internals.dll'. Cannot find or open the PDB file.
+'iisexpress.exe' (CLR v4.0.30319: /LM/W3SVC/2/ROOT-1-131408279136160332): Loaded 'C:\Users\UNA\AppData\Local\Temp\Temporary ASP.NET Files\root\6a40f13e\121f1ba5\assembly\dl3\c7d1d67b\003ac0c1_c0cccd01\Owin.dll'. Cannot find or open the PDB file.
+'iisexpress.exe' (CLR v4.0.30319: /LM/W3SVC/2/ROOT-1-131408279136160332): Loaded 'C:\Windows\Microsoft.Net\assembly\GAC_MSIL\Microsoft.CSharp\v4.0_4.0.0.0__b03f5f7f11d50a3a\Microsoft.CSharp.dll'. Cannot find or open the PDB file.
+'iisexpress.exe' (CLR v4.0.30319: /LM/W3SVC/2/ROOT-1-131408279136160332): Loaded 'C:\Windows\Microsoft.Net\assembly\GAC_32\System.Data\v4.0_4.0.0.0__b77a5c561934e089\System.Data.dll'. Cannot find or open the PDB file.
+'iisexpress.exe' (CLR v4.0.30319: /LM/W3SVC/2/ROOT-1-131408279136160332): Loaded 'C:\Windows\Microsoft.Net\assembly\GAC_MSIL\System.Web.Services\v4.0_4.0.0.0__b03f5f7f11d50a3a\System.Web.Services.dll'. Cannot find or open the PDB file.
+'iisexpress.exe' (CLR v4.0.30319: /LM/W3SVC/2/ROOT-1-131408279136160332): Loaded 'C:\Windows\Microsoft.Net\assembly\GAC_MSIL\System.Drawing\v4.0_4.0.0.0__b03f5f7f11d50a3a\System.Drawing.dll'. Cannot find or open the PDB file.
+'iisexpress.exe' (CLR v4.0.30319: /LM/W3SVC/2/ROOT-1-131408279136160332): Loaded 'C:\Windows\Microsoft.Net\assembly\GAC_32\System.EnterpriseServices\v4.0_4.0.0.0__b03f5f7f11d50a3a\System.EnterpriseServices.dll'. Cannot find or open the PDB file.
+'iisexpress.exe' (CLR v4.0.30319: /LM/W3SVC/2/ROOT-1-131408279136160332): Loaded 'C:\Windows\Microsoft.Net\assembly\GAC_MSIL\System.IdentityModel\v4.0_4.0.0.0__b77a5c561934e089\System.IdentityModel.dll'. Cannot find or open the PDB file.
+'iisexpress.exe' (CLR v4.0.30319: /LM/W3SVC/2/ROOT-1-131408279136160332): Loaded 'C:\Windows\Microsoft.Net\assembly\GAC_MSIL\System.ServiceModel\v4.0_4.0.0.0__b77a5c561934e089\System.ServiceModel.dll'. Cannot find or open the PDB file.
+'iisexpress.exe' (CLR v4.0.30319: /LM/W3SVC/2/ROOT-1-131408279136160332): Loaded 'C:\Windows\Microsoft.Net\assembly\GAC_MSIL\System.ServiceModel.Web\v4.0_4.0.0.0__31bf3856ad364e35\System.ServiceModel.Web.dll'. Cannot find or open the PDB file.
+'iisexpress.exe' (CLR v4.0.30319: /LM/W3SVC/2/ROOT-1-131408279136160332): Loaded 'C:\Windows\Microsoft.Net\assembly\GAC_MSIL\System.Activities\v4.0_4.0.0.0__31bf3856ad364e35\System.Activities.dll'. Cannot find or open the PDB file.
+'iisexpress.exe' (CLR v4.0.30319: /LM/W3SVC/2/ROOT-1-131408279136160332): Loaded 'C:\Windows\Microsoft.Net\assembly\GAC_MSIL\System.ServiceModel.Activities\v4.0_4.0.0.0__31bf3856ad364e35\System.ServiceModel.Activities.dll'. Cannot find or open the PDB file.
+'iisexpress.exe' (CLR v4.0.30319: /LM/W3SVC/2/ROOT-1-131408279136160332): Loaded 'C:\Windows\Microsoft.Net\assembly\GAC_MSIL\System.WorkflowServices\v4.0_4.0.0.0__31bf3856ad364e35\System.WorkflowServices.dll'. Cannot find or open the PDB file.
+'iisexpress.exe' (CLR v4.0.30319: /LM/W3SVC/2/ROOT-1-131408279136160332): Loaded 'C:\Windows\Microsoft.Net\assembly\GAC_MSIL\System.Data.DataSetExtensions\v4.0_4.0.0.0__b77a5c561934e089\System.Data.DataSetExtensions.dll'. Cannot find or open the PDB file.
+'iisexpress.exe' (CLR v4.0.30319: /LM/W3SVC/2/ROOT-1-131408279136160332): Loaded 'C:\Windows\Microsoft.Net\assembly\GAC_MSIL\System.ComponentModel.DataAnnotations\v4.0_4.0.0.0__31bf3856ad364e35\System.ComponentModel.DataAnnotations.dll'. Cannot find or open the PDB file.
+'iisexpress.exe' (CLR v4.0.30319: /LM/W3SVC/2/ROOT-1-131408279136160332): Loaded 'C:\Windows\Microsoft.Net\assembly\GAC_MSIL\System.Web.DynamicData\v4.0_4.0.0.0__31bf3856ad364e35\System.Web.DynamicData.dll'. Cannot find or open the PDB file.
+'iisexpress.exe' (CLR v4.0.30319: /LM/W3SVC/2/ROOT-1-131408279136160332): Loaded 'C:\Users\UNA\AppData\Local\Temp\Temporary ASP.NET Files\root\6a40f13e\121f1ba5\assembly\dl3\020d0718\0026803d_fa10ce01\Antlr3.Runtime.dll'. Symbols loaded.
+'iisexpress.exe' (CLR v4.0.30319: /LM/W3SVC/2/ROOT-1-131408279136160332): Loaded 'C:\Users\UNA\AppData\Local\Temp\Temporary ASP.NET Files\root\6a40f13e\121f1ba5\assembly\dl3\a2397f3d\00d16352_ed54d001\EntityFramework.dll'. Cannot find or open the PDB file.
+'iisexpress.exe' (CLR v4.0.30319: /LM/W3SVC/2/ROOT-1-131408279136160332): Loaded 'C:\Users\UNA\AppData\Local\Temp\Temporary ASP.NET Files\root\6a40f13e\121f1ba5\assembly\dl3\df234420\00d16352_ed54d001\EntityFramework.SqlServer.dll'. Cannot find or open the PDB file.
+'iisexpress.exe' (CLR v4.0.30319: /LM/W3SVC/2/ROOT-1-131408279136160332): Loaded 'C:\Users\UNA\AppData\Local\Temp\Temporary ASP.NET Files\root\6a40f13e\121f1ba5\assembly\dl3\92251dc2\00e14a2d_526ed001\Microsoft.AspNet.Identity.EntityFramework.dll'. Cannot find or open the PDB file.
+'iisexpress.exe' (CLR v4.0.30319: /LM/W3SVC/2/ROOT-1-131408279136160332): Loaded 'C:\Users\UNA\AppData\Local\Temp\Temporary ASP.NET Files\root\6a40f13e\121f1ba5\assembly\dl3\c3d32fff\00e14a2d_526ed001\Microsoft.AspNet.Identity.Owin.dll'. Cannot find or open the PDB file.
+'iisexpress.exe' (CLR v4.0.30319: /LM/W3SVC/2/ROOT-1-131408279136160332): Loaded 'C:\Users\UNA\AppData\Local\Temp\Temporary ASP.NET Files\root\6a40f13e\121f1ba5\assembly\dl3\472e8185\00b56cc0_bb70d101\Microsoft.Data.Edm.dll'. Cannot find or open the PDB file.
+'iisexpress.exe' (CLR v4.0.30319: /LM/W3SVC/2/ROOT-1-131408279136160332): Loaded 'C:\Users\UNA\AppData\Local\Temp\Temporary ASP.NET Files\root\6a40f13e\121f1ba5\assembly\dl3\a40d125c\00b56cc0_bb70d101\Microsoft.Data.OData.dll'. Cannot find or open the PDB file.
+'iisexpress.exe' (CLR v4.0.30319: /LM/W3SVC/2/ROOT-1-131408279136160332): Loaded 'C:\Users\UNA\AppData\Local\Temp\Temporary ASP.NET Files\root\6a40f13e\121f1ba5\assembly\dl3\9a448fd2\00b56cc0_bb70d101\Microsoft.Data.Services.Client.dll'. Cannot find or open the PDB file.
+'iisexpress.exe' (CLR v4.0.30319: /LM/W3SVC/2/ROOT-1-131408279136160332): Loaded 'C:\Users\UNA\AppData\Local\Temp\Temporary ASP.NET Files\root\6a40f13e\121f1ba5\assembly\dl3\bb13ff2f\00940162_e13ed201\Microsoft.Extensions.Configuration.Abstractions.dll'. Cannot find or open the PDB file.
+'iisexpress.exe' (CLR v4.0.30319: /LM/W3SVC/2/ROOT-1-131408279136160332): Loaded 'C:\Users\UNA\AppData\Local\Temp\Temporary ASP.NET Files\root\6a40f13e\121f1ba5\assembly\dl3\3e9b45da\000d6e5e_e13ed201\Microsoft.Extensions.Configuration.dll'. Cannot find or open the PDB file.
+'iisexpress.exe' (CLR v4.0.30319: /LM/W3SVC/2/ROOT-1-131408279136160332): Loaded 'C:\Users\UNA\AppData\Local\Temp\Temporary ASP.NET Files\root\6a40f13e\121f1ba5\assembly\dl3\b6b413d5\00c13263_e13ed201\Microsoft.Extensions.Primitives.dll'. Cannot find or open the PDB file.
+'iisexpress.exe' (CLR v4.0.30319: /LM/W3SVC/2/ROOT-1-131408279136160332): Loaded 'C:\Users\UNA\AppData\Local\Temp\Temporary ASP.NET Files\root\6a40f13e\121f1ba5\assembly\dl3\4d379123\00ab9dce_b047d001\Microsoft.Owin.dll'. Cannot find or open the PDB file.
+'iisexpress.exe' (CLR v4.0.30319: /LM/W3SVC/2/ROOT-1-131408279136160332): Loaded 'C:\Users\UNA\AppData\Local\Temp\Temporary ASP.NET Files\root\6a40f13e\121f1ba5\assembly\dl3\df0dc488\005f62d3_b047d001\Microsoft.Owin.Security.Cookies.dll'. Cannot find or open the PDB file.
+'iisexpress.exe' (CLR v4.0.30319: /LM/W3SVC/2/ROOT-1-131408279136160332): Loaded 'C:\Users\UNA\AppData\Local\Temp\Temporary ASP.NET Files\root\6a40f13e\121f1ba5\assembly\dl3\b8d23f25\003231d2_b047d001\Microsoft.Owin.Security.dll'. Cannot find or open the PDB file.
+'iisexpress.exe' (CLR v4.0.30319: /LM/W3SVC/2/ROOT-1-131408279136160332): Loaded 'C:\Users\UNA\AppData\Local\Temp\Temporary ASP.NET Files\root\6a40f13e\121f1ba5\assembly\dl3\e58fb84e\005f62d3_b047d001\Microsoft.Owin.Security.Facebook.dll'. Cannot find or open the PDB file.
+'iisexpress.exe' (CLR v4.0.30319: /LM/W3SVC/2/ROOT-1-131408279136160332): Loaded 'C:\Users\UNA\AppData\Local\Temp\Temporary ASP.NET Files\root\6a40f13e\121f1ba5\assembly\dl3\df9990b6\005f62d3_b047d001\Microsoft.Owin.Security.Google.dll'. Cannot find or open the PDB file.
+'iisexpress.exe' (CLR v4.0.30319: /LM/W3SVC/2/ROOT-1-131408279136160332): Loaded 'C:\Users\UNA\AppData\Local\Temp\Temporary ASP.NET Files\root\6a40f13e\121f1ba5\assembly\dl3\311c3b3a\008c93d4_b047d001\Microsoft.Owin.Security.MicrosoftAccount.dll'. Cannot find or open the PDB file.
+'iisexpress.exe' (CLR v4.0.30319: /LM/W3SVC/2/ROOT-1-131408279136160332): Loaded 'C:\Users\UNA\AppData\Local\Temp\Temporary ASP.NET Files\root\6a40f13e\121f1ba5\assembly\dl3\3eb97c9f\008c93d4_b047d001\Microsoft.Owin.Security.OAuth.dll'. Cannot find or open the PDB file.
+'iisexpress.exe' (CLR v4.0.30319: /LM/W3SVC/2/ROOT-1-131408279136160332): Loaded 'C:\Users\UNA\AppData\Local\Temp\Temporary ASP.NET Files\root\6a40f13e\121f1ba5\assembly\dl3\eeee6091\00b9c4d5_b047d001\Microsoft.Owin.Security.Twitter.dll'. Cannot find or open the PDB file.
+'iisexpress.exe' (CLR v4.0.30319: /LM/W3SVC/2/ROOT-1-131408279136160332): Loaded 'C:\Users\UNA\AppData\Local\Temp\Temporary ASP.NET Files\root\6a40f13e\121f1ba5\assembly\dl3\9e7de416\00e4e92b_3f56ce01\Microsoft.Practices.EnterpriseLibrary.TransientFaultHandling.Data.dll'. Cannot find or open the PDB file.
+'iisexpress.exe' (CLR v4.0.30319: /LM/W3SVC/2/ROOT-1-131408279136160332): Loaded 'C:\Users\UNA\AppData\Local\Temp\Temporary ASP.NET Files\root\6a40f13e\121f1ba5\assembly\dl3\96aec564\00480ebc_bd41ce01\Microsoft.Practices.EnterpriseLibrary.TransientFaultHandling.dll'. Cannot find or open the PDB file.
+'iisexpress.exe' (CLR v4.0.30319: /LM/W3SVC/2/ROOT-1-131408279136160332): Loaded 'C:\Users\UNA\AppData\Local\Temp\Temporary ASP.NET Files\root\6a40f13e\121f1ba5\assembly\dl3\887c5a5a\0003d1c9_3cc6d001\System.Net.Http.Extensions.dll'. Cannot find or open the PDB file.
+'iisexpress.exe' (CLR v4.0.30319: /LM/W3SVC/2/ROOT-1-131408279136160332): Loaded 'C:\Users\UNA\AppData\Local\Temp\Temporary ASP.NET Files\root\6a40f13e\121f1ba5\assembly\dl3\ed627450\0003d1c9_3cc6d001\System.Net.Http.Primitives.dll'. Cannot find or open the PDB file.
+'iisexpress.exe' (CLR v4.0.30319: /LM/W3SVC/2/ROOT-1-131408279136160332): Loaded 'C:\Users\UNA\AppData\Local\Temp\Temporary ASP.NET Files\root\6a40f13e\121f1ba5\assembly\dl3\f338f714\009b6a89_4237d201\System.Runtime.CompilerServices.Unsafe.dll'. Module was built without symbols.
+'iisexpress.exe' (CLR v4.0.30319: /LM/W3SVC/2/ROOT-1-131408279136160332): Loaded 'C:\Users\UNA\AppData\Local\Temp\Temporary ASP.NET Files\root\6a40f13e\121f1ba5\assembly\dl3\6dbd3527\00d6c291_4237d201\System.Runtime.InteropServices.RuntimeInformation.dll'. Cannot find or open the PDB file.
+'iisexpress.exe' (CLR v4.0.30319: /LM/W3SVC/2/ROOT-1-131408279136160332): Loaded 'C:\Users\UNA\AppData\Local\Temp\Temporary ASP.NET Files\root\6a40f13e\121f1ba5\assembly\dl3\c1581f4d\00bbf20a_d13ad001\System.Web.Helpers.dll'. Cannot find or open the PDB file.
+'iisexpress.exe' (CLR v4.0.30319: /LM/W3SVC/2/ROOT-1-131408279136160332): Loaded 'C:\Users\UNA\AppData\Local\Temp\Temporary ASP.NET Files\root\6a40f13e\121f1ba5\assembly\dl3\cb5c81f2\005c9dc4_d03ad001\System.Web.Razor.dll'. Cannot find or open the PDB file.
+'iisexpress.exe' (CLR v4.0.30319: /LM/W3SVC/2/ROOT-1-131408279136160332): Loaded 'C:\Users\UNA\AppData\Local\Temp\Temporary ASP.NET Files\root\6a40f13e\121f1ba5\assembly\dl3\792f2e70\008763b6_6caece01\WebGrease.dll'. Cannot find or open the PDB file.
+'iisexpress.exe' (CLR v4.0.30319: /LM/W3SVC/2/ROOT-1-131408279136160332): Loaded 'C:\Windows\Microsoft.Net\assembly\GAC_MSIL\System.Runtime\v4.0_4.0.0.0__b03f5f7f11d50a3a\System.Runtime.dll'. Cannot find or open the PDB file.
+'iisexpress.exe' (CLR v4.0.30319: /LM/W3SVC/2/ROOT-1-131408279136160332): Loaded 'C:\Windows\Microsoft.Net\assembly\GAC_MSIL\System.Resources.ResourceManager\v4.0_4.0.0.0__b03f5f7f11d50a3a\System.Resources.ResourceManager.dll'. Cannot find or open the PDB file.
+'iisexpress.exe' (CLR v4.0.30319: /LM/W3SVC/2/ROOT-1-131408279136160332): Loaded 'C:\Windows\Microsoft.Net\assembly\GAC_MSIL\System.Xaml\v4.0_4.0.0.0__b77a5c561934e089\System.Xaml.dll'. Cannot find or open the PDB file.
+'iisexpress.exe' (CLR v4.0.30319: /LM/W3SVC/2/ROOT-1-131408279136160332): Loaded 'C:\Windows\Microsoft.Net\assembly\GAC_MSIL\System.Runtime.InteropServices\v4.0_4.0.0.0__b03f5f7f11d50a3a\System.Runtime.InteropServices.dll'. Cannot find or open the PDB file.
+'iisexpress.exe' (CLR v4.0.30319: /LM/W3SVC/2/ROOT-1-131408279136160332): Loaded 'Anonymously Hosted DynamicMethods Assembly'. 
+'iisexpress.exe' (CLR v4.0.30319: /LM/W3SVC/2/ROOT-1-131408279136160332): Loaded 'C:\Windows\Microsoft.Net\assembly\GAC_MSIL\System.Web.Mobile\v4.0_4.0.0.0__b03f5f7f11d50a3a\System.Web.Mobile.dll'. Cannot find or open the PDB file.
+'iisexpress.exe' (CLR v4.0.30319: /LM/W3SVC/2/ROOT-1-131408279136160332): Loaded 'C:\Windows\Microsoft.Net\assembly\GAC_MSIL\System.Web.RegularExpressions\v4.0_4.0.0.0__b03f5f7f11d50a3a\System.Web.RegularExpressions.dll'. Cannot find or open the PDB file.
+'iisexpress.exe' (CLR v4.0.30319: DefaultDomain): Loaded 'C:\Windows\Microsoft.Net\assembly\GAC_MSIL\System.Web.RegularExpressions\v4.0_4.0.0.0__b03f5f7f11d50a3a\System.Web.RegularExpressions.dll'. Cannot find or open the PDB file.
+'iisexpress.exe' (CLR v4.0.30319: /LM/W3SVC/2/ROOT-1-131408279136160332): Loaded 'C:\Windows\Microsoft.Net\assembly\GAC_MSIL\Microsoft.VisualStudio.Web.PageInspector.Tracing\v4.0_14.0.0.0__b03f5f7f11d50a3a\Microsoft.VisualStudio.Web.PageInspector.Tracing.dll'. Cannot find or open the PDB file.
+'iisexpress.exe' (CLR v4.0.30319: /LM/W3SVC/2/ROOT-1-131408279136160332): Loaded 'C:\Windows\Microsoft.Net\assembly\GAC_MSIL\System.Dynamic\v4.0_4.0.0.0__b03f5f7f11d50a3a\System.Dynamic.dll'. Cannot find or open the PDB file.
+Exception thrown: 'Microsoft.CSharp.RuntimeBinder.RuntimeBinderException' in Microsoft.CSharp.dll
+Exception thrown: 'Microsoft.CSharp.RuntimeBinder.RuntimeBinderException' in Microsoft.CSharp.dll
+'iisexpress.exe' (CLR v4.0.30319: /LM/W3SVC/2/ROOT-1-131408279136160332): Loaded 'C:\Users\UNA\AppData\Local\Temp\Temporary ASP.NET Files\root\6a40f13e\121f1ba5\App_Web_m5ve2tzc.dll'. 
+'iisexpress.exe' (CLR v4.0.30319: /LM/W3SVC/2/ROOT-1-131408279136160332): Loaded 'C:\Users\UNA\AppData\Local\Temp\Temporary ASP.NET Files\root\6a40f13e\121f1ba5\App_Web_rx1usx02.dll'. 
+'iisexpress.exe' (CLR v4.0.30319: /LM/W3SVC/2/ROOT-1-131408279136160332): Loaded 'C:\Users\UNA\AppData\Local\Temp\Temporary ASP.NET Files\root\6a40f13e\121f1ba5\App_Web_iqrcdbr0.dll'. 
+Exception thrown: 'Microsoft.CSharp.RuntimeBinder.RuntimeBinderException' in Microsoft.CSharp.dll
+Exception thrown: 'Microsoft.CSharp.RuntimeBinder.RuntimeBinderException' in Microsoft.CSharp.dll
+Application Insights Telemetry (unconfigured): {"name":"Microsoft.ApplicationInsights.Dev.Request","time":"2017-06-01T21:58:35.7709083Z","tags":{"ai.device.roleInstance":"DARKSUN","ai.operation.name":"GET Home/Index","ai.operation.id":"HNkV14i5Z38=","ai.internal.sdkVersion":"web: 2.1.0.363"},"data":{"baseType":"RequestData","baseData":{"ver":2,"id":"HNkV14i5Z38=","name":"GET Home/Index","startTime":"2017-06-01T17:58:35.7709083-04:00","duration":"00:00:00.8708405","success":true,"responseCode":"200","url":"http://localhost:56739/","httpMethod":"GET","properties":{"DeveloperMode":"true"}}}}

@@ -1,0 +1,6 @@
+﻿CREATE PROCEDURE [dbo].[sp_GetGivenCodeGUID]
+WITH EXECUTE AS CALLER
+AS
+SELECT GivenCodeGUID
+FROM dbo.SecretGivenCodeGUID
+WHERE Status='O'

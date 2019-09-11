@@ -1,0 +1,6 @@
+﻿CREATE PROCEDURE [dbo].[sp_Mentee_UpdateBasicInfo]
+@LevelOfEducation NVARCHAR (200)=NULL, @HaveCredentialsAssessedInCAD BIT=NULL, @CredentialsAssessedInCAD_Where NVARCHAR (50)=NULL, @IsCurrentlyWorking BIT=NULL, @CurrentlyWorking_HoursPerWeek INT=NULL, @HavePreviouslyWorkedInFieldInCAD BIT=NULL, @PastWorkExperience NVARCHAR (1000)=NULL, @HaveCompletedJobPrepProgram BIT=NULL, @CompletedJobPrepProgram_Where NVARCHAR (50)=NULL, @UserID INT, @Profession NVARCHAR (100)=NULL, @Specialization NVARCHAR (100)=NULL, @OccupationID INT=NULL
+AS
+UPDATE dbo.Mentee
+SET LevelOfEducation=@LevelOfEducation, HaveCredentialsAssessedInCAD=@HaveCredentialsAssessedInCAD, CredentialsAssessedInCAD_Where=@CredentialsAssessedInCAD_Where, IsCurrentlyWorking=@IsCurrentlyWorking, CurrentlyWorking_HoursPerWeek=@CurrentlyWorking_HoursPerWeek, HavePreviouslyWorkedInFieldInCAD=@HavePreviouslyWorkedInFieldInCAD, PastWorkExperience=@PastWorkExperience, HaveCompletedJobPrepProgram=@HaveCompletedJobPrepProgram, CompletedJobPrepProgram_Where=@CompletedJobPrepProgram_Where, Profession=@Profession, Specialization=@Specialization, OccupationID=@OccupationID
+WHERE UserID=@UserID

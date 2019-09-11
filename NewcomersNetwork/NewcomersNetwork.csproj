@@ -1,0 +1,586 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{31DD89E0-51ED-4FF6-83E9-F05ED796ED6C}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>NewcomersNetworkAPI</RootNamespace>
+    <AssemblyName>NewcomersNetworkAPI</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <Use64BitIISExpress />
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PublishDatabases>true</PublishDatabases>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <IncludeIisSettings>false</IncludeIisSettings>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Antlr3.Runtime, Version=3.4.1.9004, Culture=neutral, PublicKeyToken=eb42632606e9261f, processorArchitecture=MSIL">
+      <HintPath>..\packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="Dapper, Version=1.50.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Dapper.1.50.4\lib\net451\Dapper.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AI.Agent.Intercept, Version=1.2.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.Agent.Intercept.1.2.1\lib\net45\Microsoft.AI.Agent.Intercept.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AI.DependencyCollector, Version=2.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.DependencyCollector.2.1.0\lib\net45\Microsoft.AI.DependencyCollector.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AI.PerfCounterCollector, Version=2.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.PerfCounterCollector.2.1.0\lib\net45\Microsoft.AI.PerfCounterCollector.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AI.ServerTelemetryChannel, Version=2.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.2.1.0\lib\net45\Microsoft.AI.ServerTelemetryChannel.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AI.Web, Version=2.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.Web.2.1.0\lib\net45\Microsoft.AI.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AI.WindowsServer, Version=2.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.WindowsServer.2.1.0\lib\net45\Microsoft.AI.WindowsServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ApplicationInsights, Version=2.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.2.1.0\lib\net45\Microsoft.ApplicationInsights.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Extensions.Configuration, Version=1.1.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Configuration.1.1.0\lib\netstandard1.1\Microsoft.Extensions.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Configuration.Abstractions, Version=1.1.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Configuration.Abstractions.1.1.0\lib\netstandard1.0\Microsoft.Extensions.Configuration.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Primitives, Version=1.1.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Primitives.1.1.0\lib\netstandard1.0\Microsoft.Extensions.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.3.0.1\lib\net45\Microsoft.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Host.SystemWeb, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.3.0.1\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.3.0.1\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Cookies, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.Cookies.3.0.1\lib\net45\Microsoft.Owin.Security.Cookies.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Facebook, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.Facebook.3.0.1\lib\net45\Microsoft.Owin.Security.Facebook.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Google, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.Google.3.0.1\lib\net45\Microsoft.Owin.Security.Google.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.MicrosoftAccount, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.MicrosoftAccount.3.0.1\lib\net45\Microsoft.Owin.Security.MicrosoftAccount.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.OAuth, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.OAuth.3.0.1\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Twitter, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.Twitter.3.0.1\lib\net45\Microsoft.Owin.Security.Twitter.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.TransientFaultHandling, Version=6.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\EnterpriseLibrary.TransientFaultHandling.6.0.1304.0\lib\portable-net45+win+wp8\Microsoft.Practices.EnterpriseLibrary.TransientFaultHandling.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.TransientFaultHandling.Data, Version=6.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\EnterpriseLibrary.TransientFaultHandling.Data.6.0.1304.1\lib\NET45\Microsoft.Practices.EnterpriseLibrary.TransientFaultHandling.Data.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.WindowsAzure.Storage, Version=4.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Swashbuckle.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cd1bb07a5ac7c7bc, processorArchitecture=MSIL">
+      <HintPath>..\packages\Swashbuckle.Core.5.6.0\lib\net40\Swashbuckle.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.IO.Compression" />
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.4\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.3.0\lib\netstandard1.0\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.InteropServices.RuntimeInformation, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.InteropServices.RuntimeInformation.4.3.0\lib\net45\System.Runtime.InteropServices.RuntimeInformation.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Security" />
+    <Reference Include="System.Web.Cors, Version=5.2.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Cors.5.2.4\lib\net45\System.Web.Cors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http, Version=5.2.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.4\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.Cors, Version=5.2.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Cors.5.2.4\lib\net45\System.Web.Http.Cors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.Owin, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Owin.5.2.3\lib\net45\System.Web.Http.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.3\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.3\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.3\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http">
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+    </Reference>
+    <Reference Include="System.Web.Optimization">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="WebActivatorEx, Version=2.0.0.0, Culture=neutral, PublicKeyToken=7b26dc2a43f6a0d4, processorArchitecture=MSIL">
+      <HintPath>..\packages\WebActivatorEx.2.0\lib\net40\WebActivatorEx.dll</HintPath>
+    </Reference>
+    <Reference Include="WebGrease, Version=1.5.2.14234, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\WebGrease.1.5.2\lib\WebGrease.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.AspNet.Identity.Core">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Owin">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Owin.2.2.1\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.2.1\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Owin">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\AddAuthorizationHeaderParameterOperationFilter.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\IdentityConfig.cs" />
+    <Compile Include="App_Start\NNAPIBlobServices.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="App_Start\SwaggerConfig.cs" />
+    <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\BlackListedWordsController.cs" />
+    <Compile Include="Controllers\WidgetsController.cs" />
+    <Compile Include="Controllers\ClassifiedsController.cs" />
+    <Compile Include="Controllers\EventDetailsController.cs" />
+    <Compile Include="Controllers\EventsController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ImageServiceController.cs" />
+    <Compile Include="Controllers\NNAuthController.cs" />
+    <Compile Include="Controllers\ValuesController.cs" />
+    <Compile Include="Controllers\CalendarController.cs" />
+    <Compile Include="Controllers\ServicesController.cs" />
+    <Compile Include="Controllers\Settings\BannersSettingsController.cs" />
+    <Compile Include="Controllers\UsersController.cs" />
+    <Compile Include="Controllers\UsersRolesController.cs" />
+    <Compile Include="Exceptions\InvalidModelException.cs" />
+    <Compile Include="Extensions\ModelStateDictionary.cs" />
+    <Compile Include="Extensions\ApiControllerExtensions.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="LIB\REST\RelationLink.cs" />
+    <Compile Include="LIB\REST\RESTHttpMethod.cs" />
+    <Compile Include="Models\AccountBindingModels.cs" />
+    <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\CalendarEventModels.cs" />
+    <Compile Include="Models\CalendarApiModels.cs" />
+    <Compile Include="Models\Captcha.cs" />
+    <Compile Include="Models\ClassifiedEventsModels.cs" />
+    <Compile Include="Models\ClassifiedMessagesModels.cs" />
+    <Compile Include="Models\ClassifiedModels.cs" />
+    <Compile Include="Models\ClassifiedsGroupsModels.cs" />
+    <Compile Include="Models\Image\ImageContainer.cs" />
+    <Compile Include="Models\Image\ImageFactory.cs" />
+    <Compile Include="Models\Image\IImageFile.cs" />
+    <Compile Include="Models\Image\ImageFile.cs" />
+    <Compile Include="Models\Image\ClassifiedImageFile.cs" />
+    <Compile Include="Models\Image\UserImageFile.cs" />
+    <Compile Include="Models\Testimonials.cs" />
+    <Compile Include="Models\EventRegistrationModels.cs" />
+    <Compile Include="Models\ImageControlModels.cs" />
+    <Compile Include="Models\ImageFileModels.cs" />
+    <Compile Include="Models\NNClassifiedsFilterModels.cs" />
+    <Compile Include="Models\OptionList.cs" />
+    <Compile Include="Models\OptionsLists.cs" />
+    <Compile Include="Models\PaginationModels.cs" />
+    <Compile Include="Models\ScheduleItemModels.cs" />
+    <Compile Include="Models\ServiceGroupModels.cs" />
+    <Compile Include="Models\Settings\SettingsBannersModels.cs" />
+    <Compile Include="Models\UserDetailsModels.cs" />
+    <Compile Include="Models\NNAPIModel.cs" />
+    <Compile Include="Models\UserModels.cs" />
+    <Compile Include="Models\UsersRolesModels.cs" />
+    <Compile Include="Models\EventDetailsModels.cs" />
+    <Compile Include="Models\ServicesScheduleModels.cs" />
+    <Compile Include="Models\ServiceModels.cs" />
+    <Compile Include="Models\EventModels.cs" />
+    <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\Widgets\NNBanner.cs" />
+    <Compile Include="Models\Widgets\WidgetUserJustShare.cs" />
+    <Compile Include="Models\Widgets\WidgetJustShareMessages.cs" />
+    <Compile Include="Models\Widgets\WidgetJustShare.cs" />
+    <Compile Include="Models\Widgets\WidgetTestimonials.cs" />
+    <Compile Include="Models\Widgets\WidgetEvents.cs" />
+    <Compile Include="Models\Widgets\WidgetServices.cs" />
+    <Compile Include="Models\Widgets\WidgetServiceBlock.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Providers\ApplicationOAuthProvider.cs" />
+    <Compile Include="Providers\BlackListWordChecker.cs" />
+    <Compile Include="Providers\DBConn.cs" />
+    <Compile Include="Providers\NNSMTPSender.cs" />
+    <Compile Include="Results\ChallengeResult.cs" />
+    <Compile Include="Startup.cs" />
+    <Compile Include="ValidationAttributes\CheckBlacklistedWords.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Config\NNDBConfiguration.config" />
+    <None Include="Config\AppSettingsConfiguration.config" />
+    <None Include="Properties\PublishProfiles\newcomers-network - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\newcomers-network - Web Deploy.pubxml" />
+    <Content Include="README.md" />
+    <None Include="UI\actions\actionTypes.js" />
+    <None Include="UI\actions\authActions.js" />
+    <None Include="UI\actions\homePageActions.js" />
+    <None Include="UI\actions\justShareActions.js" />
+    <None Include="UI\actions\justShareGridActions.js" />
+    <None Include="UI\actions\usrAdmActions.js" />
+    <None Include="UI\api\index.js" />
+    <None Include="UI\api\nnApiCalls.js" />
+    <None Include="UI\api\nnApiConfig.js" />
+    <None Include="UI\index.html" />
+    <None Include="UI\lib\About.react.jsx" />
+    <None Include="UI\lib\components\CheckBox.react.jsx" />
+    <None Include="UI\lib\components\HeaderAvatar.react.jsx" />
+    <None Include="UI\lib\components\ImgCanvasRender.react.jsx" />
+    <None Include="UI\lib\components\InputText.react.jsx" />
+    <None Include="UI\lib\components\InputTextArea.react.jsx" />
+    <None Include="UI\lib\components\Select.react.jsx" />
+    <None Include="UI\lib\ConfirmAccount.react.jsx" />
+    <None Include="UI\lib\Contact.react.jsx" />
+    <None Include="UI\lib\Event.react.jsx" />
+    <None Include="UI\lib\Events.react.jsx" />
+    <None Include="UI\lib\Footer.react.jsx" />
+    <None Include="UI\lib\ForgotPassword.react.jsx" />
+    <None Include="UI\lib\forms\ForgotPasswordForm.react.jsx" />
+    <None Include="UI\lib\forms\LoginForm.react.jsx" />
+    <None Include="UI\lib\forms\ResetPasswordForm.react.js" />
+    <None Include="UI\lib\forms\SignUpForm.react.jsx" />
+    <None Include="UI\lib\Header.react.jsx" />
+    <None Include="UI\lib\Home.react.jsx" />
+    <None Include="UI\lib\JustShare.react.jsx" />
+    <None Include="UI\lib\JustShareDetails.react.jsx" />
+    <None Include="UI\lib\JustShare\index.js" />
+    <None Include="UI\lib\JustShare\JustShareDetails.react.jsx" />
+    <None Include="UI\lib\JustShare\JustShareGrid.react.jsx" />
+    <None Include="UI\lib\JustShare\JustShareGridButtons.react.jsx" />
+    <None Include="UI\lib\JustShare\JustShareGridFilter.react.jsx" />
+    <None Include="UI\lib\JustShare\JustShareGridItems.react.jsx" />
+    <None Include="UI\lib\layout\Auth\ForgotPasswordPage.react.jsx" />
+    <None Include="UI\lib\layout\Auth\LoginModal.react.jsx" />
+    <None Include="UI\lib\layout\Auth\LoginPage.react.jsx" />
+    <None Include="UI\lib\layout\Auth\ResetPasswordPage.react.jsx" />
+    <None Include="UI\lib\layout\Auth\SignUpPage.react.jsx" />
+    <None Include="UI\lib\layout\Common\FooterPage.react.jsx" />
+    <None Include="UI\lib\layout\Common\HeaderPage.react.jsx" />
+    <None Include="UI\lib\layout\Events\EventPage.react.jsx" />
+    <None Include="UI\lib\layout\Events\EventsPage.react.jsx" />
+    <None Include="UI\lib\layout\Header\BreadCrumbs.react.jsx" />
+    <None Include="UI\lib\layout\Header\HeaderSection.react.jsx" />
+    <None Include="UI\lib\layout\Home\AboutPage.react.jsx" />
+    <None Include="UI\lib\layout\Home\ContactPage.react.jsx" />
+    <None Include="UI\lib\layout\Home\HomePage.react.jsx" />
+    <None Include="UI\lib\layout\Home\LegalPage.react.jsx" />
+    <None Include="UI\lib\layout\Home\TermsPage.react.jsx" />
+    <None Include="UI\lib\layout\JustShare\JustShareDetailsPage.react.jsx" />
+    <None Include="UI\lib\layout\JustShare\JustShareFormModal.react.jsx" />
+    <None Include="UI\lib\layout\JustShare\JustShareMessageFormModal.react.jsx" />
+    <None Include="UI\lib\layout\JustShare\JustSharePage.react.jsx" />
+    <None Include="UI\lib\layout\Services\ServicePage.react.jsx" />
+    <None Include="UI\lib\layout\Services\ServicesPage.react.jsx" />
+    <None Include="UI\lib\layout\UserAdmin\AccountActionsPage.react.jsx" />
+    <None Include="UI\lib\layout\UserAdmin\ChangePasswordPage.react.jsx" />
+    <None Include="UI\lib\layout\UserAdmin\ConfirmAccountPage.react.jsx" />
+    <None Include="UI\lib\layout\UserAdmin\DashboardPage.react.jsx" />
+    <None Include="UI\lib\layout\UserAdmin\UpdateProfilePage.react.jsx" />
+    <None Include="UI\lib\layout\UserAdmin\UserProfilePage.react.jsx" />
+    <None Include="UI\lib\Legal.react.jsx" />
+    <None Include="UI\lib\Login.react.jsx" />
+    <None Include="UI\lib\Main.react.jsx" />
+    <None Include="UI\lib\NewcomersNetworkUI.react.jsx" />
+    <None Include="UI\lib\NotFound.react.jsx" />
+    <None Include="UI\lib\ResetPassword.react.jsx" />
+    <None Include="UI\lib\Service.react.jsx" />
+    <None Include="UI\lib\Services.react.jsx" />
+    <None Include="UI\lib\SignUp.react.jsx" />
+    <None Include="UI\lib\Terms.react.jsx" />
+    <None Include="UI\lib\UserProfile.react.jsx" />
+    <None Include="UI\lib\widgets\Carousel.react.jsx" />
+    <None Include="UI\lib\widgets\EventsWidget.react.jsx" />
+    <None Include="UI\lib\widgets\index.js" />
+    <None Include="UI\lib\widgets\JustShareCategory.react.jsx" />
+    <None Include="UI\lib\widgets\JustShareClassified.react.jsx" />
+    <None Include="UI\lib\widgets\JustShareUserMsgWidget.react.jsx" />
+    <None Include="UI\lib\widgets\JustShareUserWidget.react.jsx" />
+    <None Include="UI\lib\widgets\JustShareWidget.react.jsx" />
+    <None Include="UI\lib\widgets\NNCarousel.react.jsx" />
+    <None Include="UI\lib\widgets\NNUserDashboard.react.jsx" />
+    <None Include="UI\lib\widgets\NNUserMessage.react.jsx" />
+    <None Include="UI\lib\widgets\NNUserMessageWidget.react.jsx" />
+    <None Include="UI\lib\widgets\ServiceBlocksWidget.react.jsx" />
+    <None Include="UI\lib\widgets\ServicesWidget.react.jsx" />
+    <None Include="UI\lib\widgets\SocialMediaWidget.react.jsx" />
+    <None Include="UI\lib\widgets\TestimonialsWidget.react.jsx" />
+    <None Include="UI\lib\widgets\UserJustShareWidgetItem.react.jsx" />
+    <None Include="UI\nnui.react.jsx" />
+    <None Include="UI\reducers\authReducer.js" />
+    <None Include="UI\reducers\formsReducer.js" />
+    <None Include="UI\reducers\homePageReducer.js" />
+    <None Include="UI\reducers\index.js" />
+    <None Include="UI\reducers\initialState.js" />
+    <None Include="UI\reducers\justShareReducer.js" />
+    <None Include="UI\reducers\userAdmReducer.js" />
+    <Content Include="UI\actions\AdminUi\actionTypes.js" />
+    <Content Include="UI\actions\AdminUi\authActions.js" />
+    <Content Include="UI\actions\eventsActions.js" />
+    <Content Include="UI\actions\modalActions.js" />
+    <Content Include="UI\actions\servicesActions.js" />
+    <Content Include="UI\api\AdminUi\index.js" />
+    <Content Include="UI\api\AdminUi\nnApiCalls.js" />
+    <Content Include="UI\api\AdminUi\nnApiConfig.js" />
+    <Content Include="UI\lib\AccountCreated.react.jsx" />
+    <Content Include="UI\lib\components\JsFilterBtn.react.jsx" />
+    <Content Include="UI\lib\components\ReadMore.react.jsx" />
+    <Content Include="UI\lib\forms\ChangePasswordForm.react.jsx" />
+    <Content Include="UI\lib\forms\FormValidations.js" />
+    <Content Include="UI\lib\forms\JustShareForm.react.jsx" />
+    <Content Include="UI\lib\forms\JustShareMessageForm.react.jsx" />
+    <Content Include="UI\lib\forms\UpdateAvatarForm.react.jsx" />
+    <Content Include="UI\lib\forms\UserDetailsForm.react.jsx" />
+    <Content Include="UI\lib\index.js" />
+    <Content Include="UI\lib\JustShare\JustShareGridItem.react.jsx" />
+    <Content Include="UI\lib\JustShare\JustShareGridPagination.react.jsx" />
+    <Content Include="UI\lib\layout\UserAdmin\AccountCreatedPage.react.jsx" />
+    <Content Include="UI\lib\layout\UserAdmin\UserDetailsPage.react.jsx" />
+    <Content Include="UI\lib\NewcomersNetworkAdminUI.react.jsx" />
+    <Content Include="UI\lib\widgets\UserJustShareWidgetMessage.react.jsx" />
+    <Content Include="UI\lib\widgets\UserJustShareWidgetMessages.react.jsx" />
+    <Content Include="UI\nn_adminui.react.jsx" />
+    <Content Include="UI\reducers\AdminUi\authReducer.js" />
+    <Content Include="UI\reducers\AdminUi\initialState.js" />
+    <Content Include="UI\reducers\AdminUi\rootReducer.js" />
+    <Content Include="UI\reducers\eventsReducer.js" />
+    <Content Include="UI\reducers\modalReducer.js" />
+    <Content Include="UI\reducers\servicesReducer.js" />
+    <Content Include="UI\resources\fonts\quicksand-v8-latin-regular.eot" />
+    <Content Include="UI\resources\fonts\quicksand-v8-latin-regular.ttf" />
+    <Content Include="UI\resources\fonts\quicksand-v8-latin-regular.woff" />
+    <Content Include="UI\resources\fonts\quicksand-v8-latin-regular.woff2" />
+    <Content Include="UI\resources\css\events.less" />
+    <Content Include="UI\resources\css\nnadmin.less" />
+    <None Include="UI\resources\images\classifieds.png" />
+    <None Include="UI\resources\images\JustShare.png" />
+    <None Include="UI\resources\images\NNLogoTransparent.png" />
+    <None Include="UI\resources\images\NNLogoTransparent_sm.png" />
+    <None Include="UI\resources\images\NN_Logo.png" />
+    <None Include="UI\resources\images\pattern.png" />
+    <None Include="UI\resources\images\pattern2.png" />
+    <None Include="UI\resources\images\Settlement.png" />
+    <None Include="UI\resources\images\square-image.png" />
+    <None Include="UI\resources\images\tpc-logo-transparent.png" />
+    <None Include="UI\resources\images\tpc-logo.jpg" />
+    <None Include="UI\resources\images\tpc-logo.png" />
+    <None Include="UI\routes.js" />
+    <None Include="UI\store\configureStore.js" />
+    <Content Include="UI\store\AdminUi\configureStore.js" />
+    <Content Include="UI\views\AdminUi\Dashboard\Dashboard.react.jsx" />
+    <Content Include="UI\views\AdminUi\Dashboard\index.js" />
+    <Content Include="UI\views\AdminUi\Errors\index.js" />
+    <Content Include="UI\views\AdminUi\Errors\NotFound.react.jsx" />
+    <Content Include="UI\views\AdminUi\Main\index.js" />
+    <Content Include="UI\views\AdminUi\Main\Main.react.jsx" />
+    <Content Include="Views\Home\NNAdmin.cshtml" />
+    <None Include="webpack.config.js" />
+    <None Include="webpack.prod_config.js" />
+    <Content Include="favicon.ico" />
+    <Content Include="Global.asax" />
+    <Content Include="ApplicationInsights.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="EMailLayouts\UserProfile\_ForgotPassword.cshtml" />
+    <None Include="package-lock.json" />
+    <None Include="package.json" />
+    <None Include="Properties\PublishProfiles\IIS - Local.pubxml" />
+    <None Include="Properties\PublishProfiles\nnapi - Web Deploy.pubxml" />
+    <Content Include="UI\resources\fonts\quicksand-v8-latin-regular.svg" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="EMailLayouts\UserProfile\_ConfirmEmailLayout.cshtml" />
+    <None Include="UI\resources\css\footer.less" />
+    <None Include="UI\resources\css\header.less" />
+    <None Include="UI\resources\css\justShare.less" />
+    <None Include="UI\resources\css\mainLayout.less" />
+    <None Include="UI\resources\css\newcomers-network.less" />
+    <None Include="UI\resources\css\services.less" />
+    <None Include="UI\resources\css\socialMedia.less" />
+    <None Include="UI\resources\css\subPages.less" />
+    <None Include="UI\resources\css\testimonials.less" />
+    <None Include="UI\resources\css\userAdmin.less" />
+    <None Include="UI\resources\css\variables.less" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="Areas\" />
+    <Folder Include="Content\" />
+    <Folder Include="Controllers\NNAdmin\" />
+    <Folder Include="Filters\" />
+    <Folder Include="resources\" />
+    <Folder Include="Scripts\" />
+    <Folder Include="UI\lib\functions\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="packages.config" />
+    <None Include="Project_Readme.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>56739</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:56739/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>
