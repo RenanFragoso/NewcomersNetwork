@@ -1,7 +1,11 @@
 'use strict';
 
 import Main from './Main.react';
+import NNAdminHeader from './NNAdminHeader.react';
+import NNAdminMenu from './NNAdminMenu.react';
 
-export default {
-    Main
+export {
+    Main,
+    NNAdminHeader,
+    NNAdminMenu
 };

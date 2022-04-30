@@ -1,17 +1,17 @@
 import * as types from 'actions/AdminUi/actionTypes';
 import initialState from './initialState';
 
-export default function authReducer(state = initialState.auth, action) {
+export default function valuesListsReducer(state = initialState.valuesLists, action) {
     
     var newState;
     
     switch (action.type) {
 
-        case types.USER_INFO_SUCCESS:
+        case types.VALUESLISTS_RECEIVED:
             newState = Object.assign(   {}, 
                                         state,
                                         { 
-                                            userInfo: Object.assign({}, action.userInfo, { logged: true })
+                                            lists: data.ValueLists
                                         });
             break;
 

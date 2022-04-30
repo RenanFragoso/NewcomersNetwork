@@ -13,6 +13,11 @@ export default {
         status: false,
         errorMessage: {}
     },
-    form: {
+    users: {
+        usersList: {}
+    },
+    forms: {
+    },
+    valuesLists: {
     }
 }

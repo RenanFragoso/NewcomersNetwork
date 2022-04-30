@@ -1,4 +1,5 @@
 'use strict';
+
 const authConfig = () => {
     return {
         headers: { Authorization: "Bearer " + sessionStorage.getItem('nntoken') }
@@ -11,7 +12,9 @@ var apiSufix = "";
 var apiUrl = "";
 var apiUrlNoSufix = "";
 var recaptchaSiteKey = "";
-//var gmapsKey = "AIzaSyAVLKAGG5m2bxDbDFnYFUomfkbPOIjXA-E";
+var admApiSufix = "";
+var admApiUrl = "";
+var admApiUrlNoSufix = "";
 var gmapsKey = "";
 
 if(process.env.NODE_ENV === "production") {
@@ -20,7 +23,11 @@ if(process.env.NODE_ENV === "production") {
     apiSufix = "api";
     apiUrl = apiProtocol + "://" + apiAddress + "/" + apiSufix;
     apiUrlNoSufix = apiProtocol + "://" + apiAddress;
+    admApiSufix = "adminapi";
+    admApiUrl = apiProtocol + "://" + apiAddress + "/" + admApiSufix;
+    admApiUrlNoSufix = apiProtocol + "://" + apiAddress;
     recaptchaSiteKey = "6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI";
+    gmapsKey = "AIzaSyAVLKAGG5m2bxDbDFnYFUomfkbPOIjXA-E";
 } 
 else {
     apiProtocol = "http";
@@ -28,7 +35,11 @@ else {
     apiSufix = "api";
     apiUrl = apiProtocol + "://" + apiAddress + "/" + apiSufix;
     apiUrlNoSufix = apiProtocol + "://" + apiAddress;
+    admApiSufix = "adminapi";
+    admApiUrl = apiProtocol + "://" + apiAddress + "/" + admApiSufix;
+    admApiUrlNoSufix = apiProtocol + "://" + apiAddress;
     recaptchaSiteKey = "6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI";
+    gmapsKey = "";
 }
 
 const apiConfig = {
@@ -37,6 +48,9 @@ const apiConfig = {
     apiSufix,
     apiUrl,
     apiUrlNoSufix,
+    admApiSufix,
+    admApiUrl,
+    admApiUrlNoSufix,
     recaptchaSiteKey,
     authConfig,
     gmapsKey

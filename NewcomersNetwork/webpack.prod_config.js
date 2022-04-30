@@ -92,8 +92,7 @@ var prodConfig = function() {
                     test: /\.(woff|woff2|eot|ttf|otf)?$/,
                     loader: 'file-loader',
                     query: {
-                        name: '[name].[ext]',
-                        outputPath: 'fonts/',
+                        name: 'fonts/[name].[ext]',
                         publicPath: '/Content/'
                     }
                 },
@@ -109,7 +108,7 @@ var prodConfig = function() {
         plugins: [
             new CleanWebpackPlugin([ DIST_DIR + '/*'], {root:  __dirname}),
             new CopyWebpackPlugin([
-                { from: SRC_DIR + 'resources', to: DIST_DIR, ignore: ['**/css/*'] }
+                { from: SRC_DIR + 'resources', to: DIST_DIR, ignore: ['**/css/*', '**/css/*/*'] }
             ]),
             new webpack.ProvidePlugin({
                 $: 'jquery',

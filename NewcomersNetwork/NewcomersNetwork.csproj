@@ -243,6 +243,8 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BlackListedWordsController.cs" />
+    <Compile Include="Controllers\NNAdmin\UsersController.cs" />
+    <Compile Include="Controllers\NNAdmin\UsersRolesController.cs" />
     <Compile Include="Controllers\WidgetsController.cs" />
     <Compile Include="Controllers\ClassifiedsController.cs" />
     <Compile Include="Controllers\EventDetailsController.cs" />
@@ -255,7 +257,6 @@
     <Compile Include="Controllers\ServicesController.cs" />
     <Compile Include="Controllers\Settings\BannersSettingsController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
-    <Compile Include="Controllers\UsersRolesController.cs" />
     <Compile Include="Exceptions\InvalidModelException.cs" />
     <Compile Include="Extensions\ModelStateDictionary.cs" />
     <Compile Include="Extensions\ApiControllerExtensions.cs" />
@@ -279,6 +280,8 @@
     <Compile Include="Models\Image\ImageFile.cs" />
     <Compile Include="Models\Image\ClassifiedImageFile.cs" />
     <Compile Include="Models\Image\UserImageFile.cs" />
+    <Compile Include="Models\NNAdmin\UsersModels.cs" />
+    <Compile Include="Models\NNAdmin\UsersRolesModels.cs" />
     <Compile Include="Models\Testimonials.cs" />
     <Compile Include="Models\EventRegistrationModels.cs" />
     <Compile Include="Models\ImageControlModels.cs" />
@@ -425,13 +428,22 @@
     <None Include="UI\reducers\userAdmReducer.js" />
     <Content Include="UI\actions\AdminUi\actionTypes.js" />
     <Content Include="UI\actions\AdminUi\authActions.js" />
+    <Content Include="UI\actions\AdminUi\mainActions.js" />
+    <Content Include="UI\actions\AdminUi\usersActions.js" />
     <Content Include="UI\actions\eventsActions.js" />
     <Content Include="UI\actions\modalActions.js" />
     <Content Include="UI\actions\servicesActions.js" />
+    <Content Include="UI\api\AdminUi\admApiCalls.js" />
     <Content Include="UI\api\AdminUi\index.js" />
     <Content Include="UI\api\AdminUi\nnApiCalls.js" />
     <Content Include="UI\api\AdminUi\nnApiConfig.js" />
     <Content Include="UI\lib\AccountCreated.react.jsx" />
+    <Content Include="UI\lib\components\AdminUi\GridUserDetails.react.jsx" />
+    <Content Include="UI\lib\components\AdminUi\GridUsers.react.jsx" />
+    <Content Include="UI\lib\components\AdminUi\index.js" />
+    <Content Include="UI\lib\components\AdminUi\InfoBox.react.jsx" />
+    <Content Include="UI\lib\components\AdminUi\NNAdminMenu.react.jsx" />
+    <Content Include="UI\lib\components\AdminUi\WidgetPanel.react.jsx" />
     <Content Include="UI\lib\components\JsFilterBtn.react.jsx" />
     <Content Include="UI\lib\components\ReadMore.react.jsx" />
     <Content Include="UI\lib\forms\ChangePasswordForm.react.jsx" />
@@ -452,6 +464,8 @@
     <Content Include="UI\reducers\AdminUi\authReducer.js" />
     <Content Include="UI\reducers\AdminUi\initialState.js" />
     <Content Include="UI\reducers\AdminUi\rootReducer.js" />
+    <Content Include="UI\reducers\AdminUi\usersReducer.js" />
+    <Content Include="UI\reducers\AdminUi\valuesListsReducer.js" />
     <Content Include="UI\reducers\eventsReducer.js" />
     <Content Include="UI\reducers\modalReducer.js" />
     <Content Include="UI\reducers\servicesReducer.js" />
@@ -461,6 +475,11 @@
     <Content Include="UI\resources\fonts\quicksand-v8-latin-regular.woff2" />
     <Content Include="UI\resources\css\events.less" />
     <Content Include="UI\resources\css\nnadmin.less" />
+    <Content Include="UI\resources\css\AdminUi\header.less" />
+    <Content Include="UI\resources\css\AdminUi\main.less" />
+    <Content Include="UI\resources\css\AdminUi\sidemenu.less" />
+    <Content Include="UI\resources\css\AdminUi\subpages.less" />
+    <Content Include="UI\resources\css\AdminUi\usersAdmin.less" />
     <None Include="UI\resources\images\classifieds.png" />
     <None Include="UI\resources\images\JustShare.png" />
     <None Include="UI\resources\images\NNLogoTransparent.png" />
@@ -475,6 +494,7 @@
     <None Include="UI\resources\images\tpc-logo.png" />
     <None Include="UI\routes.js" />
     <None Include="UI\store\configureStore.js" />
+    <Content Include="UI\resources\images\NNAdmin_Logo.png" />
     <Content Include="UI\store\AdminUi\configureStore.js" />
     <Content Include="UI\views\AdminUi\Dashboard\Dashboard.react.jsx" />
     <Content Include="UI\views\AdminUi\Dashboard\index.js" />
@@ -482,6 +502,8 @@
     <Content Include="UI\views\AdminUi\Errors\NotFound.react.jsx" />
     <Content Include="UI\views\AdminUi\Main\index.js" />
     <Content Include="UI\views\AdminUi\Main\Main.react.jsx" />
+    <Content Include="UI\views\AdminUi\Users\index.js" />
+    <Content Include="UI\views\AdminUi\Users\Users.react.jsx" />
     <Content Include="Views\Home\NNAdmin.cshtml" />
     <None Include="webpack.config.js" />
     <None Include="webpack.prod_config.js" />
@@ -526,7 +548,6 @@
     <Folder Include="App_Data\" />
     <Folder Include="Areas\" />
     <Folder Include="Content\" />
-    <Folder Include="Controllers\NNAdmin\" />
     <Folder Include="Filters\" />
     <Folder Include="resources\" />
     <Folder Include="Scripts\" />
