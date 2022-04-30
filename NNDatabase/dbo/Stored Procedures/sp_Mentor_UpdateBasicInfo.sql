@@ -1,6 +1,0 @@
-﻿CREATE PROCEDURE [dbo].[sp_Mentor_UpdateBasicInfo]
-@UserID INT, @Profession NVARCHAR (100)=NULL, @Specialization NVARCHAR (100)=NULL, @IsCurrentlyWorking BIT=NULL, @CurrentJobTitle NVARCHAR (50)=NULL, @Division NVARCHAR (50)=NULL, @WorkAddress NVARCHAR (200)=NULL, @WorkPostalCode NVARCHAR (10)=NULL, @BusinessTelephone INT=NULL, @ConsentToReceiveJVSEmail BIT=NULL, @Credentials_Degree NVARCHAR (100)=NULL, @ProfessionalAffiliations NVARCHAR (50)=NULL, @Other NVARCHAR (100)=NULL, @HowLongInProfessionInCAD INT=NULL, @WorkExperience NVARCHAR (2000)=NULL, @SpecialSkillsHobbiesOrInterests NVARCHAR (500)=NULL, @WhyVolunteer NVARCHAR (500)=NULL
-AS
-UPDATE dbo.Mentor
-SET Profession=@Profession, Specialization=@Specialization, IsCurrentlyWorking=@IsCurrentlyWorking, CurrentJobTitle=@CurrentJobTitle, Division=@Division, WorkAddress=@WorkAddress, WorkPostalCode=@WorkPostalCode, BusinessTelephone=@BusinessTelephone, ConsentToReceiveJVSEmail=@ConsentToReceiveJVSEmail, Credentials_Degree=@Credentials_Degree, ProfessionalAffiliations=@ProfessionalAffiliations, Other=@Other, HowLongInProfessionInCAD=@HowLongInProfessionInCAD, WorkExperience=@WorkExperience, SpecialSkillsHobbiesOrInterests=@SpecialSkillsHobbiesOrInterests, WhyVolunteer=@WhyVolunteer
-WHERE UserID=@UserID
