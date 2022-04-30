@@ -258,3 +258,4 @@ Web.Release.config
 AppSettingsConfiguration.config
 NNDBConfiguration.config
 nnApiConfig.js
+NNDatabase/
